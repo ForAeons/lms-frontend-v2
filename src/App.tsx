@@ -10,10 +10,7 @@ export const App: React.FC = () => {
 	return (
 		<Provider store={store}>
 			<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-				<RouterProvider
-					router={Router}
-					fallbackElement={<p>Page unavailable</p>}
-				/>
+				<RouterProvider router={Router} />
 				<Toaster />
 			</ThemeProvider>
 		</Provider>

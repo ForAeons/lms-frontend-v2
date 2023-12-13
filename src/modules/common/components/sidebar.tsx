@@ -1,32 +1,43 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { logoutThunk, useAppDispatch, useAppSelector } from "@/store";
 import { Separator } from "@/components/ui/separator";
-import { appSlice } from "@/store/slices/app-slice";
+import { useToast } from "@/components/ui/use-toast";
 
 export const Sidebar: React.FC = () => {
-	const appState = useSelector((state: RootState) => state.app);
-	const dispatch = useDispatch();
+	const appState = useAppSelector((state) => state.app);
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+
+	const { toast } = useToast();
+	const loginStatus = useAppSelector((state) => state.app.loginStatus);
+	React.useEffect(() => {
+		if (loginStatus === "loggedOut") {
+			toast({
+				title: "Sign out Successful",
+				description: "You are now signed out.",
+			});
+			navigate("/signin");
+		}
+	}, [loginStatus]);
 
 	const cln = appState.showSideBar ? "flex" : "hidden";
 
 	return (
 		<div className={`flex-col items-start min-w-fit ${cln} lg:flex`}>
-			{appState.isLoggedIn && (
+			{appState.loginStatus === "loggedIn" && (
 				<Button
 					variant={"link"}
 					size="sm"
-					onClick={() => dispatch(appSlice.actions.logout())}
+					onClick={() => dispatch(logoutThunk())}
 				>
 					<small className="text-sm font-medium leading-none">Sign Out</small>
 					<span className="sr-only">Sign Out</span>
 				</Button>
 			)}
 
-			{!appState.isLoggedIn && (
+			{appState.loginStatus !== "loggedIn" && (
 				<Button variant={"link"} size="sm" onClick={() => navigate("/signin")}>
 					<small className="text-sm font-medium leading-none">Sign In</small>
 					<span className="sr-only">Sign In</span>

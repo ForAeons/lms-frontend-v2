@@ -8,17 +8,6 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 
-// interface Book {
-// 	id: number;
-// 	title: string;
-// 	author: string;
-// 	isbn: string;
-// 	publisher: string;
-// 	publicationDate: string;
-// 	genre: string;
-// 	language: string;
-// }
-
 export const BookCard: React.FC<{ book: Book }> = ({ book }) => {
 	return (
 		<Card className="w-full lg:w-96">
@@ -30,7 +19,7 @@ export const BookCard: React.FC<{ book: Book }> = ({ book }) => {
 				<p>{book.author}</p>
 				<p>{book.language}</p>
 				<p>{book.publisher}</p>
-				<p>{book.publicationDate}</p>
+				<p>{book.publication_date}</p>
 			</CardContent>
 			<CardFooter>
 				<p>{book.isbn}</p>

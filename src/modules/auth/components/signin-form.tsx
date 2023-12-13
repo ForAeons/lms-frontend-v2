@@ -15,8 +15,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { passwordPattern } from "@/constants";
-import { useDispatch } from "react-redux";
-import { appSlice } from "@/store/slices/app-slice";
+import { loginThunk } from "@/store/slices/app-slice";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
 	username: z
@@ -34,9 +36,6 @@ const formSchema = z.object({
 });
 
 export const SigninForm: React.FC = () => {
-	const dispatch = useDispatch();
-
-	// 1. Define your form.
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -45,26 +44,35 @@ export const SigninForm: React.FC = () => {
 		},
 	});
 
-	// 2. Define a submit handler.
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
-		console.log(values);
+	const dispatch = useAppDispatch();
+	const onSubmit = (values: z.infer<typeof formSchema>) => {
 		dispatch(
-			appSlice.actions.login({
+			loginThunk({
 				username: values.username,
-				id: 1,
-				email: "test@gmail.com",
-				personId: 1,
-				person: {
-					id: 1,
-					fullName: values.username,
-					preferredName: values.username,
-					languagePreference: "EN",
-				},
+				password: values.password,
 			}),
 		);
-	}
+	};
+
+	const { toast } = useToast();
+	const navigate = useNavigate();
+	const loginStatus = useAppSelector((state) => state.app.loginStatus);
+	React.useEffect(() => {
+		if (loginStatus === "loggedIn") {
+			toast({
+				title: "Sign in Successful",
+				description: "You are now signed in.",
+			});
+			navigate("/");
+		} else if (loginStatus === "failure") {
+			toast({
+				variant: "destructive",
+				title: "Login Failed",
+				description: "Please check your username and password.",
+			});
+		}
+		form.reset();
+	}, [loginStatus]);
 
 	return (
 		<Form {...form}>
