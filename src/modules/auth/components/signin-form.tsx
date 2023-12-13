@@ -14,17 +14,28 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { passwordPattern } from "@/constants";
+import { useDispatch } from "react-redux";
+import { appSlice } from "@/store/slices/app-slice";
 
 const formSchema = z.object({
-	username: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
-	}),
-	password: z.string().min(8, {
-		message: "Password must be at least 8 characters.",
-	}),
+	username: z
+		.string()
+		.min(5, { message: "Username must be at least 5 characters." })
+		.max(30, { message: "Username must be no more than 30 characters." }),
+	password: z
+		.string()
+		.regex(passwordPattern, {
+			message:
+				"Password must include at least one lowercase and uppercase letter, a number, and a special character (!@#$%^&*).",
+		})
+		.min(8, { message: "Password must be at least 8 characters." })
+		.max(32, { message: "Password must be no more than 32 characters." }),
 });
 
-export const LoginForm: React.FC = () => {
+export const SigninForm: React.FC = () => {
+	const dispatch = useDispatch();
+
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -39,6 +50,20 @@ export const LoginForm: React.FC = () => {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
 		console.log(values);
+		dispatch(
+			appSlice.actions.login({
+				username: values.username,
+				id: 1,
+				email: "test@gmail.com",
+				personId: 1,
+				person: {
+					id: 1,
+					fullName: values.username,
+					preferredName: values.username,
+					languagePreference: "EN",
+				},
+			}),
+		);
 	}
 
 	return (

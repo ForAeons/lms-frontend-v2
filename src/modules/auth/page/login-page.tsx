@@ -1,10 +1,10 @@
 import React from "react";
-import { LoginForm } from "..";
+import { SigninForm } from "..";
 
 export const LoginPage: React.FC = () => {
 	return (
 		<div className="flex justify-center">
-			<LoginForm />
+			<SigninForm />
 		</div>
 	);
 };
