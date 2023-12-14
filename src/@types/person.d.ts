@@ -8,7 +8,7 @@
 interface Person {
 	id: number;
 	full_name: string;
-	preferred_name: string;
+	preferred_name?: string;
 	language_preference: string;
 }
 

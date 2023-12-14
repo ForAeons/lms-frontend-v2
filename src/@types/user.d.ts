@@ -21,20 +21,8 @@ type UserLogin = Omit<User, "id" | "email">;
  * @property password - the user's password
  * @property person_attributes - the user's person object
  */
-interface UserCreate extends Omit<User, "id"> {
+interface UserPersonCreate extends Omit<User, "id"> {
 	person_attributes: PersonCreate;
-}
-
-/**
- * UserCreateForm is the object used to create a new user
- * @property username - the user's username
- * @property email - the user's email
- * @property password - the user's password
- * @property passwordConfirm - the user's password confirmation
- * @property person_attributes - the user's person object
- */
-interface UserCreateForm extends UserCreate {
-	passwordConfirmation: string;
 }
 
 /**

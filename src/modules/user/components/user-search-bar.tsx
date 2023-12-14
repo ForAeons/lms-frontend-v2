@@ -5,13 +5,13 @@ import { searchUsersThunk } from "@/store/slices/user-slice";
 import { Search } from "lucide-react";
 import React from "react";
 
-const UserSearchBar: React.FC = () => {
+export const UserSearchBar: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const [searchValue, setSearchValue] = React.useState("");
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		dispatch(searchUsersThunk(searchValue));
+		if (searchValue.length >= 1) dispatch(searchUsersThunk(searchValue));
 	};
 
 	return (
@@ -22,7 +22,7 @@ const UserSearchBar: React.FC = () => {
 			<Input
 				className="focus-visible:ring-0 border-transparent bg-transparent"
 				type="string"
-				placeholder="username"
+				placeholder="Search for username"
 				value={searchValue}
 				onChange={(e) => setSearchValue(e.target.value)}
 			></Input>

@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-
+import { toast } from "@/components/ui/use-toast";
 import * as Constants from "../constants";
 
 axios.defaults.withCredentials = true;
@@ -20,7 +20,21 @@ axios.interceptors.response.use(
 		// Logs the url, method and url of the request
 		console.error(`[${err.config?.method?.toUpperCase()}]: ${err.config?.url}`);
 		console.error("Error: ", err);
-		// Displays the backend message to the user
+
+		// Toast error
+		if (err.response !== undefined) {
+			const response = err.response;
+			for (let i = 0; i < response.data.messages.length; i++) {
+				setTimeout(() => {
+					toast({
+						variant: "destructive",
+						title: "Action failed",
+						description: response.data.messages[i].message,
+					});
+				}, i * 100);
+			}
+		}
+
 		return Promise.reject(err);
 	},
 );
@@ -56,7 +70,11 @@ export class BaseApi {
 					console.error("No response received");
 					return;
 				}
-				if (errorHandler) errorHandler(err.response.data);
+				if (errorHandler) {
+					errorHandler(err.response.data);
+				} else {
+					throw err;
+				}
 			});
 	};
 
@@ -80,7 +98,11 @@ export class BaseApi {
 					console.error("No response received");
 					return;
 				}
-				if (errorHandler) errorHandler(err.response.data);
+				if (errorHandler) {
+					errorHandler(err.response.data);
+				} else {
+					throw err;
+				}
 			});
 	};
 
@@ -104,7 +126,11 @@ export class BaseApi {
 					console.error("No response received");
 					return;
 				}
-				if (errorHandler) errorHandler(err.response.data);
+				if (errorHandler) {
+					errorHandler(err.response.data);
+				} else {
+					throw err;
+				}
 			});
 	};
 
@@ -128,7 +154,11 @@ export class BaseApi {
 					console.error("No response received");
 					return;
 				}
-				if (errorHandler) errorHandler(err.response.data);
+				if (errorHandler) {
+					errorHandler(err.response.data);
+				} else {
+					throw err;
+				}
 			});
 	};
 
@@ -154,7 +184,11 @@ export class BaseApi {
 					console.error("No response received");
 					return;
 				}
-				if (errorHandler) errorHandler(err.response.data);
+				if (errorHandler) {
+					errorHandler(err.response.data);
+				} else {
+					throw err;
+				}
 			});
 	};
 

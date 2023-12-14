@@ -1,6 +1,7 @@
 import React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -14,11 +15,8 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { passwordPattern } from "@/constants";
 import { loginThunk } from "@/store/slices/app-slice";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { useToast } from "@/components/ui/use-toast";
-import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
 	username: z
@@ -27,10 +25,6 @@ const formSchema = z.object({
 		.max(30, { message: "Username must be no more than 30 characters." }),
 	password: z
 		.string()
-		.regex(passwordPattern, {
-			message:
-				"Password must include at least one lowercase and uppercase letter, a number, and a special character (!@#$%^&*).",
-		})
 		.min(8, { message: "Password must be at least 8 characters." })
 		.max(32, { message: "Password must be no more than 32 characters." }),
 });
@@ -54,23 +48,10 @@ export const SigninForm: React.FC = () => {
 		);
 	};
 
-	const { toast } = useToast();
 	const navigate = useNavigate();
 	const loginStatus = useAppSelector((state) => state.app.loginStatus);
 	React.useEffect(() => {
-		if (loginStatus === "loggedIn") {
-			toast({
-				title: "Sign in Successful",
-				description: "You are now signed in.",
-			});
-			navigate("/");
-		} else if (loginStatus === "failure") {
-			toast({
-				variant: "destructive",
-				title: "Login Failed",
-				description: "Please check your username and password.",
-			});
-		}
+		if (loginStatus === "loggedIn") navigate("/");
 		form.reset();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loginStatus]);

@@ -2,31 +2,23 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useToast } from "@/components/ui/use-toast";
 import { logoutThunk, useAppDispatch, useAppSelector } from "@/store";
 
 export const Sidebar: React.FC = () => {
 	const appState = useAppSelector((state) => state.app);
 	const dispatch = useAppDispatch();
 
-	const { toast } = useToast();
 	const navigate = useNavigate();
 	const loginStatus = useAppSelector((state) => state.app.loginStatus);
 	React.useEffect(() => {
-		if (loginStatus === "loggedOut") {
-			toast({
-				title: "Sign out Successful",
-				description: "You are now signed out.",
-			});
-			navigate("/signin");
-		}
+		if (loginStatus === "loggedOut") navigate("/signin");
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loginStatus]);
 
 	const cln = appState.showSideBar ? "flex" : "hidden";
 
 	return (
-		<div className={`flex-col items-start min-w-fit ${cln} lg:flex`}>
+		<div className={`flex-col items-start min-w-fit ${cln} lg:flex pr-3`}>
 			{appState.loginStatus === "loggedIn" && (
 				<Button
 					variant={"link"}
