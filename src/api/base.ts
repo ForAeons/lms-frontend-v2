@@ -158,10 +158,13 @@ export class BaseApi {
 			});
 	};
 
-	public GetHealth = () => {
+	public GetHealth = (abortSignal?: AbortSignal) => {
 		return axios
 			.get<unknown, AxiosResponse<Payload>, unknown>(
 				`${Constants.BACKEND_BASE_URL}/health`,
+				{
+					signal: abortSignal,
+				},
 			)
 			.then(() => {
 				return {}; // returning a serializable empty object

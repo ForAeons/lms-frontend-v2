@@ -8,9 +8,9 @@ import { logoutThunk, useAppDispatch, useAppSelector } from "@/store";
 export const Sidebar: React.FC = () => {
 	const appState = useAppSelector((state) => state.app);
 	const dispatch = useAppDispatch();
-	const navigate = useNavigate();
 
 	const { toast } = useToast();
+	const navigate = useNavigate();
 	const loginStatus = useAppSelector((state) => state.app.loginStatus);
 	React.useEffect(() => {
 		if (loginStatus === "loggedOut") {
@@ -53,54 +53,76 @@ export const Sidebar: React.FC = () => {
 				<span className="sr-only">Link Description</span>
 			</Button>
 
-			<Button
-				variant={"link"}
-				size="sm"
-				onClick={() => navigate("/reservation")}
-			>
-				<small className="text-sm font-medium leading-none">Reservations</small>
-				<span className="sr-only">Link Description</span>
-			</Button>
+			{appState.loginStatus === "loggedIn" && (
+				<>
+					<Button
+						variant={"link"}
+						size="sm"
+						onClick={() => navigate("/reservation")}
+					>
+						<small className="text-sm font-medium leading-none">
+							Reservations
+						</small>
+						<span className="sr-only">Link Description</span>
+					</Button>
 
-			<Button variant={"link"} size="sm" onClick={() => navigate("/loan")}>
-				<small className="text-sm font-medium leading-none">Loans</small>
-				<span className="sr-only">Link Description</span>
-			</Button>
+					<Button variant={"link"} size="sm" onClick={() => navigate("/loan")}>
+						<small className="text-sm font-medium leading-none">Loans</small>
+						<span className="sr-only">Link Description</span>
+					</Button>
 
-			<Button variant={"link"} size="sm" onClick={() => navigate("/fine")}>
-				<small className="text-sm font-medium leading-none">Fines</small>
-				<span className="sr-only">Link Description</span>
-			</Button>
+					<Button variant={"link"} size="sm" onClick={() => navigate("/fine")}>
+						<small className="text-sm font-medium leading-none">Fines</small>
+						<span className="sr-only">Link Description</span>
+					</Button>
+				</>
+			)}
 
-			<p className="text-sm text-muted-foreground px-3 mt-5">Admin</p>
-			<Separator className="mx-3" />
+			{appState.loginStatus === "loggedIn" && (
+				<>
+					<p className="text-sm text-muted-foreground px-3 mt-5">Admin</p>
+					<Separator className="mx-3" />
 
-			<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
-				<small className="text-sm font-medium leading-none">Manage User</small>
-				<span className="sr-only">Link Description</span>
-			</Button>
+					<Button
+						variant={"link"}
+						size="sm"
+						onClick={() => navigate("/manage_user")}
+					>
+						<small className="text-sm font-medium leading-none">
+							Manage User
+						</small>
+						<span className="sr-only">Link Description</span>
+					</Button>
 
-			<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
-				<small className="text-sm font-medium leading-none">Manage Book</small>
-				<span className="sr-only">Link Description</span>
-			</Button>
+					<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
+						<small className="text-sm font-medium leading-none">
+							Manage Book
+						</small>
+						<span className="sr-only">Link Description</span>
+					</Button>
 
-			<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
-				<small className="text-sm font-medium leading-none">
-					Manage Reservation
-				</small>
-				<span className="sr-only">Link Description</span>
-			</Button>
+					<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
+						<small className="text-sm font-medium leading-none">
+							Manage Reservation
+						</small>
+						<span className="sr-only">Link Description</span>
+					</Button>
 
-			<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
-				<small className="text-sm font-medium leading-none">Manage Loan</small>
-				<span className="sr-only">Link Description</span>
-			</Button>
+					<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
+						<small className="text-sm font-medium leading-none">
+							Manage Loan
+						</small>
+						<span className="sr-only">Link Description</span>
+					</Button>
 
-			<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
-				<small className="text-sm font-medium leading-none">Manage Fine</small>
-				<span className="sr-only">Link Description</span>
-			</Button>
+					<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
+						<small className="text-sm font-medium leading-none">
+							Manage Fine
+						</small>
+						<span className="sr-only">Link Description</span>
+					</Button>
+				</>
+			)}
 		</div>
 	);
 };

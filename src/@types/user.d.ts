@@ -59,6 +59,6 @@ interface UserPerson extends User {
 
 type UserPayload = Omit<UserPerson, "password">;
 
-interface LoginPayload extends UserPerson {
+interface UserPersonAbility extends UserPerson {
 	abilities: string[];
 }

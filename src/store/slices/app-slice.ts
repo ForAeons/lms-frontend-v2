@@ -1,4 +1,4 @@
-import { authApi, baseApi } from "@/api";
+import { authApi, baseApi, userApi } from "@/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: AppState = {
@@ -11,7 +11,15 @@ const initialState: AppState = {
 
 export const getHealthThunk = createAsyncThunk(
 	"app/getHealth",
-	baseApi.GetHealth,
+	async (_, thunkAPI) => baseApi.GetHealth(thunkAPI.signal),
+);
+
+export const getCurrentUserThunk = createAsyncThunk(
+	"app/getCurrentUser",
+	async (_, thunkAPI) => {
+		const res = await userApi.GetCurrentUser(thunkAPI.signal);
+		return res?.data;
+	},
 );
 
 export const loginThunk = createAsyncThunk(
@@ -24,9 +32,7 @@ export const loginThunk = createAsyncThunk(
 
 export const logoutThunk = createAsyncThunk(
 	"app/logout",
-	async (_, thunkAPI) => {
-		await authApi.SignOut(thunkAPI.signal);
-	},
+	async (_, thunkAPI) => await authApi.SignOut(thunkAPI.signal),
 );
 
 export const appSlice = createSlice({
@@ -49,6 +55,16 @@ export const appSlice = createSlice({
 		});
 		builder.addCase(getHealthThunk.rejected, (state) => {
 			state.backendStatus = "down";
+		});
+
+		builder.addCase(getCurrentUserThunk.fulfilled, (state, action) => {
+			if (action.payload) {
+				state.loginStatus = "loggedIn";
+				state.user = action.payload;
+			} else {
+				state.loginStatus = "guest";
+				state.user = null;
+			}
 		});
 
 		builder.addCase(loginThunk.fulfilled, (state, action) => {
