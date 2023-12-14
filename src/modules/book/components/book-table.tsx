@@ -189,7 +189,7 @@ export const BookTable: React.FC = () => {
 	return (
 		<div className="flex flex-wrap gap-3">
 			{books.map((book) => {
-				return <BookCard book={book} />;
+				return <BookCard key={book.isbn} book={book} />;
 			})}
 		</div>
 	);

@@ -8,6 +8,7 @@ export const AppLayout: React.FC = () => {
 	const dispatch = useAppDispatch();
 	React.useEffect(() => {
 		dispatch(getHealthThunk());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const backendStatus = useAppSelector((state) => state.app.backendStatus);
@@ -21,6 +22,7 @@ export const AppLayout: React.FC = () => {
 				description: "The backend is currently down. Please try again later.",
 			});
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [backendStatus]);
 
 	return (

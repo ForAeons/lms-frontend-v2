@@ -32,6 +32,7 @@ module.exports = {
 		"vite.config.ts",
 		"**/env.ts",
 		"**/constants.ts",
+		"src/components/**",
 	],
 	settings: {
 		react: {
