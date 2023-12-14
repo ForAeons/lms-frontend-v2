@@ -7,5 +7,9 @@ interface AppState {
 	showSideBar: boolean;
 	isLoading: boolean;
 	loginStatus: loginStatus;
-	user: LoginPayload | null;
+	user: UserPersonAbility | null;
+}
+
+interface ManageUserState {
+	users: UserPersonAbility[];
 }

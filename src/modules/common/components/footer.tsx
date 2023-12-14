@@ -4,7 +4,7 @@ import { FLATICON_URL } from "@/constants";
 
 export const Footer: React.FC = () => {
 	return (
-		<div className="absolute bottom-0 w-full flex flex-row justify-between p-4 bg-background text-primary">
+		<div className="absolute bottom-0 w-full flex flex-row justify-between p-2 bg-background text-primary">
 			<p className="text-sm text-muted-foreground break-words w-1/3 self-center">
 				<span>{"Icons from "}</span>
 				<a

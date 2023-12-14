@@ -15,7 +15,7 @@ export const AuthRoutes = {
 
 class AuthApi extends BaseApi {
 	public Signup = (user: UserCreateForm, abortSignal?: AbortSignal) => {
-		return this.Post<UserCreateForm, LoginPayload>(
+		return this.Post<UserCreateForm, UserPersonAbility>(
 			`${AuthRoutes.BASE}/${AuthRoutes.SIGN_UP.ROUTE}`,
 			user,
 			abortSignal,
@@ -23,7 +23,7 @@ class AuthApi extends BaseApi {
 	};
 
 	public SignIn = (user: UserLogin, abortSignal?: AbortSignal) => {
-		return this.Post<UserLogin, LoginPayload>(
+		return this.Post<UserLogin, UserPersonAbility>(
 			`${AuthRoutes.BASE}/${AuthRoutes.SIGN_IN.ROUTE}`,
 			user,
 			abortSignal,

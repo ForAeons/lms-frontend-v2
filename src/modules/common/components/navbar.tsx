@@ -4,7 +4,7 @@ import { SidebarToggle } from "./sidebar-toggle";
 
 export const Navbar: React.FC = () => {
 	return (
-		<div className="w-full flex flex-row items-center justify-between lg:gap-3 p-4">
+		<div className="w-full flex flex-row items-center justify-between lg:gap-3 p-2">
 			<SidebarToggle />
 			<HomeBtn />
 			<ModeToggle />
