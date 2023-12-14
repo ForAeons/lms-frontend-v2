@@ -1,5 +1,5 @@
 import { userApi } from "@/api";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState: ManageUserState = {
 	users: [],
