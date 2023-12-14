@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { logoutThunk, useAppDispatch, useAppSelector } from "@/store";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
+import { logoutThunk, useAppDispatch, useAppSelector } from "@/store";
 
 export const Sidebar: React.FC = () => {
 	const appState = useAppSelector((state) => state.app);
