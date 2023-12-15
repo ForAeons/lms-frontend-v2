@@ -24,12 +24,17 @@ import {
 } from "@/components/ui/form";
 import { emailPattern, passwordPattern } from "@/constants";
 import { useAppDispatch, updateUserThunk } from "@/store";
+import * as Constants from "../../../constants";
 
 const formSchema = z.object({
 	username: z
 		.string()
-		.min(5, { message: "Username must be at least 5 characters." })
-		.max(30, { message: "Username must be no more than 30 characters." }),
+		.min(Constants.MINIMUM_USERNAME_LENGTH, {
+			message: "Username must be at least 5 characters.",
+		})
+		.max(Constants.MAXIMUM_USERNAME_LENGTH, {
+			message: "Username must be no more than 30 characters.",
+		}),
 	email: z
 		.string()
 		.regex(emailPattern, {
@@ -42,8 +47,12 @@ const formSchema = z.object({
 			message:
 				"Password must include at least one lowercase and uppercase letter, a number, and a special character (!@#$%^&*).",
 		})
-		.min(8, { message: "Password must be at least 8 characters." })
-		.max(32, { message: "Password must be no more than 32 characters." }),
+		.min(Constants.MINIMUM_PASSWORD_LENGTH, {
+			message: "Password must be at least 8 characters.",
+		})
+		.max(Constants.MAXIMUM_PASSWORD_LENGTH, {
+			message: "Password must be no more than 32 characters.",
+		}),
 	full_name: z.string().min(2).max(255),
 	preferred_name: z.string().min(2).max(255).optional(),
 	language_preference: z.string().min(2).max(2),

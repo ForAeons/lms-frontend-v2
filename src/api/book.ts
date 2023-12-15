@@ -41,4 +41,4 @@ class BookApi extends BaseApi {
 	};
 }
 
-export const authApi = new BookApi();
+export const bookApi = new BookApi();
