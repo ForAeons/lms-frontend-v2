@@ -15,7 +15,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { useAppDispatch, loginThunk } from "@/store";
-import * as Constants from "../../../constants";
+import * as Constants from "@/constants";
 
 const formSchema = z.object({
 	username: z

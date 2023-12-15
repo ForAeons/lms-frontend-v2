@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/form";
 import { emailPattern, passwordPattern } from "@/constants";
 import { useAppDispatch, updateUserThunk } from "@/store";
-import * as Constants from "../../../constants";
+import * as Constants from "@/constants";
 
 const formSchema = z.object({
 	username: z

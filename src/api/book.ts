@@ -35,7 +35,7 @@ class BookApi extends BaseApi {
 
 	public ListBook = (q: Query, abortSignal?: AbortSignal) => {
 		return this.Get<Book[]>(
-			`${BookRoutes.BASE}/${BookRoutes.LIST.DYNAMIC_ROUTE(q)}`,
+			`${BookRoutes.BASE}?${BookRoutes.LIST.DYNAMIC_ROUTE(q)}`,
 			abortSignal,
 		);
 	};

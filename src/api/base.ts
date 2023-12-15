@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "@/components/ui/use-toast";
-import * as Constants from "../constants";
+import * as Constants from "@/constants";
 
 axios.defaults.withCredentials = true;
 axios.interceptors.response.use(

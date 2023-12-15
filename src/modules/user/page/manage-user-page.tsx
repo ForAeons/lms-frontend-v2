@@ -7,7 +7,7 @@ import { UserCreateDialog, UserPersonCard, UserSearchBar } from "..";
 export const ManageUserPage: React.FC = () => {
 	const userState = useAppSelector((s) => s.user.users);
 	return (
-		<ScrollArea className="h-[calc(100vh-104px)]">
+		<ScrollArea className="h-[100vh] lg:space-y-4 lg:py-4">
 			<div className="w-full relative flex flex-col gap-3 px-3">
 				<div className="sticky top-0 z-10 bg-background flex justify-between">
 					<UserCreateDialog />

@@ -6,9 +6,10 @@ import {
 	listBookThunk,
 	updateBookThunk,
 } from "../thunks/book-thunk";
-import * as Constants from "../../constants";
+import * as Constants from "@/constants";
 
 const initialState: BookState = {
+	isFetching: true,
 	books: [],
 	offset: Constants.MINIMUM_PAGE_OFFSET,
 	limit: Constants.MINIMUM_PAGE_LIMIT,
@@ -45,9 +46,14 @@ export const bookSlice = createSlice({
 			});
 		});
 
+		builder.addCase(listBookThunk.pending, (state) => {
+			state.isFetching = true;
+		});
+
 		builder.addCase(listBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.books = action.payload;
+			state.isFetching = false;
 		});
 
 		builder.addCase(updateBookThunk.fulfilled, (state, action) => {

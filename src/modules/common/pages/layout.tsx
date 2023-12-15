@@ -1,21 +1,14 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { Footer, Navbar, Sidebar } from "..";
+import { Sidebar } from "..";
 
 export const AppLayout: React.FC = () => {
 	return (
-		<div className="relative h-[100vh] w-[100vw] pb-12 flex flex-col items-center">
-			<Navbar />
-
-			<div className="grid lg:grid-cols-5 w-full h-full">
-				<Sidebar />
-
-				<div className="col-span-3 lg:col-span-4">
-					<Outlet />
-				</div>
+		<div className="relative h-[100vh] w-[100vw] grid lg:grid-cols-5">
+			<Sidebar />
+			<div className="col-span-3 lg:col-span-4">
+				<Outlet />
 			</div>
-
-			<Footer />
 		</div>
 	);
 };
