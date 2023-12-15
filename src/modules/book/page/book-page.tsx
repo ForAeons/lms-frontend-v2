@@ -10,7 +10,7 @@ export const BookPage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const bookState = useAppSelector((s) => s.book);
 
-	const [cq, setCq] = React.useState<CollectionQuery>({
+	const [cq] = React.useState<CollectionQuery>({
 		offset: 0,
 		limit: 10,
 		sortBy: "createdAt",
