@@ -1,119 +1,173 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import {
+	LogInIcon,
+	LogOutIcon,
+	BookIcon,
+	BookDownIcon,
+	WalletIcon,
+	BookCheckIcon,
+	UserCogIcon,
+	BookKeyIcon,
+	LibraryBigIcon,
+	LandmarkIcon,
+	HelpingHandIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { logoutThunk, useAppDispatch, useAppSelector } from "@/store";
+import { cn } from "@/lib/utils";
 
-export const Sidebar: React.FC = () => {
-	const appState = useAppSelector((state) => state.app);
+export const Sidebar: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => {
 	const dispatch = useAppDispatch();
+	const showSideBar = useAppSelector((s) => s.app.showSideBar);
 
 	const navigate = useNavigate();
-	const loginStatus = useAppSelector((state) => state.app.loginStatus);
-	React.useEffect(() => {
-		if (loginStatus === "loggedOut") navigate("/signin");
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [loginStatus]);
+	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 
-	const cln = appState.showSideBar ? "flex" : "hidden";
+	const cln = showSideBar ? "block" : "hidden";
 
 	return (
-		<div className={`flex-col items-start min-w-fit ${cln} lg:flex pr-3`}>
-			{appState.loginStatus === "loggedIn" && (
-				<Button
-					variant={"link"}
-					size="sm"
-					onClick={() => dispatch(logoutThunk())}
-				>
-					<small className="text-sm font-medium leading-none">Sign Out</small>
-					<span className="sr-only">Sign Out</span>
-				</Button>
+		<div className={cn("space-y-4 py-4 lg:block", cln)}>
+			<div className="px-3 py-2">
+				<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+					Account
+				</h2>
+
+				<div className="space-y-1">
+					{isLoggedIn && (
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => dispatch(logoutThunk())}
+						>
+							<LogInIcon height={16} />
+							<p className="ml-3">Sign Out</p>
+							<span className="sr-only">Sign Out</span>
+						</Button>
+					)}
+
+					{!isLoggedIn && (
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/signin")}
+						>
+							<LogOutIcon height={16} />
+							<p className="ml-3">Sign in</p>
+							<span className="sr-only">Sign In</span>
+						</Button>
+					)}
+				</div>
+			</div>
+
+			{isLoggedIn && (
+				<div className="px-3 py-2">
+					<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+						Resources
+					</h2>
+
+					<div className="space-y-1">
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/book")}
+						>
+							<BookIcon height={16} />
+							<p className="ml-3">Book</p>
+							<span className="sr-only">Book resources</span>
+						</Button>
+
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/reservation")}
+						>
+							<BookDownIcon height={16} />
+							<p className="ml-3">Reservation</p>
+							<span className="sr-only">Reservation resources</span>
+						</Button>
+
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/loan")}
+						>
+							<BookCheckIcon height={16} />
+							<p className="ml-3">Loan</p>
+							<span className="sr-only">Loan resources</span>
+						</Button>
+
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/fine")}
+						>
+							<WalletIcon height={16} />
+							<p className="ml-3">Fine</p>
+							<span className="sr-only">Fine resources</span>
+						</Button>
+					</div>
+				</div>
 			)}
 
-			{appState.loginStatus !== "loggedIn" && (
-				<Button variant={"link"} size="sm" onClick={() => navigate("/signin")}>
-					<small className="text-sm font-medium leading-none">Sign In</small>
-					<span className="sr-only">Sign In</span>
-				</Button>
-			)}
+			{isLoggedIn && (
+				<div className="px-3 py-2">
+					<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+						Admin
+					</h2>
 
-			<p className="text-sm text-muted-foreground px-3 mt-5">Resources</p>
-			<Separator className="mx-3" />
+					<div className="space-y-1">
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/manage_user")}
+						>
+							<UserCogIcon height={16} />
+							<p className="ml-3">Manage User</p>
+							<span className="sr-only">Manage user</span>
+						</Button>
 
-			<Button variant={"link"} size="sm" onClick={() => navigate("/book")}>
-				<small className="text-sm font-medium leading-none">Books</small>
-				<span className="sr-only">Link Description</span>
-			</Button>
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/manage_book")}
+						>
+							<BookKeyIcon height={16} />
+							<p className="ml-3">Manage Book</p>
+							<span className="sr-only">Manage book</span>
+						</Button>
 
-			{appState.loginStatus === "loggedIn" && (
-				<>
-					<Button
-						variant={"link"}
-						size="sm"
-						onClick={() => navigate("/reservation")}
-					>
-						<small className="text-sm font-medium leading-none">
-							Reservations
-						</small>
-						<span className="sr-only">Link Description</span>
-					</Button>
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/manage_reservation")}
+						>
+							<LibraryBigIcon height={16} />
+							<p className="ml-3">Manage Reservation</p>
+							<span className="sr-only">Manage reservation</span>
+						</Button>
 
-					<Button variant={"link"} size="sm" onClick={() => navigate("/loan")}>
-						<small className="text-sm font-medium leading-none">Loans</small>
-						<span className="sr-only">Link Description</span>
-					</Button>
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/manage_loan")}
+						>
+							<HelpingHandIcon height={16} />
+							<p className="ml-3">Manage Loan</p>
+							<span className="sr-only">Manage loan</span>
+						</Button>
 
-					<Button variant={"link"} size="sm" onClick={() => navigate("/fine")}>
-						<small className="text-sm font-medium leading-none">Fines</small>
-						<span className="sr-only">Link Description</span>
-					</Button>
-				</>
-			)}
-
-			{appState.loginStatus === "loggedIn" && (
-				<>
-					<p className="text-sm text-muted-foreground px-3 mt-5">Admin</p>
-					<Separator className="mx-3" />
-
-					<Button
-						variant={"link"}
-						size="sm"
-						onClick={() => navigate("/manage_user")}
-					>
-						<small className="text-sm font-medium leading-none">
-							Manage User
-						</small>
-						<span className="sr-only">Link Description</span>
-					</Button>
-
-					<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
-						<small className="text-sm font-medium leading-none">
-							Manage Book
-						</small>
-						<span className="sr-only">Link Description</span>
-					</Button>
-
-					<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
-						<small className="text-sm font-medium leading-none">
-							Manage Reservation
-						</small>
-						<span className="sr-only">Link Description</span>
-					</Button>
-
-					<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
-						<small className="text-sm font-medium leading-none">
-							Manage Loan
-						</small>
-						<span className="sr-only">Link Description</span>
-					</Button>
-
-					<Button variant={"link"} size="sm" onClick={() => navigate("/link1")}>
-						<small className="text-sm font-medium leading-none">
-							Manage Fine
-						</small>
-						<span className="sr-only">Link Description</span>
-					</Button>
-				</>
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/manage_fine")}
+						>
+							<LandmarkIcon height={16} />
+							<p className="ml-3">Manage Fine</p>
+							<span className="sr-only">MManage fine</span>
+						</Button>
+					</div>
+				</div>
 			)}
 		</div>
 	);

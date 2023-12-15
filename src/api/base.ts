@@ -14,7 +14,7 @@ axios.interceptors.response.use(
 	// Intercepts all errors and logs them to the console and displays the backend message to the user
 	(err: AxiosError<Payload>) => {
 		if (axios.isCancel(err)) {
-			console.info("Request canceled", err.message);
+			console.info("Request canceled - ", err.message);
 		}
 
 		// Logs the url, method and url of the request

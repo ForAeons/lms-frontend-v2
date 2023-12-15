@@ -1,10 +1,10 @@
 import React from "react";
 import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAppSelector } from "@/store";
 import { UserCreateDialog, UserPersonCard, UserSearchBar } from "..";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
-const ManageUserPage: React.FC = () => {
+export const ManageUserPage: React.FC = () => {
 	const userState = useAppSelector((s) => s.user.users);
 	return (
 		<ScrollArea className="h-[calc(100vh-104px)]">
@@ -21,5 +21,3 @@ const ManageUserPage: React.FC = () => {
 		</ScrollArea>
 	);
 };
-
-export default ManageUserPage;

@@ -14,7 +14,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { useAppDispatch, useAppSelector, loginThunk } from "@/store";
+import { useAppDispatch, loginThunk } from "@/store";
 
 const formSchema = z.object({
 	username: z
@@ -37,22 +37,17 @@ export const SigninForm: React.FC = () => {
 	});
 
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 	const onSubmit = (values: z.infer<typeof formSchema>) => {
 		dispatch(
 			loginThunk({
-				username: values.username,
-				password: values.password,
+				user: {
+					username: values.username,
+					password: values.password,
+				},
 			}),
-		);
+		).then(() => navigate("/"));
 	};
-
-	const navigate = useNavigate();
-	const loginStatus = useAppSelector((state) => state.app.loginStatus);
-	React.useEffect(() => {
-		if (loginStatus === "loggedIn") navigate("/");
-		form.reset();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [loginStatus]);
 
 	return (
 		<Form {...form}>
@@ -87,7 +82,17 @@ export const SigninForm: React.FC = () => {
 						</FormItem>
 					)}
 				/>
-				<Button type="submit">Submit</Button>
+
+				<div className="flex">
+					<Button
+						variant={"outline"}
+						onClick={() => navigate("/")}
+						className="mr-auto"
+					>
+						Home
+					</Button>
+					<Button type="submit">Submit</Button>
+				</div>
 			</form>
 		</Form>
 	);
