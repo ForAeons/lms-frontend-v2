@@ -9,3 +9,9 @@ interface AppState {
 interface ManageUserState {
 	users: UserPersonAbility[];
 }
+
+interface BookState {
+	books: Book[];
+	offset: number;
+	limit: number;
+}
