@@ -8,7 +8,6 @@ import {
 } from "../thunks";
 
 const initialState: AppState = {
-	showSideBar: false,
 	isLoggedIn: false,
 	backendStatus: "unknown",
 	user: null,
@@ -18,9 +17,6 @@ export const appSlice = createSlice({
 	name: "app",
 	initialState,
 	reducers: {
-		toggleSideBar: (state) => {
-			state.showSideBar = !state.showSideBar;
-		},
 		setBackendStatus: (state, action: PayloadAction<backendStatus>) => {
 			state.backendStatus = action.payload;
 		},

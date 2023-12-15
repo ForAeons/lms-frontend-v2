@@ -8,8 +8,8 @@ export const ManageUserPage: React.FC = () => {
 	const userState = useAppSelector((s) => s.user.users);
 	return (
 		<ScrollArea className="h-[calc(100vh-104px)]">
-			<div className="w-full relative flex flex-col gap-3 pr-3">
-				<div className="sticky top-0 z-50 bg-background flex justify-between">
+			<div className="w-full relative flex flex-col gap-3 px-3">
+				<div className="sticky top-0 z-10 bg-background flex justify-between">
 					<UserCreateDialog />
 					<UserSearchBar />
 				</div>

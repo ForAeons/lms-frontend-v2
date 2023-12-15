@@ -15,19 +15,14 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { logoutThunk, useAppDispatch, useAppSelector } from "@/store";
-import { cn } from "@/lib/utils";
 
 export const Sidebar: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => {
 	const dispatch = useAppDispatch();
-	const showSideBar = useAppSelector((s) => s.app.showSideBar);
-
-	const navigate = useNavigate();
 	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
-
-	const cln = showSideBar ? "block" : "hidden";
+	const navigate = useNavigate();
 
 	return (
-		<div className={cn("space-y-4 py-4 lg:block", cln)}>
+		<nav className="space-y-4 py-4 hidden lg:block col-span-1">
 			<div className="px-3 py-2">
 				<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
 					Account
@@ -60,55 +55,57 @@ export const Sidebar: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => {
 				</div>
 			</div>
 
-			{isLoggedIn && (
-				<div className="px-3 py-2">
-					<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-						Resources
-					</h2>
+			<div className="px-3 py-2">
+				<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+					Resources
+				</h2>
 
-					<div className="space-y-1">
-						<Button
-							variant="ghost"
-							className="w-full justify-start"
-							onClick={() => navigate("/book")}
-						>
-							<BookIcon height={16} />
-							<p className="ml-3">Book</p>
-							<span className="sr-only">Book resources</span>
-						</Button>
+				<div className="space-y-1">
+					<Button
+						variant="ghost"
+						className="w-full justify-start"
+						onClick={() => navigate("/book")}
+					>
+						<BookIcon height={16} />
+						<p className="ml-3">Book</p>
+						<span className="sr-only">Book resources</span>
+					</Button>
 
-						<Button
-							variant="ghost"
-							className="w-full justify-start"
-							onClick={() => navigate("/reservation")}
-						>
-							<BookDownIcon height={16} />
-							<p className="ml-3">Reservation</p>
-							<span className="sr-only">Reservation resources</span>
-						</Button>
+					{isLoggedIn && (
+						<>
+							<Button
+								variant="ghost"
+								className="w-full justify-start"
+								onClick={() => navigate("/reservation")}
+							>
+								<BookDownIcon height={16} />
+								<p className="ml-3">Reservation</p>
+								<span className="sr-only">Reservation resources</span>
+							</Button>
 
-						<Button
-							variant="ghost"
-							className="w-full justify-start"
-							onClick={() => navigate("/loan")}
-						>
-							<BookCheckIcon height={16} />
-							<p className="ml-3">Loan</p>
-							<span className="sr-only">Loan resources</span>
-						</Button>
+							<Button
+								variant="ghost"
+								className="w-full justify-start"
+								onClick={() => navigate("/loan")}
+							>
+								<BookCheckIcon height={16} />
+								<p className="ml-3">Loan</p>
+								<span className="sr-only">Loan resources</span>
+							</Button>
 
-						<Button
-							variant="ghost"
-							className="w-full justify-start"
-							onClick={() => navigate("/fine")}
-						>
-							<WalletIcon height={16} />
-							<p className="ml-3">Fine</p>
-							<span className="sr-only">Fine resources</span>
-						</Button>
-					</div>
+							<Button
+								variant="ghost"
+								className="w-full justify-start"
+								onClick={() => navigate("/fine")}
+							>
+								<WalletIcon height={16} />
+								<p className="ml-3">Fine</p>
+								<span className="sr-only">Fine resources</span>
+							</Button>
+						</>
+					)}
 				</div>
-			)}
+			</div>
 
 			{isLoggedIn && (
 				<div className="px-3 py-2">
@@ -169,7 +166,7 @@ export const Sidebar: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => {
 					</div>
 				</div>
 			)}
-		</div>
+		</nav>
 	);
 };
 
