@@ -5,7 +5,7 @@ import AppLogic from "../components/app-logic";
 
 export const AppLayout: React.FC = () => {
 	return (
-		<div className="relative min-h-[calc(100vh+1px)] w-full px-3 pb-12 flex flex-col items-center">
+		<div className="relative h-[100vh] w-[100vw] px-3 pb-12 flex flex-col items-center">
 			<AppLogic />
 			<Navbar />
 

@@ -12,4 +12,4 @@ interface Person {
 	language_preference: string;
 }
 
-type PersonCreate = Omit<Person, "id">;
+type PersonCreate = Omit<Person, "id", "language_preference">;
