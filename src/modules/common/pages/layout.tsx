@@ -1,18 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Footer, Navbar, Sidebar } from "..";
-import AppLogic from "../components/app-logic";
 
 export const AppLayout: React.FC = () => {
 	return (
-		<div className="relative h-[100vh] w-[100vw] px-3 pb-12 flex flex-col items-center">
-			<AppLogic />
+		<div className="relative h-[100vh] w-[100vw] pb-12 flex flex-col items-center">
 			<Navbar />
 
-			<div className="flex flex-row gap-3 w-full h-full justify-center">
+			<div className="grid lg:grid-cols-5 w-full h-full">
 				<Sidebar />
 
-				<div className="flex-grow">
+				<div className="col-span-3 lg:col-span-4">
 					<Outlet />
 				</div>
 			</div>

@@ -8,9 +8,7 @@ import {
 } from "../thunks";
 
 const initialState: AppState = {
-	showSideBar: false,
-	loginStatus: "guest",
-	isLoading: false,
+	isLoggedIn: false,
 	backendStatus: "unknown",
 	user: null,
 };
@@ -19,12 +17,6 @@ export const appSlice = createSlice({
 	name: "app",
 	initialState,
 	reducers: {
-		toggleSideBar: (state) => {
-			state.showSideBar = !state.showSideBar;
-		},
-		setLoading: (state, action: PayloadAction<boolean>) => {
-			state.isLoading = action.payload;
-		},
 		setBackendStatus: (state, action: PayloadAction<backendStatus>) => {
 			state.backendStatus = action.payload;
 		},
@@ -44,17 +36,17 @@ export const appSlice = createSlice({
 
 		builder.addCase(getCurrentUserThunk.fulfilled, (state, action) => {
 			if (action.payload) {
-				state.loginStatus = "loggedIn";
+				state.isLoggedIn = true;
 				state.user = action.payload;
 			} else {
-				state.loginStatus = "guest";
+				state.isLoggedIn = false;
 				state.user = null;
 			}
 		});
 
 		builder.addCase(loginThunk.fulfilled, (state, action) => {
 			if (action.payload) {
-				state.loginStatus = "loggedIn";
+				state.isLoggedIn = true;
 				state.user = action.payload;
 				toast({
 					title: "Sign in successful",
@@ -65,7 +57,7 @@ export const appSlice = createSlice({
 			}
 		});
 		builder.addCase(loginThunk.rejected, (state) => {
-			state.loginStatus = "failure";
+			state.isLoggedIn = false;
 			state.user = null;
 			toast({
 				variant: "destructive",
@@ -75,7 +67,7 @@ export const appSlice = createSlice({
 		});
 
 		builder.addCase(logoutThunk.fulfilled, (state) => {
-			state.loginStatus = "loggedOut";
+			state.isLoggedIn = false;
 			state.user = null;
 			toast({
 				title: "Sign out Successful",
@@ -83,7 +75,7 @@ export const appSlice = createSlice({
 			});
 		});
 		builder.addCase(logoutThunk.rejected, (state) => {
-			state.loginStatus = "guest";
+			state.isLoggedIn = false;
 			state.user = null;
 		});
 	},

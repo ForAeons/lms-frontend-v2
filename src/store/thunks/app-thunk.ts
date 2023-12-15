@@ -3,26 +3,26 @@ import { authApi, baseApi, userApi } from "@/api";
 
 export const getHealthThunk = createAsyncThunk(
 	"app/getHealth",
-	async (_, thunkAPI) => baseApi.GetHealth(thunkAPI.signal),
+	async (signal?: AbortSignal) => baseApi.GetHealth(signal),
 );
 
 export const getCurrentUserThunk = createAsyncThunk(
 	"app/getCurrentUser",
-	async (_, thunkAPI) => {
-		const res = await userApi.GetCurrentUser(thunkAPI.signal);
+	async (signal?: AbortSignal) => {
+		const res = await userApi.GetCurrentUser(signal);
 		return res?.data;
 	},
 );
 
 export const loginThunk = createAsyncThunk(
 	"app/login",
-	async (user: UserLogin, thunkAPI) => {
-		const res = await authApi.SignIn(user, thunkAPI.signal);
+	async (action: { user: UserLogin; signal?: AbortSignal }) => {
+		const res = await authApi.SignIn(action.user, action.signal);
 		return res?.data;
 	},
 );
 
 export const logoutThunk = createAsyncThunk(
 	"app/logout",
-	async (_, thunkAPI) => await authApi.SignOut(thunkAPI.signal),
+	async (signal?: AbortSignal) => await authApi.SignOut(signal),
 );

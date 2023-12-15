@@ -5,10 +5,12 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Router } from "./router";
 import { store } from "./store";
+import { AppLogic } from "./modules";
 
 export const App: React.FC = () => {
 	return (
 		<Provider store={store}>
+			<AppLogic />
 			<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 				<RouterProvider router={Router} />
 				<Toaster />
