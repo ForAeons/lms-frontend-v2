@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "..";
+import { SidebarMobileBtn } from "../components/sidebar-mobile";
 
 export const AppLayout: React.FC = () => {
 	return (
@@ -8,6 +9,7 @@ export const AppLayout: React.FC = () => {
 			<Sidebar />
 			<div className="col-span-3 lg:col-span-4">
 				<Outlet />
+				<SidebarMobileBtn />
 			</div>
 		</div>
 	);

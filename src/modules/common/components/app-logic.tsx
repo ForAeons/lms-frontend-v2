@@ -1,7 +1,7 @@
 import React from "react";
 import {
-	getCurrentUserThunk,
 	getHealthThunk,
+	getCurrentUserThunk,
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
@@ -14,14 +14,12 @@ export const AppLogic: React.FC = () => {
 	// Check backend health
 	React.useEffect(() => {
 		if (backendStatus === "unknown") dispatch(getHealthThunk());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [dispatch, backendStatus]);
 
 	// Check if the user has previously logged in
 	React.useEffect(() => {
 		if (backendStatus === "up" && !isLoggedIn) dispatch(getCurrentUserThunk());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [backendStatus, isLoggedIn]);
+	}, [dispatch, backendStatus, isLoggedIn]);
 
 	return <div className="hidden" />;
 };

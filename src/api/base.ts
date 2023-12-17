@@ -200,8 +200,8 @@ export class BaseApi {
 					signal: abortSignal,
 				},
 			)
-			.then(() => {
-				return {}; // returning a serializable empty object
+			.then((res) => {
+				return res.data;
 			})
 			.catch((error) => {
 				throw error;
