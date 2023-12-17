@@ -10,26 +10,26 @@ export class Query implements CollectionQuery {
 	offset: number;
 	limit: number;
 	sortBy: string;
-	order: string;
+	orderBy: string;
 	filters: Filters;
 
 	constructor({
 		offset = 0,
 		limit = 10,
 		sortBy = "id",
-		order = "asc",
+		orderBy: order = "asc",
 		filters = {},
 	}: CollectionQuery) {
 		this.offset = offset;
 		this.limit = limit;
 		this.sortBy = sortBy;
-		this.order = order;
+		this.orderBy = order;
 		this.filters = filters;
 	}
 
 	// @Override
 	toString() {
-		let query = `offset=${this.offset}&limit=${this.limit}&sortBy=${this.sortBy}&order=${this.order}`;
+		let query = `offset=${this.offset}&limit=${this.limit}&sortBy=${this.sortBy}&orderBy=${this.orderBy}`;
 
 		for (const [key, value] of Object.entries(this.filters)) {
 			if (!Array.isArray(value)) {

@@ -1,2 +1,5 @@
 export * from "./book-card";
-export * from "./book-table";
+export * from "./book-list";
+export * from "./book-create-dialog";
+export * from "./book-edit-dialog";
+export * from "./book-delete-btn";

@@ -56,7 +56,7 @@ interface CollectionQuery {
 	offset: number;
 	limit: number;
 	sortBy: string;
-	order: string;
+	orderBy: string;
 	filters: Filters;
 }
 
