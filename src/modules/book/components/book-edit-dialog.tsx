@@ -25,8 +25,17 @@ import {
 import { useAppDispatch } from "@/store";
 import * as Constants from "@/constants";
 import { PencilIcon } from "lucide-react";
-import { bookFormSchema } from ".";
 import { updateBookThunk } from "@/store/thunks/book-thunk";
+
+const bookFormSchema = z.object({
+	title: z.string(),
+	author: z.string(),
+	isbn: z.string(),
+	publisher: z.string(),
+	publication_date: z.string(),
+	genre: z.string(),
+	language: z.string().min(2).max(2),
+});
 
 export const BookEditDialog: React.FC<{
 	book: Book;

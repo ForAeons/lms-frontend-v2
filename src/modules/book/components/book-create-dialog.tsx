@@ -27,7 +27,7 @@ import * as Constants from "@/constants";
 import { PlusIcon } from "lucide-react";
 import { createBookThunk } from "@/store/thunks/book-thunk";
 
-export const bookFormSchema = z.object({
+const bookFormSchema = z.object({
 	title: z.string(),
 	author: z.string(),
 	isbn: z.string(),
