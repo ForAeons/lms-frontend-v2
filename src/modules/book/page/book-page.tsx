@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import { BookCreateDialog, BookList } from "..";
 import { listBookThunk } from "@/store/thunks/book-thunk";
 import { Query } from "@/util";
+import { BookSearchBar } from "../components/book-search-bar";
 
 export const BookPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -27,10 +28,11 @@ export const BookPage: React.FC = () => {
 	}
 
 	return (
-		<ScrollArea className="h-[100vh] lg:space-y-4 lg:py-4">
+		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
 			<div className="w-full flex flex-col gap-3 px-3">
-				<div>
+				<div className="w-full flex gap-3">
 					<BookCreateDialog />
+					<BookSearchBar cq={cq} />
 				</div>
 				<BookList books={bookState.books} />
 			</div>
