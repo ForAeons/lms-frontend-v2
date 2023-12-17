@@ -7,10 +7,10 @@ export const AppLayout: React.FC = () => {
 	return (
 		<div className="relative h-[100vh] w-[100vw] grid lg:grid-cols-5">
 			<Sidebar />
-			<div className="col-span-3 lg:col-span-4">
+			<main className="col-span-3 lg:col-span-4">
 				<Outlet />
 				<SidebarMobileBtn />
-			</div>
+			</main>
 		</div>
 	);
 };

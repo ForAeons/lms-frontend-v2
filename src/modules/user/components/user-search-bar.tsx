@@ -14,18 +14,15 @@ export const UserSearchBar: React.FC = () => {
 	};
 
 	return (
-		<form
-			className="w-1/2 min-w-fit flex justify-centerd"
-			onSubmit={handleSubmit}
-		>
+		<form className="w-full flex gap-3" onSubmit={handleSubmit}>
 			<Input
-				className="focus-visible:ring-0 bg-accent"
+				className="bg-accent rounded-full"
 				type="string"
-				placeholder="Search for username"
+				placeholder="Search by username"
 				value={searchValue}
 				onChange={(e) => setSearchValue(e.target.value)}
 			></Input>
-			<Button type="submit" variant={"ghost"}>
+			<Button type="submit" variant="ghost" className="rounded-full">
 				<Search />
 			</Button>
 		</form>

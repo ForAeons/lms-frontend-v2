@@ -27,7 +27,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useTheme } from "@/components/theme-provider";
 import { logoutThunk, useAppDispatch, useAppSelector } from "@/store";
-import { SIDEBAR_ICON_SIZE } from "@/constants";
+import { MD_ICON_SIZE } from "@/constants";
 import { DraggableNavButton } from ".";
 
 export const SidebarMobileBtn: React.FC = () => {
@@ -41,7 +41,7 @@ export const SidebarMobileBtn: React.FC = () => {
 
 	return (
 		<Dialog>
-			<DialogTrigger className="absolute block lg:hidden bottom-0">
+			<DialogTrigger className="absolute lg:hidden bottom-0">
 				<DraggableNavButton />
 			</DialogTrigger>
 			<DialogContent>
@@ -61,7 +61,7 @@ export const SidebarMobileBtn: React.FC = () => {
 										className="w-full justify-start"
 										onClick={() => navigate("/")}
 									>
-										<HomeIcon size={SIDEBAR_ICON_SIZE} />
+										<HomeIcon size={MD_ICON_SIZE} />
 										<p className="ml-3">Home</p>
 
 										<span className="sr-only">Go to Home</span>
@@ -73,7 +73,7 @@ export const SidebarMobileBtn: React.FC = () => {
 											className="w-full justify-start"
 											onClick={() => dispatch(logoutThunk())}
 										>
-											<LogInIcon size={SIDEBAR_ICON_SIZE} />
+											<LogInIcon size={MD_ICON_SIZE} />
 											<p className="ml-3">Sign Out</p>
 											<span className="sr-only">Sign Out</span>
 										</Button>
@@ -85,7 +85,7 @@ export const SidebarMobileBtn: React.FC = () => {
 											className="w-full justify-start"
 											onClick={() => navigate("/signin")}
 										>
-											<LogOutIcon size={SIDEBAR_ICON_SIZE} />
+											<LogOutIcon size={MD_ICON_SIZE} />
 											<p className="ml-3">Sign in</p>
 											<span className="sr-only">Sign In</span>
 										</Button>
@@ -104,7 +104,7 @@ export const SidebarMobileBtn: React.FC = () => {
 										className="w-full justify-start"
 										onClick={() => navigate("/book")}
 									>
-										<BookIcon size={SIDEBAR_ICON_SIZE} />
+										<BookIcon size={MD_ICON_SIZE} />
 										<p className="ml-3">Book</p>
 										<span className="sr-only">Book resources</span>
 									</Button>
@@ -116,7 +116,7 @@ export const SidebarMobileBtn: React.FC = () => {
 												className="w-full justify-start"
 												onClick={() => navigate("/reservation")}
 											>
-												<BookDownIcon size={SIDEBAR_ICON_SIZE} />
+												<BookDownIcon size={MD_ICON_SIZE} />
 												<p className="ml-3">Reservation</p>
 												<span className="sr-only">Reservation resources</span>
 											</Button>
@@ -126,7 +126,7 @@ export const SidebarMobileBtn: React.FC = () => {
 												className="w-full justify-start"
 												onClick={() => navigate("/loan")}
 											>
-												<BookCheckIcon size={SIDEBAR_ICON_SIZE} />
+												<BookCheckIcon size={MD_ICON_SIZE} />
 												<p className="ml-3">Loan</p>
 												<span className="sr-only">Loan resources</span>
 											</Button>
@@ -136,7 +136,7 @@ export const SidebarMobileBtn: React.FC = () => {
 												className="w-full justify-start"
 												onClick={() => navigate("/fine")}
 											>
-												<WalletIcon size={SIDEBAR_ICON_SIZE} />
+												<WalletIcon size={MD_ICON_SIZE} />
 												<p className="ml-3">Fine</p>
 												<span className="sr-only">Fine resources</span>
 											</Button>
@@ -157,7 +157,7 @@ export const SidebarMobileBtn: React.FC = () => {
 											className="w-full justify-start"
 											onClick={() => navigate("/manage_user")}
 										>
-											<UserCogIcon size={SIDEBAR_ICON_SIZE} />
+											<UserCogIcon size={MD_ICON_SIZE} />
 											<p className="ml-3">Manage User</p>
 											<span className="sr-only">Manage user</span>
 										</Button>
@@ -167,7 +167,7 @@ export const SidebarMobileBtn: React.FC = () => {
 											className="w-full justify-start"
 											onClick={() => navigate("/manage_book")}
 										>
-											<BookKeyIcon size={SIDEBAR_ICON_SIZE} />
+											<BookKeyIcon size={MD_ICON_SIZE} />
 											<p className="ml-3">Manage Book</p>
 											<span className="sr-only">Manage book</span>
 										</Button>
@@ -177,7 +177,7 @@ export const SidebarMobileBtn: React.FC = () => {
 											className="w-full justify-start"
 											onClick={() => navigate("/manage_reservation")}
 										>
-											<LibraryBigIcon size={SIDEBAR_ICON_SIZE} />
+											<LibraryBigIcon size={MD_ICON_SIZE} />
 											<p className="ml-3">Manage Reservation</p>
 											<span className="sr-only">Manage reservation</span>
 										</Button>
@@ -187,7 +187,7 @@ export const SidebarMobileBtn: React.FC = () => {
 											className="w-full justify-start"
 											onClick={() => navigate("/manage_loan")}
 										>
-											<HelpingHandIcon size={SIDEBAR_ICON_SIZE} />
+											<HelpingHandIcon size={MD_ICON_SIZE} />
 											<p className="ml-3">Manage Loan</p>
 											<span className="sr-only">Manage loan</span>
 										</Button>
@@ -197,7 +197,7 @@ export const SidebarMobileBtn: React.FC = () => {
 											className="w-full justify-start"
 											onClick={() => navigate("/manage_fine")}
 										>
-											<LandmarkIcon size={SIDEBAR_ICON_SIZE} />
+											<LandmarkIcon size={MD_ICON_SIZE} />
 											<p className="ml-3">Manage Fine</p>
 											<span className="sr-only">MManage fine</span>
 										</Button>
@@ -209,12 +209,12 @@ export const SidebarMobileBtn: React.FC = () => {
 								<div className="w-full justify-start h-10 px-4 py-2 inline-flex items-center whitespace-nowrap rounded-md">
 									<div className="relative flex">
 										<Sun
-											size={SIDEBAR_ICON_SIZE}
-											className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+											size={MD_ICON_SIZE}
+											className="rotate-0 scale-100 dark:-rotate-90 dark:scale-0"
 										/>
 										<Moon
-											size={SIDEBAR_ICON_SIZE}
-											className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+											size={MD_ICON_SIZE}
+											className="absolute rotate-90 scale-0 dark:rotate-0 dark:scale-100"
 										/>
 										<span className="sr-only">Toggle theme</span>
 									</div>

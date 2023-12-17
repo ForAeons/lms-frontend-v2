@@ -25,6 +25,7 @@ import {
 import { emailPattern, passwordPattern } from "@/constants";
 import { useAppDispatch, createUserThunk } from "@/store";
 import * as Constants from "@/constants";
+import { PlusIcon } from "lucide-react";
 
 const formSchema = z
 	.object({
@@ -94,7 +95,9 @@ export const UserCreateDialog: React.FC = () => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="secondary">Create</Button>
+				<Button variant="ghost" className="rounded-full">
+					<PlusIcon size={Constants.LG_ICON_SIZE} />
+				</Button>
 			</DialogTrigger>
 			<DialogContent className="max-h-[70%] p-0">
 				<ScrollArea className="max-h-[70%]">

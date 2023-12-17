@@ -187,7 +187,7 @@ const books: Book[] = [
 
 export const BookTable: React.FC = () => {
 	return (
-		<div className="flex flex-wrap gap-3">
+		<div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
 			{books.map((book) => {
 				return <BookCard key={book.isbn} book={book} />;
 			})}

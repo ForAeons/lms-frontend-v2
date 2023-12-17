@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useAppDispatch, deleteUserThunk } from "@/store";
+import { TrashIcon } from "lucide-react";
+import { MD_ICON_SIZE } from "@/constants";
 
 export const UserDeleteBtn: React.FC<{ userPerson: UserPerson }> = ({
 	userPerson,
@@ -22,7 +24,9 @@ export const UserDeleteBtn: React.FC<{ userPerson: UserPerson }> = ({
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger>
-				<Button variant="destructive">Delete</Button>
+				<Button variant="ghost" className="rounded-full">
+					<TrashIcon className="text-destructive" size={MD_ICON_SIZE} />
+				</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
