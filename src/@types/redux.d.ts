@@ -13,5 +13,6 @@ interface ManageUserState {
 interface BookState {
 	isFetching: boolean;
 	books: Book[];
+	book: BookDetailed | null;
 	meta: Meta;
 }

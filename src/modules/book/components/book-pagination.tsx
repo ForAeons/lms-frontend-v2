@@ -33,7 +33,7 @@ export const BookPagination: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
 	const currentPage = Math.ceil(cq.offset / cq.limit) + 1;
 
 	return (
-		<div className="flex justify-between items-center py-3 gap-3">
+		<div className="col-span-full flex justify-between items-center py-3 gap-3">
 			<div className="flex flex-col gap-3 justify-start">
 				<div className="flex items-center space-x-2">
 					<span className="text-sm text-muted-foreground">Sort by</span>

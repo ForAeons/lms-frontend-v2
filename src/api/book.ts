@@ -11,7 +11,7 @@ class BookApi extends BaseApi {
 	};
 
 	public GetBook = (bookID: number, abortSignal?: AbortSignal) => {
-		return this.Get<Book>(
+		return this.Get<BookDetailed>(
 			`${BookRoutes.BASE}/${BookRoutes.SPECIFIC.DYNAMIC_ROUTE(bookID)}`,
 			abortSignal,
 		);

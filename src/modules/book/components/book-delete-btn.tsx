@@ -23,7 +23,10 @@ export const BookDeleteBtn: React.FC<{ book: Book }> = ({ book }) => {
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger>
-				<Button variant="ghost" className="rounded-full">
+				<Button
+					variant="ghost"
+					className="hover:bg-transparent hover:opacity-50 transition-opacity"
+				>
 					<TrashIcon className="text-destructive" size={MD_ICON_SIZE} />
 				</Button>
 			</AlertDialogTrigger>

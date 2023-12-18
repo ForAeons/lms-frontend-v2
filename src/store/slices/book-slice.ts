@@ -3,6 +3,7 @@ import { toast } from "@/components/ui/use-toast";
 import {
 	createBookThunk,
 	deleteBookThunk,
+	getBookThunk,
 	listBookThunk,
 	updateBookThunk,
 } from "../thunks/book-thunk";
@@ -10,6 +11,7 @@ import {
 const initialState: BookState = {
 	isFetching: true,
 	books: [],
+	book: null,
 	meta: {
 		total_count: 0,
 		filtered_count: 0,
@@ -66,6 +68,16 @@ export const bookSlice = createSlice({
 				title: "Success",
 				description: `Book ${action.payload.title} removed from library successfully`,
 			});
+		});
+
+		builder.addCase(getBookThunk.pending, (state) => {
+			state.isFetching = true;
+		});
+
+		builder.addCase(getBookThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
+			state.book = action.payload;
+			state.isFetching = false;
 		});
 	},
 });

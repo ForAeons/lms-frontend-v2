@@ -29,3 +29,13 @@ type BookCreate = Omit<Book, "id">;
  * BookUpdate is the object used to update a book
  */
 type BookUpdate = Partial<BookCreate>;
+
+/**
+ * BookDetailed is the detailed book object returned by the API
+ * @property loans - the book's loans
+ * @property reservations - the book's reservations
+ */
+interface BookDetailed extends Book {
+	loans: LoanDetailed[];
+	reservations: Reservation[];
+}
