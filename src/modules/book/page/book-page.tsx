@@ -6,8 +6,7 @@ import { listBookThunk } from "@/store/thunks/book-thunk";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { BookCreateDialog, BookList, BookSearchBar } from "..";
-import { BookPagination } from "../components/book-pagination";
+import { BookList, BookOrderBtn, BookPagination, BookSearchBar } from "..";
 
 export const BookPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -35,7 +34,7 @@ export const BookPage: React.FC = () => {
 		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
 			<div className="w-full flex flex-col gap-3 px-3">
 				<div className="w-full flex gap-3">
-					<BookCreateDialog />
+					<BookOrderBtn cq={cq} />
 					<BookSearchBar cq={cq} />
 				</div>
 

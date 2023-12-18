@@ -15,3 +15,12 @@ export const MINIMUM_PASSWORD_LENGTH = 8;
 export const MAXIMUM_PASSWORD_LENGTH = 32;
 
 export const CQ_LIMITS = [10, 25, 50, 100];
+
+export const BOOK_SORTERS = [
+	{ value: "id", label: "ID" },
+	{ value: "title", label: "Title" },
+	{ value: "author", label: "Author" },
+	{ value: "isbn", label: "ISBN" },
+	{ value: "publisher", label: "Publisher" },
+	{ value: "publication_date", label: "Publication date" },
+];
