@@ -1,4 +1,5 @@
 import React from "react";
+import { TrashIcon } from "lucide-react";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -11,15 +12,13 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useAppDispatch, deleteUserThunk } from "@/store";
-import { TrashIcon } from "lucide-react";
+import { useAppDispatch } from "@/store";
+import { deleteBookThunk } from "@/store/thunks/book-thunk";
 import { MD_ICON_SIZE } from "@/constants";
 
-export const UserDeleteBtn: React.FC<{ userPerson: UserPerson }> = ({
-	userPerson,
-}) => {
+export const BookDeleteBtn: React.FC<{ book: Book }> = ({ book }) => {
 	const dispatch = useAppDispatch();
-	const handleClick = () => dispatch(deleteUserThunk(userPerson.id));
+	const handleClick = () => dispatch(deleteBookThunk({ bookID: book.id }));
 
 	return (
 		<AlertDialog>
@@ -32,8 +31,8 @@ export const UserDeleteBtn: React.FC<{ userPerson: UserPerson }> = ({
 				<AlertDialogHeader>
 					<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
 					<AlertDialogDescription>
-						This action cannot be undone. This will permanently delete this
-						account and remove it from our servers.
+						This action cannot be undone. This will permanently delete this book
+						and remove it from our servers.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>

@@ -1,214 +1,235 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
-	BookCheckIcon,
-	BookDownIcon,
-	BookIcon,
-	BookKeyIcon,
-	HelpingHandIcon,
-	LandmarkIcon,
-	LibraryBigIcon,
 	LogInIcon,
 	LogOutIcon,
-	MenuIcon,
-	UserCogIcon,
+	BookIcon,
+	BookDownIcon,
 	WalletIcon,
+	BookCheckIcon,
+	UserCogIcon,
+	BookKeyIcon,
+	LibraryBigIcon,
+	LandmarkIcon,
+	HelpingHandIcon,
+	Sun,
+	Moon,
+	HomeIcon,
 } from "lucide-react";
 import {
-	NavigationMenu,
-	NavigationMenuContent,
-	NavigationMenuItem,
-	NavigationMenuLink,
-	NavigationMenuList,
-	NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { useTheme } from "@/components/theme-provider";
 import { logoutThunk, useAppDispatch, useAppSelector } from "@/store";
+import { MD_ICON_SIZE } from "@/constants";
+import { DraggableNavButton } from ".";
 
-export const SideBarMobileBtn: React.FC = () => {
+export const SidebarMobileBtn: React.FC = () => {
 	const dispatch = useAppDispatch();
+	const user = useAppSelector((s) => s.app.user);
 	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 	const navigate = useNavigate();
+
+	const { theme, setTheme } = useTheme();
+	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
+
 	return (
-		<NavigationMenu className="lg:hidden z-50">
-			<NavigationMenuList>
-				<NavigationMenuItem>
-					<NavigationMenuTrigger>
-						<MenuIcon className="transition duration-200 group-data-[state=open]:rotate-90" />
-					</NavigationMenuTrigger>
-					<NavigationMenuContent>
-						<ul className="flex flex-col gap-3 p-3">
-							{isLoggedIn && (
-								<li className="row-span-3">
-									<NavigationMenuLink asChild>
+		<Dialog>
+			<DialogTrigger className="absolute lg:hidden bottom-0">
+				<DraggableNavButton />
+			</DialogTrigger>
+			<DialogContent>
+				<DialogHeader>
+					<ScrollArea className="h-[70vh]">
+						<nav className="space-y-4 py-4">
+							<div className="px-3 py-2">
+								<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight truncate">
+									{user
+										? `Welcome ${user.person_attributes.full_name}`
+										: "Welcome!"}
+								</h2>
+
+								<div className="space-y-1">
+									<Button
+										variant="ghost"
+										className="w-full justify-start"
+										onClick={() => navigate("/")}
+									>
+										<HomeIcon size={MD_ICON_SIZE} />
+										<p className="ml-3">Home</p>
+
+										<span className="sr-only">Go to Home</span>
+									</Button>
+
+									{isLoggedIn && (
 										<Button
 											variant="ghost"
 											className="w-full justify-start"
 											onClick={() => dispatch(logoutThunk())}
 										>
-											<LogInIcon height={16} />
+											<LogInIcon size={MD_ICON_SIZE} />
 											<p className="ml-3">Sign Out</p>
 											<span className="sr-only">Sign Out</span>
 										</Button>
-									</NavigationMenuLink>
-								</li>
-							)}
+									)}
 
-							{!isLoggedIn && (
-								<li className="row-span-3">
-									<NavigationMenuLink asChild>
+									{!isLoggedIn && (
 										<Button
 											variant="ghost"
 											className="w-full justify-start"
 											onClick={() => navigate("/signin")}
 										>
-											<LogOutIcon height={16} />
+											<LogOutIcon size={MD_ICON_SIZE} />
 											<p className="ml-3">Sign in</p>
 											<span className="sr-only">Sign In</span>
 										</Button>
-									</NavigationMenuLink>
-								</li>
-							)}
+									)}
+								</div>
+							</div>
 
-							<li className="row-span-3">
-								<NavigationMenuLink asChild>
+							<div className="px-3 py-2">
+								<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+									Resources
+								</h2>
+
+								<div className="space-y-1">
 									<Button
 										variant="ghost"
 										className="w-full justify-start"
 										onClick={() => navigate("/book")}
 									>
-										<BookIcon height={16} />
+										<BookIcon size={MD_ICON_SIZE} />
 										<p className="ml-3">Book</p>
 										<span className="sr-only">Book resources</span>
 									</Button>
-								</NavigationMenuLink>
-							</li>
 
-							{isLoggedIn && (
-								<>
-									<li className="row-span-3">
-										<NavigationMenuLink asChild>
+									{isLoggedIn && (
+										<>
 											<Button
 												variant="ghost"
 												className="w-full justify-start"
 												onClick={() => navigate("/reservation")}
 											>
-												<BookDownIcon height={16} />
+												<BookDownIcon size={MD_ICON_SIZE} />
 												<p className="ml-3">Reservation</p>
 												<span className="sr-only">Reservation resources</span>
 											</Button>
-										</NavigationMenuLink>
-									</li>
 
-									<li className="row-span-3">
-										<NavigationMenuLink asChild>
 											<Button
 												variant="ghost"
 												className="w-full justify-start"
 												onClick={() => navigate("/loan")}
 											>
-												<BookCheckIcon height={16} />
+												<BookCheckIcon size={MD_ICON_SIZE} />
 												<p className="ml-3">Loan</p>
 												<span className="sr-only">Loan resources</span>
 											</Button>
-										</NavigationMenuLink>
-									</li>
 
-									<li className="row-span-3">
-										<NavigationMenuLink asChild>
 											<Button
 												variant="ghost"
 												className="w-full justify-start"
 												onClick={() => navigate("/fine")}
 											>
-												<WalletIcon height={16} />
+												<WalletIcon size={MD_ICON_SIZE} />
 												<p className="ml-3">Fine</p>
 												<span className="sr-only">Fine resources</span>
 											</Button>
-										</NavigationMenuLink>
-									</li>
-								</>
-							)}
+										</>
+									)}
+								</div>
+							</div>
 
 							{isLoggedIn && (
-								<>
-									<li className="row-span-3">
-										<NavigationMenuLink asChild>
-											<Button
-												variant="ghost"
-												className="w-full justify-start"
-												onClick={() => navigate("/manage_user")}
-											>
-												<UserCogIcon height={16} />
-												<p className="ml-3">Manage User</p>
-												<span className="sr-only">Manage user</span>
-											</Button>
-										</NavigationMenuLink>
-									</li>
+								<div className="px-3 py-2">
+									<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+										Admin
+									</h2>
 
-									<li className="row-span-3">
-										<NavigationMenuLink asChild>
-											<Button
-												variant="ghost"
-												className="w-full justify-start"
-												onClick={() => navigate("/manage_book")}
-											>
-												<BookKeyIcon height={16} />
-												<p className="ml-3">Manage Book</p>
-												<span className="sr-only">Manage book</span>
-											</Button>
-										</NavigationMenuLink>
-									</li>
+									<div className="space-y-1">
+										<Button
+											variant="ghost"
+											className="w-full justify-start"
+											onClick={() => navigate("/manage_user")}
+										>
+											<UserCogIcon size={MD_ICON_SIZE} />
+											<p className="ml-3">Manage User</p>
+											<span className="sr-only">Manage user</span>
+										</Button>
 
-									<li className="row-span-3">
-										<NavigationMenuLink asChild>
-											<Button
-												variant="ghost"
-												className="w-full justify-start"
-												onClick={() => navigate("/manage_reservation")}
-											>
-												<LibraryBigIcon height={16} />
-												<p className="ml-3">Manage Reservation</p>
-												<span className="sr-only">Manage reservation</span>
-											</Button>
-										</NavigationMenuLink>
-									</li>
+										<Button
+											variant="ghost"
+											className="w-full justify-start"
+											onClick={() => navigate("/manage_book")}
+										>
+											<BookKeyIcon size={MD_ICON_SIZE} />
+											<p className="ml-3">Manage Book</p>
+											<span className="sr-only">Manage book</span>
+										</Button>
 
-									<li className="row-span-3">
-										<NavigationMenuLink asChild>
-											<Button
-												variant="ghost"
-												className="w-full justify-start"
-												onClick={() => navigate("/manage_loan")}
-											>
-												<HelpingHandIcon height={16} />
-												<p className="ml-3">Manage Loan</p>
-												<span className="sr-only">Manage loan</span>
-											</Button>
-										</NavigationMenuLink>
-									</li>
+										<Button
+											variant="ghost"
+											className="w-full justify-start"
+											onClick={() => navigate("/manage_reservation")}
+										>
+											<LibraryBigIcon size={MD_ICON_SIZE} />
+											<p className="ml-3">Manage Reservation</p>
+											<span className="sr-only">Manage reservation</span>
+										</Button>
 
-									<li className="row-span-3">
-										<NavigationMenuLink asChild>
-											<Button
-												variant="ghost"
-												className="w-full justify-start"
-												onClick={() => navigate("/manage_fine")}
-											>
-												<LandmarkIcon height={16} />
-												<p className="ml-3">Manage Fine</p>
-												<span className="sr-only">MManage fine</span>
-											</Button>
-										</NavigationMenuLink>
-									</li>
-								</>
+										<Button
+											variant="ghost"
+											className="w-full justify-start"
+											onClick={() => navigate("/manage_loan")}
+										>
+											<HelpingHandIcon size={MD_ICON_SIZE} />
+											<p className="ml-3">Manage Loan</p>
+											<span className="sr-only">Manage loan</span>
+										</Button>
+
+										<Button
+											variant="ghost"
+											className="w-full justify-start"
+											onClick={() => navigate("/manage_fine")}
+										>
+											<LandmarkIcon size={MD_ICON_SIZE} />
+											<p className="ml-3">Manage Fine</p>
+											<span className="sr-only">MManage fine</span>
+										</Button>
+									</div>
+								</div>
 							)}
-						</ul>
-					</NavigationMenuContent>
-				</NavigationMenuItem>
-			</NavigationMenuList>
-		</NavigationMenu>
+
+							<div className="px-3 mt-auto">
+								<div className="w-full justify-start h-10 px-4 py-2 inline-flex items-center whitespace-nowrap rounded-md">
+									<div className="relative flex">
+										<Sun
+											size={MD_ICON_SIZE}
+											className="rotate-0 scale-100 dark:-rotate-90 dark:scale-0"
+										/>
+										<Moon
+											size={MD_ICON_SIZE}
+											className="absolute rotate-90 scale-0 dark:rotate-0 dark:scale-100"
+										/>
+										<span className="sr-only">Toggle theme</span>
+									</div>
+									<Switch
+										id="dark-mode"
+										checked={theme === "dark"}
+										onClick={toggleTheme}
+										className="ml-3"
+									/>
+								</div>
+							</div>
+						</nav>
+					</ScrollArea>
+				</DialogHeader>
+			</DialogContent>
+		</Dialog>
 	);
 };
-
-export default SideBarMobileBtn;

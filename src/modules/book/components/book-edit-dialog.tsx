@@ -22,71 +22,50 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { emailPattern, passwordPattern } from "@/constants";
-import { useAppDispatch, updateUserThunk } from "@/store";
+import { useAppDispatch } from "@/store";
 import * as Constants from "@/constants";
 import { PencilIcon } from "lucide-react";
+import { updateBookThunk } from "@/store/thunks/book-thunk";
 
-const formSchema = z.object({
-	username: z
-		.string()
-		.min(Constants.MINIMUM_USERNAME_LENGTH, {
-			message: "Username must be at least 5 characters.",
-		})
-		.max(Constants.MAXIMUM_USERNAME_LENGTH, {
-			message: "Username must be no more than 30 characters.",
-		}),
-	email: z
-		.string()
-		.regex(emailPattern, {
-			message: "Invalid email format.",
-		})
-		.optional(),
-	password: z
-		.string()
-		.regex(passwordPattern, {
-			message:
-				"Password must include at least one lowercase and uppercase letter, a number, and a special character (!@#$%^&*).",
-		})
-		.min(Constants.MINIMUM_PASSWORD_LENGTH, {
-			message: "Password must be at least 8 characters.",
-		})
-		.max(Constants.MAXIMUM_PASSWORD_LENGTH, {
-			message: "Password must be no more than 32 characters.",
-		}),
-	full_name: z.string().min(2).max(255),
-	preferred_name: z.string().min(2).max(255).optional(),
-	language_preference: z.string().min(2).max(2),
+const bookFormSchema = z.object({
+	title: z.string(),
+	author: z.string(),
+	isbn: z.string(),
+	publisher: z.string(),
+	publication_date: z.string(),
+	genre: z.string(),
+	language: z.string().min(2).max(2),
 });
 
-export const UserEditDialog: React.FC<{
-	userPerson: UserPerson;
-}> = ({ userPerson }) => {
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
+export const BookEditDialog: React.FC<{
+	book: Book;
+}> = ({ book }) => {
+	const form = useForm<z.infer<typeof bookFormSchema>>({
+		resolver: zodResolver(bookFormSchema),
 		defaultValues: {
-			username: userPerson.username,
-			email: userPerson.email,
-			password: userPerson.password,
-			full_name: userPerson.person_attributes.full_name,
-			preferred_name: userPerson.person_attributes.preferred_name,
-			language_preference: userPerson.person_attributes.language_preference,
+			title: book.title,
+			author: book.author,
+			isbn: book.isbn,
+			publisher: book.publisher,
+			publication_date: book.publication_date,
+			genre: book.genre,
+			language: book.language,
 		},
 	});
 
 	const dispatch = useAppDispatch();
-	function onSubmit(values: z.infer<typeof formSchema>) {
+	function onSubmit(values: z.infer<typeof bookFormSchema>) {
 		dispatch(
-			updateUserThunk({
-				id: userPerson.id,
-				username: values.username,
-				email: values.email,
-				password: values.password,
-				person_attributes: {
-					id: userPerson.person_attributes.id,
-					full_name: values.full_name,
-					preferred_name: values.preferred_name,
-					language_preference: values.language_preference,
+			updateBookThunk({
+				book: {
+					id: book.id,
+					title: values.title,
+					author: values.author,
+					isbn: values.isbn,
+					publisher: values.publisher,
+					publication_date: values.publication_date,
+					genre: values.genre,
+					language: values.language,
 				},
 			}),
 		);
@@ -99,8 +78,8 @@ export const UserEditDialog: React.FC<{
 					<PencilIcon className="text-primary" size={Constants.MD_ICON_SIZE} />
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="max-h-[70%] p-0">
-				<ScrollArea className="max-h-[70%]">
+			<DialogContent className="p-0">
+				<ScrollArea className="max-h-[70vh]">
 					<div className="p-6">
 						<DialogHeader>
 							<DialogTitle>Edit user profile</DialogTitle>
@@ -117,12 +96,12 @@ export const UserEditDialog: React.FC<{
 							>
 								<FormField
 									control={form.control}
-									name="username"
+									name="title"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Username</FormLabel>
+											<FormLabel>Title</FormLabel>
 											<FormControl>
-												<Input placeholder="username" {...field} />
+												<Input placeholder="Book title" {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -130,12 +109,12 @@ export const UserEditDialog: React.FC<{
 								/>
 								<FormField
 									control={form.control}
-									name="full_name"
+									name="author"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Full Name</FormLabel>
+											<FormLabel>Author name</FormLabel>
 											<FormControl>
-												<Input placeholder="New full name" {...field} />
+												<Input placeholder="David Martinez" {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -143,12 +122,12 @@ export const UserEditDialog: React.FC<{
 								/>
 								<FormField
 									control={form.control}
-									name="preferred_name"
+									name="isbn"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Preferred name</FormLabel>
+											<FormLabel>ISBN</FormLabel>
 											<FormControl>
-												<Input placeholder="New preferred name" {...field} />
+												<Input placeholder="978-3-16-148410-0" {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -156,10 +135,52 @@ export const UserEditDialog: React.FC<{
 								/>
 								<FormField
 									control={form.control}
-									name="language_preference"
+									name="publisher"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Language preference</FormLabel>
+											<FormLabel>Publisher</FormLabel>
+											<FormControl>
+												<Input placeholder="Penguin Random House" {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="publication_date"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Publication Date</FormLabel>
+											<FormControl>
+												<Input
+													placeholder={new Date().toISOString()}
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="genre"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Genre</FormLabel>
+											<FormControl>
+												<Input placeholder="Fantasy" {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="language"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Language</FormLabel>
 											<FormControl>
 												<Input placeholder="EN" {...field} />
 											</FormControl>
@@ -167,34 +188,9 @@ export const UserEditDialog: React.FC<{
 										</FormItem>
 									)}
 								/>
-								<FormField
-									control={form.control}
-									name="email"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Email</FormLabel>
-											<FormControl>
-												<Input placeholder="email" {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="password"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Password</FormLabel>
-											<FormControl>
-												<Input placeholder="password" {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
+
 								<DialogFooter>
-									<Button type="submit">Save changes</Button>
+									<Button type="submit">Edit</Button>
 								</DialogFooter>
 							</form>
 						</Form>

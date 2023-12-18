@@ -14,7 +14,7 @@ export const Router = createBrowserRouter(
 		<Route key={"Main"} path="/" element={<AppLayout />}>
 			<Route path="/book" element={<BookPage />} />
 			<Route path="/manage_user" element={<ManageUserPage />} />
-			<Route key={"PNF"} path="*" element={<PageNotFound />} />
+			<Route path="*" element={<PageNotFound />} />
 		</Route>,
 	]),
 );

@@ -15,16 +15,25 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { useAppDispatch, loginThunk } from "@/store";
+import * as Constants from "@/constants";
 
 const formSchema = z.object({
 	username: z
 		.string()
-		.min(5, { message: "Username must be at least 5 characters." })
-		.max(30, { message: "Username must be no more than 30 characters." }),
+		.min(Constants.MINIMUM_USERNAME_LENGTH, {
+			message: "Username must be at least 5 characters.",
+		})
+		.max(Constants.MAXIMUM_USERNAME_LENGTH, {
+			message: "Username must be no more than 30 characters.",
+		}),
 	password: z
 		.string()
-		.min(8, { message: "Password must be at least 8 characters." })
-		.max(32, { message: "Password must be no more than 32 characters." }),
+		.min(Constants.MINIMUM_PASSWORD_LENGTH, {
+			message: "Password must be at least 8 characters.",
+		})
+		.max(Constants.MAXIMUM_PASSWORD_LENGTH, {
+			message: "Password must be no more than 32 characters.",
+		}),
 });
 
 export const SigninForm: React.FC = () => {

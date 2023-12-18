@@ -11,8 +11,8 @@ export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 	userPerson,
 }) => {
 	return (
-		<Card>
-			<CardHeader className="relative">
+		<Card className="border-none hover:shadow-md transition-shadow">
+			<CardHeader>
 				<h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
 					{userPerson.person_attributes.full_name}
 				</h4>

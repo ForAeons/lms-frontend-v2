@@ -9,3 +9,9 @@ interface AppState {
 interface ManageUserState {
 	users: UserPersonAbility[];
 }
+
+interface BookState {
+	isFetching: boolean;
+	books: Book[];
+	meta: Meta;
+}
