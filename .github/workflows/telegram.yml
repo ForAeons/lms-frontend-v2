@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - master
-    types: [opened, closed, synchronize]
+    types: [closed, synchronize]
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
             <a href="https://github.com/${{ github.repository }}/commit/${{github.sha}}">See changes</a>
 
       - name: send telegram message on pull request
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
