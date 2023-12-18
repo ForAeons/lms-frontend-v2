@@ -16,7 +16,7 @@ export const BookSearchBar: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
 	};
 
 	return (
-		<form className="w-full flex gap-3" onSubmit={handleSubmit}>
+		<form className="flex-grow flex gap-3" onSubmit={handleSubmit}>
 			<Input
 				className="bg-accent border-none shadow-sm hover:shadow-md transition-shadow"
 				type="string"
@@ -24,7 +24,7 @@ export const BookSearchBar: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
 				value={searchValue}
 				onChange={(e) => setSearchValue(e.target.value)}
 			></Input>
-			<Button type="submit" variant="ghost" className="rounded-full">
+			<Button type="submit" variant="ghost" className="p-2 m-0 rounded-full">
 				<Search size={LG_ICON_SIZE} />
 			</Button>
 		</form>

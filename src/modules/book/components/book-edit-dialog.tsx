@@ -22,10 +22,9 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { useAppDispatch } from "@/store";
+import { updateBookThunk, useAppDispatch } from "@/store";
 import * as Constants from "@/constants";
 import { PencilIcon } from "lucide-react";
-import { updateBookThunk } from "@/store/thunks/book-thunk";
 
 const bookFormSchema = z.object({
 	title: z.string(),

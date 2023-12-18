@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { LoaderPage } from "@/modules";
-import { listBookThunk } from "@/store/thunks/book-thunk";
-import { useAppDispatch, useAppSelector } from "@/store";
+import { listBookThunk, useAppDispatch, useAppSelector } from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import {
@@ -11,6 +11,7 @@ import {
 	BookManageCard,
 	BookOrderBtn,
 	BookPagination,
+	BookSortBtn,
 	BookSearchBar,
 } from "..";
 
@@ -39,8 +40,11 @@ export const ManageBookPage: React.FC = () => {
 			<div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-3 px-3">
 				<div className="col-span-full flex gap-3">
 					<BookCreateDialog />
+					<Separator orientation="vertical" />
 					<BookOrderBtn cq={cq} />
 					<BookSearchBar cq={cq} />
+					<Separator orientation="vertical" />
+					<BookSortBtn cq={cq} />
 				</div>
 
 				{bookState.books.map((book) => {

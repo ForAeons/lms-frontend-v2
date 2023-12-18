@@ -6,3 +6,4 @@ export * from "./book-search-bar";
 export * from "./book-pagination";
 export * from "./book-order-btn";
 export * from "./book-manage-card";
+export * from "./book-query-bar";

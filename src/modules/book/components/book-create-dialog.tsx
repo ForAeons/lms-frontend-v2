@@ -22,10 +22,9 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { useAppDispatch } from "@/store";
+import { createBookThunk, useAppDispatch } from "@/store";
 import * as Constants from "@/constants";
 import { PlusIcon } from "lucide-react";
-import { createBookThunk } from "@/store/thunks/book-thunk";
 
 const bookFormSchema = z.object({
 	title: z.string(),
@@ -71,7 +70,7 @@ export const BookCreateDialog: React.FC = () => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="ghost" className="rounded-full">
+				<Button variant="ghost" className="p-2 m-0 rounded-full">
 					<PlusIcon size={Constants.LG_ICON_SIZE} />
 				</Button>
 			</DialogTrigger>

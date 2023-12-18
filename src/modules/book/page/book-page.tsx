@@ -1,8 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { LoaderPage } from "@/modules";
-import { useAppDispatch, useAppSelector } from "@/store";
-import { getBookThunk } from "@/store/thunks/book-thunk";
+import { getBookThunk, useAppDispatch, useAppSelector } from "@/store";
 import { toast } from "@/components/ui/use-toast";
 import { BookCard } from "..";
 import { ScrollArea } from "@/components/ui/scroll-area";

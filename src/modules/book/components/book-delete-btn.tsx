@@ -12,8 +12,7 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useAppDispatch } from "@/store";
-import { deleteBookThunk } from "@/store/thunks/book-thunk";
+import { deleteBookThunk, useAppDispatch } from "@/store";
 import { MD_ICON_SIZE } from "@/constants";
 
 export const BookDeleteBtn: React.FC<{ book: Book }> = ({ book }) => {

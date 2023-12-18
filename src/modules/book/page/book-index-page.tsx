@@ -1,12 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import { LoaderPage } from "@/modules";
 import { listBookThunk } from "@/store/thunks/book-thunk";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { BookCard, BookOrderBtn, BookPagination, BookSearchBar } from "..";
+import {
+	BookCard,
+	BookOrderBtn,
+	BookPagination,
+	BookSortBtn,
+	BookSearchBar,
+} from "..";
 
 export const BookIndexPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -36,6 +43,8 @@ export const BookIndexPage: React.FC = () => {
 				<div className="col-span-full flex gap-3">
 					<BookOrderBtn cq={cq} />
 					<BookSearchBar cq={cq} />
+					<Separator orientation="vertical" />
+					<BookSortBtn cq={cq} />
 				</div>
 
 				{bookState.books.map((book) => {
