@@ -2,18 +2,16 @@ import React from "react";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAppDispatch } from "@/store";
-import { listBookThunk } from "@/store/thunks/book-thunk";
-import { Query } from "@/util";
+import { useNavigate } from "react-router-dom";
+import { cqToUrl } from "@/util";
 
 export const BookSearchBar: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
-	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 	const [searchValue, setSearchValue] = React.useState("");
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const handleSubmit = () => {
 		cq.filters.title = searchValue;
-		if (searchValue.length >= 1) dispatch(listBookThunk({ q: new Query(cq) }));
+		navigate(`?${cqToUrl(cq)}`);
 	};
 
 	return (

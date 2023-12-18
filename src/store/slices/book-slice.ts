@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "@/components/ui/use-toast";
 import {
 	createBookThunk,
@@ -6,35 +6,20 @@ import {
 	listBookThunk,
 	updateBookThunk,
 } from "../thunks/book-thunk";
-import * as Constants from "@/constants";
 
 const initialState: BookState = {
 	isFetching: true,
 	books: [],
-	offset: Constants.MINIMUM_PAGE_OFFSET,
-	limit: Constants.MINIMUM_PAGE_LIMIT,
+	meta: {
+		total_count: 0,
+		filtered_count: 0,
+	},
 };
 
 export const bookSlice = createSlice({
 	name: "book",
 	initialState: initialState,
-	reducers: {
-		setOffSet: (state, action: PayloadAction<number>) => {
-			if (action.payload < Constants.MINIMUM_PAGE_OFFSET) {
-				state.offset = Constants.MINIMUM_PAGE_OFFSET;
-				return;
-			}
-			state.offset = action.payload;
-		},
-		setLimit: (state, action: PayloadAction<number>) => {
-			if (action.payload < Constants.MINIMUM_PAGE_LIMIT) {
-				state.limit = Constants.MINIMUM_PAGE_LIMIT;
-				return;
-			}
-			state.limit = action.payload;
-		},
-	},
-
+	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(createBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
@@ -52,7 +37,9 @@ export const bookSlice = createSlice({
 
 		builder.addCase(listBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
-			state.books = action.payload;
+			if (!action.payload.data || !action.payload.meta) return;
+			state.books = action.payload.data;
+			state.meta = action.payload.meta;
 			state.isFetching = false;
 		});
 

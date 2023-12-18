@@ -13,6 +13,5 @@ interface ManageUserState {
 interface BookState {
 	isFetching: boolean;
 	books: Book[];
-	offset: number;
-	limit: number;
+	meta: Meta;
 }

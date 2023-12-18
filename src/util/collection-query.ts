@@ -1,49 +1,28 @@
 /**
- * CollectionQuery
- * @property offset - the offset
- * @property limit - the limit
- * @property sortBy - the sortBy
- * @property order - the order
- * @property filters - the filters, an object of key-value pairs. The key is the field name and the value is the value to filter by.
+ * @param cq CollectionQuery object
+ * @returns serialized query string
  */
-export class Query implements CollectionQuery {
-	offset: number;
-	limit: number;
-	sortBy: string;
-	orderBy: string;
-	filters: Filters;
+export const cqToUrl = ({
+	offset = 0,
+	limit = 10,
+	sortBy = "id",
+	orderBy = "asc",
+	filters = {},
+}: CollectionQuery): string => {
+	let query = `offset=${offset}&limit=${limit}&sortBy=${sortBy}&orderBy=${orderBy}`;
 
-	constructor({
-		offset = 0,
-		limit = 10,
-		sortBy = "id",
-		orderBy: order = "asc",
-		filters = {},
-	}: CollectionQuery) {
-		this.offset = offset;
-		this.limit = limit;
-		this.sortBy = sortBy;
-		this.orderBy = order;
-		this.filters = filters;
-	}
-
-	// @Override
-	toString() {
-		let query = `offset=${this.offset}&limit=${this.limit}&sortBy=${this.sortBy}&orderBy=${this.orderBy}`;
-
-		for (const [key, value] of Object.entries(this.filters)) {
-			if (!Array.isArray(value)) {
-				query += `&filter[${key}]=${value}`;
-				continue;
-			}
-
-			if (value.length === 0) {
-				continue;
-			}
-
-			query += `&filter[${key}]=${value.join(",")}`;
+	for (const [key, value] of Object.entries(filters)) {
+		if (!Array.isArray(value)) {
+			query += `&filter[${key}]=${value}`;
+			continue;
 		}
 
-		return query;
+		if (value.length === 0) {
+			continue;
+		}
+
+		query += `&filter[${key}]=${value.join(",")}`;
 	}
-}
+
+	return query;
+};

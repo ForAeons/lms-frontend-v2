@@ -1,4 +1,3 @@
-import { Query } from "@/util";
 import { BaseApi } from "./base";
 import { BookRoutes } from "./backend-routes";
 
@@ -33,7 +32,7 @@ class BookApi extends BaseApi {
 		);
 	};
 
-	public ListBook = (q: Query, abortSignal?: AbortSignal) => {
+	public ListBook = (q: CollectionQuery, abortSignal?: AbortSignal) => {
 		return this.Get<Book[]>(
 			`${BookRoutes.BASE}?${BookRoutes.LIST.DYNAMIC_ROUTE(q)}`,
 			abortSignal,

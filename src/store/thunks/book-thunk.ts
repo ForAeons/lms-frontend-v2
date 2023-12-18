@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { bookApi } from "@/api";
-import { Query } from "@/util";
 
 export const getBookThunk = createAsyncThunk(
 	"book/get",
@@ -36,8 +35,8 @@ export const deleteBookThunk = createAsyncThunk(
 
 export const listBookThunk = createAsyncThunk(
 	"book/list",
-	async (action: { q: Query; signal?: AbortSignal }) => {
+	async (action: { q: CollectionQuery; signal?: AbortSignal }) => {
 		const res = await bookApi.ListBook(action.q);
-		return res?.data;
+		return res;
 	},
 );
