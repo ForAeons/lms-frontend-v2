@@ -8,6 +8,7 @@ import {
 } from "../thunks";
 
 const initialState: ManageUserState = {
+	isFetching: false,
 	users: [],
 };
 
@@ -16,14 +17,22 @@ export const userSlice = createSlice({
 	initialState: initialState,
 	reducers: {},
 	extraReducers: (builder) => {
+		builder.addCase(searchUsersThunk.pending, (state) => {
+			state.isFetching = true;
+		});
+
 		builder.addCase(searchUsersThunk.fulfilled, (state, action) => {
-			if (action.payload) {
-				state.users = action.payload;
-			}
+			if (!action.payload) return;
+			state.users = action.payload;
+			state.isFetching = false;
+		});
+
+		builder.addCase(searchUsersThunk.rejected, (state) => {
+			state.isFetching = false;
 		});
 
 		builder.addCase(createUserThunk.fulfilled, (state, action) => {
-			state.users.map((u) =>
+			state.users = state.users.map((u) =>
 				u.id === action.payload?.id ? action.payload : u,
 			);
 			toast({
@@ -33,7 +42,7 @@ export const userSlice = createSlice({
 		});
 
 		builder.addCase(updateUserThunk.fulfilled, (state, action) => {
-			state.users.map((u) =>
+			state.users = state.users.map((u) =>
 				u.id === action.payload?.id ? action.payload : u,
 			);
 			toast({
@@ -43,7 +52,7 @@ export const userSlice = createSlice({
 		});
 
 		builder.addCase(deleteUserThunk.fulfilled, (state, action) => {
-			state.users.filter((u) => u.id !== action.payload?.id);
+			state.users = state.users.filter((u) => u.id !== action.payload?.id);
 			toast({
 				title: "Success",
 				description: "User deleted successfully",

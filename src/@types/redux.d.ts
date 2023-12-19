@@ -7,6 +7,7 @@ interface AppState {
 }
 
 interface ManageUserState {
+	isFetching: boolean;
 	users: UserPersonAbility[];
 }
 
@@ -18,4 +19,18 @@ interface BookState {
 	book: BookDetailed | null;
 	bookStatus: bookStatus;
 	meta: Meta;
+}
+
+/**
+ * Holds the state of books that are borrowed by the user.
+ * Exact book should contain exactly one Loan object.
+ */
+interface LoanState {
+	isFetching: boolean;
+	books: BookDetailed[];
+}
+
+interface reservationState {
+	isFetching: boolean;
+	books: BookDetailed[];
 }

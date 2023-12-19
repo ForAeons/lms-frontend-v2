@@ -3,7 +3,7 @@ import { BookRoutes, ReservationRoutes } from "./backend-routes";
 
 class ReservationApi extends BaseApi {
 	public ListReservation = (q: CollectionQuery, abortSignal?: AbortSignal) => {
-		return this.Get<Reservation[]>(
+		return this.Get<BookDetailed[]>(
 			`${ReservationRoutes.BASE}?${ReservationRoutes.LIST.DYNAMIC_ROUTE(q)}`,
 			abortSignal,
 		);

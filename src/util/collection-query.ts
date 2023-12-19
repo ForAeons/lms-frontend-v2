@@ -1,5 +1,21 @@
 import { NavigateFunction } from "react-router-dom";
 
+export const newCollectionQuery = ({
+	offset = 0,
+	limit = 10,
+	sortBy = "id",
+	orderBy = "asc",
+	filters = {},
+}): CollectionQuery => {
+	return {
+		offset,
+		limit,
+		sortBy,
+		orderBy,
+		filters,
+	};
+};
+
 /**
  * @param cq CollectionQuery object
  * @returns serialized query string

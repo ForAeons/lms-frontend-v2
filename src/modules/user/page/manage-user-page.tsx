@@ -2,9 +2,13 @@ import React from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAppSelector } from "@/store";
 import { UserCreateDialog, UserPersonCard, UserSearchBar } from "..";
+import { LoaderPage } from "@/modules";
 
 export const ManageUserPage: React.FC = () => {
-	const userState = useAppSelector((s) => s.user.users);
+	const userState = useAppSelector((s) => s.user);
+
+	if (userState.isFetching) return <LoaderPage />;
+
 	return (
 		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
 			<div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-3 px-3">
@@ -12,7 +16,7 @@ export const ManageUserPage: React.FC = () => {
 					<UserCreateDialog />
 					<UserSearchBar />
 				</div>
-				{userState.map((u) => {
+				{userState.users.map((u) => {
 					return <UserPersonCard key={u.username} userPerson={u} />;
 				})}
 			</div>

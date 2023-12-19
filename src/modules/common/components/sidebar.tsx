@@ -99,21 +99,21 @@ export const Sidebar: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => {
 								<Button
 									variant="ghost"
 									className="w-full justify-start"
-									onClick={() => navigate("/reservation")}
+									onClick={() => navigate("/loan")}
 								>
-									<BookLockIcon size={MD_ICON_SIZE} />
-									<p className="ml-3">Reservation</p>
-									<span className="sr-only">Reservation resources</span>
+									<BookDownIcon size={MD_ICON_SIZE} />
+									<p className="ml-3">My Loan</p>
+									<span className="sr-only">Loan resources</span>
 								</Button>
 
 								<Button
 									variant="ghost"
 									className="w-full justify-start"
-									onClick={() => navigate("/loan")}
+									onClick={() => navigate("/reservation")}
 								>
-									<BookDownIcon size={MD_ICON_SIZE} />
-									<p className="ml-3">Loan</p>
-									<span className="sr-only">Loan resources</span>
+									<BookLockIcon size={MD_ICON_SIZE} />
+									<p className="ml-3">My Reservation</p>
+									<span className="sr-only">Reservation resources</span>
 								</Button>
 
 								<Button
@@ -122,7 +122,7 @@ export const Sidebar: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => {
 									onClick={() => navigate("/fine")}
 								>
 									<WalletIcon size={MD_ICON_SIZE} />
-									<p className="ml-3">Fine</p>
+									<p className="ml-3">My Fine</p>
 									<span className="sr-only">Fine resources</span>
 								</Button>
 							</>
