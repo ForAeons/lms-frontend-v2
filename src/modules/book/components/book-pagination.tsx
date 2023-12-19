@@ -32,7 +32,7 @@ export const BookPagination: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
 	const currentPage = Math.ceil(cq.offset / cq.limit) + 1;
 
 	return (
-		<div className="flex justify-between items-center py-3 gap-3">
+		<div className="col-span-full flex flex-wrap justify-around items-center py-3 gap-3">
 			<div className="flex items-center space-x-2">
 				<span className="text-sm text-muted-foreground">Items per page</span>
 				<Select
@@ -52,7 +52,7 @@ export const BookPagination: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
 				</Select>
 			</div>
 
-			<span className="text-sm text-muted-foreground">{`Page ${currentPage} of ${totalPages}`}</span>
+			<span className="text-sm text-muted-foreground text-center">{`Page ${currentPage} of ${totalPages}`}</span>
 
 			<div>
 				<Button

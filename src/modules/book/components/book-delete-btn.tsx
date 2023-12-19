@@ -12,8 +12,7 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useAppDispatch } from "@/store";
-import { deleteBookThunk } from "@/store/thunks/book-thunk";
+import { deleteBookThunk, useAppDispatch } from "@/store";
 import { MD_ICON_SIZE } from "@/constants";
 
 export const BookDeleteBtn: React.FC<{ book: Book }> = ({ book }) => {
@@ -23,7 +22,10 @@ export const BookDeleteBtn: React.FC<{ book: Book }> = ({ book }) => {
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger>
-				<Button variant="ghost" className="rounded-full">
+				<Button
+					variant="ghost"
+					className="hover:bg-transparent hover:opacity-50 transition-opacity"
+				>
 					<TrashIcon className="text-destructive" size={MD_ICON_SIZE} />
 				</Button>
 			</AlertDialogTrigger>

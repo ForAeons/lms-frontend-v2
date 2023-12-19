@@ -1,22 +1,22 @@
-// type Loan struct {
-// 	gorm.Model
-
-// 	UserID        uint          `gorm:"not null"`
-// 	BookID        uint          `gorm:"not null"`
-// 	Status        LoanStatus    `gorm:"not null"`
-// 	BorrowDate    time.Time     `gorm:"not null"` // Date when the book is borrowed
-// 	DueDate       time.Time     `gorm:"not null"` // Date when the book is due
-// 	ReturnDate    sql.NullTime  // Date when the book is returned
-// 	LoanHistories []LoanHistory `gorm:"->;<-:create"`
-// 	Fines         []Fine        `gorm:"->;<-:create"`
-// }
+type loanStatus = "borrowed" | "returned";
 
 interface Loan {
 	id: number;
-	userId: number;
-	bookId: number;
-	status: string;
-	borrowDate: string;
-	dueDate: string;
-	returnDate: string;
+	user_id: number;
+	book_id: number;
+	status: loanStatus;
+	borrow_date: string;
+	due_date: string;
+	return_date: string;
+}
+
+interface LoanHistories {
+	id: number;
+	loan_id: number;
+	action: string;
+}
+
+interface LoanDetailed extends Loan {
+	loan_histories: LoanHistories[];
+	fines: Fine[];
 }
