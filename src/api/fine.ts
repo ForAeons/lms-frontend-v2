@@ -22,4 +22,4 @@ class FineApi extends BaseApi {
 	};
 }
 
-export const bookApi = new FineApi();
+export const fineApi = new FineApi();

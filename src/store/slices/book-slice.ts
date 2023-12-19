@@ -5,6 +5,8 @@ import {
 	deleteBookThunk,
 	getBookThunk,
 	listBookThunk,
+	loanBookThunk,
+	reserveBookThunk,
 	updateBookThunk,
 } from "../thunks/book-thunk";
 
@@ -12,6 +14,7 @@ const initialState: BookState = {
 	isFetching: true,
 	books: [],
 	book: null,
+	bookStatus: "unknown",
 	meta: {
 		total_count: 0,
 		filtered_count: 0,
@@ -77,7 +80,44 @@ export const bookSlice = createSlice({
 		builder.addCase(getBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.book = action.payload;
+
+			if (
+				action.payload.loans.length > 0 &&
+				action.payload.loans.at(-1)!.status === "borrowed"
+			) {
+				state.bookStatus = "borrowed";
+			} else if (
+				action.payload.reservations.length > 0 &&
+				action.payload.reservations.at(-1)!.status === "pending"
+			) {
+				state.bookStatus = "reserved";
+			} else {
+				state.bookStatus = "available";
+			}
+
 			state.isFetching = false;
+		});
+
+		builder.addCase(loanBookThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
+			state.bookStatus = "borrowed";
+			toast({
+				title: "Success",
+				description: `"${state.book!.title}" loaned successfully. Due date: ${
+					action.payload.due_date
+				}`,
+			});
+		});
+
+		builder.addCase(reserveBookThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
+			state.bookStatus = "reserved";
+			toast({
+				title: "Success",
+				description: `"${state.book!.title}" reserved successfully. "${
+					state.book!.title
+				}" will be reserved until ${action.payload.reservation_date}`,
+			});
 		});
 	},
 });

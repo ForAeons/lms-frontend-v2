@@ -6,7 +6,6 @@ import {
 	BookIcon,
 	BookDownIcon,
 	WalletIcon,
-	BookCheckIcon,
 	UserCogIcon,
 	BookKeyIcon,
 	LibraryBigIcon,
@@ -15,6 +14,7 @@ import {
 	Sun,
 	Moon,
 	HomeIcon,
+	BookLockIcon,
 } from "lucide-react";
 import {
 	Dialog,
@@ -116,7 +116,7 @@ export const SidebarMobileBtn: React.FC = () => {
 												className="w-full justify-start"
 												onClick={() => navigate("/reservation")}
 											>
-												<BookDownIcon size={MD_ICON_SIZE} />
+												<BookLockIcon size={MD_ICON_SIZE} />
 												<p className="ml-3">Reservation</p>
 												<span className="sr-only">Reservation resources</span>
 											</Button>
@@ -126,7 +126,7 @@ export const SidebarMobileBtn: React.FC = () => {
 												className="w-full justify-start"
 												onClick={() => navigate("/loan")}
 											>
-												<BookCheckIcon size={MD_ICON_SIZE} />
+												<BookDownIcon size={MD_ICON_SIZE} />
 												<p className="ml-3">Loan</p>
 												<span className="sr-only">Loan resources</span>
 											</Button>
@@ -210,11 +210,11 @@ export const SidebarMobileBtn: React.FC = () => {
 									<div className="relative flex">
 										<Sun
 											size={MD_ICON_SIZE}
-											className="rotate-0 scale-100 dark:-rotate-90 dark:scale-0"
+											className="transition-all rotate-0 scale-100 dark:-rotate-90 dark:scale-0"
 										/>
 										<Moon
 											size={MD_ICON_SIZE}
-											className="absolute rotate-90 scale-0 dark:rotate-0 dark:scale-100"
+											className="absolute transition-all rotate-90 scale-0 dark:rotate-0 dark:scale-100"
 										/>
 										<span className="sr-only">Toggle theme</span>
 									</div>

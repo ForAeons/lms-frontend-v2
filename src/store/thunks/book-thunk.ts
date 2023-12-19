@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { bookApi } from "@/api";
+import { bookApi, loanApi, reservationApi } from "@/api";
 
 export const getBookThunk = createAsyncThunk(
 	"book/get",
@@ -38,5 +38,21 @@ export const listBookThunk = createAsyncThunk(
 	async (action: { q: CollectionQuery; signal?: AbortSignal }) => {
 		const res = await bookApi.ListBook(action.q);
 		return res;
+	},
+);
+
+export const loanBookThunk = createAsyncThunk(
+	"book/loan",
+	async (action: { bookID: number; signal?: AbortSignal }) => {
+		const res = await loanApi.LoanBook(action.bookID);
+		return res?.data;
+	},
+);
+
+export const reserveBookThunk = createAsyncThunk(
+	"book/reserve",
+	async (action: { bookID: number; signal?: AbortSignal }) => {
+		const res = await reservationApi.ReserveBook(action.bookID);
+		return res?.data;
 	},
 );

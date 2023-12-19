@@ -45,4 +45,4 @@ class LoanApi extends BaseApi {
 	};
 }
 
-export const bookApi = new LoanApi();
+export const loanApi = new LoanApi();

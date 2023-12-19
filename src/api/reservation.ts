@@ -10,7 +10,7 @@ class ReservationApi extends BaseApi {
 	};
 
 	public ReserveBook = (bookId: number, abortSignal?: AbortSignal) => {
-		return this.Post<null, LoanDetailed>(
+		return this.Post<null, Reservation>(
 			`${BookRoutes.BASE}/${bookId}/${ReservationRoutes.BASE}/`,
 			null,
 			abortSignal,
@@ -60,4 +60,4 @@ class ReservationApi extends BaseApi {
 	};
 }
 
-export const bookApi = new ReservationApi();
+export const reservationApi = new ReservationApi();

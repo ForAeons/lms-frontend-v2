@@ -1,18 +1,15 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 
-export const BookBadge: React.FC<{ book: BookDetailed }> = ({ book }) => {
-	if (book.loans.length > 0 && book.loans.at(-1)?.status === "borrowed")
+export const BookBadge: React.FC<{ status: bookStatus }> = ({ status }) => {
+	if (status === "borrowed")
 		return (
 			<Badge variant="destructive" className="w-fit">
 				On loan
 			</Badge>
 		);
 
-	if (
-		book.reservations.length > 0 &&
-		book.reservations.at(-1)?.status === "pending"
-	)
+	if (status === "reserved")
 		return (
 			<Badge variant="destructive" className="w-fit">
 				Reserved
