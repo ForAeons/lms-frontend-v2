@@ -1,19 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { LoaderPage } from "@/modules";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import {
+	LoaderPage,
+	OrderBtn,
+	PaginationBar,
+	SearchBar,
+	SortSelect,
+} from "@/modules";
 import { listBookThunk, useAppDispatch, useAppSelector } from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import {
-	BookCreateDialog,
-	BookManageCard,
-	BookOrderBtn,
-	BookPagination,
-	BookSortBtn,
-	BookSearchBar,
-} from "..";
+import { BookCard, BookCreateDialog } from "..";
+import { BOOK_SORT_OPTIONS } from "@/constants";
 
 export const ManageBookPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -37,22 +37,23 @@ export const ManageBookPage: React.FC = () => {
 
 	return (
 		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
-			<div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-3 px-3">
-				<div className="col-span-full flex gap-3">
+			<div className="w-full grid grid-cols-1 gap-3 px-3">
+				<div className="flex gap-3">
 					<BookCreateDialog />
 					<Separator orientation="vertical" />
-					<BookOrderBtn cq={cq} />
-					<BookSearchBar cq={cq} />
+					<OrderBtn cq={cq} />
+					<SearchBar cq={cq} />
 					<Separator orientation="vertical" />
-					<BookSortBtn cq={cq} />
+					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
 				</div>
 
 				{bookState.books.map((book) => {
-					return <BookManageCard key={book.isbn} book={book} />;
+					return <BookCard key={book.isbn} book={book} editable />;
 				})}
 
-				<BookPagination cq={cq} />
+				<PaginationBar cq={cq} total={bookState.meta.filtered_count} />
 			</div>
+			<ScrollBar />
 		</ScrollArea>
 	);
 };

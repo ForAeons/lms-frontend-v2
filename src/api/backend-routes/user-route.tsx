@@ -1,10 +1,12 @@
+import { cqToUrl } from "@/util";
+
 export const UserRoutes = {
 	BASE: "user",
 	GET_CURRENT_USER: {
 		ROUTE: "current",
 	},
-	SEARCH_USER: {
-		DYNAMIC_ROUTE: (username: string) => `filter[username]=${username}`,
+	LIST: {
+		DYNAMIC_ROUTE: (q: CollectionQuery) => cqToUrl(q),
 	},
 	SPECIFIC_USER: {
 		DYNAMIC_ROUTE: (id: number) => `${id}`,

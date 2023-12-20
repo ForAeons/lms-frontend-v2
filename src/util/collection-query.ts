@@ -1,5 +1,21 @@
 import { NavigateFunction } from "react-router-dom";
 
+export const newCollectionQuery = ({
+	offset = 0,
+	limit = 10,
+	sortBy = "id",
+	orderBy = "asc",
+	filters = {},
+}): CollectionQuery => {
+	return {
+		offset,
+		limit,
+		sortBy,
+		orderBy,
+		filters,
+	};
+};
+
 /**
  * @param cq CollectionQuery object
  * @returns serialized query string
@@ -116,6 +132,20 @@ export const changeSort = (
 	absoluteUrl?: string,
 ) => {
 	const ncq = { ...cq, sortBy };
+	if (absoluteUrl) {
+		navigate(`${absoluteUrl}?${cqToUrl(ncq)}`);
+		return;
+	}
+	navigate(`?${cqToUrl(ncq)}`);
+};
+
+export const changeFilter = (
+	navigate: NavigateFunction,
+	cq: CollectionQuery,
+	filters: Filters,
+	absoluteUrl?: string,
+) => {
+	const ncq = { ...cq, filters };
 	if (absoluteUrl) {
 		navigate(`${absoluteUrl}?${cqToUrl(ncq)}`);
 		return;

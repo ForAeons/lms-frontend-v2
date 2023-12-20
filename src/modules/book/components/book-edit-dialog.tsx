@@ -22,9 +22,8 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+import { EditBtn } from "@/modules";
 import { updateBookThunk, useAppDispatch } from "@/store";
-import * as Constants from "@/constants";
-import { PencilIcon } from "lucide-react";
 
 const bookFormSchema = z.object({
 	title: z.string(),
@@ -73,12 +72,9 @@ export const BookEditDialog: React.FC<{
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button
-					variant="ghost"
-					className="hover:bg-transparent hover:opacity-50 transition-opacity"
-				>
-					<PencilIcon className="text-primary" size={Constants.MD_ICON_SIZE} />
-				</Button>
+				<div>
+					<EditBtn />
+				</div>
 			</DialogTrigger>
 			<DialogContent className="p-0">
 				<ScrollArea className="max-h-[70vh]">

@@ -9,6 +9,18 @@ class ReservationApi extends BaseApi {
 		);
 	};
 
+	public ListBookReservation = (
+		q: CollectionQuery,
+		abortSignal?: AbortSignal,
+	) => {
+		return this.Get<BookReservation[]>(
+			`${ReservationRoutes.BASE}/${
+				BookRoutes.BASE
+			}?${ReservationRoutes.LIST.DYNAMIC_ROUTE(q)}`,
+			abortSignal,
+		);
+	};
+
 	public ReserveBook = (bookId: number, abortSignal?: AbortSignal) => {
 		return this.Post<null, Reservation>(
 			`${BookRoutes.BASE}/${bookId}/${ReservationRoutes.BASE}/`,

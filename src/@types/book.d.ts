@@ -39,3 +39,12 @@ interface BookDetailed extends Book {
 	loans: LoanDetailed[];
 	reservations: Reservation[];
 }
+
+interface BookLoan extends Book {
+	loan: Loan;
+	user: UserPerson;
+}
+
+interface BookReservation extends Book {
+	reservation: Reservation;
+}

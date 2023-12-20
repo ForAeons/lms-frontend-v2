@@ -9,6 +9,15 @@ class LoanApi extends BaseApi {
 		);
 	};
 
+	public ListBookLoan = (q: CollectionQuery, abortSignal?: AbortSignal) => {
+		return this.Get<BookLoan[]>(
+			`${LoanRoutes.BASE}/${BookRoutes.BASE}?${LoanRoutes.LIST.DYNAMIC_ROUTE(
+				q,
+			)}`,
+			abortSignal,
+		);
+	};
+
 	public LoanBook = (bookId: number, abortSignal?: AbortSignal) => {
 		return this.Post<null, LoanDetailed>(
 			`${BookRoutes.BASE}/${bookId}/${LoanRoutes.BASE}/`,

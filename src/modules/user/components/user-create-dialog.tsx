@@ -22,10 +22,9 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { emailPattern, passwordPattern } from "@/constants";
 import { useAppDispatch, createUserThunk } from "@/store";
+import { CreateBtn } from "@/modules";
 import * as Constants from "@/constants";
-import { PlusIcon } from "lucide-react";
 
 const formSchema = z
 	.object({
@@ -39,13 +38,13 @@ const formSchema = z
 			}),
 		email: z
 			.string()
-			.regex(emailPattern, {
+			.regex(Constants.emailPattern, {
 				message: "Invalid email format.",
 			})
 			.optional(),
 		password: z
 			.string()
-			.regex(passwordPattern, {
+			.regex(Constants.passwordPattern, {
 				message:
 					"Password must include at least one lowercase and uppercase letter, a number, and a special character (!@#$%^&*).",
 			})
@@ -95,9 +94,9 @@ export const UserCreateDialog: React.FC = () => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="ghost" className="rounded-full">
-					<PlusIcon size={Constants.LG_ICON_SIZE} />
-				</Button>
+				<div>
+					<CreateBtn subject="user" />
+				</div>
 			</DialogTrigger>
 			<DialogContent className="max-h-[75vh] p-0">
 				<ScrollArea className="max-h-[70vh]">

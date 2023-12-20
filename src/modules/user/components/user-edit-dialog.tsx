@@ -25,7 +25,7 @@ import {
 import { emailPattern, passwordPattern } from "@/constants";
 import { useAppDispatch, updateUserThunk } from "@/store";
 import * as Constants from "@/constants";
-import { PencilIcon } from "lucide-react";
+import { EditBtn } from "@/modules";
 
 const formSchema = z.object({
 	username: z
@@ -95,9 +95,9 @@ export const UserEditDialog: React.FC<{
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="ghost" className="rounded-full">
-					<PencilIcon className="text-primary" size={Constants.MD_ICON_SIZE} />
-				</Button>
+				<div>
+					<EditBtn />
+				</div>
 			</DialogTrigger>
 			<DialogContent className="max-h-[70%] p-0">
 				<ScrollArea className="max-h-[70%]">

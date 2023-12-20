@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { CircleIcon } from "lucide-react";
+import { ChevronsRightIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
 
@@ -28,7 +28,7 @@ export const DraggableNavButton: React.FC = () => {
 			onClick={handleClick}
 		>
 			<Button className="rounded-xl p-2 m-0 transition-opacity opacity-20 hover:opacity-50">
-				<CircleIcon size={LG_ICON_SIZE} />
+				<ChevronsRightIcon size={LG_ICON_SIZE} />
 			</Button>
 		</motion.div>
 	);

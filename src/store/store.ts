@@ -7,6 +7,7 @@ export const store = configureStore({
 		app: Slices.appSlice.reducer,
 		user: Slices.userSlice.reducer,
 		book: Slices.bookSlice.reducer,
+		loan: Slices.loanSlice.reducer,
 	},
 });
 

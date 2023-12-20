@@ -48,6 +48,10 @@ export const bookSlice = createSlice({
 			state.isFetching = false;
 		});
 
+		builder.addCase(listBookThunk.rejected, (state) => {
+			state.isFetching = false;
+		});
+
 		builder.addCase(updateBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.books = state.books.map((book) => {

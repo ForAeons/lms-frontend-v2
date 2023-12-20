@@ -16,11 +16,30 @@ export const MAXIMUM_PASSWORD_LENGTH = 32;
 
 export const CQ_LIMITS = [10, 25, 50, 100];
 
-export const BOOK_SORTERS = [
-	{ value: "id", label: "ID" },
+export const USER_SORT_OPTIONS: SortOption[] = [
+	{ value: "username", label: "Username" },
+	{ value: "email", label: "Email" },
+	{ value: "full_name", label: "Full name" },
+	{ value: "preferred_name", label: "Preferred name" },
+	{ value: "created_at", label: "Date of creation" },
+];
+
+export const BOOK_SORT_OPTIONS: SortOption[] = [
 	{ value: "title", label: "Title" },
 	{ value: "author", label: "Author" },
 	{ value: "isbn", label: "ISBN" },
 	{ value: "publisher", label: "Publisher" },
 	{ value: "publication_date", label: "Publication date" },
+	{ value: "created_at", label: "Date of creation" },
+];
+
+export const LOAN_SORT_OPTIONS: SortOption[] = [
+	{ value: "borrow_date", label: "Borrow date" },
+	{ value: "due_date", label: "Due date" },
+	{ value: "created_at", label: "Date of creation" },
+];
+
+export const LOAN_FILTER_OPTIONS: FilterOption[] = [
+	{ label: "Borrowed", key: "status", value: "borrowed" },
+	{ label: "Returned", key: "status", value: "returned" },
 ];

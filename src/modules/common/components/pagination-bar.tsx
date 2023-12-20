@@ -22,14 +22,17 @@ import {
 	previousPage,
 } from "@/util";
 import { MD_ICON_SIZE, CQ_LIMITS } from "@/constants";
-import { useAppSelector } from "@/store";
 
-export const BookPagination: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
-	const bookState = useAppSelector((s) => s.book);
+export const PaginationBar: React.FC<{
+	cq: CollectionQuery;
+	total: number;
+}> = ({ cq, total }) => {
 	const navigate = useNavigate();
 
-	const totalPages = Math.ceil(bookState.meta.filtered_count / cq.limit);
-	const currentPage = Math.ceil(cq.offset / cq.limit) + 1;
+	let totalPages = Math.ceil(total / cq.limit);
+	let currentPage = Math.ceil(cq.offset / cq.limit) + 1;
+	if (isNaN(currentPage)) currentPage = 1;
+	if (isNaN(totalPages)) totalPages = 1;
 
 	return (
 		<div className="col-span-full flex flex-wrap justify-around items-center py-3 gap-3">
@@ -80,7 +83,7 @@ export const BookPagination: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
 				<Button
 					variant="ghost"
 					disabled={currentPage === totalPages}
-					onClick={() => lastPage(navigate, cq, bookState.meta.filtered_count)}
+					onClick={() => lastPage(navigate, cq, total)}
 				>
 					<ChevronsRightIcon size={MD_ICON_SIZE} />
 				</Button>
