@@ -1,10 +1,5 @@
 import React from "react";
-import {
-	Card,
-	CardContent,
-	CardFooter,
-	CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { UserDeleteBtn, UserEditDialog } from ".";
 
 export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
@@ -12,7 +7,11 @@ export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 }) => {
 	return (
 		<Card className="border-none hover:shadow-md transition-shadow">
-			<CardHeader>
+			<CardHeader className="relative">
+				<div className="absolute right-0 flex flex-col">
+					<UserEditDialog userPerson={userPerson} />
+					<UserDeleteBtn userPerson={userPerson} />
+				</div>
 				<h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
 					{userPerson.person_attributes.full_name}
 				</h4>
@@ -32,10 +31,6 @@ export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 					User ID: {userPerson.id}
 				</p>
 			</CardContent>
-			<CardFooter className="flex justify-between gap-3">
-				<UserEditDialog userPerson={userPerson} />
-				<UserDeleteBtn userPerson={userPerson} />
-			</CardFooter>
 		</Card>
 	);
 };

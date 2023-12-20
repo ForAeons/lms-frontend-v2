@@ -18,7 +18,7 @@ export const getLimit = (p: URLSearchParams): number => {
 
 export const getSortBy = (p: URLSearchParams): string => {
 	const sortBy = p.get("sortBy");
-	if (!sortBy) return "id";
+	if (!sortBy) return "created_at";
 	return sortBy;
 };
 

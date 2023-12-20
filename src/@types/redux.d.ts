@@ -8,7 +8,8 @@ interface AppState {
 
 interface ManageUserState {
 	isFetching: boolean;
-	users: UserPersonAbility[];
+	users: UserPerson[];
+	meta: Meta;
 }
 
 type bookStatus = "available" | "reserved" | "borrowed" | "unknown";
@@ -27,10 +28,11 @@ interface BookState {
  */
 interface LoanState {
 	isFetching: boolean;
-	books: BookDetailed[];
+	books: BookLoan[];
+	meta: Meta;
 }
 
 interface reservationState {
 	isFetching: boolean;
-	books: BookDetailed[];
+	books: BookReservation[];
 }

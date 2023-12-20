@@ -7,26 +7,26 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { changeSort } from "@/util";
-import { BOOK_SORTERS } from "@/constants";
+import { changeFilter } from "@/util";
+import { LOAN_FILTER_OPTIONS } from "@/constants";
 
-export const BookSortBtn: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
+export const LoanFilterSelect: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
 	const navigate = useNavigate();
 
 	return (
 		<div className="flex items-center space-x-2">
 			<span className="text-sm text-muted-foreground whitespace-nowrap">
-				Sort by
+				Filter by
 			</span>
 			<Select
-				value={String(cq.sortBy)}
-				onValueChange={(v) => changeSort(navigate, cq, v)}
+				value={cq.filters.status as string}
+				onValueChange={(v) => changeFilter(navigate, cq, { status: v })}
 			>
-				<SelectTrigger className="h-8 w-[100px]">
+				<SelectTrigger className="h-8 w-fit">
 					<SelectValue placeholder={cq.sortBy} />
 				</SelectTrigger>
 				<SelectContent>
-					{BOOK_SORTERS.map((s) => (
+					{LOAN_FILTER_OPTIONS.map((s) => (
 						<SelectItem key={s.label} value={s.value}>
 							{s.label}
 						</SelectItem>

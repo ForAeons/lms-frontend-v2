@@ -45,7 +45,7 @@ describe("URLSearchParams Utility Functions", () => {
 
 		it("should return default sortBy for missing value", () => {
 			const params = new URLSearchParams("");
-			expect(getSortBy(params)).toBe("id");
+			expect(getSortBy(params)).toBe("created_at");
 		});
 	});
 

@@ -1,28 +1,30 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { LoaderPage, PaginationBar } from "@/modules";
 import { useQueryParams } from "@/hooks";
-import { listBookLoanThunk, useAppDispatch, useAppSelector } from "@/store";
+import {
+	LoaderPage,
+	OrderBtn,
+	PaginationBar,
+	SearchBar,
+	SortSelect,
+} from "@/modules";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { LoanBookCard } from "..";
+import { listBookLoanThunk, useAppDispatch, useAppSelector } from "@/store";
+import { LOAN_SORT_OPTIONS } from "@/constants";
+import { LoanBookCard, LoanFilterSelect } from "..";
 
-export const LoanPage: React.FC = () => {
+export const ManageLoanPage: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const loanState = useAppSelector((state) => state.loan);
-	const userID = useAppSelector((s) => s.app.user?.id);
+	const loanState = useAppSelector((s) => s.loan);
 	const navigate = useNavigate();
 	const queryParams = useQueryParams();
 	const cq = getCollectionQuery(queryParams);
 
-	// This page, user can only see their own loans
+	if (!cq.filters.status) cq.filters.status = "borrowed";
+
 	React.useEffect(() => {
-		if (!userID) return;
-		(cq.filters = {
-			user_id: userID,
-			status: "borrowed",
-		}),
-			dispatch(listBookLoanThunk({ q: cq }));
+		dispatch(listBookLoanThunk({ q: cq }));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 
@@ -37,12 +39,17 @@ export const LoanPage: React.FC = () => {
 	return (
 		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
-				<h2 className="col-span-full scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-					My Loans
-				</h2>
+				<div className="col-span-full flex gap-3">
+					<SearchBar cq={cq} />
+				</div>
+				<div className="col-span-full flex gap-3">
+					<OrderBtn cq={cq} />
+					<LoanFilterSelect cq={cq} />
+					<SortSelect cq={cq} opt={LOAN_SORT_OPTIONS} />
+				</div>
 
 				{loanState.books.map((b) => (
-					<LoanBookCard key={b.id} book={b} />
+					<LoanBookCard key={b.loan.id} book={b} editable />
 				))}
 
 				<PaginationBar cq={cq} total={loanState.meta.filtered_count} />

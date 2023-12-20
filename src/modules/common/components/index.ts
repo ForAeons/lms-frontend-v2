@@ -4,3 +4,8 @@ export * from "./sidebar";
 export * from "./footer";
 export * from "./sidebar-mobile";
 export * from "./draggable-button";
+export * from "./pagination-bar";
+export * from "./search-bar";
+export * from "./order-btn";
+export * from "./sort-select";
+export * from "./nav";

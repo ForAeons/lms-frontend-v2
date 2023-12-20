@@ -9,7 +9,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { toast } from "@/components/ui/use-toast";
 import { LoaderPage } from "@/modules";
 import {
@@ -109,6 +109,7 @@ export const BookPage: React.FC = () => {
 					)}
 				</Card>
 			</div>
+			<ScrollBar />
 		</ScrollArea>
 	);
 };

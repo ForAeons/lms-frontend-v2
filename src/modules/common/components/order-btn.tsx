@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowDownWideNarrowIcon, ArrowUpNarrowWideIcon } from "lucide-react";
 import { LG_ICON_SIZE } from "@/constants";
 
-export const BookOrderBtn: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
+export const OrderBtn: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
 	const navigate = useNavigate();
 	return (
 		<Button
@@ -18,5 +18,3 @@ export const BookOrderBtn: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
 		</Button>
 	);
 };
-
-export default BookOrderBtn;

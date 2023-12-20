@@ -1,4 +1,5 @@
 import React from "react";
+import { TrashIcon } from "lucide-react";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -11,15 +12,13 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useAppDispatch, deleteUserThunk } from "@/store";
-import { TrashIcon } from "lucide-react";
+import { deleteLoanThunk, useAppDispatch } from "@/store";
 import { MD_ICON_SIZE } from "@/constants";
 
-export const UserDeleteBtn: React.FC<{ userPerson: UserPerson }> = ({
-	userPerson,
-}) => {
+export const LoanDeleteBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 	const dispatch = useAppDispatch();
-	const handleClick = () => dispatch(deleteUserThunk(userPerson.id));
+
+	const handleDelete = () => dispatch(deleteLoanThunk({ loanId: loan.id }));
 
 	return (
 		<AlertDialog>
@@ -35,13 +34,13 @@ export const UserDeleteBtn: React.FC<{ userPerson: UserPerson }> = ({
 				<AlertDialogHeader>
 					<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
 					<AlertDialogDescription>
-						This action cannot be undone. This will permanently delete this
-						account and remove it from our servers.
+						This action cannot be undone. This will permanently delete this loan
+						and remove it from our servers.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={handleClick}>Continue</AlertDialogAction>
+					<AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

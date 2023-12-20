@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { userApi } from "@/api";
 
-export const searchUsersThunk = createAsyncThunk(
+export const listUserThunk = createAsyncThunk(
 	"user/search",
-	async (username: string, thunkAPI) => {
-		const res = await userApi.SearchUser(username, thunkAPI.signal);
-		return res?.data;
+	async (action: { q: CollectionQuery; signal?: AbortSignal }) => {
+		const res = await userApi.ListUser(action.q, action.signal);
+		return res;
 	},
 );
 

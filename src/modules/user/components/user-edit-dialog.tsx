@@ -95,7 +95,10 @@ export const UserEditDialog: React.FC<{
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="ghost" className="rounded-full">
+				<Button
+					variant="ghost"
+					className="hover:bg-transparent hover:opacity-50 transition-opacity"
+				>
 					<PencilIcon className="text-primary" size={Constants.MD_ICON_SIZE} />
 				</Button>
 			</DialogTrigger>

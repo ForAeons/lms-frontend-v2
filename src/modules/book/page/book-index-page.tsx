@@ -1,19 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { LoaderPage } from "@/modules";
+import {
+	SearchBar,
+	LoaderPage,
+	PaginationBar,
+	OrderBtn,
+	SortSelect,
+} from "@/modules";
 import { listBookThunk } from "@/store/thunks/book-thunk";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import {
-	BookCard,
-	BookOrderBtn,
-	BookPagination,
-	BookSortBtn,
-	BookSearchBar,
-} from "..";
+import { BookCard } from "..";
+import { BOOK_SORT_OPTIONS } from "@/constants";
 
 export const BookIndexPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -41,18 +42,19 @@ export const BookIndexPage: React.FC = () => {
 		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-3 px-3">
 				<div className="col-span-full flex gap-3">
-					<BookOrderBtn cq={cq} />
-					<BookSearchBar cq={cq} />
+					<OrderBtn cq={cq} />
+					<SearchBar cq={cq} />
 					<Separator orientation="vertical" />
-					<BookSortBtn cq={cq} />
+					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
 				</div>
 
 				{bookState.books.map((book) => {
 					return <BookCard key={book.isbn} book={book} />;
 				})}
 
-				<BookPagination cq={cq} />
+				<PaginationBar cq={cq} total={bookState.meta.filtered_count} />
 			</div>
+			<ScrollBar />
 		</ScrollArea>
 	);
 };

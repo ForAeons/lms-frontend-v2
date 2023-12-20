@@ -9,9 +9,9 @@ class UserApi extends BaseApi {
 		);
 	};
 
-	public SearchUser = (username: string, abortSignal?: AbortSignal) => {
-		return this.Get<UserPersonAbility[]>(
-			`${UserRoutes.BASE}?${UserRoutes.SEARCH_USER.DYNAMIC_ROUTE(username)}`,
+	public ListUser = (q: CollectionQuery, abortSignal?: AbortSignal) => {
+		return this.Get<UserPerson[]>(
+			`${UserRoutes.BASE}?${UserRoutes.LIST.DYNAMIC_ROUTE(q)}`,
 			abortSignal,
 		);
 	};

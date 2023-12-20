@@ -3,13 +3,17 @@ import { toast } from "@/components/ui/use-toast";
 import {
 	createUserThunk,
 	deleteUserThunk,
-	searchUsersThunk,
+	listUserThunk,
 	updateUserThunk,
 } from "../thunks";
 
 const initialState: ManageUserState = {
 	isFetching: false,
 	users: [],
+	meta: {
+		total_count: 0,
+		filtered_count: 0,
+	},
 };
 
 export const userSlice = createSlice({
@@ -17,17 +21,19 @@ export const userSlice = createSlice({
 	initialState: initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder.addCase(searchUsersThunk.pending, (state) => {
+		builder.addCase(listUserThunk.pending, (state) => {
 			state.isFetching = true;
 		});
 
-		builder.addCase(searchUsersThunk.fulfilled, (state, action) => {
+		builder.addCase(listUserThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
-			state.users = action.payload;
+			if (!action.payload.data || !action.payload.meta) return;
+			state.users = action.payload.data;
+			state.meta = action.payload.meta;
 			state.isFetching = false;
 		});
 
-		builder.addCase(searchUsersThunk.rejected, (state) => {
+		builder.addCase(listUserThunk.rejected, (state) => {
 			state.isFetching = false;
 		});
 

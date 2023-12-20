@@ -139,6 +139,20 @@ export const changeSort = (
 	navigate(`?${cqToUrl(ncq)}`);
 };
 
+export const changeFilter = (
+	navigate: NavigateFunction,
+	cq: CollectionQuery,
+	filters: Filters,
+	absoluteUrl?: string,
+) => {
+	const ncq = { ...cq, filters };
+	if (absoluteUrl) {
+		navigate(`${absoluteUrl}?${cqToUrl(ncq)}`);
+		return;
+	}
+	navigate(`?${cqToUrl(ncq)}`);
+};
+
 export const toggleOrder = (
 	navigate: NavigateFunction,
 	cq: CollectionQuery,

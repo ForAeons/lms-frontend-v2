@@ -1,11 +1,37 @@
 import React from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useAppSelector } from "@/store";
-import { UserCreateDialog, UserPersonCard, UserSearchBar } from "..";
-import { LoaderPage } from "@/modules";
+import { useNavigate } from "react-router-dom";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import {
+	LoaderPage,
+	OrderBtn,
+	PaginationBar,
+	SearchBar,
+	SortSelect,
+} from "@/modules";
+import { listUserThunk, useAppDispatch, useAppSelector } from "@/store";
+import { useQueryParams } from "@/hooks";
+import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
+import { USER_SORT_OPTIONS } from "@/constants";
+import { UserCreateDialog, UserPersonCard } from "..";
+import { Separator } from "@/components/ui/separator";
 
 export const ManageUserPage: React.FC = () => {
-	const userState = useAppSelector((s) => s.user);
+	const dispatch = useAppDispatch();
+	const userState = useAppSelector((state) => state.user);
+	const navigate = useNavigate();
+	const queryParams = useQueryParams();
+	const cq = getCollectionQuery(queryParams);
+
+	React.useEffect(() => {
+		dispatch(listUserThunk({ q: cq }));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [dispatch, window.location.search]);
+
+	React.useEffect(() => {
+		const isValid = isValidCq(cq, userState.meta.filtered_count);
+		if (!isValid) navigate(`?${cqToUrl(cq)}`);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [navigate, window.location.search]);
 
 	if (userState.isFetching) return <LoaderPage />;
 
@@ -14,12 +40,18 @@ export const ManageUserPage: React.FC = () => {
 			<div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-3 px-3">
 				<div className="col-span-full flex gap-3">
 					<UserCreateDialog />
-					<UserSearchBar />
+					<Separator orientation="vertical" />
+					<OrderBtn cq={cq} />
+					<SearchBar cq={cq} />
+					<Separator orientation="vertical" />
+					<SortSelect cq={cq} opt={USER_SORT_OPTIONS} />
 				</div>
 				{userState.users.map((u) => {
 					return <UserPersonCard key={u.username} userPerson={u} />;
 				})}
+				<PaginationBar cq={cq} total={userState.meta.filtered_count} />
 			</div>
+			<ScrollBar />
 		</ScrollArea>
 	);
 };
