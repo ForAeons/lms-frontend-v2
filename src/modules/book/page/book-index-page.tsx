@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import {
 	SearchBar,
 	LoaderPage,
@@ -40,13 +39,12 @@ export const BookIndexPage: React.FC = () => {
 
 	return (
 		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
-			<div className="grid grid-cols-1 lg:grid-cols-2 gap-3 px-3">
-				<div className="col-span-full flex gap-3">
+			<div className="grid grid-cols-1 gap-3 px-3">
+				<div className="flex gap-3">
 					<OrderBtn cq={cq} />
 					<SearchBar cq={cq} />
-					<Separator orientation="vertical" />
-					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
 				</div>
+				<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
 
 				{bookState.books.map((book) => {
 					return <BookCard key={book.isbn} book={book} />;

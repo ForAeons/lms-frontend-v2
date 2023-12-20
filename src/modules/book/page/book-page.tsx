@@ -1,17 +1,16 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { toast } from "@/components/ui/use-toast";
-import { LoaderPage } from "@/modules";
+import { LoaderPage, NavBackBtn } from "@/modules";
 import {
 	getBookThunk,
 	loanBookThunk,
@@ -19,15 +18,12 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { MD_ICON_SIZE } from "@/constants";
-import { BookBadge } from "..";
-import { ArrowLeftToLineIcon, BookLockIcon, BookUpIcon } from "lucide-react";
+import { BookBadge, BookLoanBtn, BookReserveBtn } from "..";
 
 export const BookPage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const bookState = useAppSelector((s) => s.book);
 	const book = useAppSelector((s) => s.book.book);
-	const navigate = useNavigate();
 	const { book_id } = useParams();
 
 	React.useEffect(() => {
@@ -71,22 +67,26 @@ export const BookPage: React.FC = () => {
 	return (
 		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
 			<div className="w-full flex flex-col gap-3 px-3">
-				<Card className="border-none hover:shadow-md transition-shadow">
-					<CardHeader className="relative pr-10">
-						<Button
-							variant="ghost"
-							className="absolute right-0 hover:bg-transparent hover:opacity-50 transition-opacity"
-							onClick={() => navigate(-1)}
-						>
-							<ArrowLeftToLineIcon size={MD_ICON_SIZE} />
-						</Button>
+				<Card className="relative border-none hover:shadow-md transition-shadow pr-10">
+					<div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end">
+						<NavBackBtn />
+						{bookState.bookStatus === "available" && (
+							<>
+								<BookLoanBtn handler={handBorrow} book={book} />
+								<BookReserveBtn handler={handleReserve} book={book} />
+							</>
+						)}
+					</div>
+
+					<CardHeader>
 						<CardTitle>{book.title}</CardTitle>
-						<CardDescription>{book.genre}</CardDescription>
-						<small className="text-sm font-medium leading-none">
-							{book.author}
-						</small>
-						<BookBadge status={bookState.bookStatus} />
+						<CardDescription>By {book.author}</CardDescription>
+						<div className="flex flex-wrap gap-3">
+							<Badge className="w-fit">Genre - {book.genre}</Badge>
+							<BookBadge status={bookState.bookStatus} />
+						</div>
 					</CardHeader>
+
 					<CardContent>
 						<p>{book.language}</p>
 						<p>{book.publisher}</p>
@@ -95,18 +95,6 @@ export const BookPage: React.FC = () => {
 							{book.isbn}
 						</p>
 					</CardContent>
-					{bookState.bookStatus === "available" && (
-						<CardFooter className="flex justify-around">
-							<Button onClick={handBorrow}>
-								<BookUpIcon size={MD_ICON_SIZE} className="mr-3" />
-								Borrow
-							</Button>
-							<Button variant="secondary" onClick={handleReserve}>
-								<BookLockIcon size={MD_ICON_SIZE} className="mr-3" />
-								Reserve
-							</Button>
-						</CardFooter>
-					)}
 				</Card>
 			</div>
 			<ScrollBar />

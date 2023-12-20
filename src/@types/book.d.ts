@@ -42,6 +42,7 @@ interface BookDetailed extends Book {
 
 interface BookLoan extends Book {
 	loan: Loan;
+	user: UserPerson;
 }
 
 interface BookReservation extends Book {

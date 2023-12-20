@@ -3,59 +3,55 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { ListPlusIcon, Undo2Icon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { renewLoanThunk, returnLoanThunk, useAppDispatch } from "@/store";
-import { MD_ICON_SIZE } from "@/constants";
-import { LoanBadge, LoanDeleteBtn } from ".";
+import { Badge } from "@/components/ui/badge";
+import { LoanBadge, LoanRenewBtn, LoanReturnBtn } from ".";
+import { deleteLoanThunk, useAppDispatch } from "@/store";
+import { DeleteBtn } from "@/modules";
 
 export const LoanBookCard: React.FC<{ book: BookLoan; editable?: boolean }> = ({
 	book,
 	editable = false,
 }) => {
 	const dispatch = useAppDispatch();
-
-	const handleReturn = () =>
-		dispatch(returnLoanThunk({ loanId: book.loan.id }));
-	const handleRenew = () => dispatch(renewLoanThunk({ loanId: book.loan.id }));
+	const handleDelete = () =>
+		dispatch(deleteLoanThunk({ loanId: book.loan.id }));
 
 	return (
-		<Card>
-			<CardHeader className="relative pr-10">
-				{editable && (
-					<div className="absolute right-0 flex flex-col">
-						<LoanDeleteBtn loan={book.loan} />
-					</div>
+		<Card className="relative border-none hover:shadow-md transition-shadow pr-10">
+			<div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end">
+				{editable && <DeleteBtn handler={handleDelete} subject="loan" />}
+				{book.loan.status === "borrowed" && (
+					<>
+						<LoanReturnBtn loan={book.loan} />
+						<LoanRenewBtn loan={book.loan} />
+					</>
 				)}
+			</div>
+
+			<CardHeader>
 				<CardTitle>{book.title}</CardTitle>
-				<CardDescription>{book.genre}</CardDescription>
-				<small className="text-sm font-medium leading-none">
-					{book.author}
-				</small>
-				<LoanBadge loan={book.loan} />
+				<CardDescription>By {book.author}</CardDescription>
+				<div className="flex flex-wrap gap-3">
+					<Badge className="w-fit">Genre - {book.genre}</Badge>
+					<LoanBadge loan={book.loan} />
+					{editable && (
+						<Badge
+							variant="secondary"
+							className="w-fit"
+						>{`Loaned by ${book.user.person_attributes.full_name}`}</Badge>
+					)}
+				</div>
 			</CardHeader>
+
 			<CardContent>
 				<p>{book.language}</p>
 				<p>{book.publisher}</p>
 				<p>{book.publication_date}</p>
 				<p className="text-sm text-muted-foreground self-start">{book.isbn}</p>
 			</CardContent>
-			{book.loan.status === "borrowed" && (
-				<CardFooter className="flex justify-around">
-					<Button onClick={handleReturn}>
-						<Undo2Icon size={MD_ICON_SIZE} className="mr-3" />
-						Return
-					</Button>
-					<Button variant="secondary" onClick={handleRenew}>
-						<ListPlusIcon size={MD_ICON_SIZE} className="mr-3" />
-						Renew
-					</Button>
-				</CardFooter>
-			)}
 		</Card>
 	);
 };

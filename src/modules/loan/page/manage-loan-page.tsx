@@ -39,11 +39,11 @@ export const ManageLoanPage: React.FC = () => {
 	return (
 		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
-				<div className="col-span-full flex gap-3">
+				<div className="flex gap-3">
+					<OrderBtn cq={cq} />
 					<SearchBar cq={cq} />
 				</div>
-				<div className="col-span-full flex gap-3">
-					<OrderBtn cq={cq} />
+				<div className="flex gap-3">
 					<LoanFilterSelect cq={cq} />
 					<SortSelect cq={cq} opt={LOAN_SORT_OPTIONS} />
 				</div>
