@@ -1,3 +1,5 @@
+type AppEnv = "development" | "production" | "test";
+
 /**
  * ApiMessage is the message returned by the backend
  * @property message - the message

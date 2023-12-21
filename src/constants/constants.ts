@@ -1,3 +1,5 @@
+export const ENV: AppEnv = import.meta.env.VITE_APP_ENV;
+
 export const BACKEND_STATUS_UNKNOWN = "unknown";
 export const BACKEND_STATUS_UP = "up";
 export const BACKEND_STATUS_DOWN = "down";

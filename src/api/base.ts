@@ -7,20 +7,25 @@ axios.defaults.withCredentials = true;
 axios.interceptors.response.use(
 	// Intercepts all requests and logs them to the console and displays the backend message to the user
 	(res: AxiosResponse<Payload>) => {
-		// Logs the url, method and url of the request
-		console.info(`[${res.config.method?.toUpperCase()}]: ${res.config.url}`);
-		// Displays the backend message to the user
+		if (Constants.ENV === "development") {
+			// Logs the url, method and url of the request
+			console.info(`[${res.config.method?.toUpperCase()}]: ${res.config.url}`);
+		}
 		return res;
 	},
 	// Intercepts all errors and logs them to the console and displays the backend message to the user
 	(err: AxiosError<Payload>) => {
-		if (axios.isCancel(err)) {
-			console.info("Request canceled - ", err.message);
-		}
+		if (Constants.ENV === "development") {
+			if (axios.isCancel(err)) {
+				console.info("Request canceled - ", err.message);
+			}
 
-		// Logs the url, method and url of the request
-		console.error(`[${err.config?.method?.toUpperCase()}]: ${err.config?.url}`);
-		console.error("Error: ", err);
+			// Logs the url, method and url of the request
+			console.error(
+				`[${err.config?.method?.toUpperCase()}]: ${err.config?.url}`,
+			);
+			console.error("Error: ", err);
+		}
 
 		// Toast error
 		if (err.response !== undefined) {
