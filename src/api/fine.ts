@@ -3,10 +3,7 @@ import { FineRoutes } from "./backend-routes";
 
 class FineApi extends BaseApi {
 	public ListFine = (q: CollectionQuery, abortSignal?: AbortSignal) => {
-		return this.Get<Fine[]>(
-			`${FineRoutes.BASE}?${FineRoutes.LIST.DYNAMIC_ROUTE(q)}`,
-			abortSignal,
-		);
+		return this.List<Fine[]>(FineRoutes.BASE, q, abortSignal);
 	};
 
 	public DeleteFine = (fineID: number, abortSignal?: AbortSignal) => {

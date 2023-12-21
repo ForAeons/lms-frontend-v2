@@ -17,10 +17,7 @@ class UserApi extends BaseApi {
 	};
 
 	public ListUser = (q: CollectionQuery, abortSignal?: AbortSignal) => {
-		return this.Get<UserPerson[]>(
-			`${UserRoutes.BASE}?${UserRoutes.LIST.DYNAMIC_ROUTE(q)}`,
-			abortSignal,
-		);
+		return this.List<UserPerson[]>(UserRoutes.BASE, q, abortSignal);
 	};
 
 	public CreateUser = (
@@ -36,9 +33,7 @@ class UserApi extends BaseApi {
 
 	public UpdateUser = (userPerson: UserPerson, abortSignal?: AbortSignal) => {
 		return this.Patch<UserPerson, UserPersonAbility>(
-			`${UserRoutes.BASE}/${UserRoutes.UDPATE_USER.DYNAMIC_ROUTE(
-				userPerson.id,
-			)}`,
+			`${UserRoutes.BASE}/${userPerson.id}/`,
 			userPerson,
 			abortSignal,
 		);
@@ -46,7 +41,7 @@ class UserApi extends BaseApi {
 
 	public DeleteUser = (userID: number, abortSignal?: AbortSignal) => {
 		return this.Delete<UserPersonAbility>(
-			`${UserRoutes.BASE}/${UserRoutes.SPECIFIC_USER.DYNAMIC_ROUTE(userID)}`,
+			`${UserRoutes.BASE}/${userID}/`,
 			abortSignal,
 		);
 	};

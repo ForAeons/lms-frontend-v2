@@ -34,8 +34,8 @@ interface LoanState {
 	meta: Meta;
 }
 
-interface reservationState {
+interface resState {
 	isFetching: boolean;
-	reservations: ReservationDetailed[];
+	res: ReservationDetailed[];
 	meta: Meta;
 }

@@ -43,3 +43,13 @@ export const LOAN_FILTER_OPTIONS: FilterOption[] = [
 	{ label: "Borrowed", key: "status", value: "borrowed" },
 	{ label: "Returned", key: "status", value: "returned" },
 ];
+
+export const RES_SORT_OPTIONS: SortOption[] = [
+	{ value: "reservation_date", label: "Reservation date" },
+	{ value: "created_at", label: "Date of creation" },
+];
+
+export const RES_FILTER_OPTIONS: FilterOption[] = [
+	{ label: "Reserved", key: "status", value: "pending" },
+	{ label: "fulfilled", key: "status", value: "fulfilled" },
+];

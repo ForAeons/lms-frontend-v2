@@ -18,32 +18,23 @@ class BookApi extends BaseApi {
 	};
 
 	public GetBook = (bookID: number, abortSignal?: AbortSignal) => {
-		return this.Get<BookDetailed>(
-			`${BookRoutes.BASE}/${BookRoutes.SPECIFIC.DYNAMIC_ROUTE(bookID)}`,
-			abortSignal,
-		);
+		return this.Get<BookDetailed>(`${BookRoutes.BASE}/${bookID}/`, abortSignal);
 	};
 
 	public UpdateBook = (book: Book, abortSignal?: AbortSignal) => {
 		return this.Patch<Book>(
-			`${BookRoutes.BASE}/${BookRoutes.SPECIFIC.DYNAMIC_ROUTE(book.id)}`,
+			`${BookRoutes.BASE}/${book.id}/`,
 			book,
 			abortSignal,
 		);
 	};
 
 	public DeleteBook = (bookID: number, abortSignal?: AbortSignal) => {
-		return this.Delete<Book>(
-			`${BookRoutes.BASE}/${BookRoutes.SPECIFIC.DYNAMIC_ROUTE(bookID)}`,
-			abortSignal,
-		);
+		return this.Delete<Book>(`${BookRoutes.BASE}/${bookID}/`, abortSignal);
 	};
 
 	public ListBook = (q: CollectionQuery, abortSignal?: AbortSignal) => {
-		return this.Get<Book[]>(
-			`${BookRoutes.BASE}?${BookRoutes.LIST.DYNAMIC_ROUTE(q)}`,
-			abortSignal,
-		);
+		return this.List<Book[]>(BookRoutes.BASE, q, abortSignal);
 	};
 }
 

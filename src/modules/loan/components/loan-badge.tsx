@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge";
 import React from "react";
+import { Badge } from "@/components/ui/badge";
 
 export const LoanBadge: React.FC<{ loan: Loan }> = ({ loan }) => {
 	if (loan.status === "returned")
