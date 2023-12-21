@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { LoaderPage, PaginationBar } from "@/modules";
 import { useQueryParams } from "@/hooks";
-import { listBookLoanThunk, useAppDispatch, useAppSelector } from "@/store";
+import { listLoanThunk, useAppDispatch, useAppSelector } from "@/store";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { LoanBookCard } from "..";
 
@@ -22,7 +22,7 @@ export const LoanPage: React.FC = () => {
 			user_id: userID,
 			status: "borrowed",
 		}),
-			dispatch(listBookLoanThunk({ q: cq }));
+			dispatch(listLoanThunk({ q: cq }));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 

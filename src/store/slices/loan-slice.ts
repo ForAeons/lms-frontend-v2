@@ -1,15 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "@/components/ui/use-toast";
 import {
+	createLoanThunk,
 	deleteLoanThunk,
-	listBookLoanThunk,
+	listLoanThunk,
 	renewLoanThunk,
 	returnLoanThunk,
 } from "..";
 
 const initialState: LoanState = {
 	isFetching: false,
-	books: [],
+	loans: [],
 	meta: {
 		total_count: 0,
 		filtered_count: 0,
@@ -21,38 +22,49 @@ export const loanSlice = createSlice({
 	initialState: initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder.addCase(listBookLoanThunk.pending, (state) => {
+		builder.addCase(listLoanThunk.pending, (state) => {
 			state.isFetching = true;
 		});
 
-		builder.addCase(listBookLoanThunk.fulfilled, (state, action) => {
+		builder.addCase(listLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			if (!action.payload.data || !action.payload.meta) return;
-			state.books = action.payload.data;
+			state.loans = action.payload.data;
 			state.meta = action.payload.meta;
 			state.isFetching = false;
 		});
 
-		builder.addCase(listBookLoanThunk.rejected, (state) => {
+		builder.addCase(listLoanThunk.rejected, (state) => {
 			state.isFetching = false;
+		});
+
+		builder.addCase(createLoanThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
+			state.loans.unshift(action.payload);
+			toast({
+				title: "Success",
+				description: `${action.payload!.book.title} loaned to ${
+					action.payload!.user.username
+				} successfully.`,
+			});
 		});
 
 		builder.addCase(returnLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
-			state.books = state.books.filter((b) => b.id !== action.payload!.book_id);
+			state.loans = state.loans.filter((l) => l.id !== action.payload!.id);
 			toast({
 				title: "Success",
-				description: `Book returned successfully`,
+				description: `${action.payload!.book.title} returned successfully.`,
 			});
 		});
 
 		builder.addCase(renewLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
-			state.books = state.books.map((b) => {
-				if (b.id === action.payload!.book_id) {
-					b.loan.due_date = action.payload!.due_date;
+			state.loans = state.loans.map((l) => {
+				if (l.id === action.payload!.id) {
+					l.due_date = action.payload!.due_date;
 				}
-				return b;
+				return l;
 			});
 			toast({
 				title: "Success",
@@ -62,7 +74,7 @@ export const loanSlice = createSlice({
 
 		builder.addCase(deleteLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
-			state.books = state.books.filter((b) => b.id !== action.payload!.book_id);
+			state.loans = state.loans.filter((l) => l.id !== action.payload!.id);
 			toast({
 				title: "Success",
 				description: `Loan deleted successfully`,

@@ -1,6 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { bookApi, loanApi, reservationApi } from "@/api";
 
+export const autoCompleteBookThunk = createAsyncThunk(
+	"book/autocomplete",
+	async (action: { value: string; signal?: AbortSignal }) => {
+		const res = await bookApi.AutoComplete(action.value, action.signal);
+		return res?.data;
+	},
+);
+
 export const getBookThunk = createAsyncThunk(
 	"book/get",
 	async (action: { bookID: number; signal?: AbortSignal }) => {

@@ -10,9 +10,9 @@ import {
 	SortSelect,
 } from "@/modules";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { listBookLoanThunk, useAppDispatch, useAppSelector } from "@/store";
+import { listLoanThunk, useAppDispatch, useAppSelector } from "@/store";
 import { LOAN_SORT_OPTIONS } from "@/constants";
-import { LoanBookCard, LoanFilterSelect } from "..";
+import { LoanBookCard, LoanCreateDialog, LoanFilterSelect } from "..";
 
 export const ManageLoanPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ export const ManageLoanPage: React.FC = () => {
 	if (!cq.filters.status) cq.filters.status = "borrowed";
 
 	React.useEffect(() => {
-		dispatch(listBookLoanThunk({ q: cq }));
+		dispatch(listLoanThunk({ q: cq }));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 
@@ -40,6 +40,7 @@ export const ManageLoanPage: React.FC = () => {
 		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
+					<LoanCreateDialog />
 					<OrderBtn cq={cq} />
 					<SearchBar cq={cq} />
 				</div>
@@ -48,8 +49,8 @@ export const ManageLoanPage: React.FC = () => {
 					<SortSelect cq={cq} opt={LOAN_SORT_OPTIONS} />
 				</div>
 
-				{loanState.books.map((b) => (
-					<LoanBookCard key={b.loan.id} book={b} editable />
+				{loanState.loans.map((l) => (
+					<LoanBookCard key={l.id} loan={l} editable />
 				))}
 
 				<PaginationBar cq={cq} total={loanState.meta.filtered_count} />

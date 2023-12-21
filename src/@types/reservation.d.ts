@@ -7,3 +7,8 @@ interface Reservation {
 	status: reservationStatus;
 	reservation_date: string;
 }
+
+interface ReservationDetailed extends Reservation {
+	book: Book;
+	user: User;
+}

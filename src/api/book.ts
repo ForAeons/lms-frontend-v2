@@ -2,6 +2,13 @@ import { BaseApi } from "./base";
 import { BookRoutes } from "./backend-routes";
 
 class BookApi extends BaseApi {
+	public AutoComplete = (value: string, abortSignal?: AbortSignal) => {
+		return this.Get<BookSimple[]>(
+			`${BookRoutes.BASE}/${BookRoutes.AUTOCOMPLETE.DYNAMIC_ROUTE(value)}`,
+			abortSignal,
+		);
+	};
+
 	public CreateBook = (book: BookCreate, abortSignal?: AbortSignal) => {
 		return this.Post<BookCreate, Book>(
 			`${BookRoutes.BASE}/`,

@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { toast } from "@/components/ui/use-toast";
 import {
+	autoCompleteBookThunk,
 	createBookThunk,
 	deleteBookThunk,
 	getBookThunk,
@@ -12,6 +13,7 @@ import {
 
 const initialState: BookState = {
 	isFetching: true,
+	autocomplete: [],
 	books: [],
 	book: null,
 	bookStatus: "unknown",
@@ -24,12 +26,20 @@ const initialState: BookState = {
 export const bookSlice = createSlice({
 	name: "book",
 	initialState: initialState,
-	reducers: {},
+	reducers: {
+		setAutoComplete: (state, action: PayloadAction<BookSimple[]>) => {
+			state.autocomplete = action.payload;
+		},
+	},
 	extraReducers: (builder) => {
+		builder.addCase(autoCompleteBookThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
+			state.autocomplete = action.payload;
+		});
+
 		builder.addCase(createBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.books.unshift(action.payload);
-			state.books.pop();
 			toast({
 				title: "Success",
 				description: `Book ${action.payload.title} added to library successfully`,

@@ -40,11 +40,12 @@ interface BookDetailed extends Book {
 	reservations: Reservation[];
 }
 
-interface BookLoan extends Book {
-	loan: Loan;
-	user: UserPerson;
+interface BookUser {
+	user_id: number;
+	book_id: number;
 }
 
-interface BookReservation extends Book {
-	reservation: Reservation;
+interface BookSimple {
+	id: number;
+	title: string;
 }

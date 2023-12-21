@@ -9,6 +9,13 @@ class UserApi extends BaseApi {
 		);
 	};
 
+	public AutoComplete = (value: string, abortSignal?: AbortSignal) => {
+		return this.Get<UserSimple[]>(
+			`${UserRoutes.BASE}/${UserRoutes.AUTOCOMPLETE.DYNAMIC_ROUTE(value)}`,
+			abortSignal,
+		);
+	};
+
 	public ListUser = (q: CollectionQuery, abortSignal?: AbortSignal) => {
 		return this.Get<UserPerson[]>(
 			`${UserRoutes.BASE}?${UserRoutes.LIST.DYNAMIC_ROUTE(q)}`,
