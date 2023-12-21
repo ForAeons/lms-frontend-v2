@@ -8,4 +8,7 @@ export const BookRoutes = {
 	SPECIFIC: {
 		DYNAMIC_ROUTE: (bookID: number) => String(bookID),
 	},
+	AUTOCOMPLETE: {
+		DYNAMIC_ROUTE: (value: string) => `autocomplete/${value}`,
+	},
 };

@@ -11,46 +11,47 @@ import { LoanBadge, LoanRenewBtn, LoanReturnBtn } from ".";
 import { deleteLoanThunk, useAppDispatch } from "@/store";
 import { DeleteBtn } from "@/modules";
 
-export const LoanBookCard: React.FC<{ book: BookLoan; editable?: boolean }> = ({
-	book,
-	editable = false,
-}) => {
+export const LoanBookCard: React.FC<{
+	loan: LoanDetailed;
+	editable?: boolean;
+}> = ({ loan, editable = false }) => {
 	const dispatch = useAppDispatch();
-	const handleDelete = () =>
-		dispatch(deleteLoanThunk({ loanId: book.loan.id }));
+	const handleDelete = () => dispatch(deleteLoanThunk({ loanId: loan.id }));
 
 	return (
 		<Card className="relative border-none hover:shadow-md transition-shadow pr-10">
 			<div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end">
 				{editable && <DeleteBtn handler={handleDelete} subject="loan" />}
-				{book.loan.status === "borrowed" && (
+				{loan.status === "borrowed" && (
 					<>
-						<LoanReturnBtn loan={book.loan} />
-						<LoanRenewBtn loan={book.loan} />
+						<LoanReturnBtn loan={loan} />
+						<LoanRenewBtn loan={loan} />
 					</>
 				)}
 			</div>
 
 			<CardHeader>
-				<CardTitle>{book.title}</CardTitle>
-				<CardDescription>By {book.author}</CardDescription>
+				<CardTitle>{loan.book.title}</CardTitle>
+				<CardDescription>By {loan.book.author}</CardDescription>
 				<div className="flex flex-wrap gap-3">
-					<Badge className="w-fit">Genre - {book.genre}</Badge>
-					<LoanBadge loan={book.loan} />
+					<Badge className="w-fit">Genre - {loan.book.genre}</Badge>
+					<LoanBadge loan={loan} />
 					{editable && (
 						<Badge
 							variant="secondary"
 							className="w-fit"
-						>{`Loaned by ${book.user.person_attributes.full_name}`}</Badge>
+						>{`Loaned by ${loan.user.username}`}</Badge>
 					)}
 				</div>
 			</CardHeader>
 
 			<CardContent>
-				<p>{book.language}</p>
-				<p>{book.publisher}</p>
-				<p>{book.publication_date}</p>
-				<p className="text-sm text-muted-foreground self-start">{book.isbn}</p>
+				<p>{loan.book.language}</p>
+				<p>{loan.book.publisher}</p>
+				<p>{loan.book.publication_date}</p>
+				<p className="text-sm text-muted-foreground self-start">
+					{loan.book.isbn}
+				</p>
 			</CardContent>
 		</Card>
 	);

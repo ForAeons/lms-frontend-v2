@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { toast } from "@/components/ui/use-toast";
 import {
+	autoCompleteUserThunk,
 	createUserThunk,
 	deleteUserThunk,
 	listUserThunk,
@@ -9,6 +10,7 @@ import {
 
 const initialState: ManageUserState = {
 	isFetching: false,
+	autocomplete: [],
 	users: [],
 	meta: {
 		total_count: 0,
@@ -19,8 +21,17 @@ const initialState: ManageUserState = {
 export const userSlice = createSlice({
 	name: "user",
 	initialState: initialState,
-	reducers: {},
+	reducers: {
+		setAutoComplete: (state, action: PayloadAction<UserSimple[]>) => {
+			state.autocomplete = action.payload;
+		},
+	},
 	extraReducers: (builder) => {
+		builder.addCase(autoCompleteUserThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
+			state.autocomplete = action.payload;
+		});
+
 		builder.addCase(listUserThunk.pending, (state) => {
 			state.isFetching = true;
 		});

@@ -50,3 +50,5 @@ type UserPayload = Omit<UserPerson, "password">;
 interface UserPersonAbility extends UserPerson {
 	abilities: string[];
 }
+
+type UserSimple = Omit<User, "email" | "password">;

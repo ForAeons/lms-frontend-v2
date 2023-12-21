@@ -5,15 +5,15 @@ export const listLoanThunk = createAsyncThunk(
 	"loan/list",
 	async (action: { q: CollectionQuery; signal?: AbortSignal }) => {
 		const res = await loanApi.ListLoan(action.q, action.signal);
-		return res?.data;
+		return res;
 	},
 );
 
-export const listBookLoanThunk = createAsyncThunk(
-	"loan/list",
-	async (action: { q: CollectionQuery; signal?: AbortSignal }) => {
-		const res = await loanApi.ListBookLoan(action.q, action.signal);
-		return res;
+export const createLoanThunk = createAsyncThunk(
+	"loan/create",
+	async (action: { loan: LoanCreate; signal?: AbortSignal }) => {
+		const res = await loanApi.CreateLoan(action.loan, action.signal);
+		return res?.data;
 	},
 );
 
