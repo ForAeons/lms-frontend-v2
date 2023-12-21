@@ -3,8 +3,8 @@ import { UserRoutes } from "./backend-routes";
 
 class UserApi extends BaseApi {
 	public GetCurrentUser = (abortSignal?: AbortSignal) => {
-		return this.Get<UserPersonAbility>(
-			`${UserRoutes.BASE}/${UserRoutes.GET_CURRENT_USER.ROUTE}`,
+		return this.Get<GetCurrentUserPayload>(
+			UserRoutes.GET_CURRENT_USER.ROUTE,
 			abortSignal,
 		);
 	};

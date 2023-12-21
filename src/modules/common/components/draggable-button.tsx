@@ -21,13 +21,13 @@ export const DraggableNavButton: React.FC = () => {
 
 	return (
 		<motion.div
-			drag="x"
-			dragConstraints={{ left: 0, right: window.innerWidth - 40 }}
+			drag="y"
+			dragConstraints={{ top: 0, bottom: window.innerHeight - 40 }}
 			onDragStart={handleDragStart}
 			onDragEnd={handleDragEnd}
 			onClick={handleClick}
 		>
-			<Button className="rounded-xl p-2 m-0 transition-opacity opacity-20 hover:opacity-50">
+			<Button className="rounded-xl p-2 m-0 transition-opacity opacity-20 hover:opacity-70">
 				<ChevronsRightIcon size={LG_ICON_SIZE} />
 			</Button>
 		</motion.div>

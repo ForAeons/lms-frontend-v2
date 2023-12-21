@@ -188,7 +188,7 @@ export const NavContent: React.FC = () => {
 				</div>
 			)}
 
-			<div className="px-3 mt-auto">
+			<div className="px-3 py-2 pb-10">
 				<div className="w-full justify-start h-10 px-4 py-2 inline-flex items-center whitespace-nowrap rounded-md">
 					<div className="relative flex">
 						<Sun
