@@ -52,3 +52,8 @@ interface UserPersonAbility extends UserPerson {
 }
 
 type UserSimple = Omit<User, "email" | "password">;
+
+interface GetCurrentUserPayload {
+	is_logged_in: boolean;
+	user: UserPersonAbility;
+}

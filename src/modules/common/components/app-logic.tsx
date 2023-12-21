@@ -9,7 +9,7 @@ import {
 export const AppLogic: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const backendStatus = useAppSelector((s) => s.app.backendStatus);
-	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
+	const hasFetchedUser = useAppSelector((s) => s.app.hasFetchedUser);
 
 	// Check backend health
 	React.useEffect(() => {
@@ -18,8 +18,9 @@ export const AppLogic: React.FC = () => {
 
 	// Check if the user has previously logged in
 	React.useEffect(() => {
-		if (backendStatus === "up" && !isLoggedIn) dispatch(getCurrentUserThunk());
-	}, [dispatch, backendStatus, isLoggedIn]);
+		if (backendStatus === "up" && !hasFetchedUser)
+			dispatch(getCurrentUserThunk());
+	}, [dispatch, backendStatus, hasFetchedUser]);
 
 	return <div className="hidden" />;
 };

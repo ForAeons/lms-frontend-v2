@@ -8,8 +8,9 @@ import {
 } from "../thunks";
 
 const initialState: AppState = {
-	isLoggedIn: false,
 	backendStatus: "unknown",
+	hasFetchedUser: false,
+	isLoggedIn: false,
 	user: null,
 };
 
@@ -35,13 +36,18 @@ export const appSlice = createSlice({
 		});
 
 		builder.addCase(getCurrentUserThunk.fulfilled, (state, action) => {
-			if (action.payload) {
-				state.isLoggedIn = true;
-				state.user = action.payload;
-			} else {
+			if (!action.payload) return;
+
+			state.hasFetchedUser = true;
+
+			if (!action.payload.is_logged_in) {
 				state.isLoggedIn = false;
 				state.user = null;
+				return;
 			}
+
+			state.isLoggedIn = true;
+			state.user = action.payload.user;
 		});
 
 		builder.addCase(loginThunk.fulfilled, (state, action) => {

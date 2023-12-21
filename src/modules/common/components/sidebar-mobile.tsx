@@ -6,7 +6,7 @@ import { DraggableNavButton, NavContent } from ".";
 export const SidebarMobileBtn: React.FC = () => {
 	return (
 		<Sheet>
-			<SheetTrigger className="absolute lg:hidden bottom-0">
+			<SheetTrigger className="absolute lg:hidden left-0">
 				<DraggableNavButton />
 			</SheetTrigger>
 			<SheetContent side="left">
