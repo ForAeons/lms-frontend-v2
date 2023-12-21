@@ -8,6 +8,7 @@ import { LoginPage } from "@/modules/auth";
 import { ManageUserPage } from "@/modules/user";
 import { BookIndexPage, BookPage, ManageBookPage } from "@/modules/book";
 import { LoanPage, ManageLoanPage } from "@/modules/loan";
+import { ManageResPage, ResPage } from "@/modules/reservation";
 
 export const Router = createBrowserRouter(
 	createRoutesFromElements([
@@ -16,10 +17,12 @@ export const Router = createBrowserRouter(
 			<Route path="/book" element={<BookIndexPage />} />
 			<Route path="/book/:book_id" element={<BookPage />} />
 			<Route path="/loan" element={<LoanPage />} />
+			<Route path="/reservation" element={<ResPage />} />
 
+			<Route path="/manage/user" element={<ManageUserPage />} />
 			<Route path="/manage/book" element={<ManageBookPage />} />
 			<Route path="/manage/loan" element={<ManageLoanPage />} />
-			<Route path="/manage/user" element={<ManageUserPage />} />
+			<Route path="/manage/reservation" element={<ManageResPage />} />
 
 			<Route path="*" element={<PageNotFound />} />
 		</Route>,

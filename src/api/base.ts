@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "@/components/ui/use-toast";
 import * as Constants from "@/constants";
+import { cqToUrl } from "@/util";
 
 axios.defaults.withCredentials = true;
 axios.interceptors.response.use(
@@ -86,7 +87,7 @@ export class BaseApi {
 		errorHandler?: ErrorHandler,
 	) => {
 		return axios
-			.get<Payload<R>>(`${this.BASE_URL}/${url}?${cq.toString()}`, {
+			.get<Payload<R>>(`${this.BASE_URL}/${url}?${cqToUrl(cq)}`, {
 				signal: abortSignal,
 			})
 			.then((res) => {

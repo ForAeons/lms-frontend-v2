@@ -12,3 +12,8 @@ interface ReservationDetailed extends Reservation {
 	book: Book;
 	user: User;
 }
+
+interface ReservationCreate {
+	user_id: number;
+	book_id: number;
+}

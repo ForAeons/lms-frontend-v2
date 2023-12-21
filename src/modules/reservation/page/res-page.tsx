@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { LoaderPage, PaginationBar } from "@/modules";
 import { useQueryParams } from "@/hooks";
-import { listLoanThunk, useAppDispatch, useAppSelector } from "@/store";
+import { listResThunk, useAppDispatch, useAppSelector } from "@/store";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { LoanBookCard } from "..";
+import { ResBookCard } from "..";
 
-export const LoanPage: React.FC = () => {
+export const ResPage: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const loanState = useAppSelector((state) => state.loan);
+	const resState = useAppSelector((state) => state.res);
 	const userID = useAppSelector((s) => s.app.user?.id);
 	const navigate = useNavigate();
 	const queryParams = useQueryParams();
@@ -22,17 +22,17 @@ export const LoanPage: React.FC = () => {
 			user_id: userID,
 			status: "borrowed",
 		}),
-			dispatch(listLoanThunk({ q: cq }));
+			dispatch(listResThunk({ q: cq }));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 
 	React.useEffect(() => {
-		const isValid = isValidCq(cq, loanState.meta.filtered_count);
+		const isValid = isValidCq(cq, resState.meta.filtered_count);
 		if (!isValid) navigate(`?${cqToUrl(cq)}`);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [navigate, window.location.search]);
 
-	if (loanState.isFetching) return <LoaderPage />;
+	if (resState.isFetching) return <LoaderPage />;
 
 	return (
 		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
@@ -41,11 +41,11 @@ export const LoanPage: React.FC = () => {
 					My Loans
 				</h2>
 
-				{loanState.loans.map((l) => (
-					<LoanBookCard key={l.id} loan={l} />
+				{resState.res.map((r) => (
+					<ResBookCard key={r.id} res={r} />
 				))}
 
-				<PaginationBar cq={cq} total={loanState.meta.filtered_count} />
+				<PaginationBar cq={cq} total={resState.meta.filtered_count} />
 			</div>
 			<ScrollBar />
 		</ScrollArea>

@@ -3,10 +3,7 @@ import { LoanRoutes, BookRoutes } from "./backend-routes";
 
 class LoanApi extends BaseApi {
 	public ListLoan = (q: CollectionQuery, abortSignal?: AbortSignal) => {
-		return this.Get<LoanDetailed[]>(
-			`${LoanRoutes.BASE}?${LoanRoutes.LIST.DYNAMIC_ROUTE(q)}`,
-			abortSignal,
-		);
+		return this.List<LoanDetailed[]>(LoanRoutes.BASE, q, abortSignal);
 	};
 
 	public LoanBook = (bookId: number, abortSignal?: AbortSignal) => {

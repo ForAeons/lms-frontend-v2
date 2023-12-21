@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 
-export const LoanBadge: React.FC<{ loan: Loan }> = ({ loan }) => {
+export const LoanBadge: React.FC<{ loan: LoanDetailed }> = ({ loan }) => {
 	if (loan.status === "returned")
 		return (
 			<Badge variant="secondary" className="w-fit">
