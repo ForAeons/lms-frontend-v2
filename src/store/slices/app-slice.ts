@@ -24,6 +24,7 @@ export const appSlice = createSlice({
 			if (!action.payload) return;
 			state.backendStatus = "up";
 
+			console.log(document.cookie);
 			const csrfToken = document.cookie
 				.split("; ")
 				.find((row) => row.startsWith("csrf_="));
