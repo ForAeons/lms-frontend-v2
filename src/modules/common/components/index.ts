@@ -12,3 +12,4 @@ export * from "./pagination-bar";
 export * from "./search-bar";
 export * from "./order-btn";
 export * from "./sort-select";
+export * from "./filter-select";

@@ -5,3 +5,9 @@ interface Fine {
 	status: string;
 	amount: number;
 }
+
+interface FineDetailed extends Fine {
+	book: Book;
+	loan: Loan;
+	user: UserPerson;
+}

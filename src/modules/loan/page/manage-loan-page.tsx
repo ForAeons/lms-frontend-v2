@@ -43,12 +43,12 @@ export const ManageLoanPage: React.FC = () => {
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
 					<LoanCreateDialog />
-					<OrderBtn cq={cq} />
 					<SearchBar cq={cq} />
 				</div>
 				<div className="flex gap-3">
-					<LoanFilterSelect cq={cq} />
+					<OrderBtn cq={cq} />
 					<SortSelect cq={cq} opt={LOAN_SORT_OPTIONS} />
+					<LoanFilterSelect cq={cq} />
 				</div>
 
 				{loanState.loans.map((l) => (

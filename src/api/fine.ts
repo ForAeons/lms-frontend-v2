@@ -3,15 +3,18 @@ import { FineRoutes } from "./backend-routes";
 
 class FineApi extends BaseApi {
 	public ListFine = (q: CollectionQuery, abortSignal?: AbortSignal) => {
-		return this.List<Fine[]>(FineRoutes.BASE, q, abortSignal);
+		return this.List<FineDetailed[]>(FineRoutes.BASE, q, abortSignal);
 	};
 
 	public DeleteFine = (fineID: number, abortSignal?: AbortSignal) => {
-		return this.Delete<Fine>(`${FineRoutes.BASE}/${fineID}/`, abortSignal);
+		return this.Delete<FineDetailed>(
+			`${FineRoutes.BASE}/${fineID}/`,
+			abortSignal,
+		);
 	};
 
 	public SettleFine = (fineID: number, abortSignal?: AbortSignal) => {
-		return this.Patch<null, Fine>(
+		return this.Patch<null, FineDetailed>(
 			`${FineRoutes.BASE}/${fineID}/${FineRoutes.SETTLE.ROUTE}`,
 			null,
 			abortSignal,

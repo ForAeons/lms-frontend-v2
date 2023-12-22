@@ -7,30 +7,30 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { changeSort } from "@/util";
+import { changeFilter } from "@/util";
 
-export const SortSelect: React.FC<{
+export const FilterSelect: React.FC<{
 	cq: CollectionQuery;
-	opt: SortOption[];
+	opt: FilterOption[];
 }> = ({ cq, opt }) => {
 	const navigate = useNavigate();
 
 	return (
 		<div className="flex items-center space-x-2">
 			<span className="text-sm text-muted-foreground whitespace-nowrap">
-				Sort by
+				Filter by
 			</span>
 			<Select
-				value={String(cq.sortBy)}
-				onValueChange={(v) => changeSort(navigate, cq, v)}
+				value={cq.filters.status as string}
+				onValueChange={(v) => changeFilter(navigate, cq, { status: v })}
 			>
 				<SelectTrigger className="h-8 w-fit">
 					<SelectValue placeholder={cq.sortBy} />
 				</SelectTrigger>
 				<SelectContent>
-					{opt.map((s) => (
-						<SelectItem key={s.label} value={s.value}>
-							{s.label}
+					{opt.map((f) => (
+						<SelectItem key={f.label} value={f.value}>
+							{f.label}
 						</SelectItem>
 					))}
 				</SelectContent>
