@@ -39,11 +39,14 @@ export const BookPage: React.FC = () => {
 			return;
 		}
 
+		const c = new AbortController();
 		dispatch(
 			getBookThunk({
 				bookID: id,
+				signal: c.signal,
 			}),
 		);
+		return () => c.abort();
 	}, [dispatch, book_id]);
 
 	if (bookState.isFetching || !book) return <LoaderPage />;
@@ -65,7 +68,7 @@ export const BookPage: React.FC = () => {
 	};
 
 	return (
-		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
+		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full flex flex-col gap-3 px-3">
 				<Card className="relative border-none hover:shadow-md transition-shadow pr-10">
 					<div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end">

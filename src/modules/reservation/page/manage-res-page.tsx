@@ -24,7 +24,9 @@ export const ManageResPage: React.FC = () => {
 	if (!cq.filters.status) cq.filters.status = "pending";
 
 	React.useEffect(() => {
-		dispatch(listResThunk({ q: cq }));
+		const c = new AbortController();
+		dispatch(listResThunk({ q: cq, signal: c.signal }));
+		return () => c.abort();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 
@@ -37,7 +39,7 @@ export const ManageResPage: React.FC = () => {
 	if (resState.isFetching) return <LoaderPage />;
 
 	return (
-		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
+		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
 					<ResCreateDialog />

@@ -23,7 +23,9 @@ export const BookIndexPage: React.FC = () => {
 	const cq = getCollectionQuery(queryParams);
 
 	React.useEffect(() => {
-		dispatch(listBookThunk({ q: cq }));
+		const c = new AbortController();
+		dispatch(listBookThunk({ q: cq, signal: c.signal }));
+		return () => c.abort();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 
@@ -38,7 +40,7 @@ export const BookIndexPage: React.FC = () => {
 	}
 
 	return (
-		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
+		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
 					<OrderBtn cq={cq} />

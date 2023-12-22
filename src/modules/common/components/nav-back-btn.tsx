@@ -15,7 +15,7 @@ export const NavBackBtn: React.FC = () => {
 	return (
 		<TooltipProvider>
 			<Tooltip>
-				<TooltipTrigger>
+				<TooltipTrigger asChild>
 					<Button
 						variant="ghost"
 						className="hover:bg-transparent hover:opacity-50 transition-opacity"

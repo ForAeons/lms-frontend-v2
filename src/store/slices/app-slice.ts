@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "@/components/ui/use-toast";
 import {
 	getCurrentUserThunk,
@@ -9,6 +9,7 @@ import {
 
 const initialState: AppState = {
 	backendStatus: "unknown",
+	csrfToken: null,
 	hasFetchedUser: false,
 	isLoggedIn: false,
 	user: null,
@@ -17,14 +18,18 @@ const initialState: AppState = {
 export const appSlice = createSlice({
 	name: "app",
 	initialState,
-	reducers: {
-		setBackendStatus: (state, action: PayloadAction<backendStatus>) => {
-			state.backendStatus = action.payload;
-		},
-	},
+	reducers: {},
 	extraReducers: (builder) => {
-		builder.addCase(getHealthThunk.fulfilled, (state) => {
+		builder.addCase(getHealthThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
 			state.backendStatus = "up";
+			const csrfToken = document.cookie
+				.split("; ")
+				.find((row) => row.startsWith("__Host-csrf_="));
+
+			if (csrfToken) {
+				state.csrfToken = csrfToken.split("=")[1];
+			}
 		});
 		builder.addCase(getHealthThunk.rejected, (state) => {
 			state.backendStatus = "down";
