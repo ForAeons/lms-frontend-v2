@@ -23,6 +23,8 @@ export const appSlice = createSlice({
 		builder.addCase(getHealthThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.backendStatus = "up";
+
+			console.log(document.cookie);
 			const csrfToken = document.cookie
 				.split("; ")
 				.find((row) => row.startsWith("__Host-csrf_="));
@@ -31,6 +33,7 @@ export const appSlice = createSlice({
 				state.csrfToken = csrfToken.split("=")[1];
 			}
 		});
+
 		builder.addCase(getHealthThunk.rejected, (state) => {
 			state.backendStatus = "down";
 			toast({
