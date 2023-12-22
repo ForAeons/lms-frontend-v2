@@ -2,6 +2,7 @@ type backendStatus = "up" | "down" | "unknown";
 
 interface AppState {
 	backendStatus: backendStatus;
+	csrfToken: string | null;
 	hasFetchedUser: boolean;
 	isLoggedIn: boolean;
 	user: UserPersonAbility | null;

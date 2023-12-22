@@ -35,7 +35,7 @@ export const LoanPage: React.FC = () => {
 	if (loanState.isFetching) return <LoaderPage />;
 
 	return (
-		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
+		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
 					My Loans

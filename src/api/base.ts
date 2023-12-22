@@ -1,49 +1,6 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { toast } from "@/components/ui/use-toast";
-import * as Constants from "@/constants";
+import { AxiosError, AxiosResponse } from "axios";
 import { cqToUrl } from "@/util";
-
-axios.defaults.withCredentials = true;
-axios.interceptors.response.use(
-	// Intercepts all requests and logs them to the console and displays the backend message to the user
-	(res: AxiosResponse<Payload>) => {
-		if (Constants.ENV === "development") {
-			// Logs the url, method and url of the request
-			console.info(`[${res.config.method?.toUpperCase()}]: ${res.config.url}`);
-		}
-		return res;
-	},
-	// Intercepts all errors and logs them to the console and displays the backend message to the user
-	(err: AxiosError<Payload>) => {
-		if (Constants.ENV === "development") {
-			if (axios.isCancel(err)) {
-				console.info("Request canceled - ", err.message);
-			}
-
-			// Logs the url, method and url of the request
-			console.error(
-				`[${err.config?.method?.toUpperCase()}]: ${err.config?.url}`,
-			);
-			console.error("Error: ", err);
-		}
-
-		// Toast error
-		if (err.response !== undefined) {
-			const response = err.response;
-			for (let i = 0; i < response.data.messages.length; i++) {
-				setTimeout(() => {
-					toast({
-						variant: "destructive",
-						title: "Action failed",
-						description: response.data.messages[i].message,
-					});
-				}, i * 100);
-			}
-		}
-
-		return Promise.reject(err);
-	},
-);
+import { axiosInstance } from "./axios";
 
 /**
  * Base class for all api classes.
@@ -55,16 +12,14 @@ axios.interceptors.response.use(
  * @param T Response type
  */
 export class BaseApi {
-	private BASE_URL = Constants.BACKEND_BASE_URL;
-
 	protected Get = <R>(
 		url: string,
 		abortSignal?: AbortSignal,
 		successHandler?: ResponseHandler<R>,
 		errorHandler?: ErrorHandler,
 	) => {
-		return axios
-			.get<Payload<R>>(`${this.BASE_URL}/${url}`, {
+		return axiosInstance
+			.get<Payload<R>>(`/${url}`, {
 				signal: abortSignal,
 			})
 			.then((res) => {
@@ -91,8 +46,8 @@ export class BaseApi {
 		successHandler?: ResponseHandler<R>,
 		errorHandler?: ErrorHandler,
 	) => {
-		return axios
-			.get<Payload<R>>(`${this.BASE_URL}/${url}?${cqToUrl(cq)}`, {
+		return axiosInstance
+			.get<Payload<R>>(`/${url}?${cqToUrl(cq)}`, {
 				signal: abortSignal,
 			})
 			.then((res) => {
@@ -119,8 +74,8 @@ export class BaseApi {
 		successHandler?: ResponseHandler<R>,
 		errorHandler?: ErrorHandler,
 	) => {
-		return axios
-			.post<Payload<R>>(`${this.BASE_URL}/${url}`, data, {
+		return axiosInstance
+			.post<Payload<R>>(`/${url}`, data, {
 				signal: abortSignal,
 			})
 			.then((res) => {
@@ -147,8 +102,8 @@ export class BaseApi {
 		successHandler?: ResponseHandler<R>,
 		errorHandler?: ErrorHandler,
 	) => {
-		return axios
-			.patch<Payload<R>>(`${this.BASE_URL}/${url}`, data, {
+		return axiosInstance
+			.patch<Payload<R>>(`/${url}`, data, {
 				signal: abortSignal,
 			})
 			.then((res) => {
@@ -174,13 +129,10 @@ export class BaseApi {
 		successHandler?: ResponseHandler<R>,
 		errorHandler?: ErrorHandler,
 	) => {
-		return axios
-			.delete<Payload<R>, AxiosResponse<Payload<R>>, T>(
-				`${this.BASE_URL}/${url}`,
-				{
-					signal: abortSignal,
-				},
-			)
+		return axiosInstance
+			.delete<Payload<R>, AxiosResponse<Payload<R>>, T>(`/${url}`, {
+				signal: abortSignal,
+			})
 			.then((res) => {
 				if (successHandler) successHandler(res.data);
 				return res.data;
@@ -199,13 +151,10 @@ export class BaseApi {
 	};
 
 	public GetHealth = (abortSignal?: AbortSignal) => {
-		return axios
-			.get<unknown, AxiosResponse<Payload>, unknown>(
-				`${Constants.BACKEND_BASE_URL}/health`,
-				{
-					signal: abortSignal,
-				},
-			)
+		return axiosInstance
+			.get<unknown, AxiosResponse<Payload>, unknown>("/health", {
+				signal: abortSignal,
+			})
 			.then((res) => {
 				return res.data;
 			})

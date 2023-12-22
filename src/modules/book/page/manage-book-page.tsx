@@ -36,7 +36,7 @@ export const ManageBookPage: React.FC = () => {
 	if (bookState.isFetching) return <LoaderPage />;
 
 	return (
-		<ScrollArea className="h-[100vh] space-y-1 lg:space-y-4 py-4">
+		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
 					<BookCreateDialog />
