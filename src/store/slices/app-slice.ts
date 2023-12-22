@@ -24,10 +24,9 @@ export const appSlice = createSlice({
 			if (!action.payload) return;
 			state.backendStatus = "up";
 
-			console.log(document.cookie);
 			const csrfToken = document.cookie
 				.split("; ")
-				.find((row) => row.startsWith("csrf_="));
+				.find((row) => row.startsWith("__Host-csrf_="));
 
 			if (csrfToken) {
 				state.csrfToken = csrfToken.split("=")[1];

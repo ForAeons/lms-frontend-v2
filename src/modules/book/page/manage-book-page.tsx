@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Separator } from "@/components/ui/separator";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
 	LoaderPage,
@@ -42,10 +41,11 @@ export const ManageBookPage: React.FC = () => {
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
 					<BookCreateDialog />
-					<Separator orientation="vertical" />
-					<OrderBtn cq={cq} />
 					<SearchBar cq={cq} />
-					<Separator orientation="vertical" />
+				</div>
+
+				<div className="flex gap-3">
+					<OrderBtn cq={cq} />
 					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
 				</div>
 

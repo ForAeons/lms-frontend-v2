@@ -22,10 +22,7 @@ export const CreateBtn: React.FC<{
 						className="hover:bg-transparent hover:opacity-50 transition-opacity"
 						onClick={handler}
 					>
-						<PlusIcon
-							size={LG_ICON_SIZE}
-							className="hover:bg-transparent hover:opacity-50 transition-opacity"
-						/>
+						<PlusIcon size={LG_ICON_SIZE} />
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>

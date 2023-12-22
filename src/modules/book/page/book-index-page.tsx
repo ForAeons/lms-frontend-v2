@@ -43,10 +43,13 @@ export const BookIndexPage: React.FC = () => {
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
-					<OrderBtn cq={cq} />
 					<SearchBar cq={cq} />
 				</div>
-				<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
+
+				<div className="flex gap-3">
+					<OrderBtn cq={cq} />
+					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
+				</div>
 
 				{bookState.books.map((book) => {
 					return <BookCard key={book.isbn} book={book} />;

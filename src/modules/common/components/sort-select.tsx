@@ -16,7 +16,7 @@ export const SortSelect: React.FC<{
 	const navigate = useNavigate();
 
 	return (
-		<div className="flex items-center space-x-2 px-2">
+		<div className="flex items-center space-x-2">
 			<span className="text-sm text-muted-foreground whitespace-nowrap">
 				Sort by
 			</span>

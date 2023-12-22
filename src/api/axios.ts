@@ -3,8 +3,17 @@ import { toast } from "@/components/ui/use-toast";
 import * as Constants from "@/constants";
 import { store } from "@/store";
 
+let baseUrl = Constants.BACKEND_BASE_URL;
+
+// Let Netlify set up a proxy through Netlify to redirect all requests to a path (eg. /api/)
+// of the front-end domain to the backend domain.
+// This is to allow CSRF Token
+if (Constants.ENV === "test") {
+	baseUrl = Constants.FRONTEND_BASE_URL;
+}
+
 export const axiosInstance = axios.create({
-	baseURL: Constants.BACKEND_BASE_URL,
+	baseURL: baseUrl,
 	withCredentials: true,
 });
 

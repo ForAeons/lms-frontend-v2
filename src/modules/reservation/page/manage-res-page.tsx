@@ -43,12 +43,12 @@ export const ManageResPage: React.FC = () => {
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
 					<ResCreateDialog />
-					<OrderBtn cq={cq} />
 					<SearchBar cq={cq} />
 				</div>
 				<div className="flex gap-3">
-					<ResFilterSelect cq={cq} />
+					<OrderBtn cq={cq} />
 					<SortSelect cq={cq} opt={RES_SORT_OPTIONS} />
+					<ResFilterSelect cq={cq} />
 				</div>
 
 				{resState.res.map((r) => (

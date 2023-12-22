@@ -13,7 +13,6 @@ import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { USER_SORT_OPTIONS } from "@/constants";
 import { UserCreateDialog, UserPersonCard } from "..";
-import { Separator } from "@/components/ui/separator";
 
 export const ManageUserPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -42,10 +41,10 @@ export const ManageUserPage: React.FC = () => {
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
 					<UserCreateDialog />
-					<Separator orientation="vertical" />
-					<OrderBtn cq={cq} />
 					<SearchBar cq={cq} />
-					<Separator orientation="vertical" />
+				</div>
+				<div className="flex gap-3">
+					<OrderBtn cq={cq} />
 					<SortSelect cq={cq} opt={USER_SORT_OPTIONS} />
 				</div>
 				{userState.users.map((u) => {
