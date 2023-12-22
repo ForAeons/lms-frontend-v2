@@ -9,7 +9,7 @@ let baseUrl = Constants.BACKEND_BASE_URL;
 // of the front-end domain to the backend domain.
 // This is to allow CSRF Token
 if (Constants.ENV === "test") {
-	baseUrl = Constants.FRONTEND_BASE_URL;
+	baseUrl = Constants.FRONTEND_BASE_URL + "/api";
 }
 
 export const axiosInstance = axios.create({
