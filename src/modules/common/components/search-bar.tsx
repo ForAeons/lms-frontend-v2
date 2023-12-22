@@ -24,7 +24,11 @@ export const SearchBar: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
 				value={searchValue}
 				onChange={(e) => setSearchValue(e.target.value)}
 			></Input>
-			<Button type="submit" variant="ghost" className="p-2 m-0 rounded-full">
+			<Button
+				type="submit"
+				variant="ghost"
+				className="hover:bg-transparent hover:opacity-50 transition-opacity"
+			>
 				<Search size={LG_ICON_SIZE} />
 			</Button>
 		</form>

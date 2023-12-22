@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { toast } from "@/components/ui/use-toast";
 import * as Constants from "@/constants";
 import { store } from "@/store";
@@ -35,30 +35,39 @@ axiosInstance.interceptors.response.use(
 		return res;
 	},
 	// Intercepts all errors and logs them to the console and displays the backend message to the user
-	(err: AxiosError<Payload>) => {
-		if (Constants.ENV === "development") {
-			if (axios.isCancel(err)) {
+	(err: unknown) => {
+		if (axios.isCancel(err)) {
+			if (Constants.ENV === "development") {
 				console.info("Request canceled - ", err.message);
 			}
-
-			// Logs the url, method and url of the request
-			console.error(
-				`[${err.config?.method?.toUpperCase()}]: ${err.config?.url}`,
-			);
-			console.error("Error: ", err);
+			return Promise.resolve({
+				data: false,
+				messages: [] as ApiMessage[],
+				meta: undefined,
+			} as Payload<boolean>);
 		}
 
-		// Toast error
-		if (err.response !== undefined) {
-			const response = err.response;
-			for (let i = 0; i < response.data.messages.length; i++) {
-				setTimeout(() => {
-					toast({
-						variant: "destructive",
-						title: "Action failed",
-						description: response.data.messages[i].message,
-					});
-				}, i * 100);
+		// Check if error is an AxiosError
+		if (axios.isAxiosError(err)) {
+			if (Constants.ENV === "development") {
+				console.error(
+					`[${err.config?.method?.toUpperCase()}]: ${err.config?.url}`,
+				);
+				console.error("Error: ", err);
+			}
+
+			// Toast error
+			if (err.response?.data.messages) {
+				const response = err.response;
+				for (let i = 0; i < response.data.messages.length; i++) {
+					setTimeout(() => {
+						toast({
+							variant: "destructive",
+							title: "Action failed",
+							description: response.data.messages[i].message,
+						});
+					}, i * 100);
+				}
 			}
 		}
 

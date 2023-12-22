@@ -18,11 +18,13 @@ export const LoanPage: React.FC = () => {
 	// This page, user can only see their own loans
 	React.useEffect(() => {
 		if (!userID) return;
-		(cq.filters = {
+		cq.filters = {
 			user_id: userID,
 			status: "borrowed",
-		}),
-			dispatch(listLoanThunk({ q: cq }));
+		};
+		const c = new AbortController();
+		dispatch(listLoanThunk({ q: cq, signal: c.signal }));
+		return () => c.abort();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 

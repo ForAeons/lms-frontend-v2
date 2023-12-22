@@ -24,7 +24,9 @@ export const ManageLoanPage: React.FC = () => {
 	if (!cq.filters.status) cq.filters.status = "borrowed";
 
 	React.useEffect(() => {
-		dispatch(listLoanThunk({ q: cq }));
+		const c = new AbortController();
+		dispatch(listLoanThunk({ q: cq, signal: c.signal }));
+		return () => c.abort();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 

@@ -13,13 +13,18 @@ export const AppLogic: React.FC = () => {
 
 	// Check backend health
 	React.useEffect(() => {
-		if (backendStatus === "unknown") dispatch(getHealthThunk());
+		const c = new AbortController();
+		if (backendStatus !== "unknown") return;
+		dispatch(getHealthThunk(c.signal));
+		return () => c.abort();
 	}, [dispatch, backendStatus]);
 
 	// Check if the user has previously logged in
 	React.useEffect(() => {
-		if (backendStatus === "up" && !hasFetchedUser)
-			dispatch(getCurrentUserThunk());
+		const c = new AbortController();
+		if (backendStatus !== "up" || hasFetchedUser) return;
+		dispatch(getCurrentUserThunk(c.signal));
+		return () => c.abort();
 	}, [dispatch, backendStatus, hasFetchedUser]);
 
 	return <div className="hidden" />;

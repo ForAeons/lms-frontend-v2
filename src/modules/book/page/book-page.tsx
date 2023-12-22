@@ -39,11 +39,14 @@ export const BookPage: React.FC = () => {
 			return;
 		}
 
+		const c = new AbortController();
 		dispatch(
 			getBookThunk({
 				bookID: id,
+				signal: c.signal,
 			}),
 		);
+		return () => c.abort();
 	}, [dispatch, book_id]);
 
 	if (bookState.isFetching || !book) return <LoaderPage />;

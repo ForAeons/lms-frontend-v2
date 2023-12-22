@@ -15,7 +15,7 @@ export const BookNavBtn: React.FC<{ book: Book }> = ({ book }) => {
 	return (
 		<TooltipProvider>
 			<Tooltip>
-				<TooltipTrigger>
+				<TooltipTrigger asChild>
 					<Button
 						variant="ghost"
 						className="hover:bg-transparent hover:opacity-50 transition-opacity"

@@ -24,7 +24,9 @@ export const ManageResPage: React.FC = () => {
 	if (!cq.filters.status) cq.filters.status = "pending";
 
 	React.useEffect(() => {
-		dispatch(listResThunk({ q: cq }));
+		const c = new AbortController();
+		dispatch(listResThunk({ q: cq, signal: c.signal }));
+		return () => c.abort();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 

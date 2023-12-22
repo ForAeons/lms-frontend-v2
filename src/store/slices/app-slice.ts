@@ -20,7 +20,8 @@ export const appSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder.addCase(getHealthThunk.fulfilled, (state) => {
+		builder.addCase(getHealthThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
 			state.backendStatus = "up";
 			const csrfToken = document.cookie
 				.split("; ")

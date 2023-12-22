@@ -10,7 +10,7 @@ export const OrderBtn: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
 	return (
 		<Button
 			variant="ghost"
-			className="m-0 p-2 rounded-full"
+			className="hover:bg-transparent hover:opacity-50 transition-opacity"
 			onClick={() => toggleOrder(navigate, cq)}
 		>
 			{cq.orderBy === "asc" && <ArrowUpNarrowWideIcon size={LG_ICON_SIZE} />}

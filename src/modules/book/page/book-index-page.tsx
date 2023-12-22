@@ -23,7 +23,9 @@ export const BookIndexPage: React.FC = () => {
 	const cq = getCollectionQuery(queryParams);
 
 	React.useEffect(() => {
-		dispatch(listBookThunk({ q: cq }));
+		const c = new AbortController();
+		dispatch(listBookThunk({ q: cq, signal: c.signal }));
+		return () => c.abort();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 

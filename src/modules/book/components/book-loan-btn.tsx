@@ -26,10 +26,10 @@ export const BookLoanBtn: React.FC<{
 }> = ({ handler, book }) => {
 	return (
 		<AlertDialog>
-			<AlertDialogTrigger>
+			<AlertDialogTrigger asChild>
 				<TooltipProvider>
 					<Tooltip>
-						<TooltipTrigger>
+						<TooltipTrigger asChild>
 							<Button
 								variant="ghost"
 								className="hover:bg-transparent hover:opacity-50 transition-opacity"

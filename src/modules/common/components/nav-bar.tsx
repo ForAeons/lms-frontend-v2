@@ -23,7 +23,7 @@ export const NavBar: React.FC = () => {
 			</h2>
 
 			<div className="flex justify-end">
-				<div className="flex items-center">
+				<div className="flex items-center px-2">
 					<div className="relative flex">
 						<SunIcon
 							size={LG_ICON_SIZE}

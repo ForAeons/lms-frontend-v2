@@ -23,7 +23,9 @@ export const ManageUserPage: React.FC = () => {
 	const cq = getCollectionQuery(queryParams);
 
 	React.useEffect(() => {
-		dispatch(listUserThunk({ q: cq }));
+		const c = new AbortController();
+		dispatch(listUserThunk({ q: cq, signal: c.signal }));
+		return () => c.abort();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 
