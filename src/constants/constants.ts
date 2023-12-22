@@ -55,3 +55,13 @@ export const RES_FILTER_OPTIONS: FilterOption[] = [
 	{ label: "Reserved", key: "status", value: "pending" },
 	{ label: "fulfilled", key: "status", value: "fulfilled" },
 ];
+
+export const FINE_SORT_OPTIONS: SortOption[] = [
+	{ value: "amount", label: "Amount" },
+	{ value: "created_at", label: "Date of creation" },
+];
+
+export const FINE_FILTER_OPTIONS: FilterOption[] = [
+	{ label: "Outstanding", key: "status", value: "outstanding" },
+	{ label: "Paid", key: "status", value: "Paid" },
+];

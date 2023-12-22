@@ -8,7 +8,7 @@ import {
 	listResThunk,
 } from "..";
 
-const initialState: resState = {
+const initialState: ResState = {
 	isFetching: false,
 	res: [],
 	meta: {

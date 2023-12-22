@@ -43,13 +43,16 @@ export const ManageUserPage: React.FC = () => {
 					<UserCreateDialog />
 					<SearchBar cq={cq} />
 				</div>
+
 				<div className="flex gap-3">
 					<OrderBtn cq={cq} />
 					<SortSelect cq={cq} opt={USER_SORT_OPTIONS} />
 				</div>
+
 				{userState.users.map((u) => {
 					return <UserPersonCard key={u.username} userPerson={u} />;
 				})}
+
 				<PaginationBar cq={cq} total={userState.meta.filtered_count} />
 			</div>
 			<ScrollBar />

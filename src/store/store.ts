@@ -9,6 +9,7 @@ export const store = configureStore({
 		book: Slices.bookSlice.reducer,
 		loan: Slices.loanSlice.reducer,
 		res: Slices.resSlice.reducer,
+		fine: Slices.fineSlice.reducer,
 	},
 });
 

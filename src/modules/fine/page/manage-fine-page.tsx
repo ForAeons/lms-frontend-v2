@@ -1,27 +1,30 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { LoaderPage, PaginationBar } from "@/modules";
 import { useQueryParams } from "@/hooks";
-import { listFineThunk, useAppDispatch, useAppSelector } from "@/store";
+import {
+	FilterSelect,
+	LoaderPage,
+	OrderBtn,
+	PaginationBar,
+	SearchBar,
+	SortSelect,
+} from "@/modules";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
+import { listFineThunk, useAppDispatch, useAppSelector } from "@/store";
+import { FINE_SORT_OPTIONS, FINE_FILTER_OPTIONS } from "@/constants";
 import { FineBookCard } from "..";
 
-export const FinePage: React.FC = () => {
+export const ManageFinePage: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const fineState = useAppSelector((state) => state.fine);
-	const userID = useAppSelector((s) => s.app.user?.id);
+	const fineState = useAppSelector((s) => s.fine);
 	const navigate = useNavigate();
 	const queryParams = useQueryParams();
 	const cq = getCollectionQuery(queryParams);
 
-	// This page, user can only see their own loans
+	if (!cq.filters.status) cq.filters.status = "outstanding";
+
 	React.useEffect(() => {
-		if (!userID) return;
-		cq.filters = {
-			user_id: userID,
-			status: "outstanding",
-		};
 		const c = new AbortController();
 		dispatch(listFineThunk({ q: cq, signal: c.signal }));
 		return () => c.abort();
@@ -39,12 +42,17 @@ export const FinePage: React.FC = () => {
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
-				<h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-					My Loans
-				</h2>
+				<div className="flex gap-3">
+					<SearchBar cq={cq} />
+				</div>
+				<div className="flex gap-3">
+					<OrderBtn cq={cq} />
+					<SortSelect cq={cq} opt={FINE_SORT_OPTIONS} />
+					<FilterSelect cq={cq} opt={FINE_FILTER_OPTIONS} />
+				</div>
 
 				{fineState.fines.map((f) => (
-					<FineBookCard key={f.id} fine={f} />
+					<FineBookCard key={f.id} fine={f} editable />
 				))}
 
 				<PaginationBar cq={cq} total={fineState.meta.filtered_count} />

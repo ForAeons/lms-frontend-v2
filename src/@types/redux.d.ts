@@ -26,18 +26,20 @@ interface BookState {
 	meta: Meta;
 }
 
-/**
- * Holds the state of books that are borrowed by the user.
- * Exact book should contain exactly one Loan object.
- */
 interface LoanState {
 	isFetching: boolean;
 	loans: LoanDetailed[];
 	meta: Meta;
 }
 
-interface resState {
+interface ResState {
 	isFetching: boolean;
 	res: ReservationDetailed[];
+	meta: Meta;
+}
+
+interface FineState {
+	isFetching: boolean;
+	fines: FineDetailed[];
 	meta: Meta;
 }
