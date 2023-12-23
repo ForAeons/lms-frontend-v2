@@ -6,7 +6,6 @@ import {
 	loginThunk,
 	logoutThunk,
 } from "../thunks";
-import { CSRF_COOKIE_KEY } from "@/constants";
 
 const initialState: AppState = {
 	backendStatus: "unknown",
@@ -19,19 +18,15 @@ const initialState: AppState = {
 export const appSlice = createSlice({
 	name: "app",
 	initialState,
-	reducers: {},
+	reducers: {
+		setCsrfToken: (state, action) => {
+			state.csrfToken = action.payload;
+		},
+	},
 	extraReducers: (builder) => {
 		builder.addCase(getHealthThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.backendStatus = "up";
-
-			const csrfToken = document.cookie
-				.split("; ")
-				.find((row) => row.startsWith(CSRF_COOKIE_KEY + "="));
-
-			if (csrfToken) {
-				state.csrfToken = csrfToken.split("=")[1];
-			}
 		});
 
 		builder.addCase(getHealthThunk.rejected, (state) => {
