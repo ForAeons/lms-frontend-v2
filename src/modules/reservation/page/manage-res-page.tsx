@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useQueryParams } from "@/hooks";
 import {
+	FilterSelect,
 	LoaderPage,
 	OrderBtn,
 	PaginationBar,
@@ -11,8 +12,8 @@ import {
 } from "@/modules";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { listResThunk, useAppDispatch, useAppSelector } from "@/store";
-import { RES_SORT_OPTIONS } from "@/constants";
-import { ResBookCard, ResCreateDialog, ResFilterSelect } from "..";
+import { RES_FILTER_OPTIONS, RES_SORT_OPTIONS } from "@/constants";
+import { ResBookCard, ResCreateDialog } from "..";
 
 export const ManageResPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -48,7 +49,7 @@ export const ManageResPage: React.FC = () => {
 				<div className="flex gap-3">
 					<OrderBtn cq={cq} />
 					<SortSelect cq={cq} opt={RES_SORT_OPTIONS} />
-					<ResFilterSelect cq={cq} />
+					<FilterSelect cq={cq} opt={RES_FILTER_OPTIONS} />
 				</div>
 
 				{resState.res.map((r) => (

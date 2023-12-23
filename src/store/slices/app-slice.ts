@@ -6,6 +6,7 @@ import {
 	loginThunk,
 	logoutThunk,
 } from "../thunks";
+import { CSRF_COOKIE_KEY } from "@/constants";
 
 const initialState: AppState = {
 	backendStatus: "unknown",
@@ -26,7 +27,7 @@ export const appSlice = createSlice({
 
 			const csrfToken = document.cookie
 				.split("; ")
-				.find((row) => row.startsWith("__Host-csrf_="));
+				.find((row) => row.startsWith(CSRF_COOKIE_KEY + "="));
 
 			if (csrfToken) {
 				state.csrfToken = csrfToken.split("=")[1];

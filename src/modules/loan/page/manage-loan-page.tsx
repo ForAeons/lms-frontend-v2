@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useQueryParams } from "@/hooks";
 import {
+	FilterSelect,
 	LoaderPage,
 	OrderBtn,
 	PaginationBar,
@@ -11,8 +12,8 @@ import {
 } from "@/modules";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { listLoanThunk, useAppDispatch, useAppSelector } from "@/store";
-import { LOAN_SORT_OPTIONS } from "@/constants";
-import { LoanBookCard, LoanCreateDialog, LoanFilterSelect } from "..";
+import { LOAN_FILTER_OPTIONS, LOAN_SORT_OPTIONS } from "@/constants";
+import { LoanBookCard, LoanCreateDialog } from "..";
 
 export const ManageLoanPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -48,7 +49,7 @@ export const ManageLoanPage: React.FC = () => {
 				<div className="flex gap-3">
 					<OrderBtn cq={cq} />
 					<SortSelect cq={cq} opt={LOAN_SORT_OPTIONS} />
-					<LoanFilterSelect cq={cq} />
+					<FilterSelect cq={cq} opt={LOAN_FILTER_OPTIONS} />
 				</div>
 
 				{loanState.loans.map((l) => (

@@ -19,7 +19,7 @@ export const Router = createBrowserRouter(
 			<Route path="/book/:book_id" element={<BookPage />} />
 			<Route path="/loan" element={<LoanPage />} />
 			<Route path="/reservation" element={<ResPage />} />
-			<Route path="fine" element={<FinePage />} />
+			<Route path="/fine" element={<FinePage />} />
 
 			<Route path="/manage/user" element={<ManageUserPage />} />
 			<Route path="/manage/book" element={<ManageBookPage />} />
