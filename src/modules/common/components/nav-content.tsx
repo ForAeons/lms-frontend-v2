@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import {
 	LogInIcon,
 	LogOutIcon,
-	BookIcon,
 	BookDownIcon,
 	WalletIcon,
 	UserCogIcon,
@@ -15,6 +14,7 @@ import {
 	Moon,
 	Home,
 	BookLockIcon,
+	ScrollTextIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -81,51 +81,39 @@ export const NavContent: React.FC = () => {
 					Resources
 				</h2>
 
-				<div className="space-y-1">
-					<Button
-						variant="ghost"
-						className="w-full justify-start"
-						onClick={() => navigate("/book")}
-					>
-						<BookIcon size={MD_ICON_SIZE} />
-						<p className="ml-3">Book</p>
-						<span className="sr-only">Book resources</span>
-					</Button>
+				{isLoggedIn && (
+					<div className="space-y-1">
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/loan")}
+						>
+							<BookDownIcon size={MD_ICON_SIZE} />
+							<p className="ml-3">My Loan</p>
+							<span className="sr-only">Loan resources</span>
+						</Button>
 
-					{isLoggedIn && (
-						<>
-							<Button
-								variant="ghost"
-								className="w-full justify-start"
-								onClick={() => navigate("/loan")}
-							>
-								<BookDownIcon size={MD_ICON_SIZE} />
-								<p className="ml-3">My Loan</p>
-								<span className="sr-only">Loan resources</span>
-							</Button>
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/reservation")}
+						>
+							<BookLockIcon size={MD_ICON_SIZE} />
+							<p className="ml-3">My Reservation</p>
+							<span className="sr-only">Reservation resources</span>
+						</Button>
 
-							<Button
-								variant="ghost"
-								className="w-full justify-start"
-								onClick={() => navigate("/reservation")}
-							>
-								<BookLockIcon size={MD_ICON_SIZE} />
-								<p className="ml-3">My Reservation</p>
-								<span className="sr-only">Reservation resources</span>
-							</Button>
-
-							<Button
-								variant="ghost"
-								className="w-full justify-start"
-								onClick={() => navigate("/fine")}
-							>
-								<WalletIcon size={MD_ICON_SIZE} />
-								<p className="ml-3">My Fine</p>
-								<span className="sr-only">Fine resources</span>
-							</Button>
-						</>
-					)}
-				</div>
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/fine")}
+						>
+							<WalletIcon size={MD_ICON_SIZE} />
+							<p className="ml-3">My Fine</p>
+							<span className="sr-only">Fine resources</span>
+						</Button>
+					</div>
+				)}
 			</div>
 
 			{isLoggedIn && (
@@ -183,6 +171,16 @@ export const NavContent: React.FC = () => {
 							<LandmarkIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">Manage Fine</p>
 							<span className="sr-only">MManage fine</span>
+						</Button>
+
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/manage/audit_log")}
+						>
+							<ScrollTextIcon size={MD_ICON_SIZE} />
+							<p className="ml-3">Audit Log</p>
+							<span className="sr-only">Audit logs</span>
 						</Button>
 					</div>
 				</div>

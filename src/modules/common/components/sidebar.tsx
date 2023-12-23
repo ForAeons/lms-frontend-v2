@@ -4,7 +4,7 @@ import { NavContent } from ".";
 
 export const Sidebar: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => {
 	return (
-		<ScrollArea className="h-[100vh] hidden lg:block">
+		<ScrollArea className="h-[100vh]">
 			<NavContent />
 			<ScrollBar />
 		</ScrollArea>

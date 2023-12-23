@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import {
 	createLoanThunk,
 	deleteLoanThunk,
@@ -41,8 +41,7 @@ export const loanSlice = createSlice({
 		builder.addCase(createLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.loans.unshift(action.payload);
-			toast({
-				title: "Success",
+			toast.success("Success", {
 				description: `${action.payload!.book.title} loaned to ${
 					action.payload!.user.username
 				} successfully.`,
@@ -52,8 +51,7 @@ export const loanSlice = createSlice({
 		builder.addCase(returnLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.loans = state.loans.filter((l) => l.id !== action.payload!.id);
-			toast({
-				title: "Success",
+			toast.success("Success", {
 				description: `${action.payload!.book.title} returned successfully.`,
 			});
 		});
@@ -66,8 +64,7 @@ export const loanSlice = createSlice({
 				}
 				return l;
 			});
-			toast({
-				title: "Success",
+			toast.success("Success", {
 				description: `Book renewed successfully`,
 			});
 		});
@@ -75,8 +72,7 @@ export const loanSlice = createSlice({
 		builder.addCase(deleteLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.loans = state.loans.filter((l) => l.id !== action.payload!.id);
-			toast({
-				title: "Success",
+			toast.success("Success", {
 				description: `Loan deleted successfully`,
 			});
 		});

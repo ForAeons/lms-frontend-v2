@@ -9,32 +9,19 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { useAppDispatch, createUserThunk } from "@/store";
 import { CreateBtn } from "@/modules";
-import { UserFormSchema } from "@/schema";
-import { UserForm } from ".";
+import { createLogThunk, useAppDispatch } from "@/store";
+import { AuditlogFormSchema } from "@/schema";
+import { AuditLogForm } from "./auditlog-form";
 
-export const UserCreateDialog: React.FC = () => {
-	const defaultValues = {
-		username: "",
-		password: "",
-		confirmPassword: "",
-		full_name: "",
-		preferred_name: "",
-		language_preference: "",
-	};
+export const LogCreateDialog: React.FC = () => {
+	const defaultValues = { action: "" };
 
 	const dispatch = useAppDispatch();
-	function onSubmit(values: z.infer<typeof UserFormSchema>) {
+	function onSubmit(values: z.infer<typeof AuditlogFormSchema>) {
 		dispatch(
-			createUserThunk({
-				username: values.username,
-				password: values.password,
-				person_attributes: {
-					full_name: values.full_name,
-					preferred_name: values.preferred_name,
-					language_preference: values.language_preference,
-				},
+			createLogThunk({
+				log: values,
 			}),
 		);
 	}
@@ -43,21 +30,19 @@ export const UserCreateDialog: React.FC = () => {
 		<Dialog>
 			<DialogTrigger asChild>
 				<div>
-					<CreateBtn subject="user" />
+					<CreateBtn subject="audit log" />
 				</div>
 			</DialogTrigger>
 			<DialogContent className="max-h-[75vh] p-0">
 				<ScrollArea className="max-h-[70vh]">
 					<div className="p-6">
 						<DialogHeader>
-							<DialogTitle>Add New User</DialogTitle>
+							<DialogTitle>Log an event</DialogTitle>
 							<DialogDescription>
-								{
-									"Make changes to the new user's profile here. Click save when you're done."
-								}
+								{"Describe the event here. Click upload when you're done."}
 							</DialogDescription>
 						</DialogHeader>
-						<UserForm
+						<AuditLogForm
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
 							action="Create"

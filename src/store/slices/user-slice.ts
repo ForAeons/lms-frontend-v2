@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import {
 	autoCompleteUserThunk,
 	createUserThunk,
@@ -52,8 +52,7 @@ export const userSlice = createSlice({
 			state.users = state.users.map((u) =>
 				u.id === action.payload?.id ? action.payload : u,
 			);
-			toast({
-				title: "Success",
+			toast.success("Success", {
 				description: "User created successfully",
 			});
 		});
@@ -62,16 +61,14 @@ export const userSlice = createSlice({
 			state.users = state.users.map((u) =>
 				u.id === action.payload?.id ? action.payload : u,
 			);
-			toast({
-				title: "Success",
+			toast.success("Success", {
 				description: "User updated successfully",
 			});
 		});
 
 		builder.addCase(deleteUserThunk.fulfilled, (state, action) => {
 			state.users = state.users.filter((u) => u.id !== action.payload?.id);
-			toast({
-				title: "Success",
+			toast.success("Success", {
 				description: "User deleted successfully",
 			});
 		});
