@@ -8,3 +8,8 @@ interface FilterOption {
 	key: string;
 	value: string;
 }
+
+interface SelectOption {
+	label: string;
+	value: string;
+}

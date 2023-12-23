@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import {
 	getCurrentUserThunk,
 	getHealthThunk,
@@ -31,9 +31,7 @@ export const appSlice = createSlice({
 
 		builder.addCase(getHealthThunk.rejected, (state) => {
 			state.backendStatus = "down";
-			toast({
-				variant: "destructive",
-				title: "Backend is down",
+			toast.error("Backend is down", {
 				description: "The backend is currently down. Please try again later.",
 			});
 		});
@@ -57,8 +55,7 @@ export const appSlice = createSlice({
 			if (action.payload) {
 				state.isLoggedIn = true;
 				state.user = action.payload;
-				toast({
-					title: "Sign in successful",
+				toast.success("Sign in successful", {
 					description: "You are now signed in.",
 				});
 			} else {
@@ -68,9 +65,7 @@ export const appSlice = createSlice({
 		builder.addCase(loginThunk.rejected, (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
-			toast({
-				variant: "destructive",
-				title: "Login failed",
+			toast.error("Login failed", {
 				description: "Please check your username and password.",
 			});
 		});
@@ -78,8 +73,7 @@ export const appSlice = createSlice({
 		builder.addCase(logoutThunk.fulfilled, (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
-			toast({
-				title: "Sign out Successful",
+			toast("Sign out Successful", {
 				description: "You are now signed out.",
 			});
 		});

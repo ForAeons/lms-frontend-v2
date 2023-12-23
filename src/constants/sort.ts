@@ -30,3 +30,8 @@ export const FINE_SORT_OPTIONS: SortOption[] = [
 	{ value: "amount", label: "Amount" },
 	{ value: "created_at", label: "Date of creation" },
 ];
+
+export const LOG_SORT_OPTIONS: SortOption[] = [
+	{ value: "action", label: "Action" },
+	{ value: "created_at", label: "Date of creation" },
+];

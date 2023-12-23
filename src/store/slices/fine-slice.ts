@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { deleteFineThunk, listFineThunk, settleFineThunk } from "..";
 
 const initialState: FineState = {
@@ -35,8 +35,7 @@ export const fineSlice = createSlice({
 		builder.addCase(settleFineThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.fines = state.fines.filter((f) => f.id !== action.payload!.id);
-			toast({
-				title: "Success",
+			toast.success("Success", {
 				description: `Fine for ${
 					action.payload!.user.username
 				} settled successfully.`,
@@ -46,8 +45,7 @@ export const fineSlice = createSlice({
 		builder.addCase(deleteFineThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.fines = state.fines.filter((f) => f.id !== action.payload!.id);
-			toast({
-				title: "Success",
+			toast.success("Success", {
 				description: `Fine for ${
 					action.payload!.user.username
 				} deleted successfully.`,

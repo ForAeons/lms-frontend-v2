@@ -43,3 +43,9 @@ interface FineState {
 	fines: FineDetailed[];
 	meta: Meta;
 }
+
+interface AuditLogState {
+	isFetching: boolean;
+	logs: AuditLogDetailed[];
+	meta: Meta;
+}

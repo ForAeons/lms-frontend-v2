@@ -4,3 +4,4 @@ export * from "./book-route";
 export * from "./loan-route";
 export * from "./fine-route";
 export * from "./reservation-route";
+export * from "./auditlog-route";

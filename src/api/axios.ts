@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import * as Constants from "@/constants";
 import { appSlice, store } from "@/store";
 
@@ -74,9 +74,7 @@ axiosInstance.interceptors.response.use(
 				const response = err.response;
 				for (let i = 0; i < response.data.messages.length; i++) {
 					setTimeout(() => {
-						toast({
-							variant: "destructive",
-							title: "Action failed",
+						toast.error("Action failed", {
 							description: response.data.messages[i].message,
 						});
 					}, i * 100);

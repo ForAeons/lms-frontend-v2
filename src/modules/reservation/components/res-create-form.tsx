@@ -36,11 +36,7 @@ import {
 } from "@/store";
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const BookUserSchema = z.object({
-	user_id: z.number(),
-	book_id: z.number(),
-});
+import { BookUserFormSchema } from "@/schema";
 
 export const ResCreateForm: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -52,7 +48,9 @@ export const ResCreateForm: React.FC = () => {
 			dispatch(userSlice.actions.setAutoComplete([]));
 			return;
 		}
-		dispatch(autoCompleteUserThunk({ value: s }));
+		const c = new AbortController();
+		dispatch(autoCompleteUserThunk({ value: s, signal: c.signal }));
+		return () => c.abort();
 	};
 
 	const handleBookAC = (s: string) => {
@@ -60,14 +58,16 @@ export const ResCreateForm: React.FC = () => {
 			dispatch(bookSlice.actions.setAutoComplete([]));
 			return;
 		}
-		dispatch(autoCompleteBookThunk({ value: s }));
+		const c = new AbortController();
+		dispatch(autoCompleteBookThunk({ value: s, signal: c.signal }));
+		return () => c.abort();
 	};
 
-	const form = useForm<z.infer<typeof BookUserSchema>>({
-		resolver: zodResolver(BookUserSchema),
+	const form = useForm<z.infer<typeof BookUserFormSchema>>({
+		resolver: zodResolver(BookUserFormSchema),
 	});
 
-	function onSubmit(values: z.infer<typeof BookUserSchema>) {
+	function onSubmit(values: z.infer<typeof BookUserFormSchema>) {
 		dispatch(createResThunk({ res: values }));
 	}
 

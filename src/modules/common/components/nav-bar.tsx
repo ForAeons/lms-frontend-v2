@@ -13,7 +13,7 @@ export const NavBar: React.FC = () => {
 	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
 	return (
-		<nav className="w-full lg:hidden p-3 grid grid-cols-3 items-center">
+		<nav className="w-full p-3 grid grid-cols-3 items-center">
 			<div className="flex justify-start">
 				<NavbarMobileBtn />
 			</div>
