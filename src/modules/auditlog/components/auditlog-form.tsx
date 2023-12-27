@@ -27,10 +27,7 @@ export const AuditLogForm: React.FC<{
 
 	return (
 		<Form {...form}>
-			<form
-				onSubmit={form.handleSubmit(onSubmit)}
-				className="space-y-8 max-w-xl w-full"
-			>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
 				<FormField
 					control={form.control}
 					name="action"

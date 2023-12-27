@@ -1,62 +1,61 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { useQueryParams } from "@/hooks";
 import {
-	FilterSelect,
-	LoaderPage,
-	OrderBtn,
-	PaginationBar,
 	SearchBar,
+	LoaderPage,
+	PaginationBar,
+	OrderBtn,
 	SortSelect,
 } from "@/modules";
+import { listBookThunk } from "@/store/thunks/book-thunk";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { listLoanThunk, useAppDispatch, useAppSelector } from "@/store";
-import { LOAN_FILTER_OPTIONS, LOAN_SORT_OPTIONS } from "@/constants";
-import { LoanBookCard, LoanCreateBtn } from "..";
+import { BookCard } from "..";
+import { BOOK_SORT_OPTIONS } from "@/constants";
 
-export const ManageLoanPage: React.FC = () => {
+export const BookListPage: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const loanState = useAppSelector((s) => s.loan);
+	const bookState = useAppSelector((s) => s.book);
 	const navigate = useNavigate();
 	const queryParams = useQueryParams();
 	const cq = getCollectionQuery(queryParams);
 
-	if (!cq.filters.status) cq.filters.status = "borrowed";
-
 	React.useEffect(() => {
 		const c = new AbortController();
-		dispatch(listLoanThunk({ q: cq, signal: c.signal }));
+		dispatch(listBookThunk({ q: cq, signal: c.signal }));
 		return () => c.abort();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, window.location.search]);
 
 	React.useEffect(() => {
-		const isValid = isValidCq(cq, loanState.meta.filtered_count);
-		if (!isValid) navigate(`?${cqToUrl(cq)}`);
+		const isValid = isValidCq(cq, bookState.meta.filtered_count);
+		if (!isValid) navigate(`/book?${cqToUrl(cq)}`);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [navigate, window.location.search]);
 
-	if (loanState.isFetching) return <LoaderPage />;
+	if (bookState.isFetching) {
+		return <LoaderPage />;
+	}
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
-			<div className="w-full grid grid-cols-1 gap-3 px-3">
+			<div className="grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
-					<LoanCreateBtn />
 					<SearchBar cq={cq} />
 				</div>
+
 				<div className="flex gap-3">
 					<OrderBtn cq={cq} />
-					<SortSelect cq={cq} opt={LOAN_SORT_OPTIONS} />
-					<FilterSelect cq={cq} opt={LOAN_FILTER_OPTIONS} />
+					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
 				</div>
 
-				{loanState.loans.map((l) => (
-					<LoanBookCard key={l.id} loan={l} editable />
-				))}
+				{bookState.books.map((book) => {
+					return <BookCard key={book.isbn} book={book} />;
+				})}
 
-				<PaginationBar cq={cq} total={loanState.meta.filtered_count} />
+				<PaginationBar cq={cq} total={bookState.meta.filtered_count} />
 			</div>
 			<ScrollBar />
 		</ScrollArea>

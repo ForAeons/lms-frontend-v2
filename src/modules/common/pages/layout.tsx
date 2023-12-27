@@ -1,10 +1,5 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import {
-	ResizableHandle,
-	ResizablePanel,
-	ResizablePanelGroup,
-} from "@/components/ui/resizable";
 import { useMediaQuery } from "@/hooks";
 import { NavBar, Sidebar } from "..";
 
@@ -21,18 +16,14 @@ export const AppLayout: React.FC = () => {
 	}
 
 	return (
-		<ResizablePanelGroup
-			direction="horizontal"
-			className="relative h-[100vh] w-[100vw]"
-		>
-			<ResizablePanel defaultSize={20}>
+		<div className="relative grid grid-cols-5">
+			<div className="col-span-1">
 				<Sidebar />
-			</ResizablePanel>
-			<ResizableHandle withHandle />
-			<ResizablePanel>
+			</div>
+			<div className="col-span-4">
 				<Outlet />
-			</ResizablePanel>
-		</ResizablePanelGroup>
+			</div>
+		</div>
 	);
 };
 

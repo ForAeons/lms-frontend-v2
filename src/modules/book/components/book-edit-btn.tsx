@@ -1,6 +1,6 @@
 import React from "react";
 import * as z from "zod";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
 	Dialog,
 	DialogContent,
@@ -9,27 +9,30 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { CreateBtn } from "@/modules";
-import { createBookThunk, useAppDispatch } from "@/store";
+import { EditBtn } from "@/modules";
+import { updateBookThunk, useAppDispatch } from "@/store";
 import { BookFormSchema } from "@/schema";
 import { BookForm } from ".";
 
-export const BookCreateDialog: React.FC = () => {
+export const BookEditBtn: React.FC<{
+	book: Book;
+}> = ({ book }) => {
 	const defaultValues = {
-		title: "",
-		author: "",
-		isbn: "",
-		publisher: "",
-		publication_date: "",
-		genre: "",
-		language: "",
+		title: book.title,
+		author: book.author,
+		isbn: book.isbn,
+		publisher: book.publisher,
+		publication_date: book.publication_date,
+		genre: book.genre,
+		language: book.language,
 	};
 
 	const dispatch = useAppDispatch();
 	function onSubmit(values: z.infer<typeof BookFormSchema>) {
 		dispatch(
-			createBookThunk({
+			updateBookThunk({
 				book: {
+					id: book.id,
 					title: values.title,
 					author: values.author,
 					isbn: values.isbn,
@@ -46,27 +49,26 @@ export const BookCreateDialog: React.FC = () => {
 		<Dialog>
 			<DialogTrigger asChild>
 				<div>
-					<CreateBtn subject="book" />
+					<EditBtn />
 				</div>
 			</DialogTrigger>
-			<DialogContent className="max-h-[75vh] p-0">
+			<DialogContent className="p-0">
 				<ScrollArea className="max-h-[70vh]">
 					<div className="p-6">
 						<DialogHeader>
-							<DialogTitle>Add New Book</DialogTitle>
+							<DialogTitle>Edit user profile</DialogTitle>
 							<DialogDescription>
 								{
-									"	Add the details of the book here. Click upload when you're done."
+									"Make changes to this user's profile here. Click save when you're done."
 								}
 							</DialogDescription>
 						</DialogHeader>
 						<BookForm
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
-							action="Create"
+							action="Save"
 						/>
 					</div>
-					<ScrollBar />
 				</ScrollArea>
 			</DialogContent>
 		</Dialog>

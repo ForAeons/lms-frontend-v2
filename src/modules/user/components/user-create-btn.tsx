@@ -14,7 +14,7 @@ import { CreateBtn } from "@/modules";
 import { UserFormSchema } from "@/schema";
 import { UserForm } from ".";
 
-export const UserCreateDialog: React.FC = () => {
+export const UserCreateBtn: React.FC = () => {
 	const defaultValues = {
 		username: "",
 		password: "",
