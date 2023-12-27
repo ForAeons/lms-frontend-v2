@@ -15,6 +15,7 @@ import {
 	Home,
 	BookLockIcon,
 	ScrollTextIcon,
+	BookIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -50,6 +51,16 @@ export const NavContent: React.FC = () => {
 						<span className="sr-only">Go to Home</span>
 					</Button>
 
+					<Button
+						variant="ghost"
+						className="w-full justify-start"
+						onClick={() => navigate("/book")}
+					>
+						<BookIcon size={MD_ICON_SIZE} />
+						<p className="ml-3">Catalogue</p>
+						<span className="sr-only">Catalogue</span>
+					</Button>
+
 					{isLoggedIn && (
 						<Button
 							variant="ghost"
@@ -76,12 +87,12 @@ export const NavContent: React.FC = () => {
 				</div>
 			</div>
 
-			<div className="px-3 py-2">
-				<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-					Resources
-				</h2>
+			{isLoggedIn && (
+				<div className="px-3 py-2">
+					<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+						Resources
+					</h2>
 
-				{isLoggedIn && (
 					<div className="space-y-1">
 						<Button
 							variant="ghost"
@@ -113,8 +124,8 @@ export const NavContent: React.FC = () => {
 							<span className="sr-only">Fine resources</span>
 						</Button>
 					</div>
-				)}
-			</div>
+				</div>
+			)}
 
 			{isLoggedIn && (
 				<div className="px-3 py-2">
@@ -186,8 +197,8 @@ export const NavContent: React.FC = () => {
 				</div>
 			)}
 
-			<div className="px-3 py-2">
-				<div className="w-full justify-start h-10 px-4 py-2 inline-flex items-center whitespace-nowrap rounded-md">
+			<div className="px-3">
+				<div className="w-full justify-start px-4 inline-flex items-center whitespace-nowrap">
 					<div className="relative flex">
 						<Sun
 							size={MD_ICON_SIZE}

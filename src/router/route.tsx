@@ -6,7 +6,12 @@ import {
 import { AppLayout, PageNotFound } from "@/modules/common";
 import { LoginPage } from "@/modules/auth";
 import { ManageUserPage } from "@/modules/user";
-import { BookIndexPage, BookPage, ManageBookPage } from "@/modules/book";
+import {
+	BookIndexPage,
+	BookListPage,
+	BookPage,
+	ManageBookPage,
+} from "@/modules/book";
 import { LoanPage, ManageLoanPage } from "@/modules/loan";
 import { ManageResPage, ResPage } from "@/modules/reservation";
 import { FinePage, ManageFinePage } from "@/modules/fine";
@@ -17,7 +22,7 @@ export const Router = createBrowserRouter(
 		<Route key={"Signin"} path="/signin" element={<LoginPage />} />,
 		<Route key={"Main"} path="/" element={<AppLayout />}>
 			<Route path="/" element={<BookIndexPage />} />
-			<Route path="/book" element={<BookIndexPage />} />
+			<Route path="/book" element={<BookListPage />} />
 			<Route path="/book/:book_id" element={<BookPage />} />
 			<Route path="/loan" element={<LoanPage />} />
 			<Route path="/reservation" element={<ResPage />} />
