@@ -11,7 +11,7 @@ import {
 import { listBookThunk, useAppDispatch, useAppSelector } from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { BookCard, BookCreateDialog } from "..";
+import { BookCard, BookCreateBtn } from "..";
 import { BOOK_SORT_OPTIONS } from "@/constants";
 
 export const ManageBookPage: React.FC = () => {
@@ -40,7 +40,7 @@ export const ManageBookPage: React.FC = () => {
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
-					<BookCreateDialog />
+					<BookCreateBtn />
 					<SearchBar cq={cq} />
 				</div>
 

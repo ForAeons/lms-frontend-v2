@@ -14,7 +14,7 @@ export const NavbarMobileBtn: React.FC = () => {
 					<ChevronsRightIcon size={LG_ICON_SIZE} />
 				</Button>
 			</SheetTrigger>
-			<SheetContent side="left">
+			<SheetContent side="left" className="p-0">
 				<ScrollArea className="h-[100vh]">
 					<NavContent />
 					<ScrollBar />

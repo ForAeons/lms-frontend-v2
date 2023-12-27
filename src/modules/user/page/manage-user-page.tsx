@@ -12,7 +12,7 @@ import { listUserThunk, useAppDispatch, useAppSelector } from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { USER_SORT_OPTIONS } from "@/constants";
-import { UserCreateDialog, UserPersonCard } from "..";
+import { UserCreateBtn, UserPersonCard } from "..";
 
 export const ManageUserPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -40,7 +40,7 @@ export const ManageUserPage: React.FC = () => {
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
-					<UserCreateDialog />
+					<UserCreateBtn />
 					<SearchBar cq={cq} />
 				</div>
 

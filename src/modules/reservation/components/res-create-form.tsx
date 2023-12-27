@@ -75,7 +75,7 @@ export const ResCreateForm: React.FC = () => {
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="space-y-8 max-w-xl w-full pt-6"
+				className="space-y-8 w-full pt-6"
 			>
 				<FormField
 					control={form.control}

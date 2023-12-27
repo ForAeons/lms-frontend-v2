@@ -13,7 +13,7 @@ import {
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { listLoanThunk, useAppDispatch, useAppSelector } from "@/store";
 import { LOAN_FILTER_OPTIONS, LOAN_SORT_OPTIONS } from "@/constants";
-import { LoanBookCard, LoanCreateDialog } from "..";
+import { LoanBookCard, LoanCreateBtn } from "..";
 
 export const ManageLoanPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ export const ManageLoanPage: React.FC = () => {
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
-					<LoanCreateDialog />
+					<LoanCreateBtn />
 					<SearchBar cq={cq} />
 				</div>
 				<div className="flex gap-3">

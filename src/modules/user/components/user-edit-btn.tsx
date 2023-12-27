@@ -9,37 +9,35 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { useAppDispatch, updateUserThunk } from "@/store";
 import { EditBtn } from "@/modules";
-import { updateBookThunk, useAppDispatch } from "@/store";
-import { BookFormSchema } from "@/schema";
-import { BookForm } from ".";
+import { UserFormSchema } from "@/schema";
+import { UserForm } from ".";
 
-export const BookEditDialog: React.FC<{
-	book: Book;
-}> = ({ book }) => {
+export const UserEditBtn: React.FC<{
+	userPerson: UserPerson;
+}> = ({ userPerson }) => {
 	const defaultValues = {
-		title: book.title,
-		author: book.author,
-		isbn: book.isbn,
-		publisher: book.publisher,
-		publication_date: book.publication_date,
-		genre: book.genre,
-		language: book.language,
+		username: userPerson.username,
+		password: "",
+		confirmPassword: "",
+		full_name: userPerson.person_attributes.full_name,
+		preferred_name: userPerson.person_attributes.preferred_name,
+		language_preference: userPerson.person_attributes.language_preference,
 	};
 
 	const dispatch = useAppDispatch();
-	function onSubmit(values: z.infer<typeof BookFormSchema>) {
+	function onSubmit(values: z.infer<typeof UserFormSchema>) {
 		dispatch(
-			updateBookThunk({
-				book: {
-					id: book.id,
-					title: values.title,
-					author: values.author,
-					isbn: values.isbn,
-					publisher: values.publisher,
-					publication_date: values.publication_date,
-					genre: values.genre,
-					language: values.language,
+			updateUserThunk({
+				id: userPerson.id,
+				username: values.username,
+				password: values.password,
+				person_attributes: {
+					id: userPerson.person_attributes.id,
+					full_name: values.full_name,
+					preferred_name: values.preferred_name,
+					language_preference: values.language_preference,
 				},
 			}),
 		);
@@ -52,7 +50,7 @@ export const BookEditDialog: React.FC<{
 					<EditBtn />
 				</div>
 			</DialogTrigger>
-			<DialogContent className="p-0">
+			<DialogContent className="max-h-[75vh] p-0">
 				<ScrollArea className="max-h-[70vh]">
 					<div className="p-6">
 						<DialogHeader>
@@ -63,7 +61,7 @@ export const BookEditDialog: React.FC<{
 								}
 							</DialogDescription>
 						</DialogHeader>
-						<BookForm
+						<UserForm
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
 							action="Save"

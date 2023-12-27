@@ -6,7 +6,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { BookEditDialog, BookNavBtn } from ".";
+import { BookEditBtn, BookNavBtn } from ".";
 import { deleteBookThunk, useAppDispatch } from "@/store";
 import { DeleteBtn } from "@/modules";
 import { Badge } from "@/components/ui/badge";
@@ -24,7 +24,7 @@ export const BookCard: React.FC<{ book: Book; editable?: boolean }> = ({
 				{editable && (
 					<>
 						<DeleteBtn handler={handleDelete} subject="book" />
-						<BookEditDialog book={book} />
+						<BookEditBtn book={book} />
 					</>
 				)}
 			</div>

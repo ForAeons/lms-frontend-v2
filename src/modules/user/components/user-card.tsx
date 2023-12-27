@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { DeleteBtn } from "@/modules";
 import { deleteUserThunk, useAppDispatch } from "@/store";
-import { UserEditDialog } from ".";
+import { UserEditBtn } from ".";
 
 export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 	userPerson,
@@ -13,7 +13,7 @@ export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 		<Card className="relative border-none hover:shadow-md transition-shadow pr-10">
 			<div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end">
 				<DeleteBtn handler={handleDelete} subject="user" />
-				<UserEditDialog userPerson={userPerson} />
+				<UserEditBtn userPerson={userPerson} />
 			</div>
 
 			<CardHeader>

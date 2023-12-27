@@ -10,18 +10,34 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { CreateBtn } from "@/modules";
-import { createLogThunk, useAppDispatch } from "@/store";
-import { AuditlogFormSchema } from "@/schema";
-import { AuditLogForm } from "./auditlog-form";
+import { createBookThunk, useAppDispatch } from "@/store";
+import { BookFormSchema } from "@/schema";
+import { BookForm } from ".";
 
-export const LogCreateDialog: React.FC = () => {
-	const defaultValues = { action: "" };
+export const BookCreateBtn: React.FC = () => {
+	const defaultValues = {
+		title: "",
+		author: "",
+		isbn: "",
+		publisher: "",
+		publication_date: "",
+		genre: "",
+		language: "",
+	};
 
 	const dispatch = useAppDispatch();
-	function onSubmit(values: z.infer<typeof AuditlogFormSchema>) {
+	function onSubmit(values: z.infer<typeof BookFormSchema>) {
 		dispatch(
-			createLogThunk({
-				log: values,
+			createBookThunk({
+				book: {
+					title: values.title,
+					author: values.author,
+					isbn: values.isbn,
+					publisher: values.publisher,
+					publication_date: values.publication_date,
+					genre: values.genre,
+					language: values.language,
+				},
 			}),
 		);
 	}
@@ -30,19 +46,21 @@ export const LogCreateDialog: React.FC = () => {
 		<Dialog>
 			<DialogTrigger asChild>
 				<div>
-					<CreateBtn subject="audit log" />
+					<CreateBtn subject="book" />
 				</div>
 			</DialogTrigger>
 			<DialogContent className="max-h-[75vh] p-0">
 				<ScrollArea className="max-h-[70vh]">
 					<div className="p-6">
 						<DialogHeader>
-							<DialogTitle>Log an event</DialogTitle>
+							<DialogTitle>Add New Book</DialogTitle>
 							<DialogDescription>
-								{"Describe the event here. Click upload when you're done."}
+								{
+									"	Add the details of the book here. Click upload when you're done."
+								}
 							</DialogDescription>
 						</DialogHeader>
-						<AuditLogForm
+						<BookForm
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
 							action="Create"
