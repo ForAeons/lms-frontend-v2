@@ -27,21 +27,23 @@ export const DeleteBtn: React.FC<{
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<TooltipProvider>
-					<Tooltip>
-						<TooltipTrigger asChild>
-							<Button
-								variant="ghost"
-								className="hover:bg-transparent hover:opacity-50 transition-opacity"
-							>
-								<TrashIcon className="text-destructive" size={LG_ICON_SIZE} />
-							</Button>
-						</TooltipTrigger>
-						<TooltipContent>
-							<p>Delete</p>
-						</TooltipContent>
-					</Tooltip>
-				</TooltipProvider>
+				<div>
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Button
+									variant="ghost"
+									className="hover:bg-transparent hover:opacity-50 transition-opacity"
+								>
+									<TrashIcon className="text-destructive" size={LG_ICON_SIZE} />
+								</Button>
+							</TooltipTrigger>
+							<TooltipContent>
+								<p>Delete</p>
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+				</div>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>

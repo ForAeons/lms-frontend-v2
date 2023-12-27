@@ -8,20 +8,14 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { LoanBadge, LoanRenewBtn, LoanReturnBtn } from ".";
-import { deleteLoanThunk, useAppDispatch } from "@/store";
-import { DeleteBtn } from "@/modules";
 
 export const LoanBookCard: React.FC<{
 	loan: LoanDetailed;
 	editable?: boolean;
 }> = ({ loan, editable = false }) => {
-	const dispatch = useAppDispatch();
-	const handleDelete = () => dispatch(deleteLoanThunk({ loanId: loan.id }));
-
 	return (
 		<Card className="relative border-none hover:shadow-md transition-shadow pr-10">
 			<div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end">
-				{editable && <DeleteBtn handler={handleDelete} subject="loan" />}
 				{loan.status === "borrowed" && (
 					<>
 						<LoanReturnBtn loan={loan} />

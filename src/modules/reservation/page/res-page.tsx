@@ -20,7 +20,7 @@ export const ResPage: React.FC = () => {
 		if (!userID) return;
 		cq.filters = {
 			user_id: userID,
-			status: "borrowed",
+			status: "pending",
 		};
 		const c = new AbortController();
 		dispatch(listResThunk({ q: cq, signal: c.signal }));

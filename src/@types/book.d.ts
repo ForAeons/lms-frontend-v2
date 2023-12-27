@@ -42,7 +42,7 @@ interface BookDetailed extends Book {
 
 interface BookUser {
 	user_id: number;
-	book_id: number;
+	book_copy_id: number;
 }
 
 interface BookSimple {
