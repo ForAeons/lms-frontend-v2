@@ -67,13 +67,15 @@ export const BookPage: React.FC = () => {
 		);
 	};
 
+	const isAvailable = book.book_copies.some((bc) => bc.status === "available");
+
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full flex flex-col gap-3 px-3">
 				<Card className="relative border-none hover:shadow-md transition-shadow pr-10">
 					<div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end">
 						<NavBackBtn />
-						{bookState.bookStatus === "available" && (
+						{isAvailable && (
 							<>
 								<BookLoanBtn handler={handBorrow} book={book} />
 								<BookReserveBtn handler={handleReserve} book={book} />
@@ -86,7 +88,7 @@ export const BookPage: React.FC = () => {
 						<CardDescription>By {book.author}</CardDescription>
 						<div className="flex flex-wrap gap-3">
 							<Badge className="w-fit">Genre - {book.genre}</Badge>
-							<BookBadge status={bookState.bookStatus} />
+							<BookBadge copies={book.book_copies} />
 						</div>
 					</CardHeader>
 

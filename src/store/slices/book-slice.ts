@@ -16,7 +16,6 @@ const initialState: BookState = {
 	autocomplete: [],
 	books: [],
 	book: null,
-	bookStatus: "unknown",
 	meta: {
 		total_count: 0,
 		filtered_count: 0,
@@ -91,27 +90,11 @@ export const bookSlice = createSlice({
 		builder.addCase(getBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.book = action.payload;
-
-			if (
-				action.payload.loans.length > 0 &&
-				action.payload.loans.at(-1)!.status === "borrowed"
-			) {
-				state.bookStatus = "borrowed";
-			} else if (
-				action.payload.reservations.length > 0 &&
-				action.payload.reservations.at(-1)!.status === "pending"
-			) {
-				state.bookStatus = "reserved";
-			} else {
-				state.bookStatus = "available";
-			}
-
 			state.isFetching = false;
 		});
 
 		builder.addCase(loanBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
-			state.bookStatus = "borrowed";
 			toast.success("Success", {
 				description: `"${state.book!.title}" loaned successfully. Due date: ${
 					action.payload.due_date
@@ -121,7 +104,6 @@ export const bookSlice = createSlice({
 
 		builder.addCase(reserveBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
-			state.bookStatus = "reserved";
 			toast.success("Success", {
 				description: `"${state.book!.title}" reserved successfully. "${
 					state.book!.title

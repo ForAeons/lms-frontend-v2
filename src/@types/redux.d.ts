@@ -15,14 +15,11 @@ interface ManageUserState {
 	meta: Meta;
 }
 
-type bookStatus = "available" | "reserved" | "borrowed" | "unknown";
-
 interface BookState {
 	isFetching: boolean;
 	autocomplete: BookSimple[];
 	books: Book[];
 	book: BookDetailed | null;
-	bookStatus: bookStatus;
 	meta: Meta;
 }
 

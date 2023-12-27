@@ -1,23 +1,23 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 
-export const BookBadge: React.FC<{ status: bookStatus }> = ({ status }) => {
-	if (status === "borrowed")
+export const BookBadge: React.FC<{ copies: BookCopy[] }> = ({ copies }) => {
+	const isAvailable = copies.some((bc) => bc.status === "available");
+	const total = copies.length;
+	const onHoldTotal = copies.filter((bc) => bc.status !== "available").length;
+
+	const copy = copies.length === 1 ? "copy" : "copies";
+
+	if (isAvailable)
 		return (
-			<Badge variant="destructive" className="w-fit">
-				On loan
+			<Badge variant="secondary" className="w-fit">
+				{`${onHoldTotal} on hold | ${total} ${copy}`}
 			</Badge>
 		);
 
-	if (status === "reserved")
-		return (
-			<Badge variant="destructive" className="w-fit">
-				Reserved
-			</Badge>
-		);
 	return (
-		<Badge variant="secondary" className="w-fit">
-			Available
+		<Badge variant="destructive" className="w-fit">
+			{`${onHoldTotal} on hold | ${total} ${copy}`}
 		</Badge>
 	);
 };
