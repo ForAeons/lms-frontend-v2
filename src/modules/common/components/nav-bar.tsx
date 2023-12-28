@@ -7,7 +7,7 @@ import { useTheme } from "@/components/theme-provider";
 import { useAppSelector } from "@/store";
 
 export const NavBar: React.FC = () => {
-	const user = useAppSelector((s) => s.app.user);
+	const person = useAppSelector((s) => s.app.person);
 
 	const { theme, setTheme } = useTheme();
 	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
@@ -19,7 +19,7 @@ export const NavBar: React.FC = () => {
 			</div>
 
 			<h2 className="text-lg font-semibold tracking-tight truncate text-center">
-				{user ? `Welcome ${user.person_attributes.full_name}` : "Welcome"}
+				{person ? `Welcome ${person.full_name}` : "Welcome"}
 			</h2>
 
 			<div className="flex justify-end">

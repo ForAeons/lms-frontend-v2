@@ -1,11 +1,16 @@
 type backendStatus = "up" | "down" | "unknown";
 
 interface AppState {
-	backendStatus: backendStatus;
 	csrfToken: string | null;
+	backendStatus: backendStatus;
 	hasFetchedUser: boolean;
 	isLoggedIn: boolean;
-	user: UserPersonAbility | null;
+	user: UserAbility | null;
+	person: Person | null;
+	bookmarks: BookmarkDetailed[];
+	loans: WithBook<Loan>[];
+	reservations: WithBook<Reservation>[];
+	fines: WithBook<Fine>[];
 }
 
 interface ManageUserState {

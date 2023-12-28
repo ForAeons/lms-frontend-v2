@@ -3,7 +3,7 @@ import { AuthRoutes } from "./backend-routes";
 
 class AuthApi extends BaseApi {
 	public SignIn = (user: UserLogin, abortSignal?: AbortSignal) => {
-		return this.Post<UserLogin, UserPersonAbility>(
+		return this.Post<UserLogin, LoginPayload>(
 			`${AuthRoutes.BASE}/${AuthRoutes.SIGN_IN.ROUTE}`,
 			user,
 			abortSignal,

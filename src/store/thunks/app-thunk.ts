@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { authApi, baseApi, userApi } from "@/api";
+import { authApi, baseApi, bookApi, userApi } from "@/api";
 
 export const getHealthThunk = createAsyncThunk(
 	"app/getHealth",
@@ -25,4 +25,24 @@ export const loginThunk = createAsyncThunk(
 export const logoutThunk = createAsyncThunk(
 	"app/logout",
 	async (signal?: AbortSignal) => await authApi.SignOut(signal),
+);
+
+export const createBookmarkThunk = createAsyncThunk(
+	"book/bookmark/create",
+	async (action: { bookID: number; signal?: AbortSignal }) => {
+		const res = await bookApi.CreateBookmark(action.bookID);
+		return res?.data;
+	},
+);
+
+export const deleteBookmarkThunk = createAsyncThunk(
+	"book/bookmark/delete",
+	async (action: {
+		bookID: number;
+		bookmarkID: number;
+		signal?: AbortSignal;
+	}) => {
+		const res = await bookApi.DeleteBookmark(action.bookID, action.bookmarkID);
+		return res?.data;
+	},
 );

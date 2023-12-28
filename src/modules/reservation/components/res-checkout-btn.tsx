@@ -10,9 +10,7 @@ import { Button } from "@/components/ui/button";
 import { checkoutResThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
 
-export const ResCheckoutBtn: React.FC<{ res: ReservationDetailed }> = ({
-	res,
-}) => {
+export const ResCheckoutBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 	const dispatch = useAppDispatch();
 	const handleCheckout = () => dispatch(checkoutResThunk({ resId: res.id }));
 	return (

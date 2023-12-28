@@ -7,3 +7,4 @@ export * from "./book-reserve-btn";
 export * from "./book-form";
 export * from "./book-picture";
 export * from "./book-carousel";
+export * from "./bookmark-btn";

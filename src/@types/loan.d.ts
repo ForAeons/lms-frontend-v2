@@ -23,7 +23,5 @@ interface LoanHistories {
 
 interface LoanDetailed extends Loan {
 	book: Book;
-	user: UserPerson;
-	loan_histories: LoanHistories[];
-	fines: Fine[];
+	user: User;
 }

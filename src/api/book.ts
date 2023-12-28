@@ -36,6 +36,25 @@ class BookApi extends BaseApi {
 	public ListBook = (q: CollectionQuery, abortSignal?: AbortSignal) => {
 		return this.List<BookDetailed[]>(BookRoutes.BASE, q, abortSignal);
 	};
+
+	public CreateBookmark = (bookID: number, abortSignal?: AbortSignal) => {
+		return this.Post<null, BookmarkDetailed>(
+			`${BookRoutes.BASE}/${bookID}/${BookRoutes.BOOKMARK.BASE}/`,
+			null,
+			abortSignal,
+		);
+	};
+
+	public DeleteBookmark = (
+		bookID: number,
+		bookmarkID: number,
+		abortSignal?: AbortSignal,
+	) => {
+		return this.Delete<BookmarkDetailed>(
+			`${BookRoutes.BASE}/${bookID}/${BookRoutes.BOOKMARK.BASE}/${bookmarkID}/`,
+			abortSignal,
+		);
+	};
 }
 
 export const bookApi = new BookApi();

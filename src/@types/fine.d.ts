@@ -8,6 +8,5 @@ interface Fine {
 
 interface FineDetailed extends Fine {
 	book: Book;
-	loan: Loan;
-	user: UserPerson;
+	user: User;
 }

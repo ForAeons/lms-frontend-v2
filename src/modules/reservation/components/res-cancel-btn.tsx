@@ -10,9 +10,7 @@ import { Button } from "@/components/ui/button";
 import { cancelResThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
 
-export const ResCancelBtn: React.FC<{ res: ReservationDetailed }> = ({
-	res,
-}) => {
+export const ResCancelBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 	const dispatch = useAppDispatch();
 	const handleCancel = () => dispatch(cancelResThunk({ resId: res.id }));
 	return (
