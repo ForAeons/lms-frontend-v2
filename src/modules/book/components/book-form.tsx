@@ -21,7 +21,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { BookFormSchema } from "@/schema";
-import { LANGUAGE_SELECT_OPTIONS } from "@/constants/select";
+import { LANGUAGE_SELECT_OPTIONS } from "@/constants";
 
 export const BookForm: React.FC<{
 	defaultValues: z.infer<typeof BookFormSchema>;

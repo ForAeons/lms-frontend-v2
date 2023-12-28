@@ -6,10 +6,10 @@ export const fineToBadgeProps = (fine: FineDetailed): BadgeProps[] => {
 			: "Paid";
 
 	return [
-		{ variant: "destructive", text: `Fined to ${fine.user.username}` },
 		{
 			variant: v,
 			text: t,
 		},
+		{ variant: "destructive", text: `Fined to ${fine.user.username}` },
 	];
 };

@@ -13,6 +13,7 @@ import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { BOOK_SORT_OPTIONS } from "@/constants";
 import { BookCard, BookNavBtn } from "..";
+import { bookToBadgeProps } from "../util/badge";
 
 export const BookListPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -50,9 +51,9 @@ export const BookListPage: React.FC = () => {
 					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
 				</div>
 
-				{bookState.books.map((book) => (
-					<BookCard key={book.id} book={book}>
-						<BookNavBtn book={book} />
+				{bookState.books.map((b) => (
+					<BookCard key={b.id} book={b} badges={bookToBadgeProps(b)}>
+						<BookNavBtn book={b} />
 					</BookCard>
 				))}
 

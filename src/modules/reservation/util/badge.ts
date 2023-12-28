@@ -19,10 +19,10 @@ export const resToBadgeProps = (r: ReservationDetailed): BadgeProps[] => {
 			: `Reserved until ${new Date(r.reservation_date).toLocaleDateString()}`;
 
 	return [
-		{ variant: "secondary", text: `Reserved by ${r.user.username}` },
 		{
 			variant: v,
 			text: t,
 		},
+		{ variant: "secondary", text: `Reserved by ${r.user.username}` },
 	];
 };

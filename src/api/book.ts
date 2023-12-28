@@ -34,7 +34,7 @@ class BookApi extends BaseApi {
 	};
 
 	public ListBook = (q: CollectionQuery, abortSignal?: AbortSignal) => {
-		return this.List<Book[]>(BookRoutes.BASE, q, abortSignal);
+		return this.List<BookDetailed[]>(BookRoutes.BASE, q, abortSignal);
 	};
 }
 

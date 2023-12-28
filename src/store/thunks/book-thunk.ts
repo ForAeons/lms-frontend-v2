@@ -51,16 +51,16 @@ export const listBookThunk = createAsyncThunk(
 
 export const loanBookThunk = createAsyncThunk(
 	"book/loan",
-	async (action: { bookID: number; signal?: AbortSignal }) => {
-		const res = await loanApi.LoanBook(action.bookID);
+	async (action: { bookCopyID: number; signal?: AbortSignal }) => {
+		const res = await loanApi.LoanBook(action.bookCopyID);
 		return res?.data;
 	},
 );
 
 export const reserveBookThunk = createAsyncThunk(
 	"book/reserve",
-	async (action: { bookID: number; signal?: AbortSignal }) => {
-		const res = await reservationApi.ReserveBook(action.bookID);
+	async (action: { bookCopyID: number; signal?: AbortSignal }) => {
+		const res = await reservationApi.ReserveBook(action.bookCopyID);
 		return res?.data;
 	},
 );

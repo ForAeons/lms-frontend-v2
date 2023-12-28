@@ -18,7 +18,7 @@ interface ManageUserState {
 interface BookState {
 	isFetching: boolean;
 	autocomplete: BookSimple[];
-	books: Book[];
+	books: BookDetailed[];
 	book: BookDetailed | null;
 	meta: Meta;
 }

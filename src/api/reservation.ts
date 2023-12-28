@@ -18,9 +18,9 @@ class ReservationApi extends BaseApi {
 		);
 	};
 
-	public ReserveBook = (bookId: number, abortSignal?: AbortSignal) => {
+	public ReserveBook = (bookCopyId: number, abortSignal?: AbortSignal) => {
 		return this.Post<null, ReservationDetailed>(
-			`${BookRoutes.BASE}/${bookId}/${ReservationRoutes.BASE}/`,
+			`${BookRoutes.BASE}/${bookCopyId}/${ReservationRoutes.BASE}/`,
 			null,
 			abortSignal,
 		);

@@ -19,11 +19,14 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
+import { loanBookThunk, useAppDispatch } from "@/store";
 
-export const BookLoanBtn: React.FC<{
-	handler: NullaryHandler;
-	book: Book;
-}> = ({ handler, book }) => {
+export const BookLoanBtn: React.FC<{ book: Book; copyID: number }> = ({
+	book,
+	copyID,
+}) => {
+	const dispatch = useAppDispatch();
+	const handleLoan = () => dispatch(loanBookThunk({ bookCopyID: copyID }));
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
@@ -33,7 +36,6 @@ export const BookLoanBtn: React.FC<{
 							<Button
 								variant="ghost"
 								className="hover:bg-transparent hover:opacity-50 transition-opacity"
-								onClick={handler}
 							>
 								<BookUpIcon className="text-primary" size={LG_ICON_SIZE} />
 							</Button>
@@ -53,7 +55,7 @@ export const BookLoanBtn: React.FC<{
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={handler}>Continue</AlertDialogAction>
+					<AlertDialogAction onClick={handleLoan}>Continue</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

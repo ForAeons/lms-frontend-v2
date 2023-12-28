@@ -17,12 +17,12 @@ export const loanToBadgeProps = (loan: LoanDetailed): BadgeProps[] => {
 
 	return [
 		{
-			variant: "secondary",
-			text: `Loaned to ${loan.user.username}`,
-		},
-		{
 			variant: v,
 			text: t,
+		},
+		{
+			variant: "secondary",
+			text: `Loaned to ${loan.user.username}`,
 		},
 	];
 };
