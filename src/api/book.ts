@@ -10,7 +10,7 @@ class BookApi extends BaseApi {
 	};
 
 	public CreateBook = (book: BookCreate, abortSignal?: AbortSignal) => {
-		return this.Post<BookCreate, Book>(
+		return this.Post<BookCreate, BookDetailed>(
 			`${BookRoutes.BASE}/`,
 			book,
 			abortSignal,

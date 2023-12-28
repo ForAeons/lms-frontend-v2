@@ -64,7 +64,7 @@ export const bookSlice = createSlice({
 			if (!action.payload) return;
 			state.books = state.books.map((book) => {
 				if (book.id === action.payload!.id) {
-					return action.payload!;
+					return { ...action.payload!, book_copies: book.book_copies };
 				}
 				return book;
 			});
