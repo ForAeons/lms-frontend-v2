@@ -34,7 +34,7 @@ export const BookIndexPage: React.FC = () => {
 					New Arrivals
 				</h2>
 
-				<div className="mx-auto">
+				<div className="w-full flex justify-center">
 					<BookCarousel books={bookState.books} />
 				</div>
 			</div>

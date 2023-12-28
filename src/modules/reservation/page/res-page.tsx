@@ -5,7 +5,8 @@ import { LoaderPage, PaginationBar } from "@/modules";
 import { useQueryParams } from "@/hooks";
 import { listResThunk, useAppDispatch, useAppSelector } from "@/store";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { ResBookCard } from "..";
+import { ResCancelBtn, ResCheckoutBtn, resToBadgeProps } from "..";
+import { BookCard } from "@/modules/book";
 
 export const ResPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -44,7 +45,10 @@ export const ResPage: React.FC = () => {
 				</h2>
 
 				{resState.res.map((r) => (
-					<ResBookCard key={r.id} res={r} />
+					<BookCard key={r.id} book={r.book} badges={resToBadgeProps(r)}>
+						{r.status === "pending" && <ResCheckoutBtn res={r} />}
+						{r.status === "pending" && <ResCancelBtn res={r} />}
+					</BookCard>
 				))}
 
 				<PaginationBar cq={cq} total={resState.meta.filtered_count} />

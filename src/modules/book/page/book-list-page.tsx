@@ -8,12 +8,11 @@ import {
 	OrderBtn,
 	SortSelect,
 } from "@/modules";
-import { listBookThunk } from "@/store/thunks/book-thunk";
-import { useAppDispatch, useAppSelector } from "@/store";
+import { listBookThunk, useAppDispatch, useAppSelector } from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { BookCard } from "..";
 import { BOOK_SORT_OPTIONS } from "@/constants";
+import { BookCard, BookNavBtn } from "..";
 
 export const BookListPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -51,9 +50,11 @@ export const BookListPage: React.FC = () => {
 					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
 				</div>
 
-				{bookState.books.map((book) => {
-					return <BookCard key={book.isbn} book={book} />;
-				})}
+				{bookState.books.map((book) => (
+					<BookCard key={book.id} book={book}>
+						<BookNavBtn book={book} />
+					</BookCard>
+				))}
 
 				<PaginationBar cq={cq} total={bookState.meta.filtered_count} />
 			</div>

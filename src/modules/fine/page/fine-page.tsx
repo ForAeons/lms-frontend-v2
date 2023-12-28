@@ -5,7 +5,8 @@ import { LoaderPage, PaginationBar } from "@/modules";
 import { useQueryParams } from "@/hooks";
 import { listFineThunk, useAppDispatch, useAppSelector } from "@/store";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { FineBookCard } from "..";
+import { BookCard } from "@/modules/book";
+import { FineSettleBtn, fineToBadgeProps } from "..";
 
 export const FinePage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -44,7 +45,9 @@ export const FinePage: React.FC = () => {
 				</h2>
 
 				{fineState.fines.map((f) => (
-					<FineBookCard key={f.id} fine={f} />
+					<BookCard key={f.id} book={f.book} badges={fineToBadgeProps(f)}>
+						{f.status === "outstanding" && <FineSettleBtn fine={f} />}
+					</BookCard>
 				))}
 
 				<PaginationBar cq={cq} total={fineState.meta.filtered_count} />

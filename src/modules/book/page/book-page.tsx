@@ -1,13 +1,5 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { toast } from "@/components/ui/use-toast";
 import { LoaderPage, NavBackBtn } from "@/modules";
@@ -18,7 +10,7 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { BookBadge, BookLoanBtn, BookReserveBtn } from "..";
+import { BookCard, BookLoanBtn, BookReserveBtn } from "..";
 
 export const BookPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -59,7 +51,7 @@ export const BookPage: React.FC = () => {
 		);
 	};
 
-	const handleReserve = () => {
+	const handleRes = () => {
 		dispatch(
 			reserveBookThunk({
 				bookID: book.id,
@@ -68,39 +60,28 @@ export const BookPage: React.FC = () => {
 	};
 
 	const isAvailable = book.book_copies.some((bc) => bc.status === "available");
+	const total = book.book_copies.length;
+	const onHoldTotal = book.book_copies.filter(
+		(bc) => bc.status !== "available",
+	).length;
+	const copy = book.book_copies.length === 1 ? "copy" : "copies";
+	const badgeText = `${onHoldTotal} on hold | ${total} ${copy}`;
+	const badgeVariant = isAvailable ? "secondary" : "destructive";
+	const badges: BadgeProps[] = [
+		{
+			text: badgeText,
+			variant: badgeVariant,
+		},
+	];
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full flex flex-col gap-3 px-3">
-				<Card className="relative border-none hover:shadow-md transition-shadow pr-10">
-					<div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end">
-						<NavBackBtn />
-						{isAvailable && (
-							<>
-								<BookLoanBtn handler={handBorrow} book={book} />
-								<BookReserveBtn handler={handleReserve} book={book} />
-							</>
-						)}
-					</div>
-
-					<CardHeader>
-						<CardTitle>{book.title}</CardTitle>
-						<CardDescription>By {book.author}</CardDescription>
-						<div className="flex flex-wrap gap-3">
-							<Badge className="w-fit">Genre - {book.genre}</Badge>
-							<BookBadge copies={book.book_copies} />
-						</div>
-					</CardHeader>
-
-					<CardContent>
-						<p>{book.language}</p>
-						<p>{book.publisher}</p>
-						<p>{book.publication_date}</p>
-						<p className="text-sm text-muted-foreground self-start">
-							{book.isbn}
-						</p>
-					</CardContent>
-				</Card>
+				<BookCard book={book} badges={badges}>
+					<NavBackBtn />
+					{isAvailable && <BookLoanBtn handler={handBorrow} book={book} />}
+					{isAvailable && <BookReserveBtn handler={handleRes} book={book} />}
+				</BookCard>
 			</div>
 			<ScrollBar />
 		</ScrollArea>

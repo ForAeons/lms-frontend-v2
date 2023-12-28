@@ -9,13 +9,15 @@ import {
 	CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
-import BookPicture from "./book-picture";
+import { BookPicture } from ".";
+import { useMediaQuery } from "@/hooks";
 
 export const BookCarousel: React.FC<{ books: Book[] }> = ({ books }) => {
+	const isDesktop = useMediaQuery("(min-width: 1024px)");
 	const navigate = useNavigate();
 	return (
 		<Carousel
-			className="w-full lg:max-w-2xl sm:max-w-md max-w-xs"
+			className="w-full lg:w-[calc(100%-100px)] max-w-fit lg:max-w-none"
 			opts={{
 				align: "start",
 			}}
@@ -30,7 +32,7 @@ export const BookCarousel: React.FC<{ books: Book[] }> = ({ books }) => {
 					return (
 						<CarouselItem
 							key={book.isbn}
-							className="pl-6 basis-1/2 lg:basis-1/3"
+							className="pl-6 basis-1/2 lg:basis-1/4"
 						>
 							<Card
 								className="border-none shadow-md hover:shadow-lg transition-shadow flex bg-muted px-3 hover:cursor-pointer"
@@ -42,8 +44,13 @@ export const BookCarousel: React.FC<{ books: Book[] }> = ({ books }) => {
 					);
 				})}
 			</CarouselContent>
-			<CarouselNext />
-			<CarouselPrevious />
+
+			{isDesktop && (
+				<>
+					<CarouselNext />
+					<CarouselPrevious />
+				</>
+			)}
 		</Carousel>
 	);
 };

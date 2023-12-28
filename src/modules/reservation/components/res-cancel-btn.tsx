@@ -1,5 +1,5 @@
 import React from "react";
-import { XIcon } from "lucide-react";
+import { CircleOffIcon } from "lucide-react";
 import {
 	Tooltip,
 	TooltipContent,
@@ -24,7 +24,7 @@ export const ResCancelBtn: React.FC<{ res: ReservationDetailed }> = ({
 						className="hover:bg-transparent hover:opacity-50 transition-opacity"
 						onClick={handleCancel}
 					>
-						<XIcon size={LG_ICON_SIZE} className="text-destructive" />
+						<CircleOffIcon size={LG_ICON_SIZE} className="text-destructive" />
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>

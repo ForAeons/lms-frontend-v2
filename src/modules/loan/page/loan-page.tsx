@@ -5,7 +5,8 @@ import { LoaderPage, PaginationBar } from "@/modules";
 import { useQueryParams } from "@/hooks";
 import { listLoanThunk, useAppDispatch, useAppSelector } from "@/store";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { LoanBookCard } from "..";
+import { BookCard } from "@/modules/book";
+import { LoanRenewBtn, LoanReturnBtn, loanToBadgeProps } from "..";
 
 export const LoanPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -44,7 +45,10 @@ export const LoanPage: React.FC = () => {
 				</h2>
 
 				{loanState.loans.map((l) => (
-					<LoanBookCard key={l.id} loan={l} />
+					<BookCard key={l.id} book={l.book} badges={loanToBadgeProps(l)}>
+						{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
+						{l.status === "borrowed" && <LoanRenewBtn loan={l} />}
+					</BookCard>
 				))}
 
 				<PaginationBar cq={cq} total={loanState.meta.filtered_count} />

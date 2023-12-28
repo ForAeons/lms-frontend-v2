@@ -13,7 +13,13 @@ import {
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { listResThunk, useAppDispatch, useAppSelector } from "@/store";
 import { RES_FILTER_OPTIONS, RES_SORT_OPTIONS } from "@/constants";
-import { ResBookCard, ResCreateDialog } from "..";
+import { BookCard } from "@/modules/book";
+import {
+	ResCancelBtn,
+	ResCheckoutBtn,
+	ResCreateDialog,
+	resToBadgeProps,
+} from "..";
 
 export const ManageResPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -53,7 +59,10 @@ export const ManageResPage: React.FC = () => {
 				</div>
 
 				{resState.res.map((r) => (
-					<ResBookCard key={r.id} res={r} editable />
+					<BookCard key={r.id} book={r.book} badges={resToBadgeProps(r)}>
+						{r.status === "pending" && <ResCheckoutBtn res={r} />}
+						{r.status === "pending" && <ResCancelBtn res={r} />}
+					</BookCard>
 				))}
 
 				<PaginationBar cq={cq} total={resState.meta.filtered_count} />
