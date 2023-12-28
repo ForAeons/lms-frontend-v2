@@ -27,7 +27,7 @@ export const createBookThunk = createAsyncThunk(
 
 export const updateBookThunk = createAsyncThunk(
 	"book/update",
-	async (action: { book: BookDetailed; signal?: AbortSignal }) => {
+	async (action: { book: Book; signal?: AbortSignal }) => {
 		const res = await bookApi.UpdateBook(action.book);
 		return res?.data;
 	},
