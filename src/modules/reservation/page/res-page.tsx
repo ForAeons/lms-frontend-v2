@@ -1,41 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { LoaderPage, PaginationBar } from "@/modules";
-import { useQueryParams } from "@/hooks";
-import { listResThunk, useAppDispatch, useAppSelector } from "@/store";
-import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
+import { useAppSelector } from "@/store";
 import { ResCancelBtn, ResCheckoutBtn, resToBadgeProps } from "..";
 import { BookCard } from "@/modules/book";
 
 export const ResPage: React.FC = () => {
-	const dispatch = useAppDispatch();
-	const resState = useAppSelector((state) => state.res);
-	const userID = useAppSelector((s) => s.app.user?.id);
-	const navigate = useNavigate();
-	const queryParams = useQueryParams();
-	const cq = getCollectionQuery(queryParams);
-
-	// This page, user can only see their own loans
-	React.useEffect(() => {
-		if (!userID) return;
-		cq.filters = {
-			user_id: userID,
-			status: "pending",
-		};
-		const c = new AbortController();
-		dispatch(listResThunk({ q: cq, signal: c.signal }));
-		return () => c.abort();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dispatch, window.location.search]);
-
-	React.useEffect(() => {
-		const isValid = isValidCq(cq, resState.meta.filtered_count);
-		if (!isValid) navigate(`?${cqToUrl(cq)}`);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [navigate, window.location.search]);
-
-	if (resState.isFetching) return <LoaderPage />;
+	const res = useAppSelector((state) => state.app.reservations);
+	const user = useAppSelector((state) => state.app.user);
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
@@ -44,14 +15,16 @@ export const ResPage: React.FC = () => {
 					My Reservations
 				</h2>
 
-				{resState.res.map((r) => (
-					<BookCard key={r.id} book={r.book} badges={resToBadgeProps(r)}>
+				{res.map((r) => (
+					<BookCard
+						key={r.id}
+						book={r.book}
+						badges={resToBadgeProps({ ...r, user: user! })}
+					>
 						{r.status === "pending" && <ResCheckoutBtn res={r} />}
 						{r.status === "pending" && <ResCancelBtn res={r} />}
 					</BookCard>
 				))}
-
-				<PaginationBar cq={cq} total={resState.meta.filtered_count} />
 			</div>
 			<ScrollBar />
 		</ScrollArea>

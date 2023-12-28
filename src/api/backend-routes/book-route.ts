@@ -3,4 +3,7 @@ export const BookRoutes = {
 	AUTOCOMPLETE: {
 		DYNAMIC_ROUTE: (value: string) => `autocomplete/${value}`,
 	},
+	BOOKMARK: {
+		BASE: "bookmark",
+	},
 };

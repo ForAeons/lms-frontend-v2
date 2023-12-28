@@ -12,7 +12,7 @@ import { listBookThunk, useAppDispatch, useAppSelector } from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { BOOK_SORT_OPTIONS } from "@/constants";
-import { BookCard, BookNavBtn } from "..";
+import { BookCard, BookNavBtn, BookmarkBtn } from "..";
 import { bookToBadgeProps } from "../util/badge";
 
 export const BookListPage: React.FC = () => {
@@ -54,6 +54,7 @@ export const BookListPage: React.FC = () => {
 				{bookState.books.map((b) => (
 					<BookCard key={b.id} book={b} badges={bookToBadgeProps(b)}>
 						<BookNavBtn book={b} />
+						<BookmarkBtn book={b} />
 					</BookCard>
 				))}
 

@@ -16,6 +16,7 @@ import {
 	BookLockIcon,
 	ScrollTextIcon,
 	BookIcon,
+	BookmarkIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -25,7 +26,7 @@ import { MD_ICON_SIZE } from "@/constants";
 
 export const NavContent: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const user = useAppSelector((s) => s.app.user);
+	const person = useAppSelector((s) => s.app.person);
 	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 	const navigate = useNavigate();
 
@@ -36,7 +37,7 @@ export const NavContent: React.FC = () => {
 		<nav className="space-y-4 py-4">
 			<div className="px-3 py-2">
 				<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight truncate">
-					{user ? `Welcome ${user.person_attributes.full_name}` : "Welcome"}
+					{person ? `Welcome ${person.full_name}` : "Welcome"}
 				</h2>
 
 				<div className="space-y-1">
@@ -94,6 +95,16 @@ export const NavContent: React.FC = () => {
 					</h2>
 
 					<div className="space-y-1">
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("/bookmark")}
+						>
+							<BookmarkIcon size={MD_ICON_SIZE} />
+							<p className="ml-3">My Bookmarks</p>
+							<span className="sr-only">My bookmarks</span>
+						</Button>
+
 						<Button
 							variant="ghost"
 							className="w-full justify-start"

@@ -43,3 +43,17 @@ interface BookSimple {
 	id: number;
 	title: string;
 }
+
+type WithBook<T> = T & {
+	book: Book;
+};
+
+interface Bookmark {
+	id: number;
+	user_id: number;
+	book_id: number;
+}
+
+interface BookmarkDetailed extends Bookmark {
+	book: BookDetailed;
+}

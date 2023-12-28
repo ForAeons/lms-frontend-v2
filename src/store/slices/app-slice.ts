@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import {
+	createBookmarkThunk,
+	deleteBookmarkThunk,
 	getCurrentUserThunk,
 	getHealthThunk,
 	loginThunk,
@@ -8,11 +10,16 @@ import {
 } from "../thunks";
 
 const initialState: AppState = {
-	backendStatus: "unknown",
 	csrfToken: null,
+	backendStatus: "unknown",
 	hasFetchedUser: false,
 	isLoggedIn: false,
 	user: null,
+	person: null,
+	bookmarks: [],
+	loans: [],
+	reservations: [],
+	fines: [],
 };
 
 export const appSlice = createSlice({
@@ -49,12 +56,22 @@ export const appSlice = createSlice({
 
 			state.isLoggedIn = true;
 			state.user = action.payload.user;
+			state.person = action.payload.person_attributes;
+			state.bookmarks = action.payload.bookmarks;
+			state.loans = action.payload.loans;
+			state.reservations = action.payload.reservations;
+			state.fines = action.payload.fines;
 		});
 
 		builder.addCase(loginThunk.fulfilled, (state, action) => {
 			if (action.payload) {
 				state.isLoggedIn = true;
-				state.user = action.payload;
+				state.user = action.payload.user;
+				state.person = action.payload.person_attributes;
+				state.bookmarks = action.payload.bookmarks;
+				state.loans = action.payload.loans;
+				state.reservations = action.payload.reservations;
+				state.fines = action.payload.fines;
 				toast.success("Sign in successful", {
 					description: "You are now signed in.",
 				});
@@ -80,6 +97,24 @@ export const appSlice = createSlice({
 		builder.addCase(logoutThunk.rejected, (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
+		});
+
+		builder.addCase(createBookmarkThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
+			state.bookmarks.unshift(action.payload);
+			toast.success("Success", {
+				description: `"${action.payload.book.title}" is now bookmarked for you.`,
+			});
+		});
+
+		builder.addCase(deleteBookmarkThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
+			state.bookmarks = state.bookmarks.filter(
+				(bookmark) => bookmark.id !== action.payload!.id,
+			);
+			toast.success("Success", {
+				description: `"${action.payload.book.title}" is now unbookmarked for you.`,
+			});
 		});
 	},
 });

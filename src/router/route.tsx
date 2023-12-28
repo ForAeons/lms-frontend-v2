@@ -10,6 +10,7 @@ import {
 	BookIndexPage,
 	BookListPage,
 	BookPage,
+	BookmarkPage,
 	ManageBookPage,
 } from "@/modules/book";
 import { LoanPage, ManageLoanPage } from "@/modules/loan";
@@ -24,6 +25,7 @@ export const Router = createBrowserRouter(
 			<Route path="/" element={<BookIndexPage />} />
 			<Route path="/book" element={<BookListPage />} />
 			<Route path="/book/:book_id" element={<BookPage />} />
+			<Route path="/bookmark" element={<BookmarkPage />} />
 			<Route path="/loan" element={<LoanPage />} />
 			<Route path="/reservation" element={<ResPage />} />
 			<Route path="/fine" element={<FinePage />} />

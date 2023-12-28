@@ -23,7 +23,7 @@ export const BookCard: React.FC<{
 
 	return (
 		<Card className="relative flex lg:flex-row flex-col hover:shadow-md transition-shadow pr-10">
-			<div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end">
+			<div className="absolute right-0 top-1/2 -translate-y-1/2 h-full flex flex-col justify-around">
 				{children}
 			</div>
 

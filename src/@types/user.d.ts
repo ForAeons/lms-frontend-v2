@@ -51,9 +51,21 @@ interface UserPersonAbility extends UserPerson {
 	abilities: string[];
 }
 
+interface UserAbility extends User {
+	abilities: string[];
+}
+
 type UserSimple = Omit<User, "email" | "password">;
 
-interface GetCurrentUserPayload {
+interface LoginPayload {
+	user: UserAbility;
+	person_attributes: Person;
+	bookmarks: BookmarkDetailed[];
+	loans: WithBook<Loan>[];
+	reservations: WithBook<Reservation>[];
+	fines: WithBook<Fine>[];
+}
+
+interface GetCurrentUserPayload extends LoginPayload {
 	is_logged_in: boolean;
-	user: UserPersonAbility;
 }
