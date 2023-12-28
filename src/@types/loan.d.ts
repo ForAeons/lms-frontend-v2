@@ -3,7 +3,7 @@ type loanStatus = "borrowed" | "returned";
 interface Loan {
 	id: number;
 	user_id: number;
-	book_id: number;
+	book_copy_id: number;
 	status: loanStatus;
 	borrow_date: string;
 	due_date: string;
@@ -12,7 +12,7 @@ interface Loan {
 
 interface LoanCreate {
 	user_id: number;
-	book_id: number;
+	book_copy_id: number;
 }
 
 interface LoanHistories {

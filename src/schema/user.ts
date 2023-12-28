@@ -35,5 +35,5 @@ export const UserFormSchema = z
 
 export const BookUserFormSchema = z.object({
 	user_id: z.number(),
-	book_id: z.number(),
+	book_copy_id: z.number(),
 });

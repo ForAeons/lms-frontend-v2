@@ -19,11 +19,14 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
+import { reserveBookThunk, useAppDispatch } from "@/store";
 
-export const BookReserveBtn: React.FC<{
-	handler: NullaryHandler;
-	book: Book;
-}> = ({ handler, book }) => {
+export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
+	book,
+	copyID,
+}) => {
+	const dispatch = useAppDispatch();
+	const handleRes = () => dispatch(reserveBookThunk({ bookCopyID: copyID }));
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
@@ -33,7 +36,6 @@ export const BookReserveBtn: React.FC<{
 							<Button
 								variant="ghost"
 								className="hover:bg-transparent hover:opacity-50 transition-opacity"
-								onClick={handler}
 							>
 								<BookLockIcon className="text-primary" size={LG_ICON_SIZE} />
 							</Button>
@@ -53,7 +55,7 @@ export const BookReserveBtn: React.FC<{
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={handler}>Continue</AlertDialogAction>
+					<AlertDialogAction onClick={handleRes}>Continue</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

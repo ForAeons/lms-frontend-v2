@@ -6,9 +6,9 @@ class LoanApi extends BaseApi {
 		return this.List<LoanDetailed[]>(LoanRoutes.BASE, q, abortSignal);
 	};
 
-	public LoanBook = (bookId: number, abortSignal?: AbortSignal) => {
+	public LoanBook = (bookCopyId: number, abortSignal?: AbortSignal) => {
 		return this.Post<null, LoanDetailed>(
-			`${BookRoutes.BASE}/${bookId}/${LoanRoutes.BASE}/`,
+			`${BookRoutes.BASE}/${bookCopyId}/${LoanRoutes.BASE}/`,
 			null,
 			abortSignal,
 		);

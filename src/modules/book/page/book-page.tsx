@@ -1,24 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { toast } from "@/components/ui/use-toast";
 import { LoaderPage, NavBackBtn } from "@/modules";
-import {
-	getBookThunk,
-	loanBookThunk,
-	reserveBookThunk,
-	useAppDispatch,
-	useAppSelector,
-} from "@/store";
-import { BookBadge, BookLoanBtn, BookReserveBtn } from "..";
+import { getBookThunk, useAppDispatch, useAppSelector } from "@/store";
+import { BookCard, BookLoanBtn, BookReserveBtn, bookToBadgeProps } from "..";
 
 export const BookPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -27,9 +13,7 @@ export const BookPage: React.FC = () => {
 	const { book_id } = useParams();
 
 	React.useEffect(() => {
-		if (!book_id) return;
-
-		const id = parseInt(book_id);
+		const id = parseInt(book_id ?? "");
 		if (isNaN(id)) {
 			toast({
 				variant: "destructive",
@@ -40,65 +24,22 @@ export const BookPage: React.FC = () => {
 		}
 
 		const c = new AbortController();
-		dispatch(
-			getBookThunk({
-				bookID: id,
-				signal: c.signal,
-			}),
-		);
+		dispatch(getBookThunk({ bookID: id, signal: c.signal }));
 		return () => c.abort();
 	}, [dispatch, book_id]);
 
 	if (bookState.isFetching || !book) return <LoaderPage />;
 
-	const handBorrow = () => {
-		dispatch(
-			loanBookThunk({
-				bookID: book.id,
-			}),
-		);
-	};
-
-	const handleReserve = () => {
-		dispatch(
-			reserveBookThunk({
-				bookID: book.id,
-			}),
-		);
-	};
+	const availCopy = book.book_copies.find((bc) => bc.status === "available");
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full flex flex-col gap-3 px-3">
-				<Card className="relative border-none hover:shadow-md transition-shadow pr-10">
-					<div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end">
-						<NavBackBtn />
-						{bookState.bookStatus === "available" && (
-							<>
-								<BookLoanBtn handler={handBorrow} book={book} />
-								<BookReserveBtn handler={handleReserve} book={book} />
-							</>
-						)}
-					</div>
-
-					<CardHeader>
-						<CardTitle>{book.title}</CardTitle>
-						<CardDescription>By {book.author}</CardDescription>
-						<div className="flex flex-wrap gap-3">
-							<Badge className="w-fit">Genre - {book.genre}</Badge>
-							<BookBadge status={bookState.bookStatus} />
-						</div>
-					</CardHeader>
-
-					<CardContent>
-						<p>{book.language}</p>
-						<p>{book.publisher}</p>
-						<p>{book.publication_date}</p>
-						<p className="text-sm text-muted-foreground self-start">
-							{book.isbn}
-						</p>
-					</CardContent>
-				</Card>
+				<BookCard book={book} badges={bookToBadgeProps(book)}>
+					<NavBackBtn />
+					{availCopy && <BookLoanBtn book={book} copyID={availCopy.id} />}
+					{availCopy && <BookReserveBtn book={book} copyID={availCopy.id} />}
+				</BookCard>
 			</div>
 			<ScrollBar />
 		</ScrollArea>

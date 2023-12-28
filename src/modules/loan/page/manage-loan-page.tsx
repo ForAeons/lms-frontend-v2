@@ -13,7 +13,13 @@ import {
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { listLoanThunk, useAppDispatch, useAppSelector } from "@/store";
 import { LOAN_FILTER_OPTIONS, LOAN_SORT_OPTIONS } from "@/constants";
-import { LoanBookCard, LoanCreateBtn } from "..";
+import { BookCard } from "@/modules/book";
+import {
+	LoanCreateBtn,
+	LoanRenewBtn,
+	LoanReturnBtn,
+	loanToBadgeProps,
+} from "..";
 
 export const ManageLoanPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -53,7 +59,10 @@ export const ManageLoanPage: React.FC = () => {
 				</div>
 
 				{loanState.loans.map((l) => (
-					<LoanBookCard key={l.id} loan={l} editable />
+					<BookCard key={l.id} book={l.book} badges={loanToBadgeProps(l)}>
+						{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
+						{l.status === "borrowed" && <LoanRenewBtn loan={l} />}
+					</BookCard>
 				))}
 
 				<PaginationBar cq={cq} total={loanState.meta.filtered_count} />

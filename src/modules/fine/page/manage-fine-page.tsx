@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useQueryParams } from "@/hooks";
 import {
+	DeleteBtn,
 	FilterSelect,
 	LoaderPage,
 	OrderBtn,
@@ -11,9 +12,15 @@ import {
 	SortSelect,
 } from "@/modules";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { listFineThunk, useAppDispatch, useAppSelector } from "@/store";
+import {
+	deleteFineThunk,
+	listFineThunk,
+	useAppDispatch,
+	useAppSelector,
+} from "@/store";
 import { FINE_SORT_OPTIONS, FINE_FILTER_OPTIONS } from "@/constants";
-import { FineBookCard } from "..";
+import { BookCard } from "@/modules/book";
+import { FineSettleBtn, fineToBadgeProps } from "..";
 
 export const ManageFinePage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -52,7 +59,13 @@ export const ManageFinePage: React.FC = () => {
 				</div>
 
 				{fineState.fines.map((f) => (
-					<FineBookCard key={f.id} fine={f} editable />
+					<BookCard key={f.id} book={f.book} badges={fineToBadgeProps(f)}>
+						<DeleteBtn
+							handler={() => dispatch(deleteFineThunk({ fineId: f.id }))}
+							subject="fine"
+						/>
+						{f.status === "outstanding" && <FineSettleBtn fine={f} />}
+					</BookCard>
 				))}
 
 				<PaginationBar cq={cq} total={fineState.meta.filtered_count} />

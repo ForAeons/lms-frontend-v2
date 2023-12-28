@@ -13,3 +13,10 @@ interface SelectOption {
 	label: string;
 	value: string;
 }
+
+type BadgeVariant = "default" | "secondary" | "destructive" | "outline";
+
+interface BadgeProps {
+	variant?: BadgeVariant;
+	text: string;
+}

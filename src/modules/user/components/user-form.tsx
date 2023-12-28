@@ -20,8 +20,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { LANGUAGE_SELECT_OPTIONS } from "@/constants/select";
 import { UserFormSchema } from "@/schema";
+import { LANGUAGE_SELECT_OPTIONS } from "@/constants";
 
 export const UserForm: React.FC<{
 	defaultValues: z.infer<typeof UserFormSchema>;

@@ -2,16 +2,22 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
+	DeleteBtn,
 	LoaderPage,
 	OrderBtn,
 	PaginationBar,
 	SearchBar,
 	SortSelect,
 } from "@/modules";
-import { listBookThunk, useAppDispatch, useAppSelector } from "@/store";
+import {
+	deleteBookThunk,
+	listBookThunk,
+	useAppDispatch,
+	useAppSelector,
+} from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { BookCard, BookCreateBtn } from "..";
+import { BookCard, BookCreateBtn, BookEditBtn } from "..";
 import { BOOK_SORT_OPTIONS } from "@/constants";
 
 export const ManageBookPage: React.FC = () => {
@@ -49,9 +55,15 @@ export const ManageBookPage: React.FC = () => {
 					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
 				</div>
 
-				{bookState.books.map((book) => {
-					return <BookCard key={book.isbn} book={book} editable />;
-				})}
+				{bookState.books.map((book) => (
+					<BookCard key={book.id} book={book}>
+						<DeleteBtn
+							handler={() => dispatch(deleteBookThunk({ bookID: book.id }))}
+							subject="book"
+						/>
+						<BookEditBtn book={book} />
+					</BookCard>
+				))}
 
 				<PaginationBar cq={cq} total={bookState.meta.filtered_count} />
 			</div>

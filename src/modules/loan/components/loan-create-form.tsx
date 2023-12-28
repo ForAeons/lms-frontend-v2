@@ -145,7 +145,7 @@ export const LoanCreateForm: React.FC = () => {
 
 				<FormField
 					control={form.control}
-					name="book_id"
+					name="book_copy_id"
 					render={({ field }) => (
 						<FormItem className="flex flex-col">
 							<FormLabel>Book</FormLabel>
@@ -181,7 +181,7 @@ export const LoanCreateForm: React.FC = () => {
 														value={b.title}
 														key={b.id}
 														onSelect={() => {
-															form.setValue("book_id", b.id);
+															form.setValue("book_copy_id", b.id);
 														}}
 													>
 														<CheckIcon

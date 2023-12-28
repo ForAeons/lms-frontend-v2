@@ -3,7 +3,7 @@ type reservationStatus = "pending" | "fulfilled";
 interface Reservation {
 	id: number;
 	user_id: number;
-	book_id: number;
+	book_copy_id: number;
 	status: reservationStatus;
 	reservation_date: string;
 }
@@ -15,5 +15,5 @@ interface ReservationDetailed extends Reservation {
 
 interface ReservationCreate {
 	user_id: number;
-	book_id: number;
+	book_copy_id: number;
 }

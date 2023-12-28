@@ -1,7 +1,6 @@
 export * from "./book-card";
 export * from "./book-create-btn";
 export * from "./book-edit-btn";
-export * from "./book-badge";
 export * from "./book-nav-btn";
 export * from "./book-loan-btn";
 export * from "./book-reserve-btn";
