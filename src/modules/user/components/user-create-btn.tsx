@@ -21,7 +21,6 @@ export const UserCreateBtn: React.FC = () => {
 		confirmPassword: "",
 		full_name: "",
 		preferred_name: "",
-		language_preference: "",
 	};
 
 	const dispatch = useAppDispatch();
@@ -33,7 +32,6 @@ export const UserCreateBtn: React.FC = () => {
 				person_attributes: {
 					full_name: values.full_name,
 					preferred_name: values.preferred_name,
-					language_preference: values.language_preference,
 				},
 			}),
 		);

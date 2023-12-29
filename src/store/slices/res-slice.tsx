@@ -41,6 +41,7 @@ export const resSlice = createSlice({
 		builder.addCase(createResThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.res.unshift(action.payload);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `${action.payload!.book.title} reserved by ${
 					action.payload!.user.username
@@ -51,6 +52,7 @@ export const resSlice = createSlice({
 		builder.addCase(cancelResThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.res = state.res.filter((l) => l.id !== action.payload!.id);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `Reservation for ${
 					action.payload!.book.title
@@ -61,6 +63,7 @@ export const resSlice = createSlice({
 		builder.addCase(checkoutResThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.res = state.res.filter((l) => l.id !== action.payload!.id);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `Reservation for ${
 					action.payload!.book.title
@@ -71,6 +74,7 @@ export const resSlice = createSlice({
 		builder.addCase(deleteResThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.res = state.res.filter((r) => r.id !== action.payload!.id);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `Reservation for ${action.payload.book.title} deleted successfully`,
 			});

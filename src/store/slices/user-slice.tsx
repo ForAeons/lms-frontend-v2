@@ -52,6 +52,7 @@ export const userSlice = createSlice({
 			state.users = state.users.map((u) =>
 				u.id === action.payload?.id ? action.payload : u,
 			);
+			//TODO: LANG
 			toast.success("Success", {
 				description: "User created successfully",
 			});
@@ -61,6 +62,7 @@ export const userSlice = createSlice({
 			state.users = state.users.map((u) =>
 				u.id === action.payload?.id ? action.payload : u,
 			);
+			//TODO: LANG
 			toast.success("Success", {
 				description: "User updated successfully",
 			});
@@ -68,6 +70,7 @@ export const userSlice = createSlice({
 
 		builder.addCase(deleteUserThunk.fulfilled, (state, action) => {
 			state.users = state.users.filter((u) => u.id !== action.payload?.id);
+			//TODO: LANG
 			toast.success("Success", {
 				description: "User deleted successfully",
 			});

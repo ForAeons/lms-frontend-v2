@@ -26,7 +26,6 @@ export const UserFormSchema = z
 		confirmPassword: z.string(),
 		full_name: z.string().min(2).max(255),
 		preferred_name: z.string().min(2).max(255).optional(),
-		language_preference: z.string().min(2).max(255),
 	})
 	.refine((data) => data.password === data.confirmPassword, {
 		message: "Passwords do not match",

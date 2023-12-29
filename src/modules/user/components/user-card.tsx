@@ -30,9 +30,6 @@ export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 				<p className="leading-7">
 					Preferred Name: {userPerson.person_attributes.preferred_name}
 				</p>
-				<p className="leading-7">
-					Language: {userPerson.person_attributes.language_preference}
-				</p>
 				<p className="text-sm text-muted-foreground">
 					User ID: {userPerson.id}
 				</p>

@@ -33,6 +33,10 @@ export const NavContent: React.FC = () => {
 	const { theme, setTheme } = useTheme();
 	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
+	const handleLogout = () => {
+		dispatch(logoutThunk()).then(() => navigate("/signin"));
+	};
+
 	return (
 		<nav className="space-y-4 py-4">
 			<div className="px-3 py-2">
@@ -66,9 +70,7 @@ export const NavContent: React.FC = () => {
 						<Button
 							variant="ghost"
 							className="w-full justify-start"
-							onClick={() =>
-								dispatch(logoutThunk()).then(() => navigate("/signin"))
-							}
+							onClick={handleLogout}
 						>
 							<LogInIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">Sign Out</p>

@@ -13,15 +13,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
 import { UserFormSchema } from "@/schema";
-import { LANGUAGE_SELECT_OPTIONS } from "@/constants";
 
 export const UserForm: React.FC<{
 	defaultValues: z.infer<typeof UserFormSchema>;
@@ -58,7 +50,7 @@ export const UserForm: React.FC<{
 						<FormItem>
 							<FormLabel>Full Name</FormLabel>
 							<FormControl>
-								<Input placeholder="New full name" {...field} />
+								<Input placeholder="Full name" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -71,13 +63,13 @@ export const UserForm: React.FC<{
 						<FormItem>
 							<FormLabel>Preferred name</FormLabel>
 							<FormControl>
-								<Input placeholder="New preferred name" {...field} />
+								<Input placeholder="Preferred name" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
-				<FormField
+				{/* <FormField
 					control={form.control}
 					name="language_preference"
 					render={({ field }) => (
@@ -102,7 +94,7 @@ export const UserForm: React.FC<{
 							<FormMessage />
 						</FormItem>
 					)}
-				/>
+				/> */}
 				<FormField
 					control={form.control}
 					name="password"

@@ -35,6 +35,7 @@ export const fineSlice = createSlice({
 		builder.addCase(settleFineThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.fines = state.fines.filter((f) => f.id !== action.payload!.id);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `Fine for ${
 					action.payload!.user.username
@@ -45,6 +46,7 @@ export const fineSlice = createSlice({
 		builder.addCase(deleteFineThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.fines = state.fines.filter((f) => f.id !== action.payload!.id);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `Fine for ${
 					action.payload!.user.username

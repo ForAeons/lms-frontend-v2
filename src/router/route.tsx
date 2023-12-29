@@ -4,8 +4,8 @@ import {
 	createRoutesFromElements,
 } from "react-router-dom";
 import { AppLayout, PageNotFound } from "@/modules/common";
-import { LoginPage } from "@/modules/auth";
-import { ManageUserPage } from "@/modules/user";
+import { SigninPage } from "@/modules/auth";
+import { ManageUserPage, SignupPage } from "@/modules/user";
 import {
 	BookIndexPage,
 	BookListPage,
@@ -20,8 +20,9 @@ import { AuditLogPage } from "@/modules/auditlog";
 
 export const Router = createBrowserRouter(
 	createRoutesFromElements([
-		<Route key={"Signin"} path="/signin" element={<LoginPage />} />,
-		<Route key={"Main"} path="/" element={<AppLayout />}>
+		<Route key={"signin"} path="/signin" element={<SigninPage />} />,
+		<Route key={"signup"} path="/signup" element={<SignupPage />} />,
+		<Route key={"main"} path="/" element={<AppLayout />}>
 			<Route path="/" element={<BookIndexPage />} />
 			<Route path="/book" element={<BookListPage />} />
 			<Route path="/book/:book_id" element={<BookPage />} />

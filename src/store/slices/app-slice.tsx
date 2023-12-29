@@ -38,6 +38,7 @@ export const appSlice = createSlice({
 
 		builder.addCase(getHealthThunk.rejected, (state) => {
 			state.backendStatus = "down";
+			//TODO: LANG
 			toast.error("Backend is down", {
 				description: "The backend is currently down. Please try again later.",
 			});
@@ -72,6 +73,7 @@ export const appSlice = createSlice({
 				state.loans = action.payload.loans;
 				state.reservations = action.payload.reservations;
 				state.fines = action.payload.fines;
+				//TODO: LANG
 				toast.success("Sign in successful", {
 					description: "You are now signed in.",
 				});
@@ -82,6 +84,7 @@ export const appSlice = createSlice({
 		builder.addCase(loginThunk.rejected, (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
+			//TODO: LANG
 			toast.error("Login failed", {
 				description: "Please check your username and password.",
 			});
@@ -90,6 +93,7 @@ export const appSlice = createSlice({
 		builder.addCase(logoutThunk.fulfilled, (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
+			//TODO: LANG
 			toast("Sign out Successful", {
 				description: "You are now signed out.",
 			});
@@ -102,6 +106,7 @@ export const appSlice = createSlice({
 		builder.addCase(createBookmarkThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.bookmarks.unshift(action.payload);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `"${action.payload.book.title}" is now bookmarked for you.`,
 			});
@@ -112,6 +117,7 @@ export const appSlice = createSlice({
 			state.bookmarks = state.bookmarks.filter(
 				(bookmark) => bookmark.id !== action.payload!.id,
 			);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `"${action.payload.book.title}" is now unbookmarked for you.`,
 			});
