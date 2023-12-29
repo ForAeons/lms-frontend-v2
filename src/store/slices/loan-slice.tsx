@@ -41,6 +41,7 @@ export const loanSlice = createSlice({
 		builder.addCase(createLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.loans.unshift(action.payload);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `${action.payload!.book.title} loaned to ${
 					action.payload!.user.username
@@ -51,6 +52,7 @@ export const loanSlice = createSlice({
 		builder.addCase(returnLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.loans = state.loans.filter((l) => l.id !== action.payload!.id);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `${action.payload!.book.title} returned successfully.`,
 			});
@@ -64,6 +66,7 @@ export const loanSlice = createSlice({
 				}
 				return l;
 			});
+			//TODO: LANG
 			toast.success("Success", {
 				description: `Book renewed successfully`,
 			});
@@ -72,6 +75,7 @@ export const loanSlice = createSlice({
 		builder.addCase(deleteLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.loans = state.loans.filter((l) => l.id !== action.payload!.id);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `Loan deleted successfully`,
 			});

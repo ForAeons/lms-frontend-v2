@@ -3,41 +3,54 @@ import { useNavigate } from "react-router-dom";
 import {
 	LogInIcon,
 	LogOutIcon,
-	BookDownIcon,
-	WalletIcon,
+	BookUserIcon,
+	CircleDollarSignIcon,
 	UserCogIcon,
-	BookKeyIcon,
-	LibraryBigIcon,
-	LandmarkIcon,
-	HelpingHandIcon,
+	BookIcon,
 	Sun,
 	Moon,
 	Home,
-	BookLockIcon,
+	LockKeyholeIcon,
 	ScrollTextIcon,
-	BookIcon,
 	BookmarkIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useTheme } from "@/components/theme-provider";
-import { logoutThunk, useAppDispatch, useAppSelector } from "@/store";
-import { MD_ICON_SIZE } from "@/constants";
+import {
+	CheckPermission,
+	logoutThunk,
+	useAppDispatch,
+	useAppSelector,
+} from "@/store";
+import { MANAGE_BOOK_RECORDS, MD_ICON_SIZE, READ_AUDIT_LOG } from "@/constants";
 
 export const NavContent: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const person = useAppSelector((s) => s.app.person);
 	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
+	const canManageBookRecords = useAppSelector((s) =>
+		CheckPermission(s, MANAGE_BOOK_RECORDS),
+	);
+	const canReadAuditLog = useAppSelector((s) =>
+		CheckPermission(s, READ_AUDIT_LOG),
+	);
 	const navigate = useNavigate();
 
 	const { theme, setTheme } = useTheme();
 	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
+	const handleLogout = () => {
+		dispatch(logoutThunk()).then(() => navigate("/signin"));
+	};
+
 	return (
 		<nav className="space-y-4 py-4">
 			<div className="px-3 py-2">
 				<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight truncate">
-					{person ? `Welcome ${person.full_name}` : "Welcome"}
+					{person
+						? `Welcome ${person.preferred_name ?? person.full_name}`
+						: "Welcome"}
 				</h2>
 
 				<div className="space-y-1">
@@ -66,9 +79,7 @@ export const NavContent: React.FC = () => {
 						<Button
 							variant="ghost"
 							className="w-full justify-start"
-							onClick={() =>
-								dispatch(logoutThunk()).then(() => navigate("/signin"))
-							}
+							onClick={handleLogout}
 						>
 							<LogInIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">Sign Out</p>
@@ -112,7 +123,7 @@ export const NavContent: React.FC = () => {
 							className="w-full justify-start"
 							onClick={() => navigate("/loan")}
 						>
-							<BookDownIcon size={MD_ICON_SIZE} />
+							<BookUserIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">My Loan</p>
 							<span className="sr-only">Loan resources</span>
 						</Button>
@@ -122,7 +133,7 @@ export const NavContent: React.FC = () => {
 							className="w-full justify-start"
 							onClick={() => navigate("/reservation")}
 						>
-							<BookLockIcon size={MD_ICON_SIZE} />
+							<LockKeyholeIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">My Reservation</p>
 							<span className="sr-only">Reservation resources</span>
 						</Button>
@@ -132,7 +143,7 @@ export const NavContent: React.FC = () => {
 							className="w-full justify-start"
 							onClick={() => navigate("/fine")}
 						>
-							<WalletIcon size={MD_ICON_SIZE} />
+							<CircleDollarSignIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">My Fine</p>
 							<span className="sr-only">Fine resources</span>
 						</Button>
@@ -140,7 +151,7 @@ export const NavContent: React.FC = () => {
 				</div>
 			)}
 
-			{isLoggedIn && (
+			{canManageBookRecords && (
 				<div className="px-3 py-2">
 					<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
 						Admin
@@ -162,7 +173,7 @@ export const NavContent: React.FC = () => {
 							className="w-full justify-start"
 							onClick={() => navigate("/manage/book")}
 						>
-							<BookKeyIcon size={MD_ICON_SIZE} />
+							<BookIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">Manage Book</p>
 							<span className="sr-only">Manage book</span>
 						</Button>
@@ -172,7 +183,7 @@ export const NavContent: React.FC = () => {
 							className="w-full justify-start"
 							onClick={() => navigate("/manage/loan")}
 						>
-							<HelpingHandIcon size={MD_ICON_SIZE} />
+							<BookUserIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">Manage Loan</p>
 							<span className="sr-only">Manage loan</span>
 						</Button>
@@ -182,7 +193,7 @@ export const NavContent: React.FC = () => {
 							className="w-full justify-start"
 							onClick={() => navigate("/manage/reservation")}
 						>
-							<LibraryBigIcon size={MD_ICON_SIZE} />
+							<LockKeyholeIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">Manage Reservation</p>
 							<span className="sr-only">Manage reservation</span>
 						</Button>
@@ -192,20 +203,22 @@ export const NavContent: React.FC = () => {
 							className="w-full justify-start"
 							onClick={() => navigate("/manage/fine")}
 						>
-							<LandmarkIcon size={MD_ICON_SIZE} />
+							<CircleDollarSignIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">Manage Fine</p>
 							<span className="sr-only">MManage fine</span>
 						</Button>
 
-						<Button
-							variant="ghost"
-							className="w-full justify-start"
-							onClick={() => navigate("/manage/audit_log")}
-						>
-							<ScrollTextIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">Audit Log</p>
-							<span className="sr-only">Audit logs</span>
-						</Button>
+						{canReadAuditLog && (
+							<Button
+								variant="ghost"
+								className="w-full justify-start"
+								onClick={() => navigate("/manage/audit_log")}
+							>
+								<ScrollTextIcon size={MD_ICON_SIZE} />
+								<p className="ml-3">Audit Log</p>
+								<span className="sr-only">Audit logs</span>
+							</Button>
+						)}
 					</div>
 				</div>
 			)}

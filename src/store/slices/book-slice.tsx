@@ -39,6 +39,7 @@ export const bookSlice = createSlice({
 		builder.addCase(createBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.books.unshift(action.payload);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `Book ${action.payload.title} added to library successfully`,
 			});
@@ -68,6 +69,7 @@ export const bookSlice = createSlice({
 				}
 				return book;
 			});
+			//TODO: LANG
 			toast.success("Success", {
 				description: `Book ${action.payload.title} edited successfully`,
 			});
@@ -78,6 +80,7 @@ export const bookSlice = createSlice({
 			state.books = state.books.filter(
 				(book) => book.id !== action.payload!.id,
 			);
+			//TODO: LANG
 			toast.success("Success", {
 				description: `Book ${action.payload.title} removed from library successfully`,
 			});
@@ -95,6 +98,7 @@ export const bookSlice = createSlice({
 
 		builder.addCase(loanBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
+			//TODO: LANG
 			toast.success("Success", {
 				description: `"${state.book!.title}" loaned successfully. Due date: ${
 					action.payload.due_date
@@ -104,6 +108,7 @@ export const bookSlice = createSlice({
 
 		builder.addCase(reserveBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
+			//TODO: LANG
 			toast.success("Success", {
 				description: `"${state.book!.title}" reserved successfully. "${
 					state.book!.title

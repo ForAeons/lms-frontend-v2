@@ -4,7 +4,7 @@ export const UserRoutes = {
 		ROUTE: "current",
 	},
 	UDPATE_ROLE: {
-		DYNAMIC_ROUTE: (id: number) => `${id}/role`,
+		BASE: "role",
 	},
 	AUTOCOMPLETE: {
 		DYNAMIC_ROUTE: (value: string) => `autocomplete/${value}`,

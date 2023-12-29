@@ -1,5 +1,5 @@
 import React from "react";
-import { BookLockIcon } from "lucide-react";
+import { LockKeyholeIcon } from "lucide-react";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -37,7 +37,7 @@ export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
 								variant="ghost"
 								className="hover:bg-transparent hover:opacity-50 transition-opacity"
 							>
-								<BookLockIcon className="text-primary" size={LG_ICON_SIZE} />
+								<LockKeyholeIcon className="text-primary" size={LG_ICON_SIZE} />
 							</Button>
 						</TooltipTrigger>
 						<TooltipContent>

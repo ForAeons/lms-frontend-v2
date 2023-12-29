@@ -45,6 +45,18 @@ class UserApi extends BaseApi {
 			abortSignal,
 		);
 	};
+
+	public ChangeRole = (
+		userID: number,
+		roleID: number,
+		abortSignal?: AbortSignal,
+	) => {
+		return this.Patch<RoleUpdate, UserPersonAbility>(
+			`${UserRoutes.BASE}/${userID}/${UserRoutes.UDPATE_ROLE.BASE}/`,
+			{ role_id: roleID },
+			abortSignal,
+		);
+	};
 }
 
 export const userApi = new UserApi();

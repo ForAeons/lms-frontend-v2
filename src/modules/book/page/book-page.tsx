@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { toast } from "@/components/ui/use-toast";
 import { LoaderPage, NavBackBtn } from "@/modules";
 import { getBookThunk, useAppDispatch, useAppSelector } from "@/store";
 import { BookCard, BookLoanBtn, BookReserveBtn, bookToBadgeProps } from "..";
@@ -14,14 +13,7 @@ export const BookPage: React.FC = () => {
 
 	React.useEffect(() => {
 		const id = parseInt(book_id ?? "");
-		if (isNaN(id)) {
-			toast({
-				variant: "destructive",
-				title: "Bad Book ID",
-				description: `The book id "${book_id}" is not a number`,
-			});
-			return;
-		}
+		if (isNaN(id)) return;
 
 		const c = new AbortController();
 		dispatch(getBookThunk({ bookID: id, signal: c.signal }));

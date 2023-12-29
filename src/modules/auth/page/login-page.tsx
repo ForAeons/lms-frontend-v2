@@ -2,14 +2,29 @@ import React from "react";
 import { SigninForm } from "..";
 import { Card, CardContent } from "@/components/ui/card";
 
-export const LoginPage: React.FC = () => {
+export const SigninPage: React.FC = () => {
 	return (
-		<div className="w-full h-full relative">
-			<Card className="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-1/2 max-w-lg border-none transition-shadow shadow-md hover:shadow-lg">
-				<CardContent className="p-6">
-					<SigninForm />
-				</CardContent>
-			</Card>
+		<div className="w-[100vw] h-[100vh] flex justify-center items-center">
+			<div className="max-w-lg m-6">
+				<Card className="border-none transition-shadow shadow-md hover:shadow-lg">
+					<CardContent className="p-6">
+						<SigninForm />
+					</CardContent>
+				</Card>
+
+				<div className="mt-3 text-xs text-muted-foreground text-right">
+					<p>{"Don't have an account?"}</p>
+					<p>
+						Sign up{" "}
+						<a
+							href="/signup"
+							className="text-primary hover:opacity-70 transition-colors"
+						>
+							here
+						</a>
+					</p>
+				</div>
+			</div>
 		</div>
 	);
 };

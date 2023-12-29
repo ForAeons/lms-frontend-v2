@@ -1,5 +1,5 @@
 import React from "react";
-import { ListPlusIcon } from "lucide-react";
+import { BookCopyIcon } from "lucide-react";
 import {
 	Tooltip,
 	TooltipContent,
@@ -22,7 +22,7 @@ export const LoanRenewBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 						className="hover:bg-transparent hover:opacity-50 transition-opacity"
 						onClick={handleRenew}
 					>
-						<ListPlusIcon size={LG_ICON_SIZE} className="text-primary" />
+						<BookCopyIcon size={LG_ICON_SIZE} className="text-primary" />
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>

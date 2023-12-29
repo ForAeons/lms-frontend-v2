@@ -13,18 +13,26 @@ import {
 } from "@/modules";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import {
+	CheckPermission,
 	deleteFineThunk,
 	listFineThunk,
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { FINE_SORT_OPTIONS, FINE_FILTER_OPTIONS } from "@/constants";
+import {
+	FINE_SORT_OPTIONS,
+	FINE_FILTER_OPTIONS,
+	MANAGE_BOOK_RECORDS,
+} from "@/constants";
 import { BookCard } from "@/modules/book";
 import { FineSettleBtn, fineToBadgeProps } from "..";
 
 export const ManageFinePage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const fineState = useAppSelector((s) => s.fine);
+	const canDeleteFine = useAppSelector((s) =>
+		CheckPermission(s, MANAGE_BOOK_RECORDS),
+	);
 	const navigate = useNavigate();
 	const queryParams = useQueryParams();
 	const cq = getCollectionQuery(queryParams);
@@ -60,10 +68,12 @@ export const ManageFinePage: React.FC = () => {
 
 				{fineState.fines.map((f) => (
 					<BookCard key={f.id} book={f.book} badges={fineToBadgeProps(f)}>
-						<DeleteBtn
-							handler={() => dispatch(deleteFineThunk({ fineId: f.id }))}
-							subject="fine"
-						/>
+						{canDeleteFine && (
+							<DeleteBtn
+								handler={() => dispatch(deleteFineThunk({ fineId: f.id }))}
+								subject="fine"
+							/>
+						)}
 						{f.status === "outstanding" && <FineSettleBtn fine={f} />}
 					</BookCard>
 				))}

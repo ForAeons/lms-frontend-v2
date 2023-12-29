@@ -27,7 +27,7 @@ export const BookCard: React.FC<{
 				{children}
 			</div>
 
-			<div className="lg:w-[200px] w-[150px] h-fit lg:mr-0 lg:mb-6 mb-0 m-6 bg-muted rounded-md shadow-sm hover:shadow-md transition-shadow flex-shrink-0">
+			<div className="lg:w-[200px] w-[150px] h-fit lg:mr-0 lg:mb-6 mb-0 m-6 bg-muted rounded-md shadow-xl transition-shadow flex-shrink-0">
 				<BookPicture book={book} />
 			</div>
 

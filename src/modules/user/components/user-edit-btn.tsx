@@ -23,7 +23,6 @@ export const UserEditBtn: React.FC<{
 		confirmPassword: "",
 		full_name: userPerson.person_attributes.full_name,
 		preferred_name: userPerson.person_attributes.preferred_name,
-		language_preference: userPerson.person_attributes.language_preference,
 	};
 
 	const dispatch = useAppDispatch();
@@ -37,7 +36,6 @@ export const UserEditBtn: React.FC<{
 					id: userPerson.person_attributes.id,
 					full_name: values.full_name,
 					preferred_name: values.preferred_name,
-					language_preference: values.language_preference,
 				},
 			}),
 		);

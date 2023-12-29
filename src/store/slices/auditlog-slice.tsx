@@ -35,6 +35,7 @@ export const auditlogSlice = createSlice({
 		builder.addCase(createLogThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.logs.unshift(action.payload);
+			//TODO: LANG
 			toast.success("Success", {
 				description: "Log created successfully",
 			});
