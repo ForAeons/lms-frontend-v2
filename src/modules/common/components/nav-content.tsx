@@ -66,7 +66,9 @@ export const NavContent: React.FC = () => {
 						<Button
 							variant="ghost"
 							className="w-full justify-start"
-							onClick={() => dispatch(logoutThunk())}
+							onClick={() =>
+								dispatch(logoutThunk()).then(() => navigate("/signin"))
+							}
 						>
 							<LogInIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">Sign Out</p>

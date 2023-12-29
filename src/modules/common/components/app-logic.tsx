@@ -27,5 +27,5 @@ export const AppLogic: React.FC = () => {
 		return () => c.abort();
 	}, [dispatch, backendStatus, hasFetchedUser]);
 
-	return <div className="hidden" />;
+	return <div id="app-logic" className="hidden" />;
 };
