@@ -1,19 +1,33 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { DeleteBtn } from "@/modules";
-import { deleteUserThunk, useAppDispatch } from "@/store";
-import { UserEditBtn } from ".";
+import {
+	CheckPermission,
+	deleteUserThunk,
+	useAppDispatch,
+	useAppSelector,
+} from "@/store";
+import { UserEditBtn, UserUpdateRoleBtn } from ".";
+import { DELETE_USER, UPDATE_USER, UPDATE_USER_ROLE } from "@/constants";
 
 export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 	userPerson,
 }) => {
 	const dispatch = useAppDispatch();
+	const canUpdateUser = useAppSelector((s) => CheckPermission(s, UPDATE_USER));
+	const canUpdateUserRole = useAppSelector((s) =>
+		CheckPermission(s, UPDATE_USER_ROLE),
+	);
+	const canDeleteUser = useAppSelector((s) => CheckPermission(s, DELETE_USER));
+
 	const handleDelete = () => dispatch(deleteUserThunk(userPerson.id));
+
 	return (
-		<Card className="relative border-none hover:shadow-md transition-shadow pr-10">
-			<div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col items-end">
-				<DeleteBtn handler={handleDelete} subject="user" />
-				<UserEditBtn userPerson={userPerson} />
+		<Card className="relative hover:shadow-md transition-shadow pr-10">
+			<div className="absolute h-full right-0 top-1/2 -translate-y-1/2 flex flex-col justify-around">
+				{canUpdateUser && <UserEditBtn userPerson={userPerson} />}
+				{canUpdateUserRole && <UserUpdateRoleBtn user={userPerson} />}
+				{canDeleteUser && <DeleteBtn handler={handleDelete} subject="user" />}
 			</div>
 
 			<CardHeader>

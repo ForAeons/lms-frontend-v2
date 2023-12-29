@@ -5,8 +5,10 @@ interface AppState {
 	backendStatus: backendStatus;
 	hasFetchedUser: boolean;
 	isLoggedIn: boolean;
-	user: UserAbility | null;
+	user: User | null;
+	abilities: string[];
 	person: Person | null;
+	permissions: Record<string, boolean>;
 	bookmarks: BookmarkDetailed[];
 	loans: WithBook<Loan>[];
 	reservations: WithBook<Reservation>[];

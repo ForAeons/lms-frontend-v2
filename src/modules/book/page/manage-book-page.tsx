@@ -10,6 +10,7 @@ import {
 	SortSelect,
 } from "@/modules";
 import {
+	CheckPermission,
 	deleteBookThunk,
 	listBookThunk,
 	useAppDispatch,
@@ -18,11 +19,19 @@ import {
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { BookCard, BookCreateBtn, BookEditBtn } from "..";
-import { BOOK_SORT_OPTIONS } from "@/constants";
+import {
+	BOOK_SORT_OPTIONS,
+	CREATE_BOOK,
+	DELETE_BOOK,
+	UPDATE_BOOK,
+} from "@/constants";
 
 export const ManageBookPage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const bookState = useAppSelector((s) => s.book);
+	const canCreateBook = useAppSelector((s) => CheckPermission(s, CREATE_BOOK));
+	const canUpdateBook = useAppSelector((s) => CheckPermission(s, UPDATE_BOOK));
+	const canDeleteBook = useAppSelector((s) => CheckPermission(s, DELETE_BOOK));
 	const navigate = useNavigate();
 	const queryParams = useQueryParams();
 	const cq = getCollectionQuery(queryParams);
@@ -46,7 +55,7 @@ export const ManageBookPage: React.FC = () => {
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<div className="flex gap-3">
-					<BookCreateBtn />
+					{canCreateBook && <BookCreateBtn />}
 					<SearchBar cq={cq} />
 				</div>
 
@@ -57,11 +66,14 @@ export const ManageBookPage: React.FC = () => {
 
 				{bookState.books.map((book) => (
 					<BookCard key={book.id} book={book}>
-						<DeleteBtn
-							handler={() => dispatch(deleteBookThunk({ bookID: book.id }))}
-							subject="book"
-						/>
-						<BookEditBtn book={book} />
+						{canDeleteBook && (
+							<DeleteBtn
+								handler={() => dispatch(deleteBookThunk({ bookID: book.id }))}
+								subject="book"
+							/>
+						)}
+
+						{canUpdateBook && <BookEditBtn book={book} />}
 					</BookCard>
 				))}
 

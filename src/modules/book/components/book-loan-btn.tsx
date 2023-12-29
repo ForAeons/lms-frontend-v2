@@ -1,5 +1,5 @@
 import React from "react";
-import { BookUpIcon } from "lucide-react";
+import { BookUserIcon } from "lucide-react";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -37,7 +37,7 @@ export const BookLoanBtn: React.FC<{ book: Book; copyID: number }> = ({
 								variant="ghost"
 								className="hover:bg-transparent hover:opacity-50 transition-opacity"
 							>
-								<BookUpIcon className="text-primary" size={LG_ICON_SIZE} />
+								<BookUserIcon className="text-primary" size={LG_ICON_SIZE} />
 							</Button>
 						</TooltipTrigger>
 						<TooltipContent>

@@ -40,3 +40,15 @@ export const deleteUserThunk = createAsyncThunk(
 		return res?.data;
 	},
 );
+
+export const updateUserRoleThunk = createAsyncThunk(
+	"user/update-role",
+	async (action: { userID: number; roleID: number; signal?: AbortSignal }) => {
+		const res = await userApi.ChangeRole(
+			action.userID,
+			action.roleID,
+			action.signal,
+		);
+		return res?.data;
+	},
+);

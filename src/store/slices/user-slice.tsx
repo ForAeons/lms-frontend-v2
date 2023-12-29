@@ -5,6 +5,7 @@ import {
 	createUserThunk,
 	deleteUserThunk,
 	listUserThunk,
+	updateUserRoleThunk,
 	updateUserThunk,
 } from "../thunks";
 
@@ -49,8 +50,9 @@ export const userSlice = createSlice({
 		});
 
 		builder.addCase(createUserThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
 			state.users = state.users.map((u) =>
-				u.id === action.payload?.id ? action.payload : u,
+				u.id === action.payload!.id ? action.payload! : u,
 			);
 			//TODO: LANG
 			toast.success("Success", {
@@ -59,8 +61,9 @@ export const userSlice = createSlice({
 		});
 
 		builder.addCase(updateUserThunk.fulfilled, (state, action) => {
+			if (!action.payload) return;
 			state.users = state.users.map((u) =>
-				u.id === action.payload?.id ? action.payload : u,
+				u.id === action.payload!.id ? action.payload! : u,
 			);
 			//TODO: LANG
 			toast.success("Success", {
@@ -69,10 +72,19 @@ export const userSlice = createSlice({
 		});
 
 		builder.addCase(deleteUserThunk.fulfilled, (state, action) => {
-			state.users = state.users.filter((u) => u.id !== action.payload?.id);
+			if (!action.payload) return;
+			state.users = state.users.filter((u) => u.id !== action.payload!.id);
 			//TODO: LANG
 			toast.success("Success", {
 				description: "User deleted successfully",
+			});
+		});
+
+		builder.addCase(updateUserRoleThunk.fulfilled, (_, action) => {
+			if (!action.payload) return;
+			//TODO: LANG
+			toast.success("Success", {
+				description: `${action.payload.username}'s role updated successfully`,
 			});
 		});
 	},

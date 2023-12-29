@@ -36,3 +36,7 @@ export const BookUserFormSchema = z.object({
 	user_id: z.number(),
 	book_copy_id: z.number(),
 });
+
+export const UserRoleSchema = z.object({
+	role_id: z.number().int(),
+});

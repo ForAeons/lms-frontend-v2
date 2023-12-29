@@ -58,7 +58,8 @@ interface UserAbility extends User {
 type UserSimple = Omit<User, "email" | "password">;
 
 interface LoginPayload {
-	user: UserAbility;
+	user: User;
+	abilities: string[];
 	person_attributes: Person;
 	bookmarks: BookmarkDetailed[];
 	loans: WithBook<Loan>[];
@@ -68,4 +69,13 @@ interface LoginPayload {
 
 interface GetCurrentUserPayload extends LoginPayload {
 	is_logged_in: boolean;
+}
+
+interface RoleUpdate {
+	role_id: number;
+}
+
+interface RoleSelectOption {
+	id: number;
+	label: string;
 }

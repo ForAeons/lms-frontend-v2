@@ -8,6 +8,7 @@ import {
 	loginThunk,
 	logoutThunk,
 } from "../thunks";
+import { GetPermissions } from "@/util";
 
 const initialState: AppState = {
 	csrfToken: null,
@@ -15,7 +16,9 @@ const initialState: AppState = {
 	hasFetchedUser: false,
 	isLoggedIn: false,
 	user: null,
+	abilities: [],
 	person: null,
+	permissions: {},
 	bookmarks: [],
 	loans: [],
 	reservations: [],
@@ -57,6 +60,8 @@ export const appSlice = createSlice({
 
 			state.isLoggedIn = true;
 			state.user = action.payload.user;
+			state.abilities = action.payload.abilities;
+			state.permissions = GetPermissions(action.payload.abilities);
 			state.person = action.payload.person_attributes;
 			state.bookmarks = action.payload.bookmarks;
 			state.loans = action.payload.loans;
@@ -68,11 +73,14 @@ export const appSlice = createSlice({
 			if (action.payload) {
 				state.isLoggedIn = true;
 				state.user = action.payload.user;
+				state.abilities = action.payload.abilities;
+				state.permissions = GetPermissions(action.payload.abilities);
 				state.person = action.payload.person_attributes;
 				state.bookmarks = action.payload.bookmarks;
 				state.loans = action.payload.loans;
 				state.reservations = action.payload.reservations;
 				state.fines = action.payload.fines;
+
 				//TODO: LANG
 				toast.success("Sign in successful", {
 					description: "You are now signed in.",
@@ -90,17 +98,18 @@ export const appSlice = createSlice({
 			});
 		});
 
-		builder.addCase(logoutThunk.fulfilled, (state) => {
+		builder.addCase(logoutThunk.pending, (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
+			state.abilities = [];
+			state.permissions = {};
+		});
+
+		builder.addCase(logoutThunk.fulfilled, () => {
 			//TODO: LANG
 			toast("Sign out Successful", {
 				description: "You are now signed out.",
 			});
-		});
-		builder.addCase(logoutThunk.rejected, (state) => {
-			state.isLoggedIn = false;
-			state.user = null;
 		});
 
 		builder.addCase(createBookmarkThunk.fulfilled, (state, action) => {

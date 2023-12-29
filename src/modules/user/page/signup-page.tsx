@@ -32,7 +32,7 @@ export const SignupPage: React.FC = () => {
 	return (
 		<div className="w-[100vw] h-[100vh] flex justify-center items-center">
 			<div className="m-6">
-				<Card className="lg:w-[500px] w-[300px] border-none transition-shadow shadow-md hover:shadow-lg">
+				<Card className="lg:w-[400px] w-[300px] border-none transition-shadow shadow-md hover:shadow-lg">
 					<CardContent className="p-6">
 						<UserForm
 							defaultValues={defaultValues}
