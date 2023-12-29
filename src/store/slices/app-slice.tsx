@@ -9,6 +9,12 @@ import {
 	logoutThunk,
 } from "../thunks";
 import { GetPermissions } from "@/util";
+import {
+	NotifyBookmarks,
+	NotifyFines,
+	NotifyLoans,
+	NotifyReservations,
+} from "..";
 
 const initialState: AppState = {
 	csrfToken: null,
@@ -67,6 +73,11 @@ export const appSlice = createSlice({
 			state.loans = action.payload.loans;
 			state.reservations = action.payload.reservations;
 			state.fines = action.payload.fines;
+
+			NotifyBookmarks(action.payload.bookmarks);
+			NotifyLoans(action.payload.loans);
+			NotifyReservations(action.payload.reservations);
+			NotifyFines(action.payload.fines);
 		});
 
 		builder.addCase(loginThunk.fulfilled, (state, action) => {
@@ -81,10 +92,10 @@ export const appSlice = createSlice({
 				state.reservations = action.payload.reservations;
 				state.fines = action.payload.fines;
 
-				//TODO: LANG
-				toast.success("Sign in successful", {
-					description: "You are now signed in.",
-				});
+				NotifyBookmarks(action.payload.bookmarks);
+				NotifyLoans(action.payload.loans);
+				NotifyReservations(action.payload.reservations);
+				NotifyFines(action.payload.fines);
 			} else {
 				state.user = null;
 			}

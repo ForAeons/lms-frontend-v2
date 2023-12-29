@@ -27,6 +27,10 @@ interface BookState {
 	autocomplete: BookSimple[];
 	books: BookDetailed[];
 	book: BookDetailed | null;
+	popular: {
+		isFetching: boolean;
+		books: BookSimple[];
+	};
 	meta: Meta;
 }
 

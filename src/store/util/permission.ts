@@ -1,4 +1,4 @@
-import { RootState } from ".";
+import { RootState } from "../store";
 
 export const CheckPermission = (state: RootState, ...keywords: string[]) => {
 	for (const keyword of keywords) {
