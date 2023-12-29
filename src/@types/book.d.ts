@@ -48,6 +48,10 @@ type WithBook<T> = T & {
 	book: Book;
 };
 
+type WithBookCopies<T> = T & {
+	book: BookDetailed;
+};
+
 interface Bookmark {
 	id: number;
 	user_id: number;

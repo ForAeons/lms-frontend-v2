@@ -87,7 +87,9 @@ export const UserUpdateRoleBtn: React.FC<{ user: User }> = ({ user }) => {
 	return (
 		<Drawer>
 			<DrawerTrigger asChild>
-				<Btn />
+				<div>
+					<Btn />
+				</div>
 			</DrawerTrigger>
 			<DrawerContent>
 				<DrawerHeader>

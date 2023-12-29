@@ -6,17 +6,22 @@ import { Input } from "@/components/ui/input";
 import { cqToUrl } from "@/util";
 import { LG_ICON_SIZE } from "@/constants";
 
-export const SearchBar: React.FC<{ cq: CollectionQuery }> = ({ cq }) => {
+export const SearchBar: React.FC<{ cq: CollectionQuery; baseUrl?: string }> = ({
+	cq,
+	baseUrl,
+}) => {
 	const navigate = useNavigate();
-	const [searchValue, setSearchValue] = React.useState("");
+	const [searchValue, setSearchValue] = React.useState(
+		cq.filters.value as string,
+	);
 
 	const handleSubmit = () => {
 		cq.filters.value = searchValue;
-		navigate(`?${cqToUrl(cq)}`);
+		navigate(`${baseUrl}?${cqToUrl(cq)}`);
 	};
 
 	return (
-		<form className="flex-grow flex gap-3" onSubmit={handleSubmit}>
+		<form className="flex-grow flex gap-3 mt-1" onSubmit={handleSubmit}>
 			<Input
 				className="bg-accent border-none shadow-sm hover:shadow-md transition-shadow"
 				type="string"

@@ -55,6 +55,13 @@ class BookApi extends BaseApi {
 			abortSignal,
 		);
 	};
+
+	public ListPopularBooks = (abortSignal?: AbortSignal) => {
+		return this.Get<BookSimple[]>(
+			`${BookRoutes.BASE}/${BookRoutes.POPULAR.BASE}/`,
+			abortSignal,
+		);
+	};
 }
 
 export const bookApi = new BookApi();

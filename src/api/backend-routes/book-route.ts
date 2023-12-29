@@ -6,4 +6,7 @@ export const BookRoutes = {
 	BOOKMARK: {
 		BASE: "bookmark",
 	},
+	POPULAR: {
+		BASE: "popular",
+	},
 };

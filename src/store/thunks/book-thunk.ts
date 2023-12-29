@@ -64,3 +64,11 @@ export const reserveBookThunk = createAsyncThunk(
 		return res?.data;
 	},
 );
+
+export const listPopularBooksThunk = createAsyncThunk(
+	"book/popular",
+	async (action: { signal?: AbortSignal }) => {
+		const res = await bookApi.ListPopularBooks(action.signal);
+		return res?.data;
+	},
+);
