@@ -22,7 +22,7 @@ export const BookEditBtn: React.FC<{
 		author: book.author,
 		isbn: book.isbn,
 		publisher: book.publisher,
-		publication_date: book.publication_date,
+		publication_date: new Date(book.publication_date),
 		genre: book.genre,
 		language: book.language,
 	};
@@ -37,7 +37,7 @@ export const BookEditBtn: React.FC<{
 					author: values.author,
 					isbn: values.isbn,
 					publisher: values.publisher,
-					publication_date: values.publication_date,
+					publication_date: values.publication_date.toISOString(),
 					genre: values.genre,
 					language: values.language,
 				},

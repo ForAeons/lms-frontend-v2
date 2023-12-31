@@ -20,7 +20,7 @@ export const BookCreateBtn: React.FC = () => {
 		author: "",
 		isbn: "",
 		publisher: "",
-		publication_date: "",
+		publication_date: new Date(),
 		genre: "",
 		language: "",
 	};
@@ -34,7 +34,7 @@ export const BookCreateBtn: React.FC = () => {
 					author: values.author,
 					isbn: values.isbn,
 					publisher: values.publisher,
-					publication_date: values.publication_date,
+					publication_date: values.publication_date.toISOString(),
 					genre: values.genre,
 					language: values.language,
 				},

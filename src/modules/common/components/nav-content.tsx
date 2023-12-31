@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Avatar from "boring-avatars";
 import {
 	LogInIcon,
 	LogOutIcon,
@@ -27,6 +28,7 @@ import { MANAGE_BOOK_RECORDS, MD_ICON_SIZE, READ_AUDIT_LOG } from "@/constants";
 
 export const NavContent: React.FC = () => {
 	const dispatch = useAppDispatch();
+	const user = useAppSelector((s) => s.app.user);
 	const person = useAppSelector((s) => s.app.person);
 	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 	const canManageBookRecords = useAppSelector((s) =>
@@ -47,11 +49,22 @@ export const NavContent: React.FC = () => {
 	return (
 		<nav className="space-y-4 py-4">
 			<div className="px-3 py-2">
-				<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight truncate">
+				<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight break-words">
 					{person
 						? `Welcome ${person.preferred_name ?? person.full_name}`
 						: "Welcome"}
 				</h2>
+
+				{user && (
+					<div className="px-4 py-2 w-fit">
+						<Avatar
+							size={100}
+							name={user.username}
+							variant="beam"
+							colors={["#585D5D", "#E06F72", "#E7A17A", "#E4B17D", "#D1CBC0"]}
+						/>
+					</div>
+				)}
 
 				<div className="space-y-1">
 					<Button
@@ -223,7 +236,7 @@ export const NavContent: React.FC = () => {
 				</div>
 			)}
 
-			<div className="px-3">
+			<div className="px-3 py-2">
 				<div className="w-full justify-start px-4 inline-flex items-center whitespace-nowrap">
 					<div className="relative flex">
 						<Sun

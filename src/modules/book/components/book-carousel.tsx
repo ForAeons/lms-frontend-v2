@@ -28,9 +28,7 @@ export const BookCarousel: React.FC<{ books: BookSimple[] }> = ({ books }) => {
 	}, []);
 
 	React.useEffect(() => {
-		if (!api) {
-			return;
-		}
+		if (!api) return;
 
 		const timeOutID = setTimeout(() => {
 			api.plugins().autoplay.play();
@@ -39,21 +37,24 @@ export const BookCarousel: React.FC<{ books: BookSimple[] }> = ({ books }) => {
 		return () => clearTimeout(timeOutID);
 	}, [api, instanceIndex]);
 
+	const carouselOpt = {
+		align: "start",
+		loop: true,
+	};
+
+	const autoPlayPlugin = Autoplay({
+		playOnInit: false,
+		delay: 4000,
+		stopOnInteraction: false,
+		stopOnMouseEnter: true,
+	});
+
 	return (
 		<Carousel
 			className="w-full lg:w-[calc(100%-100px)] max-w-fit lg:max-w-none"
 			setApi={setApi}
-			opts={{
-				align: "start",
-				loop: true,
-			}}
-			plugins={[
-				Autoplay({
-					delay: 2000,
-					stopOnInteraction: false,
-					stopOnMouseEnter: true,
-				}),
-			]}
+			opts={carouselOpt}
+			plugins={[autoPlayPlugin]}
 		>
 			<CarouselContent className="py-6 -ml-6">
 				{books.map((book) => {

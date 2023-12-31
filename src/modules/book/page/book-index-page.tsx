@@ -32,7 +32,6 @@ export const BookIndexPage: React.FC = () => {
 		const c = new AbortController();
 		dispatch(listPopularBooksThunk({ signal: c.signal }));
 		return () => c.abort();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch]);
 
 	if (bookState.isFetching || popularState.isFetching) {
