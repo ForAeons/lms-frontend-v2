@@ -17,7 +17,7 @@ import {
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { CREATE_AUDIT_LOG, LOG_SORT_OPTIONS } from "@/constants";
-import { AuditLogCard, LogCreateBtn } from "..";
+import { DataTable, LogCreateBtn, auditLogColumns } from "..";
 
 export const AuditLogPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -47,7 +47,7 @@ export const AuditLogPage: React.FC = () => {
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
-				<div className="flex gap-3">
+				<div className="flex gap-3 items-center">
 					{canCreateAuditLog && <LogCreateBtn />}
 					<SearchBar cq={cq} />
 				</div>
@@ -57,9 +57,9 @@ export const AuditLogPage: React.FC = () => {
 					<SortSelect cq={cq} opt={LOG_SORT_OPTIONS} />
 				</div>
 
-				{auditlogState.logs.map((l) => {
-					return <AuditLogCard key={l.id} log={l} />;
-				})}
+				<div className="px-3">
+					<DataTable columns={auditLogColumns} data={auditlogState.logs} />
+				</div>
 
 				<PaginationBar cq={cq} total={auditlogState.meta.filtered_count} />
 			</div>

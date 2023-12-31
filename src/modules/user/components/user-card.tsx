@@ -7,7 +7,7 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { UserEditBtn, UserUpdateRoleBtn } from ".";
+import { RandomAvatar, UserEditBtn, UserUpdateRoleBtn } from ".";
 import { DELETE_USER, UPDATE_USER, UPDATE_USER_ROLE } from "@/constants";
 
 export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
@@ -23,30 +23,23 @@ export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 	const handleDelete = () => dispatch(deleteUserThunk(userPerson.id));
 
 	return (
-		<Card className="relative hover:shadow-md transition-shadow pr-10">
-			<div className="absolute h-full right-0 top-1/2 -translate-y-1/2 flex flex-col justify-around">
+		<Card className="relative flex flex-col lg:flex-row hover:shadow-md transition-shadow pr-10">
+			<div className="absolute h-full right-0 top-1/2 -translate-y-1/2 flex flex-col justify-around items-center">
 				{canUpdateUser && <UserEditBtn userPerson={userPerson} />}
 				{canUpdateUserRole && <UserUpdateRoleBtn user={userPerson} />}
 				{canDeleteUser && <DeleteBtn handler={handleDelete} subject="user" />}
 			</div>
 
-			<CardHeader>
-				<h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-					{userPerson.person_attributes.full_name}
-				</h4>
-				<p className="text-sm text-muted-foreground">@{userPerson.username}</p>
+			<CardHeader className="p-6 pb-0 pr-6 lg:pb-6 lg:pr-0">
+				<RandomAvatar user={userPerson} />
 			</CardHeader>
 
-			<CardContent>
-				{userPerson.email && (
-					<p className="leading-7">Email: {userPerson.email}</p>
-				)}
-				<p className="leading-7">
-					Preferred Name: {userPerson.person_attributes.preferred_name}
-				</p>
-				<p className="text-sm text-muted-foreground">
-					User ID: {userPerson.id}
-				</p>
+			<CardContent className="p-6">
+				<h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+					{userPerson.person_attributes.preferred_name ??
+						userPerson.person_attributes.full_name}
+				</h4>
+				<p className="text-sm text-muted-foreground">@{userPerson.username}</p>
 			</CardContent>
 		</Card>
 	);

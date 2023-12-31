@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { LANGUAGE_SELECT_OPTIONS } from "@/constants";
 import { BookPicture } from ".";
+import { format } from "date-fns";
 
 export const BookCard: React.FC<{
 	book: Book;
@@ -34,10 +35,13 @@ export const BookCard: React.FC<{
 			<div>
 				<CardHeader className="whitespace-pre-wrap">
 					<CardTitle>{book.title}</CardTitle>
-					<CardDescription>By {book.author}</CardDescription>
 					<small className="text-sm font-medium leading-none">
-						{`Published: ${pubDate.getFullYear()}-${pubDate.getMonth()}-${pubDate.getDate()} | ${langLabel}`}
+						By {book.author}
 					</small>
+					<CardDescription>{`Published: ${format(
+						pubDate,
+						"P",
+					)} | ${langLabel}`}</CardDescription>
 				</CardHeader>
 
 				<CardContent className="flex flex-wrap gap-3">
@@ -57,7 +61,7 @@ export const BookCard: React.FC<{
 						{`Published by ${book.publisher}`}
 					</p>
 					<p className="text-sm text-muted-foreground">
-						{`ISBN - ${book.isbn}`}
+						{`ISBN: ${book.isbn}`}
 					</p>
 				</CardFooter>
 			</div>

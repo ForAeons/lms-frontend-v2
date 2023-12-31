@@ -25,13 +25,13 @@ import { useMediaQuery } from "@/hooks";
 
 export const LogCreateBtn: React.FC = () => {
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
-	const defaultValues = { action: "" };
+	const defaultValues = { action: "", date: new Date() };
 
 	const dispatch = useAppDispatch();
 	function onSubmit(values: z.infer<typeof AuditlogFormSchema>) {
 		dispatch(
 			createLogThunk({
-				log: values,
+				log: { ...values, date: values.date.toISOString() },
 			}),
 		);
 	}

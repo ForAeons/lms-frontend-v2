@@ -5,6 +5,12 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DialogFooter } from "@/components/ui/dialog";
+import { Calendar } from "@/components/ui/calendar";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
 import {
 	Form,
 	FormControl,
@@ -22,6 +28,9 @@ import {
 } from "@/components/ui/select";
 import { BookFormSchema } from "@/schema";
 import { LANGUAGE_SELECT_OPTIONS } from "@/constants";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 export const BookForm: React.FC<{
 	defaultValues: z.infer<typeof BookFormSchema>;
@@ -41,9 +50,9 @@ export const BookForm: React.FC<{
 					name="title"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Title</FormLabel>
+							<FormLabel>Volume Title</FormLabel>
 							<FormControl>
-								<Input placeholder="Book title" {...field} />
+								<Input placeholder="The Great Gatsby" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -54,22 +63,9 @@ export const BookForm: React.FC<{
 					name="author"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Author name</FormLabel>
+							<FormLabel>Volume Author</FormLabel>
 							<FormControl>
-								<Input placeholder="David Martinez" {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="isbn"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>ISBN</FormLabel>
-							<FormControl>
-								<Input placeholder="978-3-16-148410-0" {...field} />
+								<Input placeholder="F. Scott Fitzgerald" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -82,7 +78,7 @@ export const BookForm: React.FC<{
 						<FormItem>
 							<FormLabel>Publisher</FormLabel>
 							<FormControl>
-								<Input placeholder="Penguin Random House" {...field} />
+								<Input placeholder="Alma Classics" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -92,11 +88,40 @@ export const BookForm: React.FC<{
 					control={form.control}
 					name="publication_date"
 					render={({ field }) => (
-						<FormItem>
+						<FormItem className="flex flex-col">
 							<FormLabel>Publication Date</FormLabel>
-							<FormControl>
-								<Input placeholder={new Date().toISOString()} {...field} />
-							</FormControl>
+							<Popover>
+								<PopoverTrigger asChild>
+									<FormControl>
+										<Button
+											variant={"outline"}
+											className={cn(
+												"w-[240px] pl-3 text-left font-normal",
+												!field.value && "text-muted-foreground",
+											)}
+										>
+											{field.value ? (
+												format(field.value, "P")
+											) : (
+												<span>Pick a date</span>
+											)}
+											<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+										</Button>
+									</FormControl>
+								</PopoverTrigger>
+								<PopoverContent className="w-auto p-0" align="start">
+									<Calendar
+										mode="single"
+										selected={field.value}
+										onSelect={field.onChange}
+										disabled={(date) =>
+											date > new Date() || date < new Date("1900-01-01")
+										}
+										showOutsideDays
+										initialFocus
+									/>
+								</PopoverContent>
+							</Popover>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -108,7 +133,7 @@ export const BookForm: React.FC<{
 						<FormItem>
 							<FormLabel>Genre</FormLabel>
 							<FormControl>
-								<Input placeholder="Fantasy" {...field} />
+								<Input placeholder="Tragedy" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -119,7 +144,7 @@ export const BookForm: React.FC<{
 					name="language"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Language Preference</FormLabel>
+							<FormLabel>Language</FormLabel>
 							<Select onValueChange={field.onChange} defaultValue={field.value}>
 								<FormControl>
 									<SelectTrigger>
@@ -136,6 +161,19 @@ export const BookForm: React.FC<{
 									})}
 								</SelectContent>
 							</Select>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="isbn"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>ISBN</FormLabel>
+							<FormControl>
+								<Input placeholder="978-1-84749-614-0" {...field} />
+							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}

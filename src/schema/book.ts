@@ -5,7 +5,7 @@ export const BookFormSchema = z.object({
 	author: z.string(),
 	isbn: z.string(),
 	publisher: z.string(),
-	publication_date: z.string(),
+	publication_date: z.date(),
 	genre: z.string(),
 	language: z.string().min(2).max(2),
 });
