@@ -1,3 +1,4 @@
+import { FormattedMessage } from "react-intl";
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import {
@@ -47,10 +48,18 @@ export const appSlice = createSlice({
 
 		builder.addCase(getHealthThunk.rejected, (state) => {
 			state.backendStatus = "down";
-			//TODO: LANG
-			toast.error("Backend is down", {
-				description: "The backend is currently down. Please try again later.",
-			});
+
+			toast.error(
+				<FormattedMessage id="server_down" defaultMessage="Server is down" />,
+				{
+					description: (
+						<FormattedMessage
+							id="server_down_description"
+							defaultMessage="The server is down. Please try again later."
+						/>
+					),
+				},
+			);
 		});
 
 		builder.addCase(getCurrentUserThunk.fulfilled, (state, action) => {
@@ -103,10 +112,21 @@ export const appSlice = createSlice({
 		builder.addCase(loginThunk.rejected, (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
-			//TODO: LANG
-			toast.error("Login failed", {
-				description: "Please check your username and password.",
-			});
+
+			toast.error(
+				<FormattedMessage
+					id="sign_in_failed"
+					defaultMessage="Sign in failed"
+				/>,
+				{
+					description: (
+						<FormattedMessage
+							id="sign_in_failed_description"
+							defaultMessage="Please check your username and password."
+						/>
+					),
+				},
+			);
 		});
 
 		builder.addCase(logoutThunk.pending, (state) => {
@@ -117,19 +137,38 @@ export const appSlice = createSlice({
 		});
 
 		builder.addCase(logoutThunk.fulfilled, () => {
-			//TODO: LANG
-			toast("Sign out Successful", {
-				description: "You are now signed out.",
-			});
+			toast(
+				<FormattedMessage
+					id="sign_out_success"
+					defaultMessage="Sign out success"
+				/>,
+				{
+					description: (
+						<FormattedMessage
+							id="sign_out_success_description"
+							defaultMessage="You have been signed out successfully."
+						/>
+					),
+				},
+			);
 		});
 
 		builder.addCase(createBookmarkThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.bookmarks.unshift(action.payload);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `"${action.payload.book.title}" is now bookmarked for you.`,
-			});
+
+			toast.success(
+				<FormattedMessage id="success" defaultMessage="Success" />,
+				{
+					description: (
+						<FormattedMessage
+							id="bookmark_success_description"
+							defaultMessage="{title} has been bookmarked for you."
+							values={{ title: action.payload.book.title }}
+						/>
+					),
+				},
+			);
 		});
 
 		builder.addCase(deleteBookmarkThunk.fulfilled, (state, action) => {
@@ -137,10 +176,19 @@ export const appSlice = createSlice({
 			state.bookmarks = state.bookmarks.filter(
 				(bookmark) => bookmark.id !== action.payload!.id,
 			);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `"${action.payload.book.title}" is now unbookmarked for you.`,
-			});
+
+			toast.success(
+				<FormattedMessage id="success" defaultMessage="Success" />,
+				{
+					description: (
+						<FormattedMessage
+							id="delete_bookmark_success_description"
+							defaultMessage="{title} has been removed from your bookmarks."
+							values={{ title: action.payload.book.title }}
+						/>
+					),
+				},
+			);
 		});
 	},
 });
