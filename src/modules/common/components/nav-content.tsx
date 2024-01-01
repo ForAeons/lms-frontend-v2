@@ -24,7 +24,13 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { MANAGE_BOOK_RECORDS, MD_ICON_SIZE, READ_AUDIT_LOG } from "@/constants";
+import {
+	AVATAR_COLORS,
+	MANAGE_BOOK_RECORDS,
+	MD_ICON_SIZE,
+	READ_AUDIT_LOG,
+} from "@/constants";
+import { LangSelectBtn } from ".";
 
 export const NavContent: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -61,7 +67,7 @@ export const NavContent: React.FC = () => {
 							size={100}
 							name={user.username}
 							variant="beam"
-							colors={["#585D5D", "#E06F72", "#E7A17A", "#E4B17D", "#D1CBC0"]}
+							colors={AVATAR_COLORS}
 						/>
 					</div>
 				)}
@@ -237,24 +243,28 @@ export const NavContent: React.FC = () => {
 			)}
 
 			<div className="px-3 py-2">
-				<div className="w-full justify-start px-4 inline-flex items-center whitespace-nowrap">
-					<div className="relative flex">
-						<Sun
-							size={MD_ICON_SIZE}
-							className="transition-all rotate-0 scale-100 dark:-rotate-90 dark:scale-0"
+				<div className="space-y-1">
+					<LangSelectBtn />
+
+					<div className="w-full justify-start h-10 px-4 py-2 inline-flex items-center whitespace-nowrap">
+						<div className="relative flex">
+							<Sun
+								size={MD_ICON_SIZE}
+								className="transition-all rotate-0 scale-100 dark:-rotate-90 dark:scale-0"
+							/>
+							<Moon
+								size={MD_ICON_SIZE}
+								className="absolute transition-all rotate-90 scale-0 dark:rotate-0 dark:scale-100"
+							/>
+							<span className="sr-only">Toggle theme</span>
+						</div>
+						<Switch
+							id="dark-mode"
+							checked={theme === "dark"}
+							onClick={toggleTheme}
+							className="ml-3"
 						/>
-						<Moon
-							size={MD_ICON_SIZE}
-							className="absolute transition-all rotate-90 scale-0 dark:rotate-0 dark:scale-100"
-						/>
-						<span className="sr-only">Toggle theme</span>
 					</div>
-					<Switch
-						id="dark-mode"
-						checked={theme === "dark"}
-						onClick={toggleTheme}
-						className="ml-3"
-					/>
 				</div>
 			</div>
 		</nav>

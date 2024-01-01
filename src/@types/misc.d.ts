@@ -14,6 +14,11 @@ interface SelectOption {
 	value: string;
 }
 
+interface LanguageSelectOption {
+	label: string;
+	value: Locale;
+}
+
 type BadgeVariant = "default" | "secondary" | "destructive" | "outline";
 
 interface BadgeProps {

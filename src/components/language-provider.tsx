@@ -1,18 +1,5 @@
 import { createContext, useContext, useState } from "react";
 
-type Locale = "en" | "km" | "system";
-
-interface LanguageProviderProps {
-	children: React.ReactNode;
-	defaultLocale?: Locale;
-	storageKey?: string;
-}
-
-interface LanguageProviderState {
-	locale: Locale;
-	setLocale: (Locale: Locale) => void;
-}
-
 const initialState: LanguageProviderState = {
 	locale: "system",
 	setLocale: () => null,
@@ -45,11 +32,11 @@ export function LanguageProvider({
 	);
 }
 
-export const useLang = () => {
+export const useLocale = () => {
 	const context = useContext(LangProviderContext);
 
 	if (context === undefined)
-		throw new Error("useTheme must be used within a LangProvider");
+		throw new Error("useLocale must be used within a LangProvider");
 
 	return context;
 };

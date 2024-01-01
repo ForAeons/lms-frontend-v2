@@ -13,3 +13,4 @@ export * from "./search-bar";
 export * from "./order-btn";
 export * from "./sort-select";
 export * from "./filter-select";
+export * from "./lang-select-btn";

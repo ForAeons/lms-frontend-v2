@@ -6,7 +6,7 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { useLang } from "@/components/language-provider";
+import { useLocale } from "@/components/language-provider";
 import { getMessage } from "@/util";
 
 export const AppLogic: React.FC<{ children?: React.ReactNode }> = ({
@@ -32,7 +32,7 @@ export const AppLogic: React.FC<{ children?: React.ReactNode }> = ({
 		return () => c.abort();
 	}, [dispatch, backendStatus, hasFetchedUser]);
 
-	const { locale } = useLang();
+	const { locale } = useLocale();
 	const messages = getMessage(locale);
 
 	return (
