@@ -14,7 +14,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { useAppDispatch, loginThunk } from "@/store";
+import { useAppDispatch, signInThunk } from "@/store";
 import * as Constants from "@/constants";
 
 const formSchema = z.object({
@@ -49,7 +49,7 @@ export const SigninForm: React.FC = () => {
 	const navigate = useNavigate();
 	const onSubmit = (values: z.infer<typeof formSchema>) => {
 		dispatch(
-			loginThunk({
+			signInThunk({
 				user: {
 					username: values.username,
 					password: values.password,

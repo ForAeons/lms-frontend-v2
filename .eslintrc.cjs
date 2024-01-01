@@ -11,7 +11,7 @@ module.exports = {
 		project: ["./tsconfig.json", "./tsconfig.node.json"],
 		tsconfigRootDir: __dirname,
 	},
-	plugins: ["@typescript-eslint", "react-refresh"],
+	plugins: ["@typescript-eslint", "react-refresh", "formatjs"],
 	extends: [
 		"eslint:recommended",
 		"plugin:@typescript-eslint/recommended",
@@ -24,6 +24,7 @@ module.exports = {
 		"@typescript-eslint/method-signature-style": "warn",
 		"@typescript-eslint/no-unused-vars": "warn",
 		"react-refresh/only-export-components": "warn",
+		"formatjs/no-offset": "error",
 	},
 	ignorePatterns: [
 		".eslintrc.cjs",

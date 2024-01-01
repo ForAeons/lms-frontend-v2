@@ -20,7 +20,7 @@ import { Switch } from "@/components/ui/switch";
 import { useTheme } from "@/components/theme-provider";
 import {
 	CheckPermission,
-	logoutThunk,
+	signOutThunk,
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
@@ -49,7 +49,7 @@ export const NavContent: React.FC = () => {
 	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
 	const handleLogout = () => {
-		dispatch(logoutThunk()).then(() => navigate("/signin"));
+		dispatch(signOutThunk()).then(() => navigate("/signin"));
 	};
 
 	return (

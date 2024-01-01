@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
+import { Intl } from "@/components/language-provider";
 import {
 	cancelResThunk,
 	checkoutResThunk,
@@ -41,43 +42,82 @@ export const resSlice = createSlice({
 		builder.addCase(createResThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.res.unshift(action.payload);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `${action.payload!.book.title} reserved by ${
-					action.payload!.user.username
-				} successfully.`,
+
+			const createResMsg = Intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const createResDesc = Intl.formatMessage(
+				{
+					id: "Nbzb1X",
+					defaultMessage: '"{title}" reserved by {username} successfully.',
+				},
+				{
+					title: action.payload.book.title,
+					username: action.payload.user.username,
+				},
+			);
+			toast.success(createResMsg, { description: createResDesc });
 		});
 
 		builder.addCase(cancelResThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.res = state.res.filter((l) => l.id !== action.payload!.id);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `Reservation for ${
-					action.payload!.book.title
-				} canceled successfully.`,
+
+			const cancelResMsg = Intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const cancelResDesc = Intl.formatMessage(
+				{
+					id: "pTD5vZ",
+					defaultMessage: `Reservation for "{title}" canceled successfully.`,
+				},
+				{
+					title: action.payload.book.title,
+				},
+			);
+			toast.success(cancelResMsg, { description: cancelResDesc });
 		});
 
 		builder.addCase(checkoutResThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.res = state.res.filter((l) => l.id !== action.payload!.id);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `Reservation for ${
-					action.payload!.book.title
-				} checked out successfully.`,
+
+			const checkoutResMsg = Intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const checkoutResDesc = Intl.formatMessage(
+				{
+					id: "B2uKz2",
+					defaultMessage: `Reservation for "{title}" checked out successfully.`,
+				},
+				{
+					title: action.payload.book.title,
+				},
+			);
+			toast.success(checkoutResMsg, { description: checkoutResDesc });
 		});
 
 		builder.addCase(deleteResThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.res = state.res.filter((r) => r.id !== action.payload!.id);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `Reservation for ${action.payload.book.title} deleted successfully`,
+
+			const deleteResMsg = Intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const deleteResDesc = Intl.formatMessage(
+				{
+					id: "DQS5uA",
+					defaultMessage: `Reservation for "{title}" deleted successfully.`,
+				},
+				{
+					title: action.payload.book.title,
+				},
+			);
+			toast.success(deleteResMsg, { description: deleteResDesc });
 		});
 	},
 });

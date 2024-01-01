@@ -15,12 +15,11 @@ export const App: React.FC = () => {
 		<Provider store={store}>
 			<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 				<LanguageProvider defaultLocale="en" storageKey="vite-language">
+					<Toaster closeButton />
+					<AppLogic />
 					<Analytics />
 					<SpeedInsights />
-					<AppLogic>
-						<RouterProvider router={Router} />
-						<Toaster />
-					</AppLogic>
+					<RouterProvider router={Router} />
 				</LanguageProvider>
 			</ThemeProvider>
 		</Provider>

@@ -14,7 +14,7 @@ export const getCurrentUserThunk = createAsyncThunk(
 	},
 );
 
-export const loginThunk = createAsyncThunk(
+export const signInThunk = createAsyncThunk(
 	"app/login",
 	async (action: { user: UserLogin; signal?: AbortSignal }) => {
 		const res = await authApi.SignIn(action.user, action.signal);
@@ -22,7 +22,7 @@ export const loginThunk = createAsyncThunk(
 	},
 );
 
-export const logoutThunk = createAsyncThunk(
+export const signOutThunk = createAsyncThunk(
 	"app/logout",
 	async (signal?: AbortSignal) => await authApi.SignOut(signal),
 );

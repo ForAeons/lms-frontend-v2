@@ -1,4 +1,3 @@
-import { FormattedMessage } from "react-intl";
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import {
@@ -6,10 +5,11 @@ import {
 	deleteBookmarkThunk,
 	getCurrentUserThunk,
 	getHealthThunk,
-	loginThunk,
-	logoutThunk,
+	signInThunk,
+	signOutThunk,
 } from "../thunks";
 import { GetPermissions } from "@/util";
+import { Intl } from "@/components/language-provider";
 import {
 	NotifyBookmarks,
 	NotifyFines,
@@ -40,6 +40,7 @@ export const appSlice = createSlice({
 			state.csrfToken = action.payload;
 		},
 	},
+
 	extraReducers: (builder) => {
 		builder.addCase(getHealthThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
@@ -49,17 +50,16 @@ export const appSlice = createSlice({
 		builder.addCase(getHealthThunk.rejected, (state) => {
 			state.backendStatus = "down";
 
-			toast.error(
-				<FormattedMessage id="server_down" defaultMessage="Server is down" />,
-				{
-					description: (
-						<FormattedMessage
-							id="server_down_description"
-							defaultMessage="The server is down. Please try again later."
-						/>
-					),
-				},
-			);
+			const serverDownMsg = Intl.formatMessage({
+				id: "NT0rmJ",
+				defaultMessage: "Server is down",
+			});
+			const serverDownDesc = Intl.formatMessage({
+				id: "OcLgxt",
+				defaultMessage: "The server is down. Please try again later.",
+			});
+
+			toast.error(serverDownMsg, { description: serverDownDesc });
 		});
 
 		builder.addCase(getCurrentUserThunk.fulfilled, (state, action) => {
@@ -89,7 +89,7 @@ export const appSlice = createSlice({
 			NotifyFines(action.payload.fines);
 		});
 
-		builder.addCase(loginThunk.fulfilled, (state, action) => {
+		builder.addCase(signInThunk.fulfilled, (state, action) => {
 			if (action.payload) {
 				state.isLoggedIn = true;
 				state.user = action.payload.user;
@@ -109,66 +109,59 @@ export const appSlice = createSlice({
 				state.user = null;
 			}
 		});
-		builder.addCase(loginThunk.rejected, (state) => {
+		builder.addCase(signInThunk.rejected, (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
 
-			toast.error(
-				<FormattedMessage
-					id="sign_in_failed"
-					defaultMessage="Sign in failed"
-				/>,
-				{
-					description: (
-						<FormattedMessage
-							id="sign_in_failed_description"
-							defaultMessage="Please check your username and password."
-						/>
-					),
-				},
-			);
+			const signInFailedMsg = Intl.formatMessage({
+				id: "JdM9UP",
+				defaultMessage: "Sign in failed",
+			});
+			const signInFailedDesc = Intl.formatMessage({
+				id: "vP5USH",
+				defaultMessage: "Please check your username and password.",
+			});
+
+			toast.error(signInFailedMsg, { description: signInFailedDesc });
 		});
 
-		builder.addCase(logoutThunk.pending, (state) => {
+		builder.addCase(signOutThunk.pending, (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
 			state.abilities = [];
 			state.permissions = {};
 		});
 
-		builder.addCase(logoutThunk.fulfilled, () => {
-			toast(
-				<FormattedMessage
-					id="sign_out_success"
-					defaultMessage="Sign out success"
-				/>,
-				{
-					description: (
-						<FormattedMessage
-							id="sign_out_success_description"
-							defaultMessage="You have been signed out successfully."
-						/>
-					),
-				},
-			);
+		builder.addCase(signOutThunk.fulfilled, () => {
+			const signOutSuccessMsg = Intl.formatMessage({
+				id: "cSe4ms",
+				defaultMessage: "Sign out success",
+			});
+			const signOutSuccessDesc = Intl.formatMessage({
+				id: "1OPjg7",
+				defaultMessage: "You have been signed out successfully.",
+			});
+
+			toast.error(signOutSuccessMsg, { description: signOutSuccessDesc });
 		});
 
 		builder.addCase(createBookmarkThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.bookmarks.unshift(action.payload);
 
-			toast.success(
-				<FormattedMessage id="success" defaultMessage="Success" />,
+			const bookmarkedMsg = Intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
+			});
+			const bookmarkedDesc = Intl.formatMessage(
 				{
-					description: (
-						<FormattedMessage
-							id="bookmark_success_description"
-							defaultMessage="{title} has been bookmarked for you."
-							values={{ title: action.payload.book.title }}
-						/>
-					),
+					id: "wPyDX8",
+					defaultMessage: '"{title}" has been bookmarked for you.',
 				},
+				{ title: action.payload.book.title },
 			);
+
+			toast.success(bookmarkedMsg, { description: bookmarkedDesc });
 		});
 
 		builder.addCase(deleteBookmarkThunk.fulfilled, (state, action) => {
@@ -177,18 +170,19 @@ export const appSlice = createSlice({
 				(bookmark) => bookmark.id !== action.payload!.id,
 			);
 
-			toast.success(
-				<FormattedMessage id="success" defaultMessage="Success" />,
+			const deleteBookmarkMsg = Intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
+			});
+			const deleteBookmarkDesc = Intl.formatMessage(
 				{
-					description: (
-						<FormattedMessage
-							id="delete_bookmark_success_description"
-							defaultMessage="{title} has been removed from your bookmarks."
-							values={{ title: action.payload.book.title }}
-						/>
-					),
+					id: "ylrvDR",
+					defaultMessage: '"{title}" has been removed from your bookmarks.',
 				},
+				{ title: action.payload.book.title },
 			);
+
+			toast.success(deleteBookmarkMsg, { description: deleteBookmarkDesc });
 		});
 	},
 });

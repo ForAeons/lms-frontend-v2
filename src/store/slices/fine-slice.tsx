@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
+import { Intl } from "@/components/language-provider";
 import { deleteFineThunk, listFineThunk, settleFineThunk } from "..";
 
 const initialState: FineState = {
@@ -35,23 +36,31 @@ export const fineSlice = createSlice({
 		builder.addCase(settleFineThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.fines = state.fines.filter((f) => f.id !== action.payload!.id);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `Fine for ${
-					action.payload!.user.username
-				} settled successfully.`,
+
+			const settleFineMsg = Intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const settleFineDesc = Intl.formatMessage({
+				id: "QpBxnP",
+				defaultMessage: "Fine settled successfully.",
+			});
+			toast.success(settleFineMsg, { description: settleFineDesc });
 		});
 
 		builder.addCase(deleteFineThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.fines = state.fines.filter((f) => f.id !== action.payload!.id);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `Fine for ${
-					action.payload!.user.username
-				} deleted successfully.`,
+
+			const settleFineMsg = Intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const settleFineDesc = Intl.formatMessage({
+				id: "Ye43ph",
+				defaultMessage: "Fine deleted successfully.",
+			});
+			toast.success(settleFineMsg, { description: settleFineDesc });
 		});
 	},
 });

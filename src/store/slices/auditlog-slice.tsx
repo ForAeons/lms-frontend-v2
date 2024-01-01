@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
+import { Intl } from "@/components/language-provider";
 import { createLogThunk, listLogThunk } from "..";
 
 const initialState: AuditLogState = {
@@ -35,10 +36,17 @@ export const auditlogSlice = createSlice({
 		builder.addCase(createLogThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.logs.unshift(action.payload);
-			//TODO: LANG
-			toast.success("Success", {
-				description: "Log created successfully",
+
+			const createLogMsg = Intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const createLogDesc = Intl.formatMessage({
+				id: "UBAaIl",
+				defaultMessage: "Log created successfully.",
+			});
+
+			toast.success(createLogMsg, { description: createLogDesc });
 		});
 	},
 });

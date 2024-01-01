@@ -1,17 +1,12 @@
 import React from "react";
-import { IntlProvider } from "react-intl";
 import {
 	getHealthThunk,
 	getCurrentUserThunk,
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { useLocale } from "@/components/language-provider";
-import { getMessage } from "@/util";
 
-export const AppLogic: React.FC<{ children?: React.ReactNode }> = ({
-	children,
-}) => {
+export const AppLogic: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const backendStatus = useAppSelector((s) => s.app.backendStatus);
 	const hasFetchedUser = useAppSelector((s) => s.app.hasFetchedUser);
@@ -32,12 +27,5 @@ export const AppLogic: React.FC<{ children?: React.ReactNode }> = ({
 		return () => c.abort();
 	}, [dispatch, backendStatus, hasFetchedUser]);
 
-	const { locale } = useLocale();
-	const messages = getMessage(locale);
-
-	return (
-		<IntlProvider locale={locale} messages={messages}>
-			{children}
-		</IntlProvider>
-	);
+	return <div className="hidden" />;
 };
