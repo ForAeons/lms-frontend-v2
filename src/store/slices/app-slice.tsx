@@ -9,7 +9,7 @@ import {
 	signOutThunk,
 } from "../thunks";
 import { GetPermissions } from "@/util";
-import { Intl } from "@/components/language-provider";
+import { IntlWrapper } from "@/components/language-provider";
 import {
 	NotifyBookmarks,
 	NotifyFines,
@@ -50,11 +50,11 @@ export const appSlice = createSlice({
 		builder.addCase(getHealthThunk.rejected, (state) => {
 			state.backendStatus = "down";
 
-			const serverDownMsg = Intl.formatMessage({
+			const serverDownMsg = IntlWrapper.intl.formatMessage({
 				id: "NT0rmJ",
 				defaultMessage: "Server is down",
 			});
-			const serverDownDesc = Intl.formatMessage({
+			const serverDownDesc = IntlWrapper.intl.formatMessage({
 				id: "OcLgxt",
 				defaultMessage: "The server is down. Please try again later.",
 			});
@@ -113,11 +113,11 @@ export const appSlice = createSlice({
 			state.isLoggedIn = false;
 			state.user = null;
 
-			const signInFailedMsg = Intl.formatMessage({
+			const signInFailedMsg = IntlWrapper.intl.formatMessage({
 				id: "JdM9UP",
 				defaultMessage: "Sign in failed",
 			});
-			const signInFailedDesc = Intl.formatMessage({
+			const signInFailedDesc = IntlWrapper.intl.formatMessage({
 				id: "vP5USH",
 				defaultMessage: "Please check your username and password.",
 			});
@@ -133,11 +133,11 @@ export const appSlice = createSlice({
 		});
 
 		builder.addCase(signOutThunk.fulfilled, () => {
-			const signOutSuccessMsg = Intl.formatMessage({
+			const signOutSuccessMsg = IntlWrapper.intl.formatMessage({
 				id: "cSe4ms",
 				defaultMessage: "Sign out success",
 			});
-			const signOutSuccessDesc = Intl.formatMessage({
+			const signOutSuccessDesc = IntlWrapper.intl.formatMessage({
 				id: "1OPjg7",
 				defaultMessage: "You have been signed out successfully.",
 			});
@@ -149,11 +149,11 @@ export const appSlice = createSlice({
 			if (!action.payload) return;
 			state.bookmarks.unshift(action.payload);
 
-			const bookmarkedMsg = Intl.formatMessage({
+			const bookmarkedMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const bookmarkedDesc = Intl.formatMessage(
+			const bookmarkedDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "wPyDX8",
 					defaultMessage: '"{title}" has been bookmarked for you.',
@@ -170,11 +170,11 @@ export const appSlice = createSlice({
 				(bookmark) => bookmark.id !== action.payload!.id,
 			);
 
-			const deleteBookmarkMsg = Intl.formatMessage({
+			const deleteBookmarkMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const deleteBookmarkDesc = Intl.formatMessage(
+			const deleteBookmarkDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "ylrvDR",
 					defaultMessage: '"{title}" has been removed from your bookmarks.',

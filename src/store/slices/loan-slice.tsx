@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
-import { Intl } from "@/components/language-provider";
+import { IntlWrapper } from "@/components/language-provider";
 import {
 	createLoanThunk,
 	deleteLoanThunk,
@@ -43,11 +43,11 @@ export const loanSlice = createSlice({
 			if (!action.payload) return;
 			state.loans.unshift(action.payload);
 
-			const createLoanMsg = Intl.formatMessage({
+			const createLoanMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const createLoanDesc = Intl.formatMessage(
+			const createLoanDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "j9z272",
 					defaultMessage: '"{title}" loaned to {username} successfully.',
@@ -64,11 +64,11 @@ export const loanSlice = createSlice({
 			if (!action.payload) return;
 			state.loans = state.loans.filter((l) => l.id !== action.payload!.id);
 
-			const returnLoanMsg = Intl.formatMessage({
+			const returnLoanMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const returnLoanDesc = Intl.formatMessage(
+			const returnLoanDesc = IntlWrapper.intl.formatMessage(
 				{ id: "MFmFWQ", defaultMessage: '"{title}" returned successfully.' },
 				{ title: action.payload.book.title },
 			);
@@ -84,11 +84,11 @@ export const loanSlice = createSlice({
 				return l;
 			});
 
-			const renewLoanMsg = Intl.formatMessage({
+			const renewLoanMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const renewLoanDesc = Intl.formatMessage(
+			const renewLoanDesc = IntlWrapper.intl.formatMessage(
 				{ id: "K3gz74", defaultMessage: '"{title}" renewed successfully.' },
 				{ title: action.payload.book.title },
 			);
@@ -99,11 +99,11 @@ export const loanSlice = createSlice({
 			if (!action.payload) return;
 			state.loans = state.loans.filter((l) => l.id !== action.payload!.id);
 
-			const deleteLoanMsg = Intl.formatMessage({
+			const deleteLoanMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const deleteLoanDesc = Intl.formatMessage({
+			const deleteLoanDesc = IntlWrapper.intl.formatMessage({
 				id: "g4UNFA",
 				defaultMessage: "Loan deleted successfully.",
 			});

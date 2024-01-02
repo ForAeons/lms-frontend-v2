@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
-import { Intl } from "@/components/language-provider";
+import { IntlWrapper } from "@/components/language-provider";
 import {
 	cancelResThunk,
 	checkoutResThunk,
@@ -43,11 +43,11 @@ export const resSlice = createSlice({
 			if (!action.payload) return;
 			state.res.unshift(action.payload);
 
-			const createResMsg = Intl.formatMessage({
+			const createResMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const createResDesc = Intl.formatMessage(
+			const createResDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "Nbzb1X",
 					defaultMessage: '"{title}" reserved by {username} successfully.',
@@ -64,11 +64,11 @@ export const resSlice = createSlice({
 			if (!action.payload) return;
 			state.res = state.res.filter((l) => l.id !== action.payload!.id);
 
-			const cancelResMsg = Intl.formatMessage({
+			const cancelResMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const cancelResDesc = Intl.formatMessage(
+			const cancelResDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "pTD5vZ",
 					defaultMessage: `Reservation for "{title}" canceled successfully.`,
@@ -84,11 +84,11 @@ export const resSlice = createSlice({
 			if (!action.payload) return;
 			state.res = state.res.filter((l) => l.id !== action.payload!.id);
 
-			const checkoutResMsg = Intl.formatMessage({
+			const checkoutResMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const checkoutResDesc = Intl.formatMessage(
+			const checkoutResDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "B2uKz2",
 					defaultMessage: `Reservation for "{title}" checked out successfully.`,
@@ -104,11 +104,11 @@ export const resSlice = createSlice({
 			if (!action.payload) return;
 			state.res = state.res.filter((r) => r.id !== action.payload!.id);
 
-			const deleteResMsg = Intl.formatMessage({
+			const deleteResMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const deleteResDesc = Intl.formatMessage(
+			const deleteResDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "DQS5uA",
 					defaultMessage: `Reservation for "{title}" deleted successfully.`,

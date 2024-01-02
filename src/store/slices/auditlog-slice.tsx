@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
-import { Intl } from "@/components/language-provider";
+import { IntlWrapper } from "@/components/language-provider";
 import { createLogThunk, listLogThunk } from "..";
 
 const initialState: AuditLogState = {
@@ -37,11 +37,11 @@ export const auditlogSlice = createSlice({
 			if (!action.payload) return;
 			state.logs.unshift(action.payload);
 
-			const createLogMsg = Intl.formatMessage({
+			const createLogMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const createLogDesc = Intl.formatMessage({
+			const createLogDesc = IntlWrapper.intl.formatMessage({
 				id: "UBAaIl",
 				defaultMessage: "Log created successfully.",
 			});

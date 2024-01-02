@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
-import { Intl } from "@/components/language-provider";
+import { IntlWrapper } from "@/components/language-provider";
 import { deleteFineThunk, listFineThunk, settleFineThunk } from "..";
 
 const initialState: FineState = {
@@ -37,11 +37,11 @@ export const fineSlice = createSlice({
 			if (!action.payload) return;
 			state.fines = state.fines.filter((f) => f.id !== action.payload!.id);
 
-			const settleFineMsg = Intl.formatMessage({
+			const settleFineMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const settleFineDesc = Intl.formatMessage({
+			const settleFineDesc = IntlWrapper.intl.formatMessage({
 				id: "QpBxnP",
 				defaultMessage: "Fine settled successfully.",
 			});
@@ -52,11 +52,11 @@ export const fineSlice = createSlice({
 			if (!action.payload) return;
 			state.fines = state.fines.filter((f) => f.id !== action.payload!.id);
 
-			const settleFineMsg = Intl.formatMessage({
+			const settleFineMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const settleFineDesc = Intl.formatMessage({
+			const settleFineDesc = IntlWrapper.intl.formatMessage({
 				id: "Ye43ph",
 				defaultMessage: "Fine deleted successfully.",
 			});

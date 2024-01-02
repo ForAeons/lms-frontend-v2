@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
-import { Intl } from "@/components/language-provider";
+import { IntlWrapper } from "@/components/language-provider";
 import {
 	autoCompleteBookThunk,
 	createBookThunk,
@@ -46,11 +46,11 @@ export const bookSlice = createSlice({
 			if (!action.payload) return;
 			state.books.unshift(action.payload);
 
-			const createBookMsg = Intl.formatMessage({
+			const createBookMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const createBookDesc = Intl.formatMessage(
+			const createBookDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "b8wNxR",
 					defaultMessage: "Book {title} added to library successfully.",
@@ -86,11 +86,11 @@ export const bookSlice = createSlice({
 				return book;
 			});
 
-			const updateBookMsg = Intl.formatMessage({
+			const updateBookMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const updateBookDesc = Intl.formatMessage(
+			const updateBookDesc = IntlWrapper.intl.formatMessage(
 				{ id: "zOHOUn", defaultMessage: '"{title}" edited successfully.' },
 				{ title: action.payload.title },
 			);
@@ -104,11 +104,11 @@ export const bookSlice = createSlice({
 				(book) => book.id !== action.payload!.id,
 			);
 
-			const deleteBookMsg = Intl.formatMessage({
+			const deleteBookMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const deleteBookDesc = Intl.formatMessage(
+			const deleteBookDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "XHc3K5",
 					defaultMessage: '"{title}" removed from library successfully.',
@@ -132,11 +132,11 @@ export const bookSlice = createSlice({
 		builder.addCase(loanBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 
-			const loanBookMsg = Intl.formatMessage({
+			const loanBookMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const loanBookDesc = Intl.formatMessage(
+			const loanBookDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "ugaCUX",
 					defaultMessage:
@@ -150,11 +150,11 @@ export const bookSlice = createSlice({
 		builder.addCase(reserveBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 
-			const reserveBookMsg = Intl.formatMessage({
+			const reserveBookMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const reserveBookDesc = Intl.formatMessage(
+			const reserveBookDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "SRpFJ8",
 					defaultMessage:

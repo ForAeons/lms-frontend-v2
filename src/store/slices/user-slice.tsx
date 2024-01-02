@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
-import { Intl } from "@/components/language-provider";
+import { IntlWrapper } from "@/components/language-provider";
 import {
 	autoCompleteUserThunk,
 	createUserThunk,
@@ -56,11 +56,11 @@ export const userSlice = createSlice({
 				u.id === action.payload!.id ? action.payload! : u,
 			);
 
-			const createUserMsg = Intl.formatMessage({
+			const createUserMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const createUserDesc = Intl.formatMessage(
+			const createUserDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "bErW7O",
 					defaultMessage: 'User "{username}" created successfully.',
@@ -76,11 +76,11 @@ export const userSlice = createSlice({
 				u.id === action.payload!.id ? action.payload! : u,
 			);
 
-			const updateUserMsg = Intl.formatMessage({
+			const updateUserMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const updateUserDesc = Intl.formatMessage(
+			const updateUserDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "zjw/TA",
 					defaultMessage: 'User "{username}" updated successfully.',
@@ -94,11 +94,11 @@ export const userSlice = createSlice({
 			if (!action.payload) return;
 			state.users = state.users.filter((u) => u.id !== action.payload!.id);
 
-			const deleteUserMsg = Intl.formatMessage({
+			const deleteUserMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const deleteUserDesc = Intl.formatMessage(
+			const deleteUserDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "Lnyzvj",
 					defaultMessage: 'User "{username}" deleted successfully.',
@@ -111,11 +111,11 @@ export const userSlice = createSlice({
 		builder.addCase(updateUserRoleThunk.fulfilled, (_, action) => {
 			if (!action.payload) return;
 
-			const updateUserRoleMsg = Intl.formatMessage({
+			const updateUserRoleMsg = IntlWrapper.intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
 			});
-			const updateUserRoleDesc = Intl.formatMessage(
+			const updateUserRoleDesc = IntlWrapper.intl.formatMessage(
 				{
 					id: "Ta8Q1S",
 					defaultMessage: 'User "{username}"\'s role updated successfully.',
