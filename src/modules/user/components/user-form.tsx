@@ -35,16 +35,16 @@ export const UserForm: React.FC<{
 		defaultMessage: "Full Name",
 	});
 	const fullNamePlaceholder = intl.formatMessage({
-		id: "KYETYn",
-		defaultMessage: "Your full Name",
+		id: "m4c/De",
+		defaultMessage: "Your full name",
 	});
 	const preferredName = intl.formatMessage({
 		id: "NC7LdO",
 		defaultMessage: "Preferred Name",
 	});
 	const preferredNamePlaceholder = intl.formatMessage({
-		id: "nSccor",
-		defaultMessage: "Your preferred Name",
+		id: "MuE1Lz",
+		defaultMessage: "Your preferred name",
 	});
 	const password = intl.formatMessage({
 		id: "5sg7KC",

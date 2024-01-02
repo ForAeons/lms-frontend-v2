@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { CircleOffIcon } from "lucide-react";
 import {
 	Tooltip,
@@ -11,6 +12,12 @@ import { cancelResThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
 
 export const ResCancelBtn: React.FC<{ res: Reservation }> = ({ res }) => {
+	const intl = useIntl();
+	const cancelAction = intl.formatMessage({
+		id: "47FYwb",
+		defaultMessage: "Cancel",
+	});
+
 	const dispatch = useAppDispatch();
 	const handleCancel = () => dispatch(cancelResThunk({ resId: res.id }));
 	return (
@@ -26,7 +33,7 @@ export const ResCancelBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
-					<p>Cancel</p>
+					<p>{cancelAction}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>

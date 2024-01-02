@@ -1,10 +1,17 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { BookCard } from "@/modules/book";
 import { useAppSelector } from "@/store";
 import { ResCancelBtn, ResCheckoutBtn, resToBadgeProps } from "..";
-import { BookCard } from "@/modules/book";
 
 export const ResPage: React.FC = () => {
+	const intl = useIntl();
+	const myReservations = intl.formatMessage({
+		id: "r3JtGI",
+		defaultMessage: "My Reservations",
+	});
+
 	const res = useAppSelector((state) => state.app.reservations);
 	const user = useAppSelector((state) => state.app.user);
 
@@ -12,7 +19,7 @@ export const ResPage: React.FC = () => {
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-					My Reservations
+					{myReservations}
 				</h2>
 
 				{res.map((r) => (

@@ -48,7 +48,7 @@ export const ManageResPage: React.FC = () => {
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
-				<div className="flex gap-3">
+				<div className="flex items-center gap-3">
 					<ResCreateDialog />
 					<SearchBar cq={cq} />
 				</div>

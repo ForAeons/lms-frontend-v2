@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { BookUserIcon } from "lucide-react";
 import {
 	Tooltip,
@@ -11,6 +12,12 @@ import { checkoutResThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
 
 export const ResCheckoutBtn: React.FC<{ res: Reservation }> = ({ res }) => {
+	const intl = useIntl();
+	const checkoutAction = intl.formatMessage({
+		id: "BJ2TKX",
+		defaultMessage: "Checkout",
+	});
+
 	const dispatch = useAppDispatch();
 	const handleCheckout = () => dispatch(checkoutResThunk({ resId: res.id }));
 	return (
@@ -26,7 +33,7 @@ export const ResCheckoutBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
-					<p>Checkout</p>
+					<p>{checkoutAction}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
