@@ -12,8 +12,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { COLOR_SELECT_OPTIONS, MD_ICON_SIZE } from "@/constants";
 import { useTheme } from "@/components/theme-provider";
+import { useIntl } from "react-intl";
 
 export const ColorSelectBtn: React.FC = () => {
+	const intl = useIntl();
+	const theme = intl.formatMessage({ id: "Pe0ogR", defaultMessage: "Theme" });
+	const themes = intl.formatMessage({ id: "Avsnjl", defaultMessage: "Themes" });
+	const selectTheme = intl.formatMessage({
+		id: "qJ010K",
+		defaultMessage: "Select theme",
+	});
+
 	const { color, setColor } = useTheme();
 
 	return (
@@ -24,12 +33,13 @@ export const ColorSelectBtn: React.FC = () => {
 					className="w-full justify-start flex gap-3 focus-visible:ring-transparent"
 				>
 					<Paintbrush2Icon size={MD_ICON_SIZE} />
-					<span className="text-sm font-medium">Theme</span>
+					<span className="text-sm font-medium">{theme}</span>
 					<div className="w-5 h-5 rounded-full bg-primary" />
+					<span className="sr-only">{selectTheme}</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-fit">
-				<DropdownMenuLabel>Themes</DropdownMenuLabel>
+				<DropdownMenuLabel>{themes}</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuRadioGroup
 					value={color}

@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import {
 	Select,
@@ -13,12 +14,17 @@ export const SortSelect: React.FC<{
 	cq: CollectionQuery;
 	opt: SortOption[];
 }> = ({ cq, opt }) => {
-	const navigate = useNavigate();
+	const intl = useIntl();
+	const sortBy = intl.formatMessage({
+		id: "hDI+JM",
+		defaultMessage: "Sort by",
+	});
 
+	const navigate = useNavigate();
 	return (
 		<div className="flex items-center space-x-2">
 			<span className="text-sm text-muted-foreground whitespace-nowrap">
-				Sort by
+				{sortBy}
 			</span>
 			<Select
 				value={String(cq.sortBy)}
@@ -29,8 +35,8 @@ export const SortSelect: React.FC<{
 				</SelectTrigger>
 				<SelectContent>
 					{opt.map((s) => (
-						<SelectItem key={s.label} value={s.value}>
-							{s.label}
+						<SelectItem key={s.id} value={s.value}>
+							<FormattedMessage id={s.id} defaultMessage={s.label} />
 						</SelectItem>
 					))}
 				</SelectContent>

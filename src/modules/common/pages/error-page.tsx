@@ -1,8 +1,15 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 export const ErrorPage: React.FC<{ errorMsg: string }> = ({ errorMsg }) => {
+	const intl = useIntl();
+	const goBack = intl.formatMessage({
+		id: "ekfOaV",
+		defaultMessage: "Go Back",
+	});
+
 	const navigate = useNavigate();
 	return (
 		<div className="h-full w-full relative">
@@ -11,12 +18,8 @@ export const ErrorPage: React.FC<{ errorMsg: string }> = ({ errorMsg }) => {
 					{errorMsg}
 				</h1>
 
-				<Button
-					onClick={() => navigate(-1)}
-					variant={"secondary"}
-					size={"default"}
-				>
-					Go Back
+				<Button onClick={() => navigate(-1)} variant={"secondary"}>
+					{goBack}
 				</Button>
 			</div>
 		</div>

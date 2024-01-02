@@ -30,6 +30,7 @@ export const LoanReturnBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 						onClick={handleReturn}
 					>
 						<Undo2Icon size={LG_ICON_SIZE} className="text-primary" />
+						<span className="sr-only">{returnLabel}</span>
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>

@@ -30,6 +30,7 @@ export const FineSettleBtn: React.FC<{ fine: Fine }> = ({ fine }) => {
 						onClick={handleRenew}
 					>
 						<BanknoteIcon size={LG_ICON_SIZE} className="text-primary" />
+						<span className="sr-only">{settle}</span>
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>

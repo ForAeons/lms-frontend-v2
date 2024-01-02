@@ -1,5 +1,6 @@
 import React from "react";
 import { TrashIcon } from "lucide-react";
+import { useIntl } from "react-intl";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -24,6 +25,32 @@ export const DeleteBtn: React.FC<{
 	handler?: NullaryHandler;
 	subject: string;
 }> = ({ handler, subject }) => {
+	const intl = useIntl();
+	const deleteAction = intl.formatMessage({
+		id: "K3r6DQ",
+		defaultMessage: "Delete",
+	});
+	const deleteAlertTitle = intl.formatMessage({
+		id: "v5ykbS",
+		defaultMessage: "Are you absolutely sure?",
+	});
+	const deleteAlertDescription = intl.formatMessage(
+		{
+			id: "s3ZjbA",
+			defaultMessage:
+				"This action cannot be undone. This will permanently delete this {subject} and remove it from our servers.",
+		},
+		{ subject },
+	);
+	const cancelAction = intl.formatMessage({
+		id: "47FYwb",
+		defaultMessage: "Cancel",
+	});
+	const continueAction = intl.formatMessage({
+		id: "acrOoz",
+		defaultMessage: "Continue",
+	});
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
@@ -36,10 +63,11 @@ export const DeleteBtn: React.FC<{
 									className="hover:bg-transparent hover:opacity-50 transition-opacity"
 								>
 									<TrashIcon className="text-destructive" size={LG_ICON_SIZE} />
+									<span className="sr-only">{deleteAction}</span>
 								</Button>
 							</TooltipTrigger>
 							<TooltipContent>
-								<p>Delete</p>
+								<p>{deleteAction}</p>
 							</TooltipContent>
 						</Tooltip>
 					</TooltipProvider>
@@ -47,15 +75,16 @@ export const DeleteBtn: React.FC<{
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+					<AlertDialogTitle>{deleteAlertTitle}</AlertDialogTitle>
 					<AlertDialogDescription>
-						{`This action cannot be undone. This will permanently delete this ${subject}
-						and remove it from our servers.`}
+						{deleteAlertDescription}
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={handler}>Continue</AlertDialogAction>
+					<AlertDialogCancel>{cancelAction}</AlertDialogCancel>
+					<AlertDialogAction onClick={handler}>
+						{continueAction}
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

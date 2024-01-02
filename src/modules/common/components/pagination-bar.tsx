@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import {
 	ChevronLeftIcon,
@@ -34,10 +35,20 @@ export const PaginationBar: React.FC<{
 	if (isNaN(currentPage)) currentPage = 1;
 	if (isNaN(totalPages)) totalPages = 1;
 
+	const intl = useIntl();
+	const itemsPerPage = intl.formatMessage({
+		id: "svHvmD",
+		defaultMessage: "Items per page",
+	});
+	const pageOf = intl.formatMessage(
+		{ id: "eilhZ9", defaultMessage: "Page {currentPage} of {totalPages}" },
+		{ currentPage, totalPages },
+	);
+
 	return (
 		<div className="col-span-full flex flex-wrap justify-around items-center py-3 gap-3">
 			<div className="flex items-center space-x-2">
-				<span className="text-sm text-muted-foreground">Items per page</span>
+				<span className="text-sm text-muted-foreground">{itemsPerPage}</span>
 				<Select
 					value={String(cq.limit)}
 					onValueChange={(v) => changeLimit(navigate, cq, Number(v))}
@@ -55,7 +66,9 @@ export const PaginationBar: React.FC<{
 				</Select>
 			</div>
 
-			<span className="text-sm text-muted-foreground text-center">{`Page ${currentPage} of ${totalPages}`}</span>
+			<span className="text-sm text-muted-foreground text-center">
+				{pageOf}
+			</span>
 
 			<div>
 				<Button

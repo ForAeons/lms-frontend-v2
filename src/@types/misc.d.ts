@@ -1,9 +1,11 @@
 interface SortOption {
+	id: string; // used for intl
 	label: string;
 	value: string;
 }
 
 interface FilterOption {
+	id: string; // used for intl
 	label: string;
 	key: string;
 	value: string;

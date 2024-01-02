@@ -1,4 +1,6 @@
 import React from "react";
+import { useIntl } from "react-intl";
+import { LanguagesIcon } from "lucide-react";
 import {
 	Select,
 	SelectContent,
@@ -6,11 +8,16 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { LOCALE_SELECT_OPTIONS, MD_ICON_SIZE } from "@/constants";
 import { useLocale } from "@/components/language-provider";
-import { LanguagesIcon } from "lucide-react";
+import { LOCALE_SELECT_OPTIONS, MD_ICON_SIZE } from "@/constants";
 
 export const LangSelectBtn: React.FC = () => {
+	const intl = useIntl();
+	const selectAppLanguage = intl.formatMessage({
+		id: "LKP2kK",
+		defaultMessage: "Select app language",
+	});
+
 	const { locale, setLocale } = useLocale();
 	return (
 		<Select defaultValue={locale} onValueChange={(l) => setLocale(l as Locale)}>
@@ -18,6 +25,7 @@ export const LangSelectBtn: React.FC = () => {
 				<div className="flex w-full gap-3">
 					<LanguagesIcon size={MD_ICON_SIZE} />
 					<SelectValue placeholder="Select a timezone" />
+					<span className="sr-only">{selectAppLanguage}</span>
 				</div>
 			</SelectTrigger>
 

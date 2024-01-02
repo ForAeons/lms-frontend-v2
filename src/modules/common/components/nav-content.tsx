@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import Avatar from "boring-avatars";
 import {
@@ -52,13 +53,81 @@ export const NavContent: React.FC = () => {
 		dispatch(signOutThunk()).then(() => navigate("/signin"));
 	};
 
+	const intl = useIntl();
+	const welcome = intl.formatMessage(
+		{ id: "gDMHVV", defaultMessage: "Welcome {name}" },
+		{ name: person?.preferred_name ?? person?.full_name },
+	);
+	const homePage = intl.formatMessage({
+		id: "xHJnaY",
+		defaultMessage: "Home Page",
+	});
+	const catalogue = intl.formatMessage({
+		id: "U2napd",
+		defaultMessage: "Catalogue",
+	});
+	const signOut = intl.formatMessage({
+		id: "F62y+K",
+		defaultMessage: "Sign Out",
+	});
+	const signIn = intl.formatMessage({
+		id: "Ub+AGc",
+		defaultMessage: "Sign In",
+	});
+	const myBookmark = intl.formatMessage({
+		id: "X9bISG",
+		defaultMessage: "My Bookmarks",
+	});
+	const myLoan = intl.formatMessage({
+		id: "InakXV",
+		defaultMessage: "My Loans",
+	});
+	const myReservation = intl.formatMessage({
+		id: "r3JtGI",
+		defaultMessage: "My Reservations",
+	});
+	const myFine = intl.formatMessage({
+		id: "UPVRty",
+		defaultMessage: "My Fines",
+	});
+	const manageUser = intl.formatMessage({
+		id: "27i/vG",
+		defaultMessage: "Manage User",
+	});
+	const manageBook = intl.formatMessage({
+		id: "dbKjoR",
+		defaultMessage: "Manage Book",
+	});
+	const manageLoan = intl.formatMessage({
+		id: "l15rPy",
+		defaultMessage: "Manage Loan",
+	});
+	const manageReservation = intl.formatMessage({
+		id: "J1mdvK",
+		defaultMessage: "Manage Reservation",
+	});
+	const manageFine = intl.formatMessage({
+		id: "N7Cv+c",
+		defaultMessage: "Manage Fine",
+	});
+	const auditLog = intl.formatMessage({
+		id: "7GrpT1",
+		defaultMessage: "Audit Log",
+	});
+	const settings = intl.formatMessage({
+		id: "D3idYv",
+		defaultMessage: "Settings",
+	});
+	const toggleThemeText = intl.formatMessage({
+		id: "EQpyb8",
+		defaultMessage: "Toggle theme",
+	});
+
 	return (
 		<nav className="space-y-4 py-4">
 			<div className="px-3 py-2">
 				<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight break-words">
-					{person
-						? `Welcome ${person.preferred_name ?? person.full_name}`
-						: "Welcome"}
+					{welcome}
 				</h2>
 
 				{user && (
@@ -79,9 +148,9 @@ export const NavContent: React.FC = () => {
 						onClick={() => navigate("/")}
 					>
 						<Home size={MD_ICON_SIZE} />
-						<p className="ml-3">Home</p>
+						<p className="ml-3">{homePage}</p>
 
-						<span className="sr-only">Go to Home</span>
+						<span className="sr-only">{homePage}</span>
 					</Button>
 
 					<Button
@@ -90,8 +159,8 @@ export const NavContent: React.FC = () => {
 						onClick={() => navigate("/book")}
 					>
 						<BookIcon size={MD_ICON_SIZE} />
-						<p className="ml-3">Catalogue</p>
-						<span className="sr-only">Catalogue</span>
+						<p className="ml-3">{catalogue}</p>
+						<span className="sr-only">{catalogue}</span>
 					</Button>
 
 					{isLoggedIn && (
@@ -101,8 +170,8 @@ export const NavContent: React.FC = () => {
 							onClick={handleLogout}
 						>
 							<LogInIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">Sign Out</p>
-							<span className="sr-only">Sign Out</span>
+							<p className="ml-3">{signOut}</p>
+							<span className="sr-only">{signOut}</span>
 						</Button>
 					)}
 
@@ -113,8 +182,8 @@ export const NavContent: React.FC = () => {
 							onClick={() => navigate("/signin")}
 						>
 							<LogOutIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">Sign in</p>
-							<span className="sr-only">Sign In</span>
+							<p className="ml-3">{signIn}</p>
+							<span className="sr-only">{signIn}</span>
 						</Button>
 					)}
 				</div>
@@ -133,8 +202,8 @@ export const NavContent: React.FC = () => {
 							onClick={() => navigate("/bookmark")}
 						>
 							<BookmarkIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">My Bookmarks</p>
-							<span className="sr-only">My bookmarks</span>
+							<p className="ml-3">{myBookmark}</p>
+							<span className="sr-only">{myBookmark}</span>
 						</Button>
 
 						<Button
@@ -143,8 +212,8 @@ export const NavContent: React.FC = () => {
 							onClick={() => navigate("/loan")}
 						>
 							<BookUserIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">My Loan</p>
-							<span className="sr-only">Loan resources</span>
+							<p className="ml-3">{myLoan}</p>
+							<span className="sr-only">{myLoan}</span>
 						</Button>
 
 						<Button
@@ -153,8 +222,8 @@ export const NavContent: React.FC = () => {
 							onClick={() => navigate("/reservation")}
 						>
 							<LockKeyholeIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">My Reservation</p>
-							<span className="sr-only">Reservation resources</span>
+							<p className="ml-3">{myReservation}</p>
+							<span className="sr-only">{myReservation}</span>
 						</Button>
 
 						<Button
@@ -163,8 +232,8 @@ export const NavContent: React.FC = () => {
 							onClick={() => navigate("/fine")}
 						>
 							<CircleDollarSignIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">My Fine</p>
-							<span className="sr-only">Fine resources</span>
+							<p className="ml-3">{myFine}</p>
+							<span className="sr-only">{myFine}</span>
 						</Button>
 					</div>
 				</div>
@@ -183,8 +252,8 @@ export const NavContent: React.FC = () => {
 							onClick={() => navigate("/manage/user")}
 						>
 							<UserCogIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">Manage User</p>
-							<span className="sr-only">Manage user</span>
+							<p className="ml-3">{manageUser}</p>
+							<span className="sr-only">{manageUser}</span>
 						</Button>
 
 						<Button
@@ -193,8 +262,8 @@ export const NavContent: React.FC = () => {
 							onClick={() => navigate("/manage/book")}
 						>
 							<BookIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">Manage Book</p>
-							<span className="sr-only">Manage book</span>
+							<p className="ml-3">{manageBook}</p>
+							<span className="sr-only">{manageBook}</span>
 						</Button>
 
 						<Button
@@ -203,8 +272,8 @@ export const NavContent: React.FC = () => {
 							onClick={() => navigate("/manage/loan")}
 						>
 							<BookUserIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">Manage Loan</p>
-							<span className="sr-only">Manage loan</span>
+							<p className="ml-3">{manageLoan}</p>
+							<span className="sr-only">{manageLoan}</span>
 						</Button>
 
 						<Button
@@ -213,8 +282,8 @@ export const NavContent: React.FC = () => {
 							onClick={() => navigate("/manage/reservation")}
 						>
 							<LockKeyholeIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">Manage Reservation</p>
-							<span className="sr-only">Manage reservation</span>
+							<p className="ml-3">{manageReservation}</p>
+							<span className="sr-only">{manageReservation}</span>
 						</Button>
 
 						<Button
@@ -223,8 +292,8 @@ export const NavContent: React.FC = () => {
 							onClick={() => navigate("/manage/fine")}
 						>
 							<CircleDollarSignIcon size={MD_ICON_SIZE} />
-							<p className="ml-3">Manage Fine</p>
-							<span className="sr-only">MManage fine</span>
+							<p className="ml-3">{manageFine}</p>
+							<span className="sr-only">{manageFine}</span>
 						</Button>
 
 						{canReadAuditLog && (
@@ -234,8 +303,8 @@ export const NavContent: React.FC = () => {
 								onClick={() => navigate("/manage/audit_log")}
 							>
 								<ScrollTextIcon size={MD_ICON_SIZE} />
-								<p className="ml-3">Audit Log</p>
-								<span className="sr-only">Audit logs</span>
+								<p className="ml-3">{auditLog}</p>
+								<span className="sr-only">{auditLog}</span>
 							</Button>
 						)}
 					</div>
@@ -244,7 +313,7 @@ export const NavContent: React.FC = () => {
 
 			<div className="px-3 py-2">
 				<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-					Settings
+					{settings}
 				</h2>
 
 				<div className="space-y-1">
@@ -262,7 +331,7 @@ export const NavContent: React.FC = () => {
 								size={MD_ICON_SIZE}
 								className="absolute transition-all rotate-90 scale-0 dark:rotate-0 dark:scale-100"
 							/>
-							<span className="sr-only">Toggle theme</span>
+							<span className="sr-only">{toggleThemeText}</span>
 						</div>
 						<Switch
 							id="dark-mode"

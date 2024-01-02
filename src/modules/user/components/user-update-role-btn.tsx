@@ -47,6 +47,7 @@ const Btn: React.FC = () => {
 						className="hover:bg-transparent hover:opacity-50 transition-opacity"
 					>
 						<UserCogIcon className="text-primary" size={LG_ICON_SIZE} />
+						<span className="sr-only">{changeRole}</span>
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>

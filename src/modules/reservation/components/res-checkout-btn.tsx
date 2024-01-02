@@ -30,6 +30,7 @@ export const ResCheckoutBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 						onClick={handleCheckout}
 					>
 						<BookUserIcon size={LG_ICON_SIZE} className="text-primary" />
+						<span className="sr-only">{checkoutAction}</span>
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>

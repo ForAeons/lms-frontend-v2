@@ -9,8 +9,11 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
+import { useIntl } from "react-intl";
 
 export const NavBackBtn: React.FC = () => {
+	const intl = useIntl();
+	const back = intl.formatMessage({ id: "cyR7Kh", defaultMessage: "Back" });
 	const navigate = useNavigate();
 	return (
 		<TooltipProvider>
@@ -22,10 +25,11 @@ export const NavBackBtn: React.FC = () => {
 						onClick={() => navigate(-1)}
 					>
 						<ArrowLeftToLineIcon size={LG_ICON_SIZE} />
+						<span className="sr-only">{back}</span>
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
-					<p>Back</p>
+					<p>{back}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { PencilIcon } from "lucide-react";
 import {
 	Tooltip,
@@ -12,6 +13,8 @@ import { LG_ICON_SIZE } from "@/constants";
 export const EditBtn: React.FC<{ handler?: NullaryHandler }> = ({
 	handler,
 }) => {
+	const intl = useIntl();
+	const edit = intl.formatMessage({ id: "wEQDC6", defaultMessage: "Edit" });
 	return (
 		<TooltipProvider>
 			<Tooltip>
@@ -22,10 +25,11 @@ export const EditBtn: React.FC<{ handler?: NullaryHandler }> = ({
 						onClick={handler}
 					>
 						<PencilIcon className="text-primary" size={LG_ICON_SIZE} />
+						<span className="sr-only">{edit}</span>
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
-					<p>Edit</p>
+					<p>{edit}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>

@@ -30,6 +30,7 @@ export const ResCancelBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 						onClick={handleCancel}
 					>
 						<CircleOffIcon size={LG_ICON_SIZE} className="text-destructive" />
+						<span className="sr-only">{cancelAction}</span>
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
