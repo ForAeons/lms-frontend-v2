@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -20,6 +21,7 @@ import { CREATE_USER, USER_SORT_OPTIONS } from "@/constants";
 import { UserCreateBtn, UserPersonCard } from "..";
 
 export const ManageUserPage: React.FC = () => {
+	const intl = useIntl();
 	const dispatch = useAppDispatch();
 	const userState = useAppSelector((state) => state.user);
 	const canCreateUser = useAppSelector((s) => CheckPermission(s, CREATE_USER));
@@ -42,9 +44,18 @@ export const ManageUserPage: React.FC = () => {
 
 	if (userState.isFetching) return <LoaderPage />;
 
+	const userTitle = intl.formatMessage({
+		id: "55dcAt",
+		defaultMessage: "Manage Users",
+	});
+
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
+				<h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+					{userTitle}
+				</h2>
+
 				<div className="flex gap-3">
 					{canCreateUser && <UserCreateBtn />}
 					<SearchBar cq={cq} />

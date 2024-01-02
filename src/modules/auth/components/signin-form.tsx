@@ -1,8 +1,9 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,47 +15,54 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+import { userSignInSchema } from "@/schema";
 import { useAppDispatch, signInThunk } from "@/store";
-import * as Constants from "@/constants";
-
-const formSchema = z.object({
-	username: z
-		.string()
-		.min(Constants.MINIMUM_USERNAME_LENGTH, {
-			message: "Username must be at least 5 characters.",
-		})
-		.max(Constants.MAXIMUM_USERNAME_LENGTH, {
-			message: "Username must be no more than 30 characters.",
-		}),
-	password: z
-		.string()
-		.min(Constants.MINIMUM_PASSWORD_LENGTH, {
-			message: "Password must be at least 8 characters.",
-		})
-		.max(Constants.MAXIMUM_PASSWORD_LENGTH, {
-			message: "Password must be no more than 32 characters.",
-		}),
-});
 
 export const SigninForm: React.FC = () => {
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
-		defaultValues: {
-			username: "",
-			password: "",
-		},
+	const intl = useIntl();
+	const username = intl.formatMessage({
+		id: "JCIgkj",
+		defaultMessage: "Username",
+	});
+	const yourUsername = intl.formatMessage({
+		id: "k9XuYY",
+		defaultMessage: "Your username",
+	});
+	const usernameDescription = intl.formatMessage({
+		id: "aohCSR",
+		defaultMessage: "This is your public display name.",
+	});
+	const password = intl.formatMessage({
+		id: "5sg7KC",
+		defaultMessage: "Password",
+	});
+	const yourPassword = intl.formatMessage({
+		id: "/aWpsO",
+		defaultMessage: "Your password",
+	});
+	const passwordDescription = intl.formatMessage({
+		id: "xsQkIU",
+		defaultMessage: "This is your password.",
+	});
+	const submitAction = intl.formatMessage({
+		id: "Ub+AGc",
+		defaultMessage: "Sign In",
+	});
+	const homePage = intl.formatMessage({
+		id: "xHJnaY",
+		defaultMessage: "Home Page",
+	});
+
+	const form = useForm<z.infer<typeof userSignInSchema>>({
+		resolver: zodResolver(userSignInSchema),
+		defaultValues: { username: "", password: "" },
 	});
 
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const onSubmit = (values: z.infer<typeof formSchema>) => {
+	const onSubmit = (v: z.infer<typeof userSignInSchema>) => {
 		dispatch(
-			signInThunk({
-				user: {
-					username: values.username,
-					password: values.password,
-				},
-			}),
+			signInThunk({ user: { username: v.username, password: v.password } }),
 		).then(() => navigate("/"));
 	};
 
@@ -69,13 +77,11 @@ export const SigninForm: React.FC = () => {
 					name="username"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Username</FormLabel>
+							<FormLabel>{username}</FormLabel>
 							<FormControl>
-								<Input placeholder="username" {...field} />
+								<Input placeholder={yourUsername} {...field} />
 							</FormControl>
-							<FormDescription>
-								This is your public display name.
-							</FormDescription>
+							<FormDescription>{usernameDescription}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -85,11 +91,11 @@ export const SigninForm: React.FC = () => {
 					name="password"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Password</FormLabel>
+							<FormLabel>{password}</FormLabel>
 							<FormControl>
-								<Input placeholder="password" {...field} />
+								<Input placeholder={yourPassword} {...field} />
 							</FormControl>
-							<FormDescription>This is your password.</FormDescription>
+							<FormDescription>{passwordDescription}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -101,9 +107,9 @@ export const SigninForm: React.FC = () => {
 						onClick={() => navigate("/")}
 						className="mr-auto"
 					>
-						Home
+						{homePage}
 					</Button>
-					<Button type="submit">Submit</Button>
+					<Button type="submit">{submitAction}</Button>
 				</div>
 			</form>
 		</Form>

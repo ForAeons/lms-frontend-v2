@@ -53,11 +53,19 @@ export const ManageBookPage: React.FC = () => {
 
 	if (bookState.isFetching) return <LoaderPage />;
 
+	const bookTitle = intl.formatMessage({
+		id: "RTM+tQ",
+		defaultMessage: "Manage Books",
+	});
 	const bookText = intl.formatMessage({ id: "kmmXht", defaultMessage: "book" });
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
+				<h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+					{bookTitle}
+				</h2>
+
 				<div className="flex gap-3">
 					{canCreateBook && <BookCreateBtn />}
 					<SearchBar cq={cq} />

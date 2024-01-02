@@ -91,24 +91,24 @@ export const NavContent: React.FC = () => {
 		defaultMessage: "My Fines",
 	});
 	const manageUser = intl.formatMessage({
-		id: "27i/vG",
-		defaultMessage: "Manage User",
+		id: "55dcAt",
+		defaultMessage: "Manage Users",
 	});
 	const manageBook = intl.formatMessage({
-		id: "dbKjoR",
-		defaultMessage: "Manage Book",
+		id: "RTM+tQ",
+		defaultMessage: "Manage Books",
 	});
 	const manageLoan = intl.formatMessage({
-		id: "l15rPy",
-		defaultMessage: "Manage Loan",
+		id: "zrW7b6",
+		defaultMessage: "Manage Loans",
 	});
 	const manageReservation = intl.formatMessage({
-		id: "J1mdvK",
-		defaultMessage: "Manage Reservation",
+		id: "eujWGK",
+		defaultMessage: "Manage Reservations",
 	});
 	const manageFine = intl.formatMessage({
-		id: "N7Cv+c",
-		defaultMessage: "Manage Fine",
+		id: "pWbzFs",
+		defaultMessage: "Manage Fines",
 	});
 	const auditLog = intl.formatMessage({
 		id: "7GrpT1",

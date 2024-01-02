@@ -1,3 +1,4 @@
+import { useIntl } from "react-intl";
 import {
 	ColumnDef,
 	flexRender,
@@ -22,6 +23,12 @@ export const DataTable = <TData, TValue>({
 	columns,
 	data,
 }: DataTableProps<TData, TValue>) => {
+	const intl = useIntl();
+	const noResults = intl.formatMessage({
+		id: "0H2hdf",
+		defaultMessage: "No results.",
+	});
+
 	const table = useReactTable({
 		data,
 		columns,
@@ -67,7 +74,7 @@ export const DataTable = <TData, TValue>({
 					) : (
 						<TableRow>
 							<TableCell colSpan={columns.length} className="h-24 text-center">
-								No results.
+								{noResults}
 							</TableCell>
 						</TableRow>
 					)}

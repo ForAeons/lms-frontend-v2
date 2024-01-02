@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import * as z from "zod";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -20,19 +21,35 @@ import {
 import { CreateBtn } from "@/modules";
 import { createLogThunk, useAppDispatch } from "@/store";
 import { AuditlogFormSchema } from "@/schema";
-import { AuditLogForm } from "./auditlog-form";
 import { useMediaQuery } from "@/hooks";
+import { AuditLogForm } from "./auditlog-form";
 
 export const LogCreateBtn: React.FC = () => {
+	const intl = useIntl();
+	const auditLogText = intl.formatMessage({
+		id: "btC50m",
+		defaultMessage: "audit log",
+	});
+	const logAnEvent = intl.formatMessage({
+		id: "ttBFjN",
+		defaultMessage: "Log an event",
+	});
+	const logAnEventDescription = intl.formatMessage({
+		id: "xDDxzU",
+		defaultMessage: "Describe the event here. Click upload when you're done.",
+	});
+	const createAction = intl.formatMessage({
+		id: "VzzYJk",
+		defaultMessage: "Create",
+	});
+
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 	const defaultValues = { action: "", date: new Date() };
 
 	const dispatch = useAppDispatch();
 	function onSubmit(values: z.infer<typeof AuditlogFormSchema>) {
 		dispatch(
-			createLogThunk({
-				log: { ...values, date: values.date.toISOString() },
-			}),
+			createLogThunk({ log: { ...values, date: values.date.toISOString() } }),
 		);
 	}
 
@@ -41,22 +58,20 @@ export const LogCreateBtn: React.FC = () => {
 			<Dialog>
 				<DialogTrigger asChild>
 					<div>
-						<CreateBtn subject="audit log" />
+						<CreateBtn subject={auditLogText} />
 					</div>
 				</DialogTrigger>
 				<DialogContent className="max-h-[75vh] p-0">
 					<ScrollArea className="max-h-[70vh]">
 						<div className="p-6">
 							<DialogHeader>
-								<DialogTitle>Log an event</DialogTitle>
-								<DialogDescription>
-									{"Describe the event here. Click upload when you're done."}
-								</DialogDescription>
+								<DialogTitle>{logAnEvent}</DialogTitle>
+								<DialogDescription>{logAnEventDescription}</DialogDescription>
 							</DialogHeader>
 							<AuditLogForm
 								defaultValues={defaultValues}
 								onSubmit={onSubmit}
-								action="Create"
+								action={createAction}
 							/>
 						</div>
 						<ScrollBar />
@@ -70,21 +85,19 @@ export const LogCreateBtn: React.FC = () => {
 		<Drawer>
 			<DrawerTrigger asChild>
 				<div>
-					<CreateBtn subject="audit log" />
+					<CreateBtn subject={auditLogText} />
 				</div>
 			</DrawerTrigger>
 			<DrawerContent>
 				<DrawerHeader>
-					<DrawerTitle>Log an event</DrawerTitle>
-					<DrawerDescription>
-						{"Describe the event here. Click upload when you're done."}
-					</DrawerDescription>
+					<DrawerTitle>{logAnEvent}</DrawerTitle>
+					<DrawerDescription>{logAnEventDescription}</DrawerDescription>
 				</DrawerHeader>
 				<div className="p-3">
 					<AuditLogForm
 						defaultValues={defaultValues}
 						onSubmit={onSubmit}
-						action="Create"
+						action={createAction}
 					/>
 				</div>
 			</DrawerContent>

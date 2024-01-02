@@ -56,11 +56,19 @@ export const ManageFinePage: React.FC = () => {
 
 	if (fineState.isFetching) return <LoaderPage />;
 
+	const fineTitle = intl.formatMessage({
+		id: "pWbzFs",
+		defaultMessage: "Manage Fines",
+	});
 	const fineText = intl.formatMessage({ id: "yfSHXZ", defaultMessage: "fine" });
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
+				<h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+					{fineTitle}
+				</h2>
+
 				<div className="flex gap-3">
 					<SearchBar cq={cq} />
 				</div>

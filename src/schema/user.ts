@@ -32,6 +32,25 @@ export const UserFormSchema = z
 		path: ["confirmPassword"],
 	});
 
+export const userSignInSchema = z.object({
+	username: z
+		.string()
+		.min(Constants.MINIMUM_USERNAME_LENGTH, {
+			message: "Username must be at least 5 characters.",
+		})
+		.max(Constants.MAXIMUM_USERNAME_LENGTH, {
+			message: "Username must be no more than 30 characters.",
+		}),
+	password: z
+		.string()
+		.min(Constants.MINIMUM_PASSWORD_LENGTH, {
+			message: "Password must be at least 8 characters.",
+		})
+		.max(Constants.MAXIMUM_PASSWORD_LENGTH, {
+			message: "Password must be no more than 32 characters.",
+		}),
+});
+
 export const BookUserFormSchema = z.object({
 	user_id: z.number(),
 	book_copy_id: z.number(),
