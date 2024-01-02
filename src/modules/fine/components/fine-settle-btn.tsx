@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { BanknoteIcon } from "lucide-react";
 import {
 	Tooltip,
@@ -11,6 +12,12 @@ import { settleFineThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
 
 export const FineSettleBtn: React.FC<{ fine: Fine }> = ({ fine }) => {
+	const intl = useIntl();
+	const settle = intl.formatMessage({
+		id: "mPKS81",
+		defaultMessage: "Settle",
+	});
+
 	const dispatch = useAppDispatch();
 	const handleRenew = () => dispatch(settleFineThunk({ fineId: fine.id }));
 	return (
@@ -26,7 +33,7 @@ export const FineSettleBtn: React.FC<{ fine: Fine }> = ({ fine }) => {
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
-					<p>Settle</p>
+					<p>{settle}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>

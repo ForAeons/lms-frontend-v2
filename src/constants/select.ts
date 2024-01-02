@@ -8,11 +8,21 @@ import {
 export const LANGUAGE_SELECT_OPTIONS: SelectOption<Locale>[] = [
 	{ label: "English", value: "en" },
 	{ label: "ខ្មែរ", value: "km" },
+	{ label: "中文", value: "zh" },
+	{ label: "日本語", value: "ja" },
+	{ label: "한국어", value: "ko" },
+	{ label: "தமிழ்", value: "ta" },
+	{ label: "Bahasa Malaysia", value: "ms" },
 ];
 
 export const LOCALE_SELECT_OPTIONS: SelectOption<Locale>[] = [
 	{ label: "English 🇬🇧", value: "en" },
 	{ label: "ខ្មែរ 🇰🇭", value: "km" },
+	{ label: "中文 🇨🇳", value: "zh" },
+	{ label: "日本語 🇯🇵", value: "ja" },
+	{ label: "한국어 🇰🇷", value: "ko" },
+	{ label: "தமிழ் 🇮🇳", value: "ta" },
+	{ label: "Bahasa Malaysia 🇲🇾", value: "ms" },
 ];
 
 export const ROLE_SELECT_OPTIONS = [

@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useQueryParams } from "@/hooks";
@@ -28,6 +29,8 @@ import { BookCard } from "@/modules/book";
 import { FineSettleBtn, fineToBadgeProps } from "..";
 
 export const ManageFinePage: React.FC = () => {
+	const intl = useIntl();
+
 	const dispatch = useAppDispatch();
 	const fineState = useAppSelector((s) => s.fine);
 	const canDeleteFine = useAppSelector((s) =>
@@ -67,7 +70,7 @@ export const ManageFinePage: React.FC = () => {
 				</div>
 
 				{fineState.fines.map((f) => (
-					<BookCard key={f.id} book={f.book} badges={fineToBadgeProps(f)}>
+					<BookCard key={f.id} book={f.book} badges={fineToBadgeProps(f, intl)}>
 						{canDeleteFine && (
 							<DeleteBtn
 								handler={() => dispatch(deleteFineThunk({ fineId: f.id }))}
