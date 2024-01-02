@@ -44,7 +44,6 @@ export function ThemeProvider({
 	}, [theme]);
 
 	React.useEffect(() => {
-		const root = window.document.documentElement;
 		document.body.classList.forEach((className) => {
 			if (className.match(/^theme.*/)) {
 				document.body.classList.remove(className);
