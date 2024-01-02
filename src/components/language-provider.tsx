@@ -1,5 +1,5 @@
 import React from "react";
-import { createIntl, createIntlCache, RawIntlProvider } from "react-intl";
+import { createIntl, createIntlCache, IntlProvider } from "react-intl";
 import { getMessage } from "@/util";
 
 const intlCache = createIntlCache();
@@ -24,6 +24,8 @@ export function LanguageProvider({
 		() => (localStorage.getItem(storageKey) as Locale) || defaultLocale,
 	);
 
+	const messages = getMessage(locale);
+
 	const value = {
 		locale: locale,
 		setLocale: (locale: Locale) => {
@@ -33,12 +35,18 @@ export function LanguageProvider({
 	};
 
 	React.useEffect(() => {
-		Intl = createIntl({ locale, messages: getMessage(locale) }, intlCache);
+		Intl = createIntl({ locale, messages }, intlCache);
 	}, [locale]);
 
 	return (
 		<LangProviderContext.Provider {...props} value={value}>
-			<RawIntlProvider value={Intl}>{children}</RawIntlProvider>
+			<IntlProvider
+				messages={messages}
+				locale={locale}
+				defaultLocale={defaultLocale}
+			>
+				{children}
+			</IntlProvider>
 		</LangProviderContext.Provider>
 	);
 }

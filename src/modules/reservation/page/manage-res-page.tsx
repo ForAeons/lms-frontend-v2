@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useQueryParams } from "@/hooks";
@@ -22,6 +23,7 @@ import {
 } from "..";
 
 export const ManageResPage: React.FC = () => {
+	const intl = useIntl();
 	const dispatch = useAppDispatch();
 	const resState = useAppSelector((s) => s.res);
 	const navigate = useNavigate();
@@ -59,7 +61,7 @@ export const ManageResPage: React.FC = () => {
 				</div>
 
 				{resState.res.map((r) => (
-					<BookCard key={r.id} book={r.book} badges={resToBadgeProps(r)}>
+					<BookCard key={r.id} book={r.book} badges={resToBadgeProps(r, intl)}>
 						{r.status === "pending" && <ResCheckoutBtn res={r} />}
 						{r.status === "pending" && <ResCancelBtn res={r} />}
 					</BookCard>

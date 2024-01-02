@@ -1,20 +1,23 @@
-import { Intl } from "@/components/language-provider";
+import { IntlShape } from "react-intl";
 
-export const resToBadgeProps = (r: ReservationDetailed): BadgeProps[] => {
+export const resToBadgeProps = (
+	r: ReservationDetailed,
+	intl: IntlShape,
+): BadgeProps[] => {
 	// Check if the loan is overdue
 	const resDate = new Date(r.reservation_date);
 	const currentDate = new Date();
 	const isExpired = currentDate > resDate;
 
-	const checkedOut = Intl.formatMessage({
+	const checkedOut = intl.formatMessage({
 		id: "F3EWgg",
 		defaultMessage: "Checked out",
 	});
-	const expired = Intl.formatMessage({
+	const expired = intl.formatMessage({
 		id: "RahCRH",
 		defaultMessage: "Expired",
 	});
-	const reservedUntil = Intl.formatMessage(
+	const reservedUntil = intl.formatMessage(
 		{
 			id: "ashuNd",
 			defaultMessage: "Reserved until {date}",
@@ -23,7 +26,7 @@ export const resToBadgeProps = (r: ReservationDetailed): BadgeProps[] => {
 			date: resDate.toLocaleDateString(),
 		},
 	);
-	const reservedBy = Intl.formatMessage(
+	const reservedBy = intl.formatMessage(
 		{
 			id: "st8FyU",
 			defaultMessage: "Reserved by {username}",
