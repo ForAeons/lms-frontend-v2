@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import * as z from "zod";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -15,6 +16,25 @@ import { BookFormSchema } from "@/schema";
 import { BookForm } from ".";
 
 export const BookCreateBtn: React.FC = () => {
+	const intl = useIntl();
+	const bookText = intl.formatMessage({
+		id: "kmmXht",
+		defaultMessage: "book",
+	});
+	const createBook = intl.formatMessage({
+		id: "tzgO/H",
+		defaultMessage: "Add a New Book",
+	});
+	const createBookDescription = intl.formatMessage({
+		id: "bTUCkl",
+		defaultMessage:
+			"Add the details of the book here. Click upload when you're done.",
+	});
+	const createAction = intl.formatMessage({
+		id: "VzzYJk",
+		defaultMessage: "Create",
+	});
+
 	const defaultValues = {
 		title: "",
 		author: "",
@@ -46,24 +66,20 @@ export const BookCreateBtn: React.FC = () => {
 		<Dialog>
 			<DialogTrigger asChild>
 				<div>
-					<CreateBtn subject="book" />
+					<CreateBtn subject={bookText} />
 				</div>
 			</DialogTrigger>
 			<DialogContent className="max-h-[75vh] p-0">
 				<ScrollArea className="max-h-[70vh]">
 					<div className="p-6">
 						<DialogHeader>
-							<DialogTitle>Add New Book</DialogTitle>
-							<DialogDescription>
-								{
-									"	Add the details of the book here. Click upload when you're done."
-								}
-							</DialogDescription>
+							<DialogTitle>{createBook}</DialogTitle>
+							<DialogDescription>{createBookDescription}</DialogDescription>
 						</DialogHeader>
 						<BookForm
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
-							action="Create"
+							action={createAction}
 						/>
 					</div>
 					<ScrollBar />

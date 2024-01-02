@@ -14,10 +14,12 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
+import { useIntl } from "react-intl";
 
 export const BookmarkBtn: React.FC<{ book: Book; bm?: Bookmark }> = ({
 	book,
 }) => {
+	const intl = useIntl();
 	const dispatch = useAppDispatch();
 	const bookmarks = useAppSelector((state) => state.app.bookmarks);
 
@@ -28,6 +30,11 @@ export const BookmarkBtn: React.FC<{ book: Book; bm?: Bookmark }> = ({
 		dispatch(deleteBookmarkThunk({ bookID: book.id, bookmarkID: bookmarkID }));
 
 	const marked = bookmarks.find((bookmark) => bookmark.book_id === book.id);
+
+	const borrowAction = intl.formatMessage({
+		id: "6dn1ux",
+		defaultMessage: "Borrow",
+	});
 
 	return (
 		<TooltipProvider>
@@ -44,10 +51,11 @@ export const BookmarkBtn: React.FC<{ book: Book; bm?: Bookmark }> = ({
 						{marked && (
 							<BookmarkXIcon className="text-destructive" size={LG_ICON_SIZE} />
 						)}
+						<span className="sr-only">{borrowAction}</span>
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
-					<p>Borrow</p>
+					<p>{borrowAction}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>

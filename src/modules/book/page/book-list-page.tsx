@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -12,10 +13,10 @@ import { listBookThunk, useAppDispatch, useAppSelector } from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { BOOK_SORT_OPTIONS } from "@/constants";
-import { BookCard, BookNavBtn, BookmarkBtn } from "..";
-import { bookToBadgeProps } from "../util/badge";
+import { BookCard, BookNavBtn, BookmarkBtn, bookToBadgeProps } from "..";
 
 export const BookListPage: React.FC = () => {
+	const intl = useIntl();
 	const dispatch = useAppDispatch();
 	const bookState = useAppSelector((s) => s.book);
 	const navigate = useNavigate();
@@ -52,7 +53,7 @@ export const BookListPage: React.FC = () => {
 				</div>
 
 				{bookState.books.map((b) => (
-					<BookCard key={b.id} book={b} badges={bookToBadgeProps(b)}>
+					<BookCard key={b.id} book={b} badges={bookToBadgeProps(b, intl)}>
 						<BookNavBtn book={b} />
 						<BookmarkBtn book={b} />
 					</BookCard>

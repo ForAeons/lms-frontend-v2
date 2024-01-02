@@ -30,7 +30,6 @@ import { FineSettleBtn, fineToBadgeProps } from "..";
 
 export const ManageFinePage: React.FC = () => {
 	const intl = useIntl();
-
 	const dispatch = useAppDispatch();
 	const fineState = useAppSelector((s) => s.fine);
 	const canDeleteFine = useAppSelector((s) =>
@@ -57,6 +56,8 @@ export const ManageFinePage: React.FC = () => {
 
 	if (fineState.isFetching) return <LoaderPage />;
 
+	const fineText = intl.formatMessage({ id: "yfSHXZ", defaultMessage: "fine" });
+
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
@@ -74,7 +75,7 @@ export const ManageFinePage: React.FC = () => {
 						{canDeleteFine && (
 							<DeleteBtn
 								handler={() => dispatch(deleteFineThunk({ fineId: f.id }))}
-								subject="fine"
+								subject={fineText}
 							/>
 						)}
 						{f.status === "outstanding" && <FineSettleBtn fine={f} />}
