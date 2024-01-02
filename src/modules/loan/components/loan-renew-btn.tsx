@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { BookCopyIcon } from "lucide-react";
 import {
 	Tooltip,
@@ -11,6 +12,12 @@ import { renewLoanThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
 
 export const LoanRenewBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
+	const intl = useIntl();
+	const renew = intl.formatMessage({
+		id: "nWQFic",
+		defaultMessage: "Renew",
+	});
+
 	const dispatch = useAppDispatch();
 	const handleRenew = () => dispatch(renewLoanThunk({ loanId: loan.id }));
 	return (
@@ -26,7 +33,7 @@ export const LoanRenewBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
-					<p>Renew</p>
+					<p>{renew}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>

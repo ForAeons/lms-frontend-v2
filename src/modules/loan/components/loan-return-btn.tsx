@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { Undo2Icon } from "lucide-react";
 import {
 	Tooltip,
@@ -11,6 +12,12 @@ import { returnLoanThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
 
 export const LoanReturnBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
+	const intl = useIntl();
+	const returnLabel = intl.formatMessage({
+		id: "0WJNP/",
+		defaultMessage: "Return",
+	});
+
 	const dispatch = useAppDispatch();
 	const handleReturn = () => dispatch(returnLoanThunk({ loanId: loan.id }));
 	return (
@@ -26,7 +33,7 @@ export const LoanReturnBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
-					<p>Return</p>
+					<p>{returnLabel}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>

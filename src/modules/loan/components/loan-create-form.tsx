@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -39,6 +40,44 @@ import { BookUserFormSchema } from "@/schema";
 import { cn } from "@/lib/utils";
 
 export const LoanCreateForm: React.FC = () => {
+	const intl = useIntl();
+	const user = intl.formatMessage({
+		id: "EwRIOm",
+		defaultMessage: "User",
+	});
+	const searchForUser = intl.formatMessage({
+		id: "n6nlj0",
+		defaultMessage: "Search for user",
+	});
+	const noUserFound = intl.formatMessage({
+		id: "MD5B2N",
+		defaultMessage: "No user found",
+	});
+	const startTypingUser = intl.formatMessage({
+		id: "ETcvzE",
+		defaultMessage: "Start typing something to search for users.",
+	});
+	const book = intl.formatMessage({
+		id: "bv2X6I",
+		defaultMessage: "Book",
+	});
+	const searchForBook = intl.formatMessage({
+		id: "sAr2D+",
+		defaultMessage: "Search for book",
+	});
+	const noBookFound = intl.formatMessage({
+		id: "nMtlAn",
+		defaultMessage: "No book found",
+	});
+	const startTypingBook = intl.formatMessage({
+		id: "/kO/po",
+		defaultMessage: "Start typing something to search for books.",
+	});
+	const create = intl.formatMessage({
+		id: "VzzYJk",
+		defaultMessage: "Create",
+	});
+
 	const dispatch = useAppDispatch();
 	const userAutoComp = useAppSelector((state) => state.user.autocomplete);
 	const bookAutoComp = useAppSelector((state) => state.book.autocomplete);
@@ -82,7 +121,7 @@ export const LoanCreateForm: React.FC = () => {
 					name="user_id"
 					render={({ field }) => (
 						<FormItem className="flex flex-col">
-							<FormLabel>User</FormLabel>
+							<FormLabel>{user}</FormLabel>
 							<Popover>
 								<PopoverTrigger asChild>
 									<FormControl>
@@ -97,7 +136,7 @@ export const LoanCreateForm: React.FC = () => {
 											{field.value
 												? userAutoComp.find((u) => u.id === field.value)
 														?.username
-												: "Search for user"}
+												: searchForUser}
 											<ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 										</Button>
 									</FormControl>
@@ -105,10 +144,10 @@ export const LoanCreateForm: React.FC = () => {
 								<PopoverContent className="w-full p-0">
 									<Command>
 										<CommandInput
-											placeholder="Search user..."
+											placeholder={searchForUser}
 											onValueChange={handleUserAC}
 										/>
-										<CommandEmpty>No user found.</CommandEmpty>
+										<CommandEmpty>{noUserFound}</CommandEmpty>
 										{userAutoComp.length > 0 && (
 											<CommandGroup>
 												{userAutoComp.map((u) => (
@@ -135,9 +174,7 @@ export const LoanCreateForm: React.FC = () => {
 									</Command>
 								</PopoverContent>
 							</Popover>
-							<FormDescription>
-								Starting typing username to search for a user.
-							</FormDescription>
+							<FormDescription>{startTypingUser}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -148,7 +185,7 @@ export const LoanCreateForm: React.FC = () => {
 					name="book_copy_id"
 					render={({ field }) => (
 						<FormItem className="flex flex-col">
-							<FormLabel>Book</FormLabel>
+							<FormLabel>{book}</FormLabel>
 							<Popover>
 								<PopoverTrigger asChild>
 									<FormControl>
@@ -162,7 +199,7 @@ export const LoanCreateForm: React.FC = () => {
 										>
 											{field.value
 												? bookAutoComp.find((u) => u.id === field.value)?.title
-												: "Search for book"}
+												: searchForBook}
 											<ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 										</Button>
 									</FormControl>
@@ -170,10 +207,10 @@ export const LoanCreateForm: React.FC = () => {
 								<PopoverContent className="w-fit p-0">
 									<Command>
 										<CommandInput
-											placeholder="Search book..."
+											placeholder={searchForBook}
 											onValueChange={handleBookAC}
 										/>
-										<CommandEmpty>No book found.</CommandEmpty>
+										<CommandEmpty>{noBookFound}</CommandEmpty>
 										{bookAutoComp.length > 0 && (
 											<CommandGroup>
 												{bookAutoComp.map((b) => (
@@ -200,15 +237,13 @@ export const LoanCreateForm: React.FC = () => {
 									</Command>
 								</PopoverContent>
 							</Popover>
-							<FormDescription>
-								Starting typing something to search for a book.
-							</FormDescription>
+							<FormDescription>{startTypingBook}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
 				<DialogFooter>
-					<Button type="submit">Create</Button>
+					<Button type="submit">{create}</Button>
 				</DialogFooter>
 			</form>
 		</Form>

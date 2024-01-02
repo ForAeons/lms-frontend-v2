@@ -28,7 +28,7 @@ interface ThemeProviderState {
 	setColor: (color: Color) => void;
 }
 
-type Locale = "en" | "km" | "system";
+type Locale = "en" | "km" | "zh" | "ta" | "ko" | "ja" | "ms";
 
 interface LanguageProviderProps {
 	children: React.ReactNode;

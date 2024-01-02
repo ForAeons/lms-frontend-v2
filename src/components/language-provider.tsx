@@ -4,7 +4,7 @@ import { getMessage } from "@/util";
 
 const intlCache = createIntlCache();
 // I need Intl to be globally available, even inside redux stores
-export let IntlWrapper = {
+export const IntlWrapper = {
 	intl: createIntl({ locale: "en", messages: {} }, intlCache),
 };
 
