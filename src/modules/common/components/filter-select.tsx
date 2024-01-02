@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import {
 	Select,
@@ -37,7 +37,7 @@ export const FilterSelect: React.FC<{
 				<SelectContent>
 					{opt.map((f) => (
 						<SelectItem key={f.label} value={f.value}>
-							{f.label}
+							<FormattedMessage id={f.id} defaultMessage={f.label} />
 						</SelectItem>
 					))}
 				</SelectContent>
