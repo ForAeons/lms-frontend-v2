@@ -18,7 +18,7 @@ export const deleteFineThunk = createAsyncThunk(
 );
 
 export const settleFineThunk = createAsyncThunk(
-	"loan/return",
+	"fine/settle",
 	async (action: { fineId: number; signal?: AbortSignal }) => {
 		const res = await fineApi.SettleFine(action.fineId, action.signal);
 		return res?.data;

@@ -29,7 +29,7 @@ export const BookCard: React.FC<{
 		{ author: book.author },
 	);
 	const bookDescription = intl.formatMessage(
-		{ id: "S1xMcR", defaultMessage: "Published: {date} | ${lang}" },
+		{ id: "S1xMcR", defaultMessage: "Published: {date} | {lang}" },
 		{ date: pubDate, lang: langLabel },
 	);
 	const genre = intl.formatMessage(

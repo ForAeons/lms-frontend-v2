@@ -74,6 +74,10 @@ export const NavContent: React.FC = () => {
 		id: "Ub+AGc",
 		defaultMessage: "Sign In",
 	});
+	const resources = intl.formatMessage({
+		id: "c/KktL",
+		defaultMessage: "Resources",
+	});
 	const myBookmark = intl.formatMessage({
 		id: "X9bISG",
 		defaultMessage: "My Bookmarks",
@@ -89,6 +93,10 @@ export const NavContent: React.FC = () => {
 	const myFine = intl.formatMessage({
 		id: "UPVRty",
 		defaultMessage: "My Fines",
+	});
+	const admin = intl.formatMessage({
+		id: "iHN12u",
+		defaultMessage: "Admin",
 	});
 	const manageUser = intl.formatMessage({
 		id: "55dcAt",
@@ -192,7 +200,7 @@ export const NavContent: React.FC = () => {
 			{isLoggedIn && (
 				<div className="px-3 py-2">
 					<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-						Resources
+						{resources}
 					</h2>
 
 					<div className="space-y-1">
@@ -242,7 +250,7 @@ export const NavContent: React.FC = () => {
 			{canManageBookRecords && (
 				<div className="px-3 py-2">
 					<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-						Admin
+						{admin}
 					</h2>
 
 					<div className="space-y-1">

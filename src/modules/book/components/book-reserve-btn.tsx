@@ -56,22 +56,27 @@ export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<TooltipProvider>
-					<Tooltip>
-						<TooltipTrigger asChild>
-							<Button
-								variant="ghost"
-								className="hover:bg-transparent hover:opacity-50 transition-opacity"
-							>
-								<LockKeyholeIcon className="text-primary" size={LG_ICON_SIZE} />
-								<span className="sr-only">{reserveAction}</span>
-							</Button>
-						</TooltipTrigger>
-						<TooltipContent>
-							<p>{reserveAction}</p>
-						</TooltipContent>
-					</Tooltip>
-				</TooltipProvider>
+				<div>
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Button
+									variant="ghost"
+									className="hover:bg-transparent hover:opacity-50 transition-opacity"
+								>
+									<LockKeyholeIcon
+										className="text-primary"
+										size={LG_ICON_SIZE}
+									/>
+									<span className="sr-only">{reserveAction}</span>
+								</Button>
+							</TooltipTrigger>
+							<TooltipContent>
+								<p>{reserveAction}</p>
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+				</div>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
