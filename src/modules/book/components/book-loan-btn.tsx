@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { BookUserIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -25,37 +26,64 @@ export const BookLoanBtn: React.FC<{ book: Book; copyID: number }> = ({
 	book,
 	copyID,
 }) => {
+	const intl = useIntl();
+	const borrowAction = intl.formatMessage({
+		id: "6dn1ux",
+		defaultMessage: "Borrow",
+	});
+	const confirmation = intl.formatMessage({
+		id: "Pswssl",
+		defaultMessage: "Confirmation",
+	});
+	const confirmationMessage = intl.formatMessage(
+		{
+			id: "jXzYxr",
+			defaultMessage: `Do you wish to borrow "{title}"?`,
+		},
+		{ title: book.title },
+	);
+	const cancelAction = intl.formatMessage({
+		id: "47FYwb",
+		defaultMessage: "Cancel",
+	});
+	const continueAction = intl.formatMessage({
+		id: "acrOoz",
+		defaultMessage: "Continue",
+	});
 	const dispatch = useAppDispatch();
 	const handleLoan = () => dispatch(loanBookThunk({ bookCopyID: copyID }));
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<TooltipProvider>
-					<Tooltip>
-						<TooltipTrigger asChild>
-							<Button
-								variant="ghost"
-								className="hover:bg-transparent hover:opacity-50 transition-opacity"
-							>
-								<BookUserIcon className="text-primary" size={LG_ICON_SIZE} />
-							</Button>
-						</TooltipTrigger>
-						<TooltipContent>
-							<p>Borrow</p>
-						</TooltipContent>
-					</Tooltip>
-				</TooltipProvider>
+				<div>
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Button
+									variant="ghost"
+									className="hover:bg-transparent hover:opacity-50 transition-opacity"
+								>
+									<BookUserIcon className="text-primary" size={LG_ICON_SIZE} />
+									<span className="sr-only">{borrowAction}</span>
+								</Button>
+							</TooltipTrigger>
+							<TooltipContent>
+								<p>{borrowAction}</p>
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+				</div>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle>Confirmation</AlertDialogTitle>
-					<AlertDialogDescription>
-						{`Do you wish to borrow "${book.title}"?`}
-					</AlertDialogDescription>
+					<AlertDialogTitle>{confirmation}</AlertDialogTitle>
+					<AlertDialogDescription>{confirmationMessage}</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={handleLoan}>Continue</AlertDialogAction>
+					<AlertDialogCancel>{cancelAction}</AlertDialogCancel>
+					<AlertDialogAction onClick={handleLoan}>
+						{continueAction}
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { DeleteBtn } from "@/modules";
 import {
@@ -7,12 +8,13 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { RandomAvatar, UserEditBtn, UserUpdateRoleBtn } from ".";
 import { DELETE_USER, UPDATE_USER, UPDATE_USER_ROLE } from "@/constants";
+import { RandomAvatar, UserEditBtn, UserUpdateRoleBtn } from ".";
 
 export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 	userPerson,
 }) => {
+	const intl = useIntl();
 	const dispatch = useAppDispatch();
 	const canUpdateUser = useAppSelector((s) => CheckPermission(s, UPDATE_USER));
 	const canUpdateUserRole = useAppSelector((s) =>
@@ -22,12 +24,16 @@ export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 
 	const handleDelete = () => dispatch(deleteUserThunk(userPerson.id));
 
+	const userText = intl.formatMessage({ id: "sUNhQE", defaultMessage: "user" });
+
 	return (
 		<Card className="relative flex flex-col lg:flex-row hover:shadow-md transition-shadow pr-10">
 			<div className="absolute h-full right-0 top-1/2 -translate-y-1/2 flex flex-col justify-around items-center">
 				{canUpdateUser && <UserEditBtn userPerson={userPerson} />}
 				{canUpdateUserRole && <UserUpdateRoleBtn user={userPerson} />}
-				{canDeleteUser && <DeleteBtn handler={handleDelete} subject="user" />}
+				{canDeleteUser && (
+					<DeleteBtn handler={handleDelete} subject={userText} />
+				)}
 			</div>
 
 			<CardHeader className="p-6 pb-0 pr-6 lg:pb-6 lg:pr-0">

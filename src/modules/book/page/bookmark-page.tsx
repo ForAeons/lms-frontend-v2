@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useAppSelector } from "@/store";
 import {
@@ -9,16 +10,26 @@ import {
 } from "@/modules/book";
 
 export const BookmarkPage: React.FC = () => {
+	const intl = useIntl();
+	const myBookmarks = intl.formatMessage({
+		id: "X9bISG",
+		defaultMessage: "My Bookmarks",
+	});
+
 	const bookmarks = useAppSelector((state) => state.app.bookmarks);
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full grid grid-cols-1 gap-3 px-3">
 				<h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-					My Bookmarks
+					{myBookmarks}
 				</h2>
 
 				{bookmarks.map((b) => (
-					<BookCard key={b.id} book={b.book} badges={bookToBadgeProps(b.book)}>
+					<BookCard
+						key={b.id}
+						book={b.book}
+						badges={bookToBadgeProps(b.book, intl)}
+					>
 						<BookNavBtn book={b.book} url={`/book/${b.book_id}`} />
 						<BookmarkBtn book={b.book} />
 					</BookCard>

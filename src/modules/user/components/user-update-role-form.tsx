@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -26,6 +27,16 @@ export const UserUpdateRoleForm: React.FC<{
 	onSubmit: UnaryHandler<z.infer<typeof UserRoleSchema>>;
 	action: string;
 }> = ({ onSubmit, action }) => {
+	const intl = useIntl();
+	const roleSelection = intl.formatMessage({
+		id: "XM5uwK",
+		defaultMessage: "Role selection",
+	});
+	const selectRolePlaceholder = intl.formatMessage({
+		id: "iaCoRs",
+		defaultMessage: "Select role",
+	});
+
 	const form = useForm<z.infer<typeof UserRoleSchema>>({
 		resolver: zodResolver(UserRoleSchema),
 	});
@@ -38,21 +49,24 @@ export const UserUpdateRoleForm: React.FC<{
 					name="role_id"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Role selection</FormLabel>
+							<FormLabel>{roleSelection}</FormLabel>
 							<Select
 								onValueChange={(v) => field.onChange(Number(v))}
 								defaultValue={String(field.value)}
 							>
 								<FormControl>
 									<SelectTrigger>
-										<SelectValue placeholder="Select role" />
+										<SelectValue placeholder={selectRolePlaceholder} />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
 									{ROLE_SELECT_OPTIONS.map((opt) => {
 										return (
 											<SelectItem key={opt.id} value={String(opt.id)}>
-												{opt.label}
+												<FormattedMessage
+													id={opt.intlID}
+													defaultMessage={opt.label}
+												/>
 											</SelectItem>
 										);
 									})}

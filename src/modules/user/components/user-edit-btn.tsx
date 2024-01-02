@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import * as z from "zod";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -17,6 +18,21 @@ import { UserForm } from ".";
 export const UserEditBtn: React.FC<{
 	userPerson: UserPerson;
 }> = ({ userPerson }) => {
+	const intl = useIntl();
+	const editUserProfile = intl.formatMessage({
+		id: "J29+pZ",
+		defaultMessage: "Edit user profile",
+	});
+	const editUserDescription = intl.formatMessage({
+		id: "mq++y1",
+		defaultMessage:
+			"Make changes to this user's profile here. Click save when you're done.",
+	});
+	const saveAction = intl.formatMessage({
+		id: "jvo0vs",
+		defaultMessage: "Save",
+	});
+
 	const defaultValues = {
 		username: userPerson.username,
 		password: "",
@@ -52,17 +68,13 @@ export const UserEditBtn: React.FC<{
 				<ScrollArea className="max-h-[70vh]">
 					<div className="p-6">
 						<DialogHeader>
-							<DialogTitle>Edit user profile</DialogTitle>
-							<DialogDescription>
-								{
-									"Make changes to this user's profile here. Click save when you're done."
-								}
-							</DialogDescription>
+							<DialogTitle>{editUserProfile}</DialogTitle>
+							<DialogDescription>{editUserDescription}</DialogDescription>
 						</DialogHeader>
 						<UserForm
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
-							action="Save"
+							action={saveAction}
 						/>
 					</div>
 				</ScrollArea>

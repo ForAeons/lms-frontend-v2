@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import {
 	Select,
@@ -13,12 +14,18 @@ export const FilterSelect: React.FC<{
 	cq: CollectionQuery;
 	opt: FilterOption[];
 }> = ({ cq, opt }) => {
+	const intl = useIntl();
+	const filterBy = intl.formatMessage({
+		id: "S57QRB",
+		defaultMessage: "Filter by",
+	});
+
 	const navigate = useNavigate();
 
 	return (
 		<div className="flex items-center space-x-2">
 			<span className="text-sm text-muted-foreground whitespace-nowrap">
-				Filter by
+				{filterBy}
 			</span>
 			<Select
 				value={cq.filters.status as string}
@@ -30,7 +37,7 @@ export const FilterSelect: React.FC<{
 				<SelectContent>
 					{opt.map((f) => (
 						<SelectItem key={f.label} value={f.value}>
-							{f.label}
+							<FormattedMessage id={f.id} defaultMessage={f.label} />
 						</SelectItem>
 					))}
 				</SelectContent>

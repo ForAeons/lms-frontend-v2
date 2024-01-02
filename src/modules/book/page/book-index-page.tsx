@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { LoaderPage, SearchBar } from "@/modules";
 import {
@@ -9,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import { BookCarousel } from "..";
 
 export const BookIndexPage: React.FC = () => {
+	const intl = useIntl();
 	const dispatch = useAppDispatch();
 	const bookState = useAppSelector((s) => s.book);
 	const popularState = useAppSelector((s) => s.book.popular);
@@ -38,6 +40,15 @@ export const BookIndexPage: React.FC = () => {
 		return <LoaderPage />;
 	}
 
+	const newArrivals = intl.formatMessage({
+		id: "Qpxx+l",
+		defaultMessage: "New Arrivals",
+	});
+	const popularBooks = intl.formatMessage({
+		id: "yLinlZ",
+		defaultMessage: "Popular Books",
+	});
+
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="grid lg:grid-cols-2 grid-cols-1 gap-3 px-3">
@@ -46,7 +57,7 @@ export const BookIndexPage: React.FC = () => {
 				</div>
 
 				<h2 className="col-span-full scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-					New Arrivals
+					{newArrivals}
 				</h2>
 
 				<div className="col-span-full flex justify-center">
@@ -54,7 +65,7 @@ export const BookIndexPage: React.FC = () => {
 				</div>
 
 				<h2 className="col-span-full scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-					Popular Books
+					{popularBooks}
 				</h2>
 
 				<div className="col-span-full flex justify-center">

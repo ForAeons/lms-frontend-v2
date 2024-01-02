@@ -5,10 +5,11 @@ import {
 	deleteBookmarkThunk,
 	getCurrentUserThunk,
 	getHealthThunk,
-	loginThunk,
-	logoutThunk,
+	signInThunk,
+	signOutThunk,
 } from "../thunks";
 import { GetPermissions } from "@/util";
+import { IntlWrapper } from "@/components/language-provider";
 import {
 	NotifyBookmarks,
 	NotifyFines,
@@ -39,6 +40,7 @@ export const appSlice = createSlice({
 			state.csrfToken = action.payload;
 		},
 	},
+
 	extraReducers: (builder) => {
 		builder.addCase(getHealthThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
@@ -47,10 +49,17 @@ export const appSlice = createSlice({
 
 		builder.addCase(getHealthThunk.rejected, (state) => {
 			state.backendStatus = "down";
-			//TODO: LANG
-			toast.error("Backend is down", {
-				description: "The backend is currently down. Please try again later.",
+
+			const serverDownMsg = IntlWrapper.intl.formatMessage({
+				id: "NT0rmJ",
+				defaultMessage: "Server is down",
 			});
+			const serverDownDesc = IntlWrapper.intl.formatMessage({
+				id: "OcLgxt",
+				defaultMessage: "The server is down. Please try again later.",
+			});
+
+			toast.error(serverDownMsg, { description: serverDownDesc });
 		});
 
 		builder.addCase(getCurrentUserThunk.fulfilled, (state, action) => {
@@ -80,7 +89,7 @@ export const appSlice = createSlice({
 			NotifyFines(action.payload.fines);
 		});
 
-		builder.addCase(loginThunk.fulfilled, (state, action) => {
+		builder.addCase(signInThunk.fulfilled, (state, action) => {
 			if (action.payload) {
 				state.isLoggedIn = true;
 				state.user = action.payload.user;
@@ -100,36 +109,59 @@ export const appSlice = createSlice({
 				state.user = null;
 			}
 		});
-		builder.addCase(loginThunk.rejected, (state) => {
+		builder.addCase(signInThunk.rejected, (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
-			//TODO: LANG
-			toast.error("Login failed", {
-				description: "Please check your username and password.",
+
+			const signInFailedMsg = IntlWrapper.intl.formatMessage({
+				id: "JdM9UP",
+				defaultMessage: "Sign in failed",
 			});
+			const signInFailedDesc = IntlWrapper.intl.formatMessage({
+				id: "vP5USH",
+				defaultMessage: "Please check your username and password.",
+			});
+
+			toast.error(signInFailedMsg, { description: signInFailedDesc });
 		});
 
-		builder.addCase(logoutThunk.pending, (state) => {
+		builder.addCase(signOutThunk.pending, (state) => {
 			state.isLoggedIn = false;
 			state.user = null;
 			state.abilities = [];
 			state.permissions = {};
 		});
 
-		builder.addCase(logoutThunk.fulfilled, () => {
-			//TODO: LANG
-			toast("Sign out Successful", {
-				description: "You are now signed out.",
+		builder.addCase(signOutThunk.fulfilled, () => {
+			const signOutSuccessMsg = IntlWrapper.intl.formatMessage({
+				id: "cSe4ms",
+				defaultMessage: "Sign out success",
 			});
+			const signOutSuccessDesc = IntlWrapper.intl.formatMessage({
+				id: "1OPjg7",
+				defaultMessage: "You have been signed out successfully.",
+			});
+
+			toast.error(signOutSuccessMsg, { description: signOutSuccessDesc });
 		});
 
 		builder.addCase(createBookmarkThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.bookmarks.unshift(action.payload);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `"${action.payload.book.title}" is now bookmarked for you.`,
+
+			const bookmarkedMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const bookmarkedDesc = IntlWrapper.intl.formatMessage(
+				{
+					id: "wPyDX8",
+					defaultMessage: '"{title}" has been bookmarked for you.',
+				},
+				{ title: action.payload.book.title },
+			);
+
+			toast.success(bookmarkedMsg, { description: bookmarkedDesc });
 		});
 
 		builder.addCase(deleteBookmarkThunk.fulfilled, (state, action) => {
@@ -137,10 +169,20 @@ export const appSlice = createSlice({
 			state.bookmarks = state.bookmarks.filter(
 				(bookmark) => bookmark.id !== action.payload!.id,
 			);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `"${action.payload.book.title}" is now unbookmarked for you.`,
+
+			const deleteBookmarkMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const deleteBookmarkDesc = IntlWrapper.intl.formatMessage(
+				{
+					id: "ylrvDR",
+					defaultMessage: '"{title}" has been removed from your bookmarks.',
+				},
+				{ title: action.payload.book.title },
+			);
+
+			toast.success(deleteBookmarkMsg, { description: deleteBookmarkDesc });
 		});
 	},
 });

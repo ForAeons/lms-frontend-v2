@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -20,10 +21,53 @@ export const UserForm: React.FC<{
 	onSubmit: UnaryHandler<z.infer<typeof UserFormSchema>>;
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
+	const intl = useIntl();
+	const username = intl.formatMessage({
+		id: "JCIgkj",
+		defaultMessage: "Username",
+	});
+	const usernamePlaceholder = intl.formatMessage({
+		id: "iGWDDx",
+		defaultMessage: "An unique username",
+	});
+	const fullName = intl.formatMessage({
+		id: "TemVby",
+		defaultMessage: "Full Name",
+	});
+	const fullNamePlaceholder = intl.formatMessage({
+		id: "m4c/De",
+		defaultMessage: "Your full name",
+	});
+	const preferredName = intl.formatMessage({
+		id: "NC7LdO",
+		defaultMessage: "Preferred Name",
+	});
+	const preferredNamePlaceholder = intl.formatMessage({
+		id: "MuE1Lz",
+		defaultMessage: "Your preferred name",
+	});
+	const password = intl.formatMessage({
+		id: "5sg7KC",
+		defaultMessage: "Password",
+	});
+	const passwordPlaceholder = intl.formatMessage({
+		id: "SZBHgk",
+		defaultMessage: "A strong password",
+	});
+	const confirmPassword = intl.formatMessage({
+		id: "vfG+nh",
+		defaultMessage: "Confirm Password",
+	});
+	const confirmPasswordPlaceholder = intl.formatMessage({
+		id: "B0mhwF",
+		defaultMessage: "Enter your password again",
+	});
+
 	const form = useForm<z.infer<typeof UserFormSchema>>({
 		resolver: zodResolver(UserFormSchema),
 		defaultValues: defaultValues,
 	});
+
 	return (
 		<Form {...form}>
 			<form
@@ -35,9 +79,9 @@ export const UserForm: React.FC<{
 					name="username"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Username</FormLabel>
+							<FormLabel>{username}</FormLabel>
 							<FormControl>
-								<Input placeholder="username" {...field} />
+								<Input placeholder={usernamePlaceholder} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -48,9 +92,9 @@ export const UserForm: React.FC<{
 					name="full_name"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Full Name</FormLabel>
+							<FormLabel>{fullName}</FormLabel>
 							<FormControl>
-								<Input placeholder="Full name" {...field} />
+								<Input placeholder={fullNamePlaceholder} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -61,48 +105,22 @@ export const UserForm: React.FC<{
 					name="preferred_name"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Preferred name</FormLabel>
+							<FormLabel>{preferredName}</FormLabel>
 							<FormControl>
-								<Input placeholder="Preferred name" {...field} />
+								<Input placeholder={preferredNamePlaceholder} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
-				{/* <FormField
-					control={form.control}
-					name="language_preference"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Language Preference</FormLabel>
-							<Select onValueChange={field.onChange} defaultValue={field.value}>
-								<FormControl>
-									<SelectTrigger>
-										<SelectValue placeholder="Select your language of preference" />
-									</SelectTrigger>
-								</FormControl>
-								<SelectContent>
-									{LANGUAGE_SELECT_OPTIONS.map((opt) => {
-										return (
-											<SelectItem key={opt.value} value={opt.value}>
-												{opt.label}
-											</SelectItem>
-										);
-									})}
-								</SelectContent>
-							</Select>
-							<FormMessage />
-						</FormItem>
-					)}
-				/> */}
 				<FormField
 					control={form.control}
 					name="password"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Password</FormLabel>
+							<FormLabel>{password}</FormLabel>
 							<FormControl>
-								<Input placeholder="password" {...field} />
+								<Input placeholder={passwordPlaceholder} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -113,9 +131,9 @@ export const UserForm: React.FC<{
 					name="confirmPassword"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Confirm Password</FormLabel>
+							<FormLabel>{confirmPassword}</FormLabel>
 							<FormControl>
-								<Input placeholder="password" {...field} />
+								<Input placeholder={confirmPasswordPlaceholder} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>

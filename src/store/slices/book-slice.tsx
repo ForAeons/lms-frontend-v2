@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
+import { IntlWrapper } from "@/components/language-provider";
 import {
 	autoCompleteBookThunk,
 	createBookThunk,
@@ -44,10 +45,20 @@ export const bookSlice = createSlice({
 		builder.addCase(createBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.books.unshift(action.payload);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `Book ${action.payload.title} added to library successfully`,
+
+			const createBookMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const createBookDesc = IntlWrapper.intl.formatMessage(
+				{
+					id: "b8wNxR",
+					defaultMessage: "Book {title} added to library successfully.",
+				},
+				{ title: action.payload.title },
+			);
+
+			toast.success(createBookMsg, { description: createBookDesc });
 		});
 
 		builder.addCase(listBookThunk.pending, (state) => {
@@ -74,10 +85,17 @@ export const bookSlice = createSlice({
 				}
 				return book;
 			});
-			//TODO: LANG
-			toast.success("Success", {
-				description: `Book ${action.payload.title} edited successfully`,
+
+			const updateBookMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const updateBookDesc = IntlWrapper.intl.formatMessage(
+				{ id: "zOHOUn", defaultMessage: '"{title}" edited successfully.' },
+				{ title: action.payload.title },
+			);
+
+			toast.success(updateBookMsg, { description: updateBookDesc });
 		});
 
 		builder.addCase(deleteBookThunk.fulfilled, (state, action) => {
@@ -85,10 +103,20 @@ export const bookSlice = createSlice({
 			state.books = state.books.filter(
 				(book) => book.id !== action.payload!.id,
 			);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `Book ${action.payload.title} removed from library successfully`,
+
+			const deleteBookMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const deleteBookDesc = IntlWrapper.intl.formatMessage(
+				{
+					id: "XHc3K5",
+					defaultMessage: '"{title}" removed from library successfully.',
+				},
+				{ title: action.payload.title },
+			);
+
+			toast.success(deleteBookMsg, { description: deleteBookDesc });
 		});
 
 		builder.addCase(getBookThunk.pending, (state) => {
@@ -103,22 +131,41 @@ export const bookSlice = createSlice({
 
 		builder.addCase(loanBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
-			//TODO: LANG
-			toast.success("Success", {
-				description: `"${state.book!.title}" loaned successfully. Due date: ${
-					action.payload.due_date
-				}`,
+
+			const loanBookMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const loanBookDesc = IntlWrapper.intl.formatMessage(
+				{
+					id: "ugaCUX",
+					defaultMessage:
+						'"{title}" loaned successfully. Due date: {due_date}.',
+				},
+				{ title: state.book!.title, due_date: action.payload.due_date },
+			);
+			toast.success(loanBookMsg, { description: loanBookDesc });
 		});
 
 		builder.addCase(reserveBookThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
-			//TODO: LANG
-			toast.success("Success", {
-				description: `"${state.book!.title}" reserved successfully. "${
-					state.book!.title
-				}" will be reserved until ${action.payload.reservation_date}`,
+
+			const reserveBookMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const reserveBookDesc = IntlWrapper.intl.formatMessage(
+				{
+					id: "SRpFJ8",
+					defaultMessage:
+						'"{title}" reserved successfully. "{title}" will be reserved until {reservation_date}.',
+				},
+				{
+					title: state.book!.title,
+					reservation_date: action.payload.reservation_date,
+				},
+			);
+			toast.success(reserveBookMsg, { description: reserveBookDesc });
 		});
 
 		builder.addCase(listPopularBooksThunk.pending, (state) => {

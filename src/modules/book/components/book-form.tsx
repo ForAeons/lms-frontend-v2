@@ -1,4 +1,6 @@
 import React from "react";
+import { useIntl } from "react-intl";
+import { format } from "date-fns";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -30,13 +32,66 @@ import { BookFormSchema } from "@/schema";
 import { LANGUAGE_SELECT_OPTIONS } from "@/constants";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 
 export const BookForm: React.FC<{
 	defaultValues: z.infer<typeof BookFormSchema>;
 	onSubmit: UnaryHandler<z.infer<typeof BookFormSchema>>;
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
+	const intl = useIntl();
+	const volumeTitle = intl.formatMessage({
+		id: "0cfEAN",
+		defaultMessage: "Volume Title",
+	});
+	const volumeTitlePlaceholder = intl.formatMessage({
+		id: "aD09Do",
+		defaultMessage: "The Great Gatsby",
+	});
+	const volumeAuthor = intl.formatMessage({
+		id: "3kESYm",
+		defaultMessage: "Volume Author",
+	});
+	const volumeAuthorPlaceholder = intl.formatMessage({
+		id: "7iInTF",
+		defaultMessage: "F. Scott Fitzgerald",
+	});
+	const publisher = intl.formatMessage({
+		id: "Kdc67U",
+		defaultMessage: "Publisher",
+	});
+	const publisherPlaceholder = intl.formatMessage({
+		id: "20IX1q",
+		defaultMessage: "Alma Classics",
+	});
+	const publicationDate = intl.formatMessage({
+		id: "oR7LVU",
+		defaultMessage: "Publication Date",
+	});
+	const pickADate = intl.formatMessage({
+		id: "idkGk/",
+		defaultMessage: "Pick a date",
+	});
+	const genre = intl.formatMessage({
+		id: "O70sde",
+		defaultMessage: "Genre",
+	});
+	const genrePlaceholder = intl.formatMessage({
+		id: "a/NIGu",
+		defaultMessage: "Tragedy",
+	});
+	const language = intl.formatMessage({
+		id: "y1Z3or",
+		defaultMessage: "Language",
+	});
+	const selectLanguage = intl.formatMessage({
+		id: "eVlu1R",
+		defaultMessage: "Select language",
+	});
+	const isbn = intl.formatMessage({
+		id: "YXUQIi",
+		defaultMessage: "ISBN",
+	});
+
 	const form = useForm<z.infer<typeof BookFormSchema>>({
 		resolver: zodResolver(BookFormSchema),
 		defaultValues: defaultValues,
@@ -50,9 +105,9 @@ export const BookForm: React.FC<{
 					name="title"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Volume Title</FormLabel>
+							<FormLabel>{volumeTitle}</FormLabel>
 							<FormControl>
-								<Input placeholder="The Great Gatsby" {...field} />
+								<Input placeholder={volumeTitlePlaceholder} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -63,9 +118,9 @@ export const BookForm: React.FC<{
 					name="author"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Volume Author</FormLabel>
+							<FormLabel>{volumeAuthor}</FormLabel>
 							<FormControl>
-								<Input placeholder="F. Scott Fitzgerald" {...field} />
+								<Input placeholder={volumeAuthorPlaceholder} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -76,9 +131,9 @@ export const BookForm: React.FC<{
 					name="publisher"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Publisher</FormLabel>
+							<FormLabel>{publisher}</FormLabel>
 							<FormControl>
-								<Input placeholder="Alma Classics" {...field} />
+								<Input placeholder={publisherPlaceholder} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -89,7 +144,7 @@ export const BookForm: React.FC<{
 					name="publication_date"
 					render={({ field }) => (
 						<FormItem className="flex flex-col">
-							<FormLabel>Publication Date</FormLabel>
+							<FormLabel>{publicationDate}</FormLabel>
 							<Popover>
 								<PopoverTrigger asChild>
 									<FormControl>
@@ -103,7 +158,7 @@ export const BookForm: React.FC<{
 											{field.value ? (
 												format(field.value, "P")
 											) : (
-												<span>Pick a date</span>
+												<span>{pickADate}</span>
 											)}
 											<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
 										</Button>
@@ -131,9 +186,9 @@ export const BookForm: React.FC<{
 					name="genre"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Genre</FormLabel>
+							<FormLabel>{genre}</FormLabel>
 							<FormControl>
-								<Input placeholder="Tragedy" {...field} />
+								<Input placeholder={genrePlaceholder} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -144,11 +199,11 @@ export const BookForm: React.FC<{
 					name="language"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Language</FormLabel>
+							<FormLabel>{language}</FormLabel>
 							<Select onValueChange={field.onChange} defaultValue={field.value}>
 								<FormControl>
 									<SelectTrigger>
-										<SelectValue placeholder="Select language" />
+										<SelectValue placeholder={selectLanguage} />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
@@ -170,7 +225,7 @@ export const BookForm: React.FC<{
 					name="isbn"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>ISBN</FormLabel>
+							<FormLabel>{isbn}</FormLabel>
 							<FormControl>
 								<Input placeholder="978-1-84749-614-0" {...field} />
 							</FormControl>

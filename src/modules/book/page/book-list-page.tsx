@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -12,10 +13,10 @@ import { listBookThunk, useAppDispatch, useAppSelector } from "@/store";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { BOOK_SORT_OPTIONS } from "@/constants";
-import { BookCard, BookNavBtn, BookmarkBtn } from "..";
-import { bookToBadgeProps } from "../util/badge";
+import { BookCard, BookNavBtn, BookmarkBtn, bookToBadgeProps } from "..";
 
 export const BookListPage: React.FC = () => {
+	const intl = useIntl();
 	const dispatch = useAppDispatch();
 	const bookState = useAppSelector((s) => s.book);
 	const navigate = useNavigate();
@@ -39,9 +40,18 @@ export const BookListPage: React.FC = () => {
 		return <LoaderPage />;
 	}
 
+	const bookTitle = intl.formatMessage({
+		id: "ti1RKs",
+		defaultMessage: "Books",
+	});
+
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="grid grid-cols-1 gap-3 px-3">
+				<h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+					{bookTitle}
+				</h2>
+
 				<div className="flex gap-3">
 					<SearchBar cq={cq} />
 				</div>
@@ -52,7 +62,7 @@ export const BookListPage: React.FC = () => {
 				</div>
 
 				{bookState.books.map((b) => (
-					<BookCard key={b.id} book={b} badges={bookToBadgeProps(b)}>
+					<BookCard key={b.id} book={b} badges={bookToBadgeProps(b, intl)}>
 						<BookNavBtn book={b} />
 						<BookmarkBtn book={b} />
 					</BookCard>

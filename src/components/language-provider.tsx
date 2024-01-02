@@ -1,34 +1,32 @@
-import { createContext, useContext, useState } from "react";
+import React from "react";
+import { createIntl, createIntlCache, IntlProvider } from "react-intl";
+import { getMessage } from "@/util";
 
-type Locale = "en" | "km" | "system";
-
-interface LanguageProviderProps {
-	children: React.ReactNode;
-	defaultLocale?: Locale;
-	storageKey?: string;
-}
-
-interface LanguageProviderState {
-	locale: Locale;
-	setLocale: (Locale: Locale) => void;
-}
+const intlCache = createIntlCache();
+// I need Intl to be globally available, even inside redux stores
+export const IntlWrapper = {
+	intl: createIntl({ locale: "en", messages: {} }, intlCache),
+};
 
 const initialState: LanguageProviderState = {
-	locale: "system",
+	locale: "en",
 	setLocale: () => null,
 };
 
-const LangProviderContext = createContext<LanguageProviderState>(initialState);
+const LangProviderContext =
+	React.createContext<LanguageProviderState>(initialState);
 
 export function LanguageProvider({
 	children,
-	defaultLocale = "system",
+	defaultLocale = "en",
 	storageKey = "vite-language",
 	...props
 }: LanguageProviderProps) {
-	const [locale, setLocale] = useState<Locale>(
+	const [locale, setLocale] = React.useState<Locale>(
 		() => (localStorage.getItem(storageKey) as Locale) || defaultLocale,
 	);
+
+	const messages = getMessage(locale);
 
 	const value = {
 		locale: locale,
@@ -38,18 +36,28 @@ export function LanguageProvider({
 		},
 	};
 
+	React.useEffect(() => {
+		IntlWrapper.intl = createIntl({ locale, messages }, intlCache);
+	}, [locale]);
+
 	return (
 		<LangProviderContext.Provider {...props} value={value}>
-			{children}
+			<IntlProvider
+				messages={messages}
+				locale={locale}
+				defaultLocale={defaultLocale}
+			>
+				{children}
+			</IntlProvider>
 		</LangProviderContext.Provider>
 	);
 }
 
-export const useLang = () => {
-	const context = useContext(LangProviderContext);
+export const useLocale = () => {
+	const context = React.useContext(LangProviderContext);
 
 	if (context === undefined)
-		throw new Error("useTheme must be used within a LangProvider");
+		throw new Error("useLocale must be used within a LangProvider");
 
 	return context;
 };

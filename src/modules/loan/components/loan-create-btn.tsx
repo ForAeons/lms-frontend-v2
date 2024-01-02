@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import {
 	Dialog,
 	DialogContent,
@@ -21,6 +22,20 @@ import { useMediaQuery } from "@/hooks";
 import { LoanCreateForm } from ".";
 
 export const LoanCreateBtn: React.FC = () => {
+	const intl = useIntl();
+	const loan = intl.formatMessage({
+		id: "RwzIKM",
+		defaultMessage: "loan",
+	});
+	const createLoan = intl.formatMessage({
+		id: "3qVd6h",
+		defaultMessage: "Create loan",
+	});
+	const createLoanDescription = intl.formatMessage({
+		id: "SbUqp8",
+		defaultMessage: "Select the user and book. Click upload when you're done.",
+	});
+
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 
 	if (isDesktop) {
@@ -28,17 +43,15 @@ export const LoanCreateBtn: React.FC = () => {
 			<Dialog>
 				<DialogTrigger asChild>
 					<div>
-						<CreateBtn subject="loan" />
+						<CreateBtn subject={loan} />
 					</div>
 				</DialogTrigger>
 				<DialogContent className="max-h-[75vh] p-0">
 					<ScrollArea className="max-h-[70vh]">
 						<div className="p-6">
 							<DialogHeader>
-								<DialogTitle>Create a Loan</DialogTitle>
-								<DialogDescription>
-									{"Select the user and book. Click upload when you're done."}
-								</DialogDescription>
+								<DialogTitle>{createLoan}</DialogTitle>
+								<DialogDescription>{createLoanDescription}</DialogDescription>
 							</DialogHeader>
 							<LoanCreateForm />
 						</div>
@@ -53,15 +66,13 @@ export const LoanCreateBtn: React.FC = () => {
 		<Drawer>
 			<DrawerTrigger asChild>
 				<div>
-					<CreateBtn subject="loan" />
+					<CreateBtn subject={loan} />
 				</div>
 			</DrawerTrigger>
 			<DrawerContent>
 				<DrawerHeader>
-					<DrawerTitle>Create a Loan</DrawerTitle>
-					<DrawerDescription>
-						{"Select the user and book. Click upload when you're done."}
-					</DrawerDescription>
+					<DrawerTitle>{createLoan}</DrawerTitle>
+					<DrawerDescription>{createLoanDescription}</DrawerDescription>
 				</DrawerHeader>
 				<div className="p-3">
 					<LoanCreateForm />

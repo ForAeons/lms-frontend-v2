@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,6 +30,24 @@ export const AuditLogForm: React.FC<{
 	onSubmit: UnaryHandler<z.infer<typeof AuditlogFormSchema>>;
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
+	const intl = useIntl();
+	const event = intl.formatMessage({
+		id: "m1czzY",
+		defaultMessage: "Event",
+	});
+	const whatHappened = intl.formatMessage({
+		id: "eF7TQV",
+		defaultMessage: "What happened?",
+	});
+	const date = intl.formatMessage({
+		id: "P7PLVj",
+		defaultMessage: "Date",
+	});
+	const pickADate = intl.formatMessage({
+		id: "idkGk/",
+		defaultMessage: "Pick a date",
+	});
+
 	const form = useForm<z.infer<typeof AuditlogFormSchema>>({
 		resolver: zodResolver(AuditlogFormSchema),
 		defaultValues: defaultValues,
@@ -42,9 +61,9 @@ export const AuditLogForm: React.FC<{
 					name="action"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Event</FormLabel>
+							<FormLabel>{event}</FormLabel>
 							<FormControl>
-								<Textarea placeholder="What happened?" {...field} />
+								<Textarea placeholder={whatHappened} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -55,7 +74,7 @@ export const AuditLogForm: React.FC<{
 					name="date"
 					render={({ field }) => (
 						<FormItem className="flex flex-col">
-							<FormLabel>Date</FormLabel>
+							<FormLabel>{date}</FormLabel>
 							<Popover>
 								<PopoverTrigger asChild>
 									<FormControl>
@@ -69,7 +88,7 @@ export const AuditLogForm: React.FC<{
 											{field.value ? (
 												format(field.value, "P")
 											) : (
-												<span>Pick a date</span>
+												<span>{pickADate}</span>
 											)}
 											<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
 										</Button>

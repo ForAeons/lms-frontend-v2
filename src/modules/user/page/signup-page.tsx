@@ -1,12 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useIntl } from "react-intl";
 import * as z from "zod";
 import { Card, CardContent } from "@/components/ui/card";
 import { createUserThunk, useAppDispatch } from "@/store";
 import { UserFormSchema } from "@/schema";
 import { UserForm } from "..";
-import { useNavigate } from "react-router-dom";
 
 export const SignupPage: React.FC = () => {
+	const intl = useIntl();
+	const signUpAction = intl.formatMessage({
+		id: "8HJxXG",
+		defaultMessage: "Sign up",
+	});
+	const signInHere = intl.formatMessage({
+		id: "qkIZjG",
+		defaultMessage: "Sign in here",
+	});
+
 	const defaultValues = {
 		username: "",
 		password: "",
@@ -37,22 +48,19 @@ export const SignupPage: React.FC = () => {
 						<UserForm
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
-							action="Sign up"
+							action={signUpAction}
 						/>
 					</CardContent>
 				</Card>
 
 				<div className="mt-3 text-xs text-muted-foreground text-right">
 					<p>{"Already have an account?"}</p>
-					<p>
-						Signin{" "}
-						<a
-							href="/signin"
-							className="text-primary hover:opacity-70 transition-colors"
-						>
-							here
-						</a>
-					</p>
+					<a
+						href="/signin"
+						className="text-primary hover:opacity-70 transition-colors"
+					>
+						{signInHere}
+					</a>
 				</div>
 			</div>
 		</div>

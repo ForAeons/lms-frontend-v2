@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
+import { IntlWrapper } from "@/components/language-provider";
 import {
 	autoCompleteUserThunk,
 	createUserThunk,
@@ -54,10 +55,19 @@ export const userSlice = createSlice({
 			state.users = state.users.map((u) =>
 				u.id === action.payload!.id ? action.payload! : u,
 			);
-			//TODO: LANG
-			toast.success("Success", {
-				description: "User created successfully",
+
+			const createUserMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const createUserDesc = IntlWrapper.intl.formatMessage(
+				{
+					id: "bErW7O",
+					defaultMessage: 'User "{username}" created successfully.',
+				},
+				{ username: action.payload.username },
+			);
+			toast.success(createUserMsg, { description: createUserDesc });
 		});
 
 		builder.addCase(updateUserThunk.fulfilled, (state, action) => {
@@ -65,27 +75,54 @@ export const userSlice = createSlice({
 			state.users = state.users.map((u) =>
 				u.id === action.payload!.id ? action.payload! : u,
 			);
-			//TODO: LANG
-			toast.success("Success", {
-				description: "User updated successfully",
+
+			const updateUserMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const updateUserDesc = IntlWrapper.intl.formatMessage(
+				{
+					id: "zjw/TA",
+					defaultMessage: 'User "{username}" updated successfully.',
+				},
+				{ username: action.payload.username },
+			);
+			toast.success(updateUserMsg, { description: updateUserDesc });
 		});
 
 		builder.addCase(deleteUserThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.users = state.users.filter((u) => u.id !== action.payload!.id);
-			//TODO: LANG
-			toast.success("Success", {
-				description: "User deleted successfully",
+
+			const deleteUserMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const deleteUserDesc = IntlWrapper.intl.formatMessage(
+				{
+					id: "Lnyzvj",
+					defaultMessage: 'User "{username}" deleted successfully.',
+				},
+				{ username: action.payload.username },
+			);
+			toast.success(deleteUserMsg, { description: deleteUserDesc });
 		});
 
 		builder.addCase(updateUserRoleThunk.fulfilled, (_, action) => {
 			if (!action.payload) return;
-			//TODO: LANG
-			toast.success("Success", {
-				description: `${action.payload.username}'s role updated successfully`,
+
+			const updateUserRoleMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const updateUserRoleDesc = IntlWrapper.intl.formatMessage(
+				{
+					id: "Ta8Q1S",
+					defaultMessage: 'User "{username}"\'s role updated successfully.',
+				},
+				{ username: action.payload.username },
+			);
+			toast.success(updateUserRoleMsg, { description: updateUserRoleDesc });
 		});
 	},
 });

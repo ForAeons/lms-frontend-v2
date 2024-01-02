@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,9 @@ export const SearchBar: React.FC<{ cq: CollectionQuery; baseUrl?: string }> = ({
 	cq,
 	baseUrl,
 }) => {
+	const intl = useIntl();
+	const search = intl.formatMessage({ id: "xmcVZ0", defaultMessage: "Search" });
+
 	const navigate = useNavigate();
 	const [searchValue, setSearchValue] = React.useState(
 		cq.filters.value as string,
@@ -25,10 +29,10 @@ export const SearchBar: React.FC<{ cq: CollectionQuery; baseUrl?: string }> = ({
 			<Input
 				className="bg-accent border-none shadow-sm hover:shadow-md transition-shadow"
 				type="string"
-				placeholder="Search"
+				placeholder={search}
 				value={searchValue}
 				onChange={(e) => setSearchValue(e.target.value)}
-			></Input>
+			/>
 			<Button
 				type="submit"
 				variant="ghost"

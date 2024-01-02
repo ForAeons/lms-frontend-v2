@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
+import { IntlWrapper } from "@/components/language-provider";
 import {
 	createLoanThunk,
 	deleteLoanThunk,
@@ -41,21 +42,37 @@ export const loanSlice = createSlice({
 		builder.addCase(createLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.loans.unshift(action.payload);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `${action.payload!.book.title} loaned to ${
-					action.payload!.user.username
-				} successfully.`,
+
+			const createLoanMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const createLoanDesc = IntlWrapper.intl.formatMessage(
+				{
+					id: "j9z272",
+					defaultMessage: '"{title}" loaned to {username} successfully.',
+				},
+				{
+					title: action.payload.book.title,
+					username: action.payload.user.username,
+				},
+			);
+			toast.success(createLoanMsg, { description: createLoanDesc });
 		});
 
 		builder.addCase(returnLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.loans = state.loans.filter((l) => l.id !== action.payload!.id);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `${action.payload!.book.title} returned successfully.`,
+
+			const returnLoanMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const returnLoanDesc = IntlWrapper.intl.formatMessage(
+				{ id: "MFmFWQ", defaultMessage: '"{title}" returned successfully.' },
+				{ title: action.payload.book.title },
+			);
+			toast.success(returnLoanMsg, { description: returnLoanDesc });
 		});
 
 		builder.addCase(renewLoanThunk.fulfilled, (state, action) => {
@@ -66,19 +83,31 @@ export const loanSlice = createSlice({
 				}
 				return l;
 			});
-			//TODO: LANG
-			toast.success("Success", {
-				description: `Book renewed successfully`,
+
+			const renewLoanMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const renewLoanDesc = IntlWrapper.intl.formatMessage(
+				{ id: "K3gz74", defaultMessage: '"{title}" renewed successfully.' },
+				{ title: action.payload.book.title },
+			);
+			toast.success(renewLoanMsg, { description: renewLoanDesc });
 		});
 
 		builder.addCase(deleteLoanThunk.fulfilled, (state, action) => {
 			if (!action.payload) return;
 			state.loans = state.loans.filter((l) => l.id !== action.payload!.id);
-			//TODO: LANG
-			toast.success("Success", {
-				description: `Loan deleted successfully`,
+
+			const deleteLoanMsg = IntlWrapper.intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
 			});
+			const deleteLoanDesc = IntlWrapper.intl.formatMessage({
+				id: "g4UNFA",
+				defaultMessage: "Loan deleted successfully.",
+			});
+			toast.success(deleteLoanMsg, { description: deleteLoanDesc });
 		});
 	},
 });
