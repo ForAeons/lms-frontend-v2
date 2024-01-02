@@ -9,15 +9,12 @@ interface FilterOption {
 	value: string;
 }
 
-interface SelectOption {
+interface SelectOption<V = string> {
 	label: string;
-	value: string;
+	value: V;
 }
 
-interface LanguageSelectOption {
-	label: string;
-	value: Locale;
-}
+type ExtraSelectOption<V = string, E = object> = SelectOption<V> & E;
 
 type BadgeVariant = "default" | "secondary" | "destructive" | "outline";
 

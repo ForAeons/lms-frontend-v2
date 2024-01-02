@@ -30,7 +30,7 @@ import {
 	MD_ICON_SIZE,
 	READ_AUDIT_LOG,
 } from "@/constants";
-import { LangSelectBtn } from ".";
+import { ColorSelectBtn, LangSelectBtn } from ".";
 
 export const NavContent: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -245,6 +245,8 @@ export const NavContent: React.FC = () => {
 			<div className="px-3 py-2">
 				<div className="space-y-1">
 					<LangSelectBtn />
+
+					<ColorSelectBtn />
 
 					<div className="w-full justify-start h-10 px-4 py-2 inline-flex items-center whitespace-nowrap">
 						<div className="relative flex">

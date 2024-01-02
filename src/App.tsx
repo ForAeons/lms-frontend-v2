@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/components/language-provider";
 import { Toaster } from "@/components/ui/sonner";
@@ -12,17 +12,17 @@ import { AppLogic } from "@/modules";
 
 export const App: React.FC = () => {
 	return (
-		<Provider store={store}>
-			<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-				<LanguageProvider defaultLocale="en" storageKey="vite-language">
+		<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+			<LanguageProvider defaultLocale="en" storageKey="vite-language">
+				<Provider store={store}>
 					<Toaster closeButton />
 					<AppLogic />
 					<Analytics />
 					<SpeedInsights />
 					<RouterProvider router={Router} />
-				</LanguageProvider>
-			</ThemeProvider>
-		</Provider>
+				</Provider>
+			</LanguageProvider>
+		</ThemeProvider>
 	);
 };
 

@@ -3,6 +3,7 @@ import { createIntl, createIntlCache, RawIntlProvider } from "react-intl";
 import { getMessage } from "@/util";
 
 const intlCache = createIntlCache();
+// I need Intl to be globally available, even inside redux stores
 export let Intl = createIntl({ locale: "en", messages: {} }, intlCache);
 
 const initialState: LanguageProviderState = {

@@ -24,7 +24,7 @@ export const LangSelectBtn: React.FC = () => {
 			<SelectContent>
 				{LOCALE_SELECT_OPTIONS.map((opt) => (
 					<SelectItem key={opt.value} value={opt.value}>
-						{opt.label}
+						<p className="text-sm font-medium">{opt.label}</p>
 					</SelectItem>
 				))}
 			</SelectContent>
