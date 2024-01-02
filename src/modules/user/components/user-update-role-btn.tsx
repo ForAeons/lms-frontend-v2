@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import { UserCogIcon } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -25,12 +26,18 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { LG_ICON_SIZE } from "@/constants";
 import { useMediaQuery } from "@/hooks";
-import { UserUpdateRoleForm } from ".";
 import { updateUserRoleThunk, useAppDispatch } from "@/store";
+import { LG_ICON_SIZE } from "@/constants";
+import { UserUpdateRoleForm } from ".";
 
 const Btn: React.FC = () => {
+	const intl = useIntl();
+	const changeRole = intl.formatMessage({
+		id: "9EZXpi",
+		defaultMessage: "Change role",
+	});
+
 	return (
 		<TooltipProvider>
 			<Tooltip>
@@ -43,7 +50,7 @@ const Btn: React.FC = () => {
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
-					<p>Change role</p>
+					<p>{changeRole}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
@@ -53,6 +60,20 @@ const Btn: React.FC = () => {
 export const UserUpdateRoleBtn: React.FC<{ user: User }> = ({ user }) => {
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 	const dispatch = useAppDispatch();
+
+	const intl = useIntl();
+	const updateUserRole = intl.formatMessage({
+		id: "izivwa",
+		defaultMessage: "Update user role",
+	});
+	const updateUserRoleDescription = intl.formatMessage({
+		id: "M+yZJ8",
+		defaultMessage: "Change the role of this user",
+	});
+	const updateAction = intl.formatMessage({
+		id: "BWpuKl",
+		defaultMessage: "Update",
+	});
 
 	const onSubmit = (values: RoleUpdate) => {
 		dispatch(updateUserRoleThunk({ roleID: values.role_id, userID: user.id }));
@@ -70,12 +91,12 @@ export const UserUpdateRoleBtn: React.FC<{ user: User }> = ({ user }) => {
 					<ScrollArea className="max-h-[70vh]">
 						<div className="p-6">
 							<DialogHeader>
-								<DialogTitle>Update user role</DialogTitle>
+								<DialogTitle>{updateUserRole}</DialogTitle>
 								<DialogDescription>
-									{"Change the role of this user"}
+									{updateUserRoleDescription}
 								</DialogDescription>
 							</DialogHeader>
-							<UserUpdateRoleForm onSubmit={onSubmit} action="Change" />
+							<UserUpdateRoleForm onSubmit={onSubmit} action={updateAction} />
 						</div>
 						<ScrollBar />
 					</ScrollArea>
@@ -93,11 +114,11 @@ export const UserUpdateRoleBtn: React.FC<{ user: User }> = ({ user }) => {
 			</DrawerTrigger>
 			<DrawerContent>
 				<DrawerHeader>
-					<DrawerTitle>Update user role</DrawerTitle>
-					<DrawerDescription>Change the role of this user</DrawerDescription>
+					<DrawerTitle>{updateUserRole}</DrawerTitle>
+					<DrawerDescription>{updateUserRoleDescription}</DrawerDescription>
 				</DrawerHeader>
 				<DrawerFooter>
-					<UserUpdateRoleForm onSubmit={onSubmit} action="Change" />
+					<UserUpdateRoleForm onSubmit={onSubmit} action={updateAction} />
 				</DrawerFooter>
 			</DrawerContent>
 		</Drawer>

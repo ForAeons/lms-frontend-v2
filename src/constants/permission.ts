@@ -28,19 +28,23 @@ export const PERMISSIONS = [
 export const AdminRole = {
 	id: 1,
 	label: "Admin",
+	intlID: "x61Ey6",
 };
 
 export const LibAdminRole = {
 	id: 2,
 	label: "Library Admin",
+	intlID: "vzfNEJ",
 };
 
 export const LibrarianRole = {
 	id: 3,
 	label: "Librarian",
+	intlID: "cyhrRT",
 };
 
 export const MemberRole = {
 	id: 4,
 	label: "Member",
+	intlID: "v8f8hL",
 };

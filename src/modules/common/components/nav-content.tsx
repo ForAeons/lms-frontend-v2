@@ -243,6 +243,10 @@ export const NavContent: React.FC = () => {
 			)}
 
 			<div className="px-3 py-2">
+				<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+					Settings
+				</h2>
+
 				<div className="space-y-1">
 					<LangSelectBtn />
 

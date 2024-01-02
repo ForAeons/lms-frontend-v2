@@ -12,7 +12,11 @@ import { AppLogic } from "@/modules";
 
 export const App: React.FC = () => {
 	return (
-		<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+		<ThemeProvider
+			defaultTheme="light"
+			defaultColor="slate"
+			storageKey="vite-ui-theme"
+		>
 			<LanguageProvider defaultLocale="en" storageKey="vite-language">
 				<Provider store={store}>
 					<Toaster closeButton />
