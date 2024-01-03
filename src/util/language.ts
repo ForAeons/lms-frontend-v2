@@ -12,14 +12,10 @@ export const getMessage = (locale: string): Record<string, string> => {
 			return km;
 		case "zh":
 			return zh;
-		case "ta":
-			return ta;
 		case "ko":
 			return ko;
 		case "ja":
 			return ja;
-		case "ms":
-			return ms;
 		default:
 			return en;
 	}

@@ -9,8 +9,7 @@ import { IntlShape } from "react-intl";
  * 3. Past an object with `defaultMessage` set to the default message desired WITHOUT `id`
  * 4. Ran npm run extract && npm run compile
  * 5. Search for the id of the that message in `en.json` file
- * 6. Copy the value of that id and paste it as the `defaultMessage` in the object
- * 6. Copy the value of that id and set it as the key of this translation function
+ * 6. Copy the value of that id and paste it as the `id` in the object
  *
  * @param intl The intl object from react-intl
  * @returns A list of translations
@@ -576,7 +575,10 @@ export const translations = (intl: IntlShape) => {
 			),
 		publishedDateLang: ({ date, lang }: { date: string; lang: string }) =>
 			intl.formatMessage(
-				{ id: "S1xMcR", defaultMessage: "Published: {date} | {lang}" },
+				{
+					id: "FO8+CU",
+					defaultMessage: "Published: {date} | Language: {lang}",
+				},
 				{ date, lang },
 			),
 		genreIs: ({ genre }: { genre: string }) =>
