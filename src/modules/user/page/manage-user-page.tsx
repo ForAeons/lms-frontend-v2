@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -15,13 +14,14 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
+import { useTranslations } from "@/components/language-provider";
 import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { CREATE_USER, USER_SORT_OPTIONS } from "@/constants";
 import { UserCreateBtn, UserPersonCard } from "..";
 
 export const ManageUserPage: React.FC = () => {
-	const intl = useIntl();
+	const translate = useTranslations();
 	const dispatch = useAppDispatch();
 	const userState = useAppSelector((state) => state.user);
 	const canCreateUser = useAppSelector((s) => CheckPermission(s, CREATE_USER));
@@ -44,10 +44,7 @@ export const ManageUserPage: React.FC = () => {
 
 	if (userState.isFetching) return <LoaderPage />;
 
-	const userTitle = intl.formatMessage({
-		id: "55dcAt",
-		defaultMessage: "Manage Users",
-	});
+	const userTitle = translate.manageUsers();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

@@ -1,15 +1,27 @@
 import React from "react";
 import { createIntl, createIntlCache, IntlProvider } from "react-intl";
 import { getMessage } from "@/util";
+import { translations, Translator } from "@/util/translation";
 
 const intlCache = createIntlCache();
+const temp = createIntl({ locale: "en", messages: {} }, intlCache);
+const tempTranslator = translations(temp);
+
 // I need Intl to be globally available, even inside redux stores
 export const IntlWrapper = {
-	intl: createIntl({ locale: "en", messages: {} }, intlCache),
+	intl: temp,
+	translator: tempTranslator,
 };
+
+interface LanguageProviderState {
+	locale: Locale;
+	translator: Translator;
+	setLocale: (Locale: Locale) => void;
+}
 
 const initialState: LanguageProviderState = {
 	locale: "en",
+	translator: tempTranslator,
 	setLocale: () => null,
 };
 
@@ -27,9 +39,12 @@ export function LanguageProvider({
 	);
 
 	const messages = getMessage(locale);
+	const intl = createIntl({ locale, messages }, intlCache);
+	const translator = React.useMemo(() => translations(intl), [locale]);
 
 	const value = {
-		locale: locale,
+		locale,
+		translator,
 		setLocale: (locale: Locale) => {
 			localStorage.setItem(storageKey, locale);
 			setLocale(locale);
@@ -37,7 +52,8 @@ export function LanguageProvider({
 	};
 
 	React.useEffect(() => {
-		IntlWrapper.intl = createIntl({ locale, messages }, intlCache);
+		IntlWrapper.intl = intl;
+		IntlWrapper.translator = translator;
 	}, [locale]);
 
 	return (
@@ -60,4 +76,9 @@ export const useLocale = () => {
 		throw new Error("useLocale must be used within a LangProvider");
 
 	return context;
+};
+
+export const useTranslations = () => {
+	const { translator } = useLocale();
+	return translator;
 };

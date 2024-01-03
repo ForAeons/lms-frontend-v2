@@ -1,39 +1,19 @@
-import { IntlShape } from "react-intl";
+import { format } from "date-fns";
+import { IntlWrapper } from "@/components/language-provider";
 
-export const loanToBadgeProps = (
-	loan: LoanDetailed,
-	intl: IntlShape,
-): BadgeProps[] => {
+export const loanToBadgeProps = (loan: LoanDetailed): BadgeProps[] => {
 	const dueDate = new Date(loan.due_date);
 	const currentDate = new Date();
 	const isOverdue = currentDate > dueDate;
 
-	const returned = intl.formatMessage({
-		id: "wm96Jx",
-		defaultMessage: "Returned",
+	const returned = IntlWrapper.translator.Returned();
+	const overdue = IntlWrapper.translator.Overdue();
+	const due = IntlWrapper.translator.dueDate({
+		date: format(dueDate, "P"),
 	});
-	const overdue = intl.formatMessage({
-		id: "M0vCGv",
-		defaultMessage: "Overdue",
+	const loanedTo = IntlWrapper.translator.loanedTo({
+		username: loan.user.username,
 	});
-	const due = intl.formatMessage(
-		{
-			id: "5vDqi+",
-			defaultMessage: "Due {date}",
-		},
-		{
-			date: dueDate.toLocaleDateString(),
-		},
-	);
-	const loanedTo = intl.formatMessage(
-		{
-			id: "GDObmQ",
-			defaultMessage: "Loaned to {username}",
-		},
-		{
-			username: loan.user.username,
-		},
-	);
 
 	const v =
 		loan.status === "returned"

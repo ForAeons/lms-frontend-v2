@@ -1,36 +1,24 @@
-import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
-import { IntlShape } from "react-intl";
+import { ColumnDef } from "@tanstack/react-table";
+import { IntlWrapper } from "@/components/language-provider";
 
-export const getAuditLogColumns = (intl: IntlShape): ColumnDef<AuditLog>[] => {
+export const getTranslatedColumns = (): ColumnDef<AuditLog>[] => {
 	return [
 		{
 			accessorKey: "user_id",
-			header: intl.formatMessage({
-				id: "55vTH+",
-				defaultMessage: "User ID",
-			}),
+			header: IntlWrapper.translator.userID(),
 		},
 		{
 			accessorKey: "user.username",
-			header: intl.formatMessage({
-				id: "JCIgkj",
-				defaultMessage: "Username",
-			}),
+			header: IntlWrapper.translator.Username(),
 		},
 		{
 			accessorKey: "action",
-			header: intl.formatMessage({
-				id: "QlsDcr",
-				defaultMessage: "Action",
-			}),
+			header: IntlWrapper.translator.Action(),
 		},
 		{
 			accessorKey: "date",
-			header: intl.formatMessage({
-				id: "P7PLVj",
-				defaultMessage: "Date",
-			}),
+			header: IntlWrapper.translator.Date(),
 			cell: ({ row }) => {
 				return format(row.getValue("date"), "P");
 			},

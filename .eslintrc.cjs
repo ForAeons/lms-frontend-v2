@@ -21,6 +21,7 @@ module.exports = {
 		"plugin:react-hooks/recommended",
 	],
 	rules: {
+		"@typescript-eslint/dot-notation": "off",
 		"@typescript-eslint/method-signature-style": "warn",
 		"@typescript-eslint/no-unused-vars": "warn",
 		"react-refresh/only-export-components": "warn",

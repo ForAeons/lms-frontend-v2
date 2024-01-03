@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { PencilIcon } from "lucide-react";
 import {
 	Tooltip,
@@ -9,12 +8,13 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
+import { useTranslations } from "@/components/language-provider";
 
 export const EditBtn: React.FC<{ handler?: NullaryHandler }> = ({
 	handler,
 }) => {
-	const intl = useIntl();
-	const edit = intl.formatMessage({ id: "wEQDC6", defaultMessage: "Edit" });
+	const translate = useTranslations();
+	const edit = translate.Edit();
 	return (
 		<TooltipProvider>
 			<Tooltip>

@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import {
 	Select,
@@ -9,18 +9,15 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { changeSort } from "@/util";
+import { useTranslations } from "@/components/language-provider";
 
 export const SortSelect: React.FC<{
 	cq: CollectionQuery;
 	opt: SortOption[];
 }> = ({ cq, opt }) => {
-	const intl = useIntl();
-	const sortBy = intl.formatMessage({
-		id: "hDI+JM",
-		defaultMessage: "Sort by",
-	});
-
 	const navigate = useNavigate();
+	const translate = useTranslations();
+	const sortBy = translate.sortBy();
 	return (
 		<div className="flex items-center space-x-2">
 			<span className="text-sm text-muted-foreground whitespace-nowrap">

@@ -1,6 +1,6 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -30,67 +30,28 @@ import {
 } from "@/components/ui/select";
 import { BookFormSchema } from "@/schema";
 import { LANGUAGE_SELECT_OPTIONS } from "@/constants";
-import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "@/components/language-provider";
 
 export const BookForm: React.FC<{
 	defaultValues: z.infer<typeof BookFormSchema>;
 	onSubmit: UnaryHandler<z.infer<typeof BookFormSchema>>;
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
-	const intl = useIntl();
-	const volumeTitle = intl.formatMessage({
-		id: "0cfEAN",
-		defaultMessage: "Volume Title",
-	});
-	const volumeTitlePlaceholder = intl.formatMessage({
-		id: "aD09Do",
-		defaultMessage: "The Great Gatsby",
-	});
-	const volumeAuthor = intl.formatMessage({
-		id: "3kESYm",
-		defaultMessage: "Volume Author",
-	});
-	const volumeAuthorPlaceholder = intl.formatMessage({
-		id: "7iInTF",
-		defaultMessage: "F. Scott Fitzgerald",
-	});
-	const publisher = intl.formatMessage({
-		id: "Kdc67U",
-		defaultMessage: "Publisher",
-	});
-	const publisherPlaceholder = intl.formatMessage({
-		id: "20IX1q",
-		defaultMessage: "Alma Classics",
-	});
-	const publicationDate = intl.formatMessage({
-		id: "oR7LVU",
-		defaultMessage: "Publication Date",
-	});
-	const pickADate = intl.formatMessage({
-		id: "idkGk/",
-		defaultMessage: "Pick a date",
-	});
-	const genre = intl.formatMessage({
-		id: "O70sde",
-		defaultMessage: "Genre",
-	});
-	const genrePlaceholder = intl.formatMessage({
-		id: "a/NIGu",
-		defaultMessage: "Tragedy",
-	});
-	const language = intl.formatMessage({
-		id: "y1Z3or",
-		defaultMessage: "Language",
-	});
-	const selectLanguage = intl.formatMessage({
-		id: "eVlu1R",
-		defaultMessage: "Select language",
-	});
-	const isbn = intl.formatMessage({
-		id: "YXUQIi",
-		defaultMessage: "ISBN",
-	});
+	const translate = useTranslations();
+	const volumeTitle = translate.volumeTitle();
+	const volumeTitlePlaceholder = translate.volumeTitlePlaceholder();
+	const volumeAuthor = translate.volumeAuthor();
+	const volumeAuthorPlaceholder = translate.volumeAuthorPlaceholder();
+	const publisher = translate.Publisher();
+	const publisherPlaceholder = translate.publisherPlaceholder();
+	const publicationDate = translate.publicationDate();
+	const pickADate = translate.pickADate();
+	const genre = translate.Genre();
+	const genrePlaceholder = translate.genrePlaceholder();
+	const language = translate.Language();
+	const selectLanguage = translate.selectLanguage();
+	const isbn = translate.ISBN();
 
 	const form = useForm<z.infer<typeof BookFormSchema>>({
 		resolver: zodResolver(BookFormSchema),

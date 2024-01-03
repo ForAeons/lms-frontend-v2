@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import {
 	ChevronLeftIcon,
@@ -23,6 +22,7 @@ import {
 	previousPage,
 } from "@/util";
 import { MD_ICON_SIZE, CQ_LIMITS } from "@/constants";
+import { useTranslations } from "@/components/language-provider";
 
 export const PaginationBar: React.FC<{
 	cq: CollectionQuery;
@@ -35,15 +35,9 @@ export const PaginationBar: React.FC<{
 	if (isNaN(currentPage)) currentPage = 1;
 	if (isNaN(totalPages)) totalPages = 1;
 
-	const intl = useIntl();
-	const itemsPerPage = intl.formatMessage({
-		id: "svHvmD",
-		defaultMessage: "Items per page",
-	});
-	const pageOf = intl.formatMessage(
-		{ id: "eilhZ9", defaultMessage: "Page {currentPage} of {totalPages}" },
-		{ currentPage, totalPages },
-	);
+	const translate = useTranslations();
+	const itemsPerPage = translate.itemsPerPage();
+	const pageOf = translate.pageXofY({ currentPage, totalPages });
 
 	return (
 		<div className="col-span-full flex flex-wrap justify-around items-center py-3 gap-3">

@@ -8,17 +8,14 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
-import { useIntl } from "react-intl";
+import { useTranslations } from "@/components/language-provider";
 
 export const CreateBtn: React.FC<{
 	handler?: NullaryHandler;
 	subject: string;
 }> = ({ handler, subject }) => {
-	const intl = useIntl();
-	const addNew = intl.formatMessage(
-		{ id: "HNHwk3", defaultMessage: "Add new {subject}" },
-		{ subject },
-	);
+	const translate = useTranslations();
+	const addNew = translate.addNew({ subject });
 
 	return (
 		<TooltipProvider>

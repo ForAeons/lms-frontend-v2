@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import * as z from "zod";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -13,27 +12,15 @@ import {
 import { CreateBtn } from "@/modules";
 import { createBookThunk, useAppDispatch } from "@/store";
 import { BookFormSchema } from "@/schema";
+import { useTranslations } from "@/components/language-provider";
 import { BookForm } from ".";
 
 export const BookCreateBtn: React.FC = () => {
-	const intl = useIntl();
-	const bookText = intl.formatMessage({
-		id: "kmmXht",
-		defaultMessage: "book",
-	});
-	const createBook = intl.formatMessage({
-		id: "tzgO/H",
-		defaultMessage: "Add a New Book",
-	});
-	const createBookDescription = intl.formatMessage({
-		id: "bTUCkl",
-		defaultMessage:
-			"Add the details of the book here. Click upload when you're done.",
-	});
-	const createAction = intl.formatMessage({
-		id: "VzzYJk",
-		defaultMessage: "Create",
-	});
+	const translate = useTranslations();
+	const bookText = translate.book();
+	const createBook = translate.addNewBook();
+	const createBookDesc = translate.addBookDesc();
+	const createAction = translate.Create();
 
 	const defaultValues = {
 		title: "",
@@ -74,7 +61,7 @@ export const BookCreateBtn: React.FC = () => {
 					<div className="p-6">
 						<DialogHeader>
 							<DialogTitle>{createBook}</DialogTitle>
-							<DialogDescription>{createBookDescription}</DialogDescription>
+							<DialogDescription>{createBookDesc}</DialogDescription>
 						</DialogHeader>
 						<BookForm
 							defaultValues={defaultValues}

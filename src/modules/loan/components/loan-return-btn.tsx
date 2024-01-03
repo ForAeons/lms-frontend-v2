@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { Undo2Icon } from "lucide-react";
 import {
 	AlertDialog,
@@ -21,29 +20,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { returnLoanThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
+import { useTranslations } from "@/components/language-provider";
 
 export const LoanReturnBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
-	const intl = useIntl();
-	const returnLabel = intl.formatMessage({
-		id: "0WJNP/",
-		defaultMessage: "Return",
-	});
-	const confirmation = intl.formatMessage({
-		id: "Pswssl",
-		defaultMessage: "Confirmation",
-	});
-	const confirmationMessage = intl.formatMessage({
-		id: "IfPris",
-		defaultMessage: `Do you wish to return the book?`,
-	});
-	const cancelAction = intl.formatMessage({
-		id: "47FYwb",
-		defaultMessage: "Cancel",
-	});
-	const continueAction = intl.formatMessage({
-		id: "acrOoz",
-		defaultMessage: "Continue",
-	});
+	const translate = useTranslations();
+	const returnLabel = translate.Return();
+	const confirmation = translate.Confirmation();
+	const confirmationMessage = translate.returnBookDesc();
+	const cancelAction = translate.Cancel();
+	const continueAction = translate.Continue();
 
 	const dispatch = useAppDispatch();
 	const handleReturn = () => dispatch(returnLoanThunk({ loanId: loan.id }));

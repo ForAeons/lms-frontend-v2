@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import {
 	Dialog,
 	DialogContent,
@@ -17,24 +16,16 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useTranslations } from "@/components/language-provider";
 import { CreateBtn } from "@/modules";
 import { useMediaQuery } from "@/hooks";
 import { LoanCreateForm } from ".";
 
 export const LoanCreateBtn: React.FC = () => {
-	const intl = useIntl();
-	const loan = intl.formatMessage({
-		id: "RwzIKM",
-		defaultMessage: "loan",
-	});
-	const createLoan = intl.formatMessage({
-		id: "3qVd6h",
-		defaultMessage: "Create loan",
-	});
-	const createLoanDescription = intl.formatMessage({
-		id: "SbUqp8",
-		defaultMessage: "Select the user and book. Click upload when you're done.",
-	});
+	const translate = useTranslations();
+	const loan = translate.loan();
+	const createLoan = translate.createLoan();
+	const createLoanDescription = translate.selectUserAndBook();
 
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 

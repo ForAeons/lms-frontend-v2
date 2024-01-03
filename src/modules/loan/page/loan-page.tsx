@@ -1,16 +1,13 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useAppSelector } from "@/store";
 import { BookCard } from "@/modules/book";
+import { useTranslations } from "@/components/language-provider";
 import { LoanRenewBtn, LoanReturnBtn, loanToBadgeProps } from "..";
 
 export const LoanPage: React.FC = () => {
-	const intl = useIntl();
-	const myLoans = intl.formatMessage({
-		id: "InakXV",
-		defaultMessage: "My Loans",
-	});
+	const translate = useTranslations();
+	const myLoans = translate.myLoans();
 
 	const loans = useAppSelector((state) => state.app.loans);
 	const user = useAppSelector((state) => state.app.user);
@@ -26,7 +23,7 @@ export const LoanPage: React.FC = () => {
 					<BookCard
 						key={l.id}
 						book={l.book}
-						badges={loanToBadgeProps({ ...l, user: user! }, intl)}
+						badges={loanToBadgeProps({ ...l, user: user! })}
 					>
 						{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
 						{l.status === "borrowed" && <LoanRenewBtn loan={l} />}

@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { BookCopyIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -21,29 +20,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { renewLoanThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
+import { useTranslations } from "@/components/language-provider";
 
 export const LoanRenewBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
-	const intl = useIntl();
-	const renew = intl.formatMessage({
-		id: "nWQFic",
-		defaultMessage: "Renew",
-	});
-	const confirmation = intl.formatMessage({
-		id: "Pswssl",
-		defaultMessage: "Confirmation",
-	});
-	const confirmationMessage = intl.formatMessage({
-		id: "bva7X2",
-		defaultMessage: `Do you wish to renew the loan?`,
-	});
-	const cancelAction = intl.formatMessage({
-		id: "47FYwb",
-		defaultMessage: "Cancel",
-	});
-	const continueAction = intl.formatMessage({
-		id: "acrOoz",
-		defaultMessage: "Continue",
-	});
+	const translate = useTranslations();
+	const renew = translate.Renew();
+	const confirmation = translate.Confirmation();
+	const confirmationMessage = translate.renewLoanDesc();
+	const cancelAction = translate.Cancel();
+	const continueAction = translate.Continue();
 
 	const dispatch = useAppDispatch();
 	const handleRenew = () => dispatch(renewLoanThunk({ loanId: loan.id }));

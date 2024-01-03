@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -16,12 +15,13 @@ import {
 	useAppSelector,
 } from "@/store";
 import { useQueryParams } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { CREATE_AUDIT_LOG, LOG_SORT_OPTIONS } from "@/constants";
-import { DataTable, LogCreateBtn, getAuditLogColumns } from "..";
+import { DataTable, LogCreateBtn, getTranslatedColumns } from "..";
 
 export const AuditLogPage: React.FC = () => {
-	const intl = useIntl();
+	const translate = useTranslations();
 	const dispatch = useAppDispatch();
 	const auditlogState = useAppSelector((s) => s.log);
 	const canCreateAuditLog = useAppSelector((s) =>
@@ -46,10 +46,7 @@ export const AuditLogPage: React.FC = () => {
 
 	if (auditlogState.isFetching) return <LoaderPage />;
 
-	const auditLogs = intl.formatMessage({
-		id: "t/TuwD",
-		defaultMessage: "Audit Logs",
-	});
+	const auditLogs = translate.AuditLogs();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
@@ -70,7 +67,7 @@ export const AuditLogPage: React.FC = () => {
 
 				<div className="px-3">
 					<DataTable
-						columns={getAuditLogColumns(intl)}
+						columns={getTranslatedColumns()}
 						data={auditlogState.logs}
 					/>
 				</div>

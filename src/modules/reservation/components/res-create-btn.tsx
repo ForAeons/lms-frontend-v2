@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import {
 	Dialog,
 	DialogContent,
@@ -17,24 +16,16 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useTranslations } from "@/components/language-provider";
 import { CreateBtn } from "@/modules";
 import { useMediaQuery } from "@/hooks";
 import { ResCreateForm } from ".";
 
 export const ResCreateDialog: React.FC = () => {
-	const intl = useIntl();
-	const reservation = intl.formatMessage({
-		id: "DjAt8v",
-		defaultMessage: "reservation",
-	});
-	const createRes = intl.formatMessage({
-		id: "exNENh",
-		defaultMessage: "Create reservation",
-	});
-	const createResDescription = intl.formatMessage({
-		id: "SbUqp8",
-		defaultMessage: "Select the user and book. Click upload when you're done.",
-	});
+	const translate = useTranslations();
+	const reservation = translate.reservation();
+	const createRes = translate.createRes();
+	const createResDescription = translate.selectUserAndBook();
 
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 

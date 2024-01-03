@@ -1,40 +1,20 @@
-import { IntlShape } from "react-intl";
+import { format } from "date-fns";
+import { IntlWrapper } from "@/components/language-provider";
 
-export const resToBadgeProps = (
-	r: ReservationDetailed,
-	intl: IntlShape,
-): BadgeProps[] => {
+export const resToBadgeProps = (r: ReservationDetailed): BadgeProps[] => {
 	// Check if the loan is overdue
 	const resDate = new Date(r.reservation_date);
 	const currentDate = new Date();
 	const isExpired = currentDate > resDate;
 
-	const checkedOut = intl.formatMessage({
-		id: "F3EWgg",
-		defaultMessage: "Checked out",
+	const checkedOut = IntlWrapper.translator.checkedOut();
+	const expired = IntlWrapper.translator.expired();
+	const reservedUntil = IntlWrapper.translator.reservedUntil({
+		date: format(resDate, "P"),
 	});
-	const expired = intl.formatMessage({
-		id: "RahCRH",
-		defaultMessage: "Expired",
+	const reservedBy = IntlWrapper.translator.reservedBy({
+		username: r.user.username,
 	});
-	const reservedUntil = intl.formatMessage(
-		{
-			id: "ashuNd",
-			defaultMessage: "Reserved until {date}",
-		},
-		{
-			date: resDate.toLocaleDateString(),
-		},
-	);
-	const reservedBy = intl.formatMessage(
-		{
-			id: "st8FyU",
-			defaultMessage: "Reserved by {username}",
-		},
-		{
-			username: r.user.username,
-		},
-	);
 
 	const v =
 		r.status === "fulfilled"

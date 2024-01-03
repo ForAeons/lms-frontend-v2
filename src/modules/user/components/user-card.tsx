@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { DeleteBtn } from "@/modules";
 import {
@@ -9,12 +8,13 @@ import {
 	useAppSelector,
 } from "@/store";
 import { DELETE_USER, UPDATE_USER, UPDATE_USER_ROLE } from "@/constants";
+import { useTranslations } from "@/components/language-provider";
 import { RandomAvatar, UserEditBtn, UserUpdateRoleBtn } from ".";
 
 export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 	userPerson,
 }) => {
-	const intl = useIntl();
+	const translate = useTranslations();
 	const dispatch = useAppDispatch();
 	const canUpdateUser = useAppSelector((s) => CheckPermission(s, UPDATE_USER));
 	const canUpdateUserRole = useAppSelector((s) =>
@@ -24,7 +24,7 @@ export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 
 	const handleDelete = () => dispatch(deleteUserThunk(userPerson.id));
 
-	const userText = intl.formatMessage({ id: "sUNhQE", defaultMessage: "user" });
+	const userText = translate.user();
 
 	return (
 		<Card className="relative flex flex-col lg:flex-row hover:shadow-md transition-shadow pr-10">

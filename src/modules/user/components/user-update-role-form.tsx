@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -20,6 +20,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { useTranslations } from "@/components/language-provider";
 import { UserRoleSchema } from "@/schema";
 import { ROLE_SELECT_OPTIONS } from "@/constants";
 
@@ -27,15 +28,9 @@ export const UserUpdateRoleForm: React.FC<{
 	onSubmit: UnaryHandler<z.infer<typeof UserRoleSchema>>;
 	action: string;
 }> = ({ onSubmit, action }) => {
-	const intl = useIntl();
-	const roleSelection = intl.formatMessage({
-		id: "XM5uwK",
-		defaultMessage: "Role selection",
-	});
-	const selectRolePlaceholder = intl.formatMessage({
-		id: "iaCoRs",
-		defaultMessage: "Select role",
-	});
+	const translate = useTranslations();
+	const roleSelection = translate.roleSelection();
+	const selectRolePlaceholder = translate.selectRolePlaceholder();
 
 	const form = useForm<z.infer<typeof UserRoleSchema>>({
 		resolver: zodResolver(UserRoleSchema),

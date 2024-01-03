@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import * as z from "zod";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -13,25 +12,14 @@ import {
 import { EditBtn } from "@/modules";
 import { updateBookThunk, useAppDispatch } from "@/store";
 import { BookFormSchema } from "@/schema";
+import { useTranslations } from "@/components/language-provider";
 import { BookForm } from ".";
 
-export const BookEditBtn: React.FC<{
-	book: Book;
-}> = ({ book }) => {
-	const intl = useIntl();
-	const updateBookDetails = intl.formatMessage({
-		id: "ljmOHb",
-		defaultMessage: "Update Book Details",
-	});
-	const updateBookDescription = intl.formatMessage({
-		id: "r/k1xh",
-		defaultMessage:
-			"Make changes to the details of this book here. Click save when you're done.",
-	});
-	const saveAction = intl.formatMessage({
-		id: "jvo0vs",
-		defaultMessage: "Save",
-	});
+export const BookEditBtn: React.FC<{ book: Book }> = ({ book }) => {
+	const translate = useTranslations();
+	const updateBookDetails = translate.updateBookDetails();
+	const updateBookDescription = translate.updateBookDesc();
+	const saveAction = translate.Save();
 
 	const defaultValues = {
 		title: book.title,

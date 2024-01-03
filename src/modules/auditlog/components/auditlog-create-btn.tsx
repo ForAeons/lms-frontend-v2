@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import * as z from "zod";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -22,26 +21,15 @@ import { CreateBtn } from "@/modules";
 import { createLogThunk, useAppDispatch } from "@/store";
 import { AuditlogFormSchema } from "@/schema";
 import { useMediaQuery } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { AuditLogForm } from "./auditlog-form";
 
 export const LogCreateBtn: React.FC = () => {
-	const intl = useIntl();
-	const auditLogText = intl.formatMessage({
-		id: "btC50m",
-		defaultMessage: "audit log",
-	});
-	const logAnEvent = intl.formatMessage({
-		id: "ttBFjN",
-		defaultMessage: "Log an event",
-	});
-	const logAnEventDescription = intl.formatMessage({
-		id: "xDDxzU",
-		defaultMessage: "Describe the event here. Click upload when you're done.",
-	});
-	const createAction = intl.formatMessage({
-		id: "VzzYJk",
-		defaultMessage: "Create",
-	});
+	const translate = useTranslations();
+	const auditLogText = translate.auditLog();
+	const logAnEvent = translate.logAnEvent();
+	const logAnEventDescription = translate.logEventDesc();
+	const createAction = translate.Create();
 
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 	const defaultValues = { action: "", date: new Date() };

@@ -1,14 +1,11 @@
 import React from "react";
-import { useIntl } from "react-intl";
-import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
+import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "@/components/language-provider";
 
 export const LoanBadge: React.FC<{ loan: Loan }> = ({ loan }) => {
-	const intl = useIntl();
-	const returned = intl.formatMessage({
-		id: "wm96Jx",
-		defaultMessage: "Returned",
-	});
+	const translate = useTranslations();
+	const returned = translate.Returned();
 
 	if (loan.status === "returned")
 		return (
@@ -22,13 +19,9 @@ export const LoanBadge: React.FC<{ loan: Loan }> = ({ loan }) => {
 	const currentDate = new Date();
 	const isOverdue = currentDate > dueDate;
 
-	const due = intl.formatMessage(
-		{
-			id: "5vDqi+",
-			defaultMessage: "Due {date}",
-		},
-		{ date: format(dueDate, "P") },
-	);
+	const due = translate.dueDate({
+		date: format(dueDate, "P"),
+	});
 
 	if (!isOverdue)
 		return (
@@ -37,10 +30,7 @@ export const LoanBadge: React.FC<{ loan: Loan }> = ({ loan }) => {
 			</Badge>
 		);
 
-	const overdue = intl.formatMessage({
-		id: "M0vCGv",
-		defaultMessage: "Overdue",
-	});
+	const overdue = translate.Overdue();
 
 	return (
 		<Badge variant="destructive" className="w-fit">

@@ -1,18 +1,18 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cqToUrl } from "@/util";
 import { LG_ICON_SIZE } from "@/constants";
+import { useTranslations } from "@/components/language-provider";
 
 export const SearchBar: React.FC<{ cq: CollectionQuery; baseUrl?: string }> = ({
 	cq,
 	baseUrl,
 }) => {
-	const intl = useIntl();
-	const search = intl.formatMessage({ id: "xmcVZ0", defaultMessage: "Search" });
+	const translate = useTranslations();
+	const search = translate.Search();
 
 	const navigate = useNavigate();
 	const [searchValue, setSearchValue] = React.useState(

@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { LoaderPage, NavBackBtn } from "@/modules";
@@ -7,7 +6,6 @@ import { getBookThunk, useAppDispatch, useAppSelector } from "@/store";
 import { BookCard, BookLoanBtn, BookReserveBtn, bookToBadgeProps } from "..";
 
 export const BookPage: React.FC = () => {
-	const intl = useIntl();
 	const dispatch = useAppDispatch();
 	const bookState = useAppSelector((s) => s.book);
 	const book = useAppSelector((s) => s.book.book);
@@ -29,7 +27,7 @@ export const BookPage: React.FC = () => {
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full flex flex-col gap-3 px-3">
-				<BookCard book={book} badges={bookToBadgeProps(book, intl)}>
+				<BookCard book={book} badges={bookToBadgeProps(book)}>
 					<NavBackBtn />
 					{availCopy && <BookLoanBtn book={book} copyID={availCopy.id} />}
 					{availCopy && <BookReserveBtn book={book} copyID={availCopy.id} />}

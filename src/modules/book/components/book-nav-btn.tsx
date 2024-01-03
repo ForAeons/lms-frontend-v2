@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { ArrowUpRightIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -10,16 +9,15 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
+import { useTranslations } from "@/components/language-provider";
 
 export const BookNavBtn: React.FC<{ book: Book; url?: string }> = ({
 	book,
 	url,
 }) => {
-	const intl = useIntl();
-	const openInOtherTab = intl.formatMessage({
-		id: "l/U6iS",
-		defaultMessage: "Open in other tab",
-	});
+	const translate = useTranslations();
+	const openInOtherTab = translate.openInOtherTab();
+
 	const navigate = useNavigate();
 	return (
 		<TooltipProvider>
