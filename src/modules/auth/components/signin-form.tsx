@@ -20,14 +20,14 @@ import { useTranslations } from "@/hooks";
 
 export const SigninForm: React.FC = () => {
 	const translate = useTranslations();
-	const username = translate["JCIgkj"]();
-	const yourUsername = translate["k9XuYY"]();
-	const usernameDescription = translate["aohCSR"]();
-	const password = translate["5sg7KC"]();
-	const yourPassword = translate["/aWpsO"]();
-	const passwordDescription = translate["xsQkIU"]();
-	const submitAction = translate["Ub+AGc"]();
-	const homePage = translate["xHJnaY"]();
+	const username = translate["Username"]();
+	const yourUsername = translate["yourUsername"]();
+	const usernameDescription = translate["usernameDesc"]();
+	const password = translate["Password"]();
+	const yourPassword = translate["yourPassword"]();
+	const passwordDescription = translate["passwordDesc"]();
+	const submitAction = translate["signIn"]();
+	const homePage = translate["homePage"]();
 
 	const form = useForm<z.infer<typeof userSignInSchema>>({
 		resolver: zodResolver(userSignInSchema),

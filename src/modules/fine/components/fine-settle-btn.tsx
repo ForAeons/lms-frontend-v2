@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { BanknoteIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -21,30 +20,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { settleFineThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
+import { useTranslations } from "@/hooks";
 
 export const FineSettleBtn: React.FC<{ fine: Fine }> = ({ fine }) => {
-	const intl = useIntl();
-	const settle = intl.formatMessage({
-		id: "mPKS81",
-		defaultMessage: "Settle",
-	});
-	const confirmation = intl.formatMessage({
-		id: "Pswssl",
-		defaultMessage: "Confirmation",
-	});
-	const confirmationMessage = intl.formatMessage({
-		id: "4rGuOk",
-		defaultMessage: `Do you wish to settle the fine?`,
-	});
-	const cancelAction = intl.formatMessage({
-		id: "47FYwb",
-		defaultMessage: "Cancel",
-	});
-	const continueAction = intl.formatMessage({
-		id: "acrOoz",
-		defaultMessage: "Continue",
-	});
-
+	const translate = useTranslations();
+	const settle = translate["Settle"]();
+	const confirmation = translate["Confirmation"]();
+	const confirmationMessage = translate["settleFineDesc"]();
+	const cancelAction = translate["Cancel"]();
+	const continueAction = translate["Continue"]();
 	const dispatch = useAppDispatch();
 	const handleRenew = () => dispatch(settleFineThunk({ fineId: fine.id }));
 	return (

@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -38,45 +37,19 @@ import {
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BookUserFormSchema } from "@/schema";
+import { useTranslations } from "@/hooks";
 
 export const ResCreateForm: React.FC = () => {
-	const intl = useIntl();
-	const user = intl.formatMessage({
-		id: "EwRIOm",
-		defaultMessage: "User",
-	});
-	const searchForUser = intl.formatMessage({
-		id: "n6nlj0",
-		defaultMessage: "Search for user",
-	});
-	const noUserFound = intl.formatMessage({
-		id: "MD5B2N",
-		defaultMessage: "No user found",
-	});
-	const startTypingUser = intl.formatMessage({
-		id: "ETcvzE",
-		defaultMessage: "Start typing something to search for users.",
-	});
-	const book = intl.formatMessage({
-		id: "bv2X6I",
-		defaultMessage: "Book",
-	});
-	const searchForBook = intl.formatMessage({
-		id: "sAr2D+",
-		defaultMessage: "Search for book",
-	});
-	const createAction = intl.formatMessage({
-		id: "VzzYJk",
-		defaultMessage: "Create",
-	});
-	const noBookFound = intl.formatMessage({
-		id: "nMtlAn",
-		defaultMessage: "No book found",
-	});
-	const startTypingBook = intl.formatMessage({
-		id: "/kO/po",
-		defaultMessage: "Start typing something to search for books.",
-	});
+	const translate = useTranslations();
+	const user = translate["User"]();
+	const searchForUser = translate["searchForUser"]();
+	const noUserFound = translate["noUserFound"]();
+	const startTypingUser = translate["startTypingForUser"]();
+	const book = translate["Book"]();
+	const searchForBook = translate["searchForBook"]();
+	const createAction = translate["Create"]();
+	const noBookFound = translate["noBookFound"]();
+	const startTypingBook = translate["startTypingForBook"]();
 
 	const dispatch = useAppDispatch();
 	const userAutoComp = useAppSelector((state) => state.user.autocomplete);

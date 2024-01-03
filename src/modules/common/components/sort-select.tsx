@@ -17,7 +17,7 @@ export const SortSelect: React.FC<{
 }> = ({ cq, opt }) => {
 	const navigate = useNavigate();
 	const translate = useTranslations();
-	const sortBy = translate["hDI+JM"]();
+	const sortBy = translate["sortBy"]();
 	return (
 		<div className="flex items-center space-x-2">
 			<span className="text-sm text-muted-foreground whitespace-nowrap">

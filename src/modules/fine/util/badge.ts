@@ -1,27 +1,13 @@
-import { IntlShape } from "react-intl";
+import { IntlWrapper } from "@/components/language-provider";
 
-export const fineToBadgeProps = (
-	fine: FineDetailed,
-	intl: IntlShape,
-): BadgeProps[] => {
-	const outstandingAmount = intl.formatMessage(
-		{
-			id: "vyODZ+",
-			defaultMessage: "Outstanding | amount - {amount}",
-		},
-		{ amount: fine.amount },
-	);
-	const paid = intl.formatMessage({
-		id: "u/vOPu",
-		defaultMessage: "Paid",
+export const fineToBadgeProps = (fine: FineDetailed): BadgeProps[] => {
+	const outstandingAmount = IntlWrapper.translator["outstandingAmount"]({
+		amount: String(fine.amount),
 	});
-	const finedTo = intl.formatMessage(
-		{
-			id: "MhKGQF",
-			defaultMessage: "Fined to {username}",
-		},
-		{ username: fine.user.username },
-	);
+	const paid = IntlWrapper.translator["Paid"]();
+	const finedTo = IntlWrapper.translator["finedTo"]({
+		username: fine.user.username,
+	});
 
 	const v = fine.status === "outstanding" ? "destructive" : "secondary";
 	const t = fine.status === "outstanding" ? outstandingAmount : paid;

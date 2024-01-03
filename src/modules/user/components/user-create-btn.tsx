@@ -1,6 +1,5 @@
 import React from "react";
 import * as z from "zod";
-import { useIntl } from "react-intl";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
 	Dialog,
@@ -13,27 +12,15 @@ import {
 import { useAppDispatch, createUserThunk } from "@/store";
 import { CreateBtn } from "@/modules";
 import { UserFormSchema } from "@/schema";
+import { useTranslations } from "@/hooks";
 import { UserForm } from ".";
 
 export const UserCreateBtn: React.FC = () => {
-	const intl = useIntl();
-	const user = intl.formatMessage({
-		id: "sUNhQE",
-		defaultMessage: "user",
-	});
-	const addNewUser = intl.formatMessage({
-		id: "j3duXc",
-		defaultMessage: "Add New User",
-	});
-	const createAction = intl.formatMessage({
-		id: "VzzYJk",
-		defaultMessage: "Create",
-	});
-	const createUserDescription = intl.formatMessage({
-		id: "ERkFf1",
-		defaultMessage:
-			"Add the new user's profile details here. Click save when you're done.",
-	});
+	const translate = useTranslations();
+	const user = translate.user();
+	const addNewUser = translate.addNewUser();
+	const createAction = translate["Create"]();
+	const createUserDescription = translate.createUserDesc();
 
 	const defaultValues = {
 		username: "",

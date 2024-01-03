@@ -7,12 +7,12 @@ export const bookToBadgeProps = (book: BookDetailed): BadgeProps[] => {
 		(bc) => bc.status === "available",
 	).length;
 
-	const copyText = IntlWrapper.translator["j7M9od"]();
-	const copiesText = IntlWrapper.translator["K0FUQq"]();
+	const copyText = IntlWrapper.translator["copy"]();
+	const copiesText = IntlWrapper.translator["copies"]();
 
 	const copy = book.book_copies.length === 1 ? copyText : copiesText;
 
-	const text = IntlWrapper.translator["Rb/Qfr"]({
+	const text = IntlWrapper.translator["XavailableYcopy"]({
 		availableTotal,
 		totalCount,
 		copy,

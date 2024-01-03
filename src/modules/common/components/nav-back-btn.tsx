@@ -14,7 +14,7 @@ import { useTranslations } from "@/hooks";
 export const NavBackBtn: React.FC = () => {
 	const navigate = useNavigate();
 	const translate = useTranslations();
-	const back = translate["cyR7Kh"]();
+	const back = translate["Back"]();
 	return (
 		<TooltipProvider>
 			<Tooltip>

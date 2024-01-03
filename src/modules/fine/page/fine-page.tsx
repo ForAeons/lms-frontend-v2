@@ -1,16 +1,13 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useAppSelector } from "@/store";
 import { BookCard } from "@/modules/book";
 import { FineSettleBtn, fineToBadgeProps } from "..";
+import { useTranslations } from "@/hooks";
 
 export const FinePage: React.FC = () => {
-	const intl = useIntl();
-	const myFines = intl.formatMessage({
-		id: "UPVRty",
-		defaultMessage: "My Fines",
-	});
+	const translate = useTranslations();
+	const myFines = translate["myFines"]();
 
 	const fines = useAppSelector((state) => state.app.fines);
 	const user = useAppSelector((state) => state.app.user);
@@ -26,7 +23,7 @@ export const FinePage: React.FC = () => {
 					<BookCard
 						key={f.id}
 						book={f.book}
-						badges={fineToBadgeProps({ ...f, user: user! }, intl)}
+						badges={fineToBadgeProps({ ...f, user: user! })}
 					>
 						{f.status === "outstanding" && <FineSettleBtn fine={f} />}
 					</BookCard>

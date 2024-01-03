@@ -26,11 +26,13 @@ export const DeleteBtn: React.FC<{
 	subject: string;
 }> = ({ handler, subject }) => {
 	const translate = useTranslations();
-	const deleteAction = translate["K3r6DQ"]();
-	const deleteAlertTitle = translate["v5ykbS"]();
-	const deleteAlertDescription = translate["s3ZjbA"]({ subject });
-	const cancelAction = translate["47FYwb"]();
-	const continueAction = translate["acrOoz"]();
+	const deleteAction = translate["Delete"]();
+	const deleteAlertTitle = translate["areYouSure"]();
+	const deleteAlertDescription = translate["thisActionCannotBeUndone"]({
+		subject,
+	});
+	const cancelAction = translate["Cancel"]();
+	const continueAction = translate["Continue"]();
 
 	return (
 		<AlertDialog>

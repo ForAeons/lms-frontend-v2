@@ -17,10 +17,10 @@ import { BookForm } from ".";
 
 export const BookCreateBtn: React.FC = () => {
 	const translate = useTranslations();
-	const bookText = translate["kmmXht"]();
-	const createBook = translate["tzgO/H"]();
-	const createBookDesc = translate["bTUCkl"]();
-	const createAction = translate["VzzYJk"]();
+	const bookText = translate["book"]();
+	const createBook = translate["addNewBook"]();
+	const createBookDesc = translate["addBookDesc"]();
+	const createAction = translate["Create"]();
 
 	const defaultValues = {
 		title: "",

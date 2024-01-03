@@ -15,7 +15,7 @@ export const CreateBtn: React.FC<{
 	subject: string;
 }> = ({ handler, subject }) => {
 	const translate = useTranslations();
-	const addNew = translate["HNHwk3"]({ subject });
+	const addNew = translate["addNew"]({ subject });
 
 	return (
 		<TooltipProvider>

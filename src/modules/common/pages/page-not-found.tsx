@@ -6,8 +6,8 @@ import { useTranslations } from "@/hooks";
 export const PageNotFound: React.FC = () => {
 	const navigate = useNavigate();
 	const translate = useTranslations();
-	const pageNotFound = translate["Mz/gsa"]();
-	const goBack = translate["ekfOaV"]();
+	const pageNotFound = translate["pageNotFound"]();
+	const goBack = translate["goBack"]();
 	return (
 		<div className="h-full w-full relative">
 			<div className="max-w-md w-full absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-6 items-center">

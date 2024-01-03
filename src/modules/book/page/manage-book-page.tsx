@@ -52,8 +52,8 @@ export const ManageBookPage: React.FC = () => {
 
 	if (bookState.isFetching) return <LoaderPage />;
 
-	const bookTitle = translate["RTM+tQ"]();
-	const bookText = translate["kmmXht"]();
+	const bookTitle = translate["manageBooks"]();
+	const bookText = translate["book"]();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

@@ -1,8 +1,7 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { useQueryParams } from "@/hooks";
+import { useQueryParams, useTranslations } from "@/hooks";
 import {
 	FilterSelect,
 	LoaderPage,
@@ -23,7 +22,7 @@ import {
 } from "..";
 
 export const ManageLoanPage: React.FC = () => {
-	const intl = useIntl();
+	const translate = useTranslations();
 	const dispatch = useAppDispatch();
 	const loanState = useAppSelector((s) => s.loan);
 	const navigate = useNavigate();
@@ -47,10 +46,7 @@ export const ManageLoanPage: React.FC = () => {
 
 	if (loanState.isFetching) return <LoaderPage />;
 
-	const loanTitle = intl.formatMessage({
-		id: "zrW7b6",
-		defaultMessage: "Manage Loans",
-	});
+	const loanTitle = translate["manageLoans"]();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
@@ -70,7 +66,7 @@ export const ManageLoanPage: React.FC = () => {
 				</div>
 
 				{loanState.loans.map((l) => (
-					<BookCard key={l.id} book={l.book} badges={loanToBadgeProps(l, intl)}>
+					<BookCard key={l.id} book={l.book} badges={loanToBadgeProps(l)}>
 						{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
 						{l.status === "borrowed" && <LoanRenewBtn loan={l} />}
 					</BookCard>

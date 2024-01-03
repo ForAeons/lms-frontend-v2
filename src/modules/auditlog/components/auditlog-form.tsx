@@ -31,10 +31,10 @@ export const AuditLogForm: React.FC<{
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
 	const translate = useTranslations();
-	const event = translate["m1czzY"]();
-	const whatHappened = translate["eF7TQV"]();
-	const date = translate["P7PLVj"]();
-	const pickADate = translate["idkGk/"]();
+	const event = translate["Event"]();
+	const whatHappened = translate["whatHappened"]();
+	const date = translate["Date"]();
+	const pickADate = translate["pickADate"]();
 
 	const form = useForm<z.infer<typeof AuditlogFormSchema>>({
 		resolver: zodResolver(AuditlogFormSchema),

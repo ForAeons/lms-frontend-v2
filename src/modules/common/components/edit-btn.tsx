@@ -14,7 +14,7 @@ export const EditBtn: React.FC<{ handler?: NullaryHandler }> = ({
 	handler,
 }) => {
 	const translate = useTranslations();
-	const edit = translate["wEQDC6"]();
+	const edit = translate["Edit"]();
 	return (
 		<TooltipProvider>
 			<Tooltip>

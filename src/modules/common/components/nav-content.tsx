@@ -54,27 +54,27 @@ export const NavContent: React.FC = () => {
 	};
 
 	const translate = useTranslations();
-	const welcome = translate["gDMHVV"]({
+	const welcome = translate["Welcome"]({
 		name: person?.preferred_name ?? person?.full_name ?? "",
 	});
-	const homePage = translate["xHJnaY"]();
-	const catalogue = translate["U2napd"]();
-	const signOut = translate["F62y+K"]();
-	const signIn = translate["Ub+AGc"]();
-	const resources = translate["c/KktL"]();
-	const myBookmark = translate["X9bISG"]();
-	const myLoan = translate["InakXV"]();
-	const myReservation = translate["r3JtGI"]();
-	const myFine = translate["UPVRty"]();
-	const admin = translate["iHN12u"]();
-	const manageUser = translate["55dcAt"]();
-	const manageBook = translate["RTM+tQ"]();
-	const manageLoan = translate["zrW7b6"]();
-	const manageReservation = translate["eujWGK"]();
-	const manageFine = translate["pWbzFs"]();
-	const auditLog = translate["7GrpT1"]();
-	const settings = translate["D3idYv"]();
-	const toggleThemeText = translate["EQpyb8"]();
+	const homePage = translate["homePage"]();
+	const catalogue = translate["Catalogue"]();
+	const signOut = translate["signOut"]();
+	const signIn = translate["signIn"]();
+	const resources = translate["Resources"]();
+	const myBookmark = translate["myBookmarks"]();
+	const myLoan = translate["myLoans"]();
+	const myReservation = translate["myReservations"]();
+	const myFine = translate["myFines"]();
+	const admin = translate["Admin"]();
+	const manageUser = translate["manageUsers"]();
+	const manageBook = translate["manageBooks"]();
+	const manageLoan = translate["manageLoans"]();
+	const manageReservation = translate["manageReservations"]();
+	const manageFine = translate["manageFines"]();
+	const auditLog = translate["AuditLog"]();
+	const settings = translate["Settings"]();
+	const toggleThemeText = translate["toggleTheme"]();
 
 	return (
 		<nav className="space-y-4 py-4">

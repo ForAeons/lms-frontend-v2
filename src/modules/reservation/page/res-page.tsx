@@ -1,16 +1,13 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { BookCard } from "@/modules/book";
 import { useAppSelector } from "@/store";
+import { useTranslations } from "@/hooks";
 import { ResCancelBtn, ResCheckoutBtn, resToBadgeProps } from "..";
 
 export const ResPage: React.FC = () => {
-	const intl = useIntl();
-	const myReservations = intl.formatMessage({
-		id: "r3JtGI",
-		defaultMessage: "My Reservations",
-	});
+	const translate = useTranslations();
+	const myReservations = translate["myReservations"]();
 
 	const res = useAppSelector((state) => state.app.reservations);
 	const user = useAppSelector((state) => state.app.user);
@@ -26,7 +23,7 @@ export const ResPage: React.FC = () => {
 					<BookCard
 						key={r.id}
 						book={r.book}
-						badges={resToBadgeProps({ ...r, user: user! }, intl)}
+						badges={resToBadgeProps({ ...r, user: user! })}
 					>
 						{r.status === "pending" && <ResCheckoutBtn res={r} />}
 						{r.status === "pending" && <ResCancelBtn res={r} />}

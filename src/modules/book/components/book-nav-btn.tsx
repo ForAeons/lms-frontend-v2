@@ -16,7 +16,7 @@ export const BookNavBtn: React.FC<{ book: Book; url?: string }> = ({
 	url,
 }) => {
 	const translate = useTranslations();
-	const openInOtherTab = translate["l/U6iS"]();
+	const openInOtherTab = translate["openInOtherTab"]();
 
 	const navigate = useNavigate();
 	return (

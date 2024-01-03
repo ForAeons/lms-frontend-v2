@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { UserCogIcon } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -26,17 +25,14 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { useMediaQuery } from "@/hooks";
+import { useMediaQuery, useTranslations } from "@/hooks";
 import { updateUserRoleThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
 import { UserUpdateRoleForm } from ".";
 
 const Btn: React.FC = () => {
-	const intl = useIntl();
-	const changeRole = intl.formatMessage({
-		id: "9EZXpi",
-		defaultMessage: "Change role",
-	});
+	const translate = useTranslations();
+	const changeRole = translate.changeRole();
 
 	return (
 		<TooltipProvider>
@@ -62,19 +58,10 @@ export const UserUpdateRoleBtn: React.FC<{ user: User }> = ({ user }) => {
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 	const dispatch = useAppDispatch();
 
-	const intl = useIntl();
-	const updateUserRole = intl.formatMessage({
-		id: "izivwa",
-		defaultMessage: "Update user role",
-	});
-	const updateUserRoleDescription = intl.formatMessage({
-		id: "M+yZJ8",
-		defaultMessage: "Change the role of this user",
-	});
-	const updateAction = intl.formatMessage({
-		id: "BWpuKl",
-		defaultMessage: "Update",
-	});
+	const translate = useTranslations();
+	const updateUserRole = translate.updateUserRole();
+	const updateUserRoleDescription = translate.updateUserRoleDesc();
+	const updateAction = translate.Update();
 
 	const onSubmit = (values: RoleUpdate) => {
 		dispatch(updateUserRoleThunk({ roleID: values.role_id, userID: user.id }));

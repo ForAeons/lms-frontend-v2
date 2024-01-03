@@ -24,11 +24,14 @@ export const BookCard: React.FC<{
 		book.language;
 
 	const translate = useTranslations();
-	const byAuthor = translate["br61pm"]({ author: book.author });
-	const bookDesc = translate["S1xMcR"]({ date: pubDate, lang: langLabel });
-	const genre = translate["U0QrR1"]({ genre: book.genre });
-	const publishedBy = translate["rqygQ8"]({ publisher: book.publisher });
-	const isbn = translate["rTUFJj"]({ isbn: book.isbn });
+	const byAuthor = translate["byAuthor"]({ author: book.author });
+	const bookDesc = translate["publishedDateLang"]({
+		date: pubDate,
+		lang: langLabel,
+	});
+	const genre = translate["genreIs"]({ genre: book.genre });
+	const publishedBy = translate["publishedBy"]({ publisher: book.publisher });
+	const isbn = translate["ISBNIs"]({ isbn: book.isbn });
 
 	return (
 		<Card className="relative flex lg:flex-row flex-col hover:shadow-md transition-shadow pr-10">

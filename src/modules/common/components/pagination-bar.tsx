@@ -36,8 +36,8 @@ export const PaginationBar: React.FC<{
 	if (isNaN(totalPages)) totalPages = 1;
 
 	const translate = useTranslations();
-	const itemsPerPage = translate["svHvmD"]();
-	const pageOf = translate["eilhZ9"]({ currentPage, totalPages });
+	const itemsPerPage = translate["itemsPerPage"]();
+	const pageOf = translate["pageXofY"]({ currentPage, totalPages });
 
 	return (
 		<div className="col-span-full flex flex-wrap justify-around items-center py-3 gap-3">

@@ -39,19 +39,19 @@ export const BookForm: React.FC<{
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
 	const translate = useTranslations();
-	const volumeTitle = translate["0cfEAN"]();
-	const volumeTitlePlaceholder = translate["aD09Do"]();
-	const volumeAuthor = translate["3kESYm"]();
-	const volumeAuthorPlaceholder = translate["7iInTF"]();
-	const publisher = translate["Kdc67U"]();
-	const publisherPlaceholder = translate["20IX1q"]();
-	const publicationDate = translate["oR7LVU"]();
-	const pickADate = translate["idkGk/"]();
-	const genre = translate["O70sde"]();
-	const genrePlaceholder = translate["a/NIGu"]();
-	const language = translate["y1Z3or"]();
-	const selectLanguage = translate["eVlu1R"]();
-	const isbn = translate["YXUQIi"]();
+	const volumeTitle = translate["volumeTitle"]();
+	const volumeTitlePlaceholder = translate["volumeTitlePlaceholder"]();
+	const volumeAuthor = translate["volumeAuthor"]();
+	const volumeAuthorPlaceholder = translate["volumeAuthorPlaceholder"]();
+	const publisher = translate["Publisher"]();
+	const publisherPlaceholder = translate["publisherPlaceholder"]();
+	const publicationDate = translate["publicationDate"]();
+	const pickADate = translate["pickADate"]();
+	const genre = translate["Genre"]();
+	const genrePlaceholder = translate["genrePlaceholder"]();
+	const language = translate["Language"]();
+	const selectLanguage = translate["selectLanguage"]();
+	const isbn = translate["ISBN"]();
 
 	const form = useForm<z.infer<typeof BookFormSchema>>({
 		resolver: zodResolver(BookFormSchema),

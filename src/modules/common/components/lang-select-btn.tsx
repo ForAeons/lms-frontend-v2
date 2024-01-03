@@ -14,7 +14,7 @@ import { useTranslations } from "@/hooks";
 export const LangSelectBtn: React.FC = () => {
 	const { locale, setLocale } = useLocale();
 	const translate = useTranslations();
-	const selectAppLanguage = translate["LKP2kK"]();
+	const selectAppLanguage = translate["selectAppLanguage"]();
 	return (
 		<Select defaultValue={locale} onValueChange={(l) => setLocale(l as Locale)}>
 			<SelectTrigger className="w-full h-10 px-4 py-2 focus:ring-transparent border-none hover:bg-accent hover:text-accent-foreground">

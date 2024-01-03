@@ -12,7 +12,7 @@ export const SearchBar: React.FC<{ cq: CollectionQuery; baseUrl?: string }> = ({
 	baseUrl,
 }) => {
 	const translate = useTranslations();
-	const search = translate["xmcVZ0"]();
+	const search = translate["Search"]();
 
 	const navigate = useNavigate();
 	const [searchValue, setSearchValue] = React.useState(

@@ -17,9 +17,9 @@ import { BookForm } from ".";
 
 export const BookEditBtn: React.FC<{ book: Book }> = ({ book }) => {
 	const translate = useTranslations();
-	const updateBookDetails = translate["ljmOHb"]();
-	const updateBookDescription = translate["r/k1xh"]();
-	const saveAction = translate["jvo0vs"]();
+	const updateBookDetails = translate["updateBookDetails"]();
+	const updateBookDescription = translate["updateBookDesc"]();
+	const saveAction = translate["Save"]();
 
 	const defaultValues = {
 		title: book.title,

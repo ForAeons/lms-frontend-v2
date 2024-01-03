@@ -1,8 +1,7 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { useQueryParams } from "@/hooks";
+import { useQueryParams, useTranslations } from "@/hooks";
 import {
 	DeleteBtn,
 	FilterSelect,
@@ -29,7 +28,7 @@ import { BookCard } from "@/modules/book";
 import { FineSettleBtn, fineToBadgeProps } from "..";
 
 export const ManageFinePage: React.FC = () => {
-	const intl = useIntl();
+	const translate = useTranslations();
 	const dispatch = useAppDispatch();
 	const fineState = useAppSelector((s) => s.fine);
 	const canDeleteFine = useAppSelector((s) =>
@@ -56,11 +55,8 @@ export const ManageFinePage: React.FC = () => {
 
 	if (fineState.isFetching) return <LoaderPage />;
 
-	const fineTitle = intl.formatMessage({
-		id: "pWbzFs",
-		defaultMessage: "Manage Fines",
-	});
-	const fineText = intl.formatMessage({ id: "yfSHXZ", defaultMessage: "fine" });
+	const fineTitle = translate["manageFines"]();
+	const fineText = translate["fine"]();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
@@ -79,7 +75,7 @@ export const ManageFinePage: React.FC = () => {
 				</div>
 
 				{fineState.fines.map((f) => (
-					<BookCard key={f.id} book={f.book} badges={fineToBadgeProps(f, intl)}>
+					<BookCard key={f.id} book={f.book} badges={fineToBadgeProps(f)}>
 						{canDeleteFine && (
 							<DeleteBtn
 								handler={() => dispatch(deleteFineThunk({ fineId: f.id }))}

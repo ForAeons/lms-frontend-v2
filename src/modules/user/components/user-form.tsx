@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -15,53 +14,24 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { UserFormSchema } from "@/schema";
+import { useTranslations } from "@/hooks";
 
 export const UserForm: React.FC<{
 	defaultValues: z.infer<typeof UserFormSchema>;
 	onSubmit: UnaryHandler<z.infer<typeof UserFormSchema>>;
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
-	const intl = useIntl();
-	const username = intl.formatMessage({
-		id: "JCIgkj",
-		defaultMessage: "Username",
-	});
-	const usernamePlaceholder = intl.formatMessage({
-		id: "iGWDDx",
-		defaultMessage: "An unique username",
-	});
-	const fullName = intl.formatMessage({
-		id: "TemVby",
-		defaultMessage: "Full Name",
-	});
-	const fullNamePlaceholder = intl.formatMessage({
-		id: "m4c/De",
-		defaultMessage: "Your full name",
-	});
-	const preferredName = intl.formatMessage({
-		id: "NC7LdO",
-		defaultMessage: "Preferred Name",
-	});
-	const preferredNamePlaceholder = intl.formatMessage({
-		id: "MuE1Lz",
-		defaultMessage: "Your preferred name",
-	});
-	const password = intl.formatMessage({
-		id: "5sg7KC",
-		defaultMessage: "Password",
-	});
-	const passwordPlaceholder = intl.formatMessage({
-		id: "SZBHgk",
-		defaultMessage: "A strong password",
-	});
-	const confirmPassword = intl.formatMessage({
-		id: "vfG+nh",
-		defaultMessage: "Confirm Password",
-	});
-	const confirmPasswordPlaceholder = intl.formatMessage({
-		id: "B0mhwF",
-		defaultMessage: "Enter your password again",
-	});
+	const translate = useTranslations();
+	const username = translate.Username();
+	const usernamePlaceholder = translate.anUniqueName();
+	const fullName = translate.Fullname();
+	const fullNamePlaceholder = translate.yourFullName();
+	const preferredName = translate.Preferredname();
+	const preferredNamePlaceholder = translate.yourPreferredName();
+	const password = translate.Password();
+	const passwordPlaceholder = translate.aStrongPassword();
+	const confirmPassword = translate.confirmPassword();
+	const confirmPasswordPlaceholder = translate.enterYourPasswordAgain();
 
 	const form = useForm<z.infer<typeof UserFormSchema>>({
 		resolver: zodResolver(UserFormSchema),

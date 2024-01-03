@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import * as z from "zod";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -14,24 +13,15 @@ import { useAppDispatch, updateUserThunk } from "@/store";
 import { EditBtn } from "@/modules";
 import { UserFormSchema } from "@/schema";
 import { UserForm } from ".";
+import { useTranslations } from "@/hooks";
 
 export const UserEditBtn: React.FC<{
 	userPerson: UserPerson;
 }> = ({ userPerson }) => {
-	const intl = useIntl();
-	const editUserProfile = intl.formatMessage({
-		id: "J29+pZ",
-		defaultMessage: "Edit user profile",
-	});
-	const editUserDescription = intl.formatMessage({
-		id: "mq++y1",
-		defaultMessage:
-			"Make changes to this user's profile here. Click save when you're done.",
-	});
-	const saveAction = intl.formatMessage({
-		id: "jvo0vs",
-		defaultMessage: "Save",
-	});
+	const translate = useTranslations();
+	const editUserProfile = translate.editUserProfile();
+	const editUserDescription = translate.editUserDesc();
+	const saveAction = translate.Save();
 
 	const defaultValues = {
 		username: userPerson.username,

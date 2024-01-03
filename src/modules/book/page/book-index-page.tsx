@@ -40,8 +40,8 @@ export const BookIndexPage: React.FC = () => {
 		return <LoaderPage />;
 	}
 
-	const newArrivals = translate["Qpxx+l"]();
-	const popularBooks = translate["yLinlZ"]();
+	const newArrivals = translate["newArrivals"]();
+	const popularBooks = translate["popularBooks"]();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

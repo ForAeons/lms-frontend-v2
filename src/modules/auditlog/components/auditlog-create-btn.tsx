@@ -26,10 +26,10 @@ import { AuditLogForm } from "./auditlog-form";
 
 export const LogCreateBtn: React.FC = () => {
 	const translate = useTranslations();
-	const auditLogText = translate["btC50m"]();
-	const logAnEvent = translate["ttBFjN"]();
-	const logAnEventDescription = translate["xDDxzU"]();
-	const createAction = translate["VzzYJk"]();
+	const auditLogText = translate["auditLog"]();
+	const logAnEvent = translate["logAnEvent"]();
+	const logAnEventDescription = translate["logEventDesc"]();
+	const createAction = translate["Create"]();
 
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 	const defaultValues = { action: "", date: new Date() };

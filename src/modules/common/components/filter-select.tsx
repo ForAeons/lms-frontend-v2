@@ -17,7 +17,7 @@ export const FilterSelect: React.FC<{
 }> = ({ cq, opt }) => {
 	const navigate = useNavigate();
 	const translate = useTranslations();
-	const filterBy = translate["S57QRB"]();
+	const filterBy = translate["filterBy"]();
 	return (
 		<div className="flex items-center space-x-2">
 			<span className="text-sm text-muted-foreground whitespace-nowrap">

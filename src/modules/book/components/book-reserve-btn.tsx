@@ -27,11 +27,13 @@ export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
 	copyID,
 }) => {
 	const translate = useTranslations();
-	const reserveAction = translate["PCjq1b"]();
-	const confirmation = translate["Pswssl"]();
-	const confirmationMessage = translate["Yvzv3+"]({ title: book.title });
-	const cancelAction = translate["47FYwb"]();
-	const continueAction = translate["acrOoz"]();
+	const reserveAction = translate["Reserve"]();
+	const confirmation = translate["Confirmation"]();
+	const confirmationMessage = translate["reserveBookDesc"]({
+		title: book.title,
+	});
+	const cancelAction = translate["Cancel"]();
+	const continueAction = translate["Continue"]();
 
 	const dispatch = useAppDispatch();
 	const handleRes = () => dispatch(reserveBookThunk({ bookCopyID: copyID }));

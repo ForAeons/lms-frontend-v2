@@ -18,35 +18,291 @@ import { IntlShape } from "react-intl";
 
 export const translations = (intl: IntlShape) => {
 	return {
-		["Pe0ogR"]: () =>
-			intl.formatMessage({ id: "Pe0ogR", defaultMessage: "Theme" }),
-		["Avsnjl"]: () =>
+		Signup: () =>
+			intl.formatMessage({
+				id: "8HJxXG",
+				defaultMessage: "Sign up",
+			}),
+		signInHere: () =>
+			intl.formatMessage({
+				id: "qkIZjG",
+				defaultMessage: "Sign in here",
+			}),
+		roleSelection: () =>
+			intl.formatMessage({
+				id: "XM5uwK",
+				defaultMessage: "Role selection",
+			}),
+		selectRolePlaceholder: () =>
+			intl.formatMessage({
+				id: "iaCoRs",
+				defaultMessage: "Select role",
+			}),
+		Update: () =>
+			intl.formatMessage({
+				id: "BWpuKl",
+				defaultMessage: "Update",
+			}),
+		updateUserRoleDesc: () =>
+			intl.formatMessage({
+				id: "M+yZJ8",
+				defaultMessage: "Change the role of this user",
+			}),
+		updateUserRole: () =>
+			intl.formatMessage({
+				id: "izivwa",
+				defaultMessage: "Update user role",
+			}),
+		changeRole: () =>
+			intl.formatMessage({
+				id: "9EZXpi",
+				defaultMessage: "Change role",
+			}),
+		anUniqueName: () =>
+			intl.formatMessage({
+				id: "iGWDDx",
+				defaultMessage: "An unique username",
+			}),
+		yourFullName: () =>
+			intl.formatMessage({
+				id: "m4c/De",
+				defaultMessage: "Your full name",
+			}),
+		yourPreferredName: () =>
+			intl.formatMessage({
+				id: "MuE1Lz",
+				defaultMessage: "Your preferred name",
+			}),
+		aStrongPassword: () =>
+			intl.formatMessage({
+				id: "SZBHgk",
+				defaultMessage: "A strong password",
+			}),
+		confirmPassword: () =>
+			intl.formatMessage({
+				id: "vfG+nh",
+				defaultMessage: "Confirm Password",
+			}),
+		enterYourPasswordAgain: () =>
+			intl.formatMessage({
+				id: "B0mhwF",
+				defaultMessage: "Enter your password again",
+			}),
+		Save: () => intl.formatMessage({ id: "jvo0vs", defaultMessage: "Save" }),
+		editUserProfile: () =>
+			intl.formatMessage({
+				id: "J29+pZ",
+				defaultMessage: "Edit user profile",
+			}),
+		editUserDesc: () =>
+			intl.formatMessage({
+				id: "mq++y1",
+				defaultMessage:
+					"Make changes to this user's profile here. Click save when you're done.",
+			}),
+		addNewUser: () =>
+			intl.formatMessage({
+				id: "j3duXc",
+				defaultMessage: "Add New User",
+			}),
+		createUserDesc: () =>
+			intl.formatMessage({
+				id: "ERkFf1",
+				defaultMessage:
+					"Add the new user's profile details here. Click save when you're done.",
+			}),
+		user: () => intl.formatMessage({ id: "sUNhQE", defaultMessage: "user" }),
+		cancelResDesc: () =>
+			intl.formatMessage({
+				id: "64hPUB",
+				defaultMessage: `Do you wish to cancel the reservation?`,
+			}),
+		Checkout: () =>
+			intl.formatMessage({
+				id: "BJ2TKX",
+				defaultMessage: `Checkout`,
+			}),
+		checkoutResDesc: () =>
+			intl.formatMessage({
+				id: "Xl12PH",
+				defaultMessage: `Do you wish to checkout the book?`,
+			}),
+		reservation: () =>
+			intl.formatMessage({ id: "DjAt8v", defaultMessage: "reservation" }),
+		createRes: () =>
+			intl.formatMessage({
+				id: "exNENh",
+				defaultMessage: "Create reservation",
+			}),
+		checkedOut: () =>
+			intl.formatMessage({
+				id: "F3EWgg",
+				defaultMessage: "Checked out",
+			}),
+		expired: () =>
+			intl.formatMessage({
+				id: "RahCRH",
+				defaultMessage: "Expired",
+			}),
+		reservedUntil: ({ date }: { date: string }) =>
+			intl.formatMessage(
+				{
+					id: "ashuNd",
+					defaultMessage: "Reserved until {date}",
+				},
+				{
+					date: date,
+				},
+			),
+		reservedBy: ({ username }: { username: string }) =>
+			intl.formatMessage(
+				{
+					id: "st8FyU",
+					defaultMessage: "Reserved by {username}",
+				},
+				{
+					username: username,
+				},
+			),
+		loanedTo: ({ username }: { username: string }) =>
+			intl.formatMessage(
+				{
+					id: "GDObmQ",
+					defaultMessage: "Loaned to {username}",
+				},
+				{
+					username: username,
+				},
+			),
+		Return: () =>
+			intl.formatMessage({ id: "0WJNP/", defaultMessage: "Return" }),
+		returnBookDesc: () =>
+			intl.formatMessage(
+				{ id: "IfPris", defaultMessage: `Do you wish to return the book?` },
+				{},
+			),
+		Renew: () => intl.formatMessage({ id: "nWQFic", defaultMessage: "Renew" }),
+		renewLoanDesc: () =>
+			intl.formatMessage({
+				id: "bva7X2",
+				defaultMessage: `Do you wish to renew the loan?`,
+			}),
+		User: () => intl.formatMessage({ id: "EwRIOm", defaultMessage: "User" }),
+		searchForUser: () =>
+			intl.formatMessage({
+				id: "n6nlj0",
+				defaultMessage: "Search for user",
+			}),
+		noUserFound: () =>
+			intl.formatMessage({
+				id: "MD5B2N",
+				defaultMessage: "No user found",
+			}),
+		startTypingForUser: () =>
+			intl.formatMessage({
+				id: "ETcvzE",
+				defaultMessage: "Start typing something to search for users.",
+			}),
+		Book: () => intl.formatMessage({ id: "bv2X6I", defaultMessage: "Book" }),
+		searchForBook: () =>
+			intl.formatMessage({
+				id: "sAr2D+",
+				defaultMessage: "Search for book",
+			}),
+		noBookFound: () =>
+			intl.formatMessage({
+				id: "nMtlAn",
+				defaultMessage: "No book found",
+			}),
+		startTypingForBook: () =>
+			intl.formatMessage({
+				id: "/kO/po",
+				defaultMessage: "Start typing something to search for books.",
+			}),
+		loan: () => intl.formatMessage({ id: "RwzIKM", defaultMessage: "loan" }),
+		createLoan: () =>
+			intl.formatMessage({
+				id: "3qVd6h",
+				defaultMessage: "Create loan",
+			}),
+		selectUserAndBook: () =>
+			intl.formatMessage({
+				id: "SbUqp8",
+				defaultMessage:
+					"Select the user and book. Click upload when you're done.",
+			}),
+		dueDate: ({ date }: { date: string }) =>
+			intl.formatMessage(
+				{
+					id: "5vDqi+",
+					defaultMessage: "Due {date}",
+				},
+				{ date },
+			),
+		Overdue: () =>
+			intl.formatMessage({
+				id: "M0vCGv",
+				defaultMessage: "Overdue",
+			}),
+		outstandingAmount: ({ amount }: { amount: string }) =>
+			intl.formatMessage(
+				{
+					id: "vyODZ+",
+					defaultMessage: "Outstanding amount: {amount}",
+				},
+				{ amount },
+			),
+		Paid: () =>
+			intl.formatMessage({
+				id: "u/vOPu",
+				defaultMessage: "Paid",
+			}),
+		finedTo: ({ username }: { username: string }) =>
+			intl.formatMessage(
+				{
+					id: "MhKGQF",
+					defaultMessage: "Fined to {username}",
+				},
+				{ username },
+			),
+		fine: () => intl.formatMessage({ id: "yfSHXZ", defaultMessage: "fine" }),
+		Settle: () =>
+			intl.formatMessage({ id: "mPKS81", defaultMessage: "Settle" }),
+		Confirmation: () =>
+			intl.formatMessage({ id: "Pswssl", defaultMessage: "Confirmation" }),
+		settleFineDesc: () =>
+			intl.formatMessage({
+				id: "4rGuOk",
+				defaultMessage: `Do you wish to settle the fine?`,
+			}),
+		Theme: () => intl.formatMessage({ id: "Pe0ogR", defaultMessage: "Theme" }),
+		Themes: () =>
 			intl.formatMessage({ id: "Avsnjl", defaultMessage: "Themes" }),
-		["qJ010K"]: () =>
+		selectTheme: () =>
 			intl.formatMessage({
 				id: "qJ010K",
 				defaultMessage: "Select theme",
 			}),
-		["Mz/gsa"]: () =>
+		pageNotFound: () =>
 			intl.formatMessage({
 				id: "Mz/gsa",
 				defaultMessage: "Page Not Found",
 			}),
-		["ekfOaV"]: () =>
+		goBack: () =>
 			intl.formatMessage({ id: "ekfOaV", defaultMessage: "Go Back" }),
-		["hDI+JM"]: () =>
+		sortBy: () =>
 			intl.formatMessage({
 				id: "hDI+JM",
 				defaultMessage: "Sort by",
 			}),
-		["xmcVZ0"]: () =>
+		Search: () =>
 			intl.formatMessage({ id: "xmcVZ0", defaultMessage: "Search" }),
-		["svHvmD"]: () =>
+		itemsPerPage: () =>
 			intl.formatMessage({
 				id: "svHvmD",
 				defaultMessage: "Items per page",
 			}),
-		["eilhZ9"]: ({
+		pageXofY: ({
 			currentPage,
 			totalPages,
 		}: {
@@ -57,78 +313,75 @@ export const translations = (intl: IntlShape) => {
 				{ id: "eilhZ9", defaultMessage: "Page {currentPage} of {totalPages}" },
 				{ currentPage, totalPages },
 			),
-		["xHJnaY"]: () =>
+		homePage: () =>
 			intl.formatMessage({ id: "xHJnaY", defaultMessage: "Home Page" }),
-		["U2napd"]: () =>
+		Catalogue: () =>
 			intl.formatMessage({ id: "U2napd", defaultMessage: "Catalogue" }),
-		["F62y+K"]: () =>
+		signOut: () =>
 			intl.formatMessage({ id: "F62y+K", defaultMessage: "Sign Out" }),
-		["Ub+AGc"]: () =>
+		signIn: () =>
 			intl.formatMessage({ id: "Ub+AGc", defaultMessage: "Sign In" }),
-		["c/KktL"]: () =>
+		Resources: () =>
 			intl.formatMessage({ id: "c/KktL", defaultMessage: "Resources" }),
-		["X9bISG"]: () =>
+		myBookmarks: () =>
 			intl.formatMessage({ id: "X9bISG", defaultMessage: "My Bookmarks" }),
-		["InakXV"]: () =>
+		myLoans: () =>
 			intl.formatMessage({ id: "InakXV", defaultMessage: "My Loans" }),
-		["r3JtGI"]: () =>
+		myReservations: () =>
 			intl.formatMessage({
 				id: "r3JtGI",
 				defaultMessage: "My Reservations",
 			}),
-		["UPVRty"]: () =>
+		myFines: () =>
 			intl.formatMessage({ id: "UPVRty", defaultMessage: "My Fines" }),
-		["iHN12u"]: () =>
-			intl.formatMessage({ id: "iHN12u", defaultMessage: "Admin" }),
-		["55dcAt"]: () =>
+		Admin: () => intl.formatMessage({ id: "iHN12u", defaultMessage: "Admin" }),
+		manageUsers: () =>
 			intl.formatMessage({ id: "55dcAt", defaultMessage: "Manage Users" }),
-		["RTM+tQ"]: () =>
+		manageBooks: () =>
 			intl.formatMessage({ id: "RTM+tQ", defaultMessage: "Manage Books" }),
-		["zrW7b6"]: () =>
+		manageLoans: () =>
 			intl.formatMessage({ id: "zrW7b6", defaultMessage: "Manage Loans" }),
-		["eujWGK"]: () =>
+		manageReservations: () =>
 			intl.formatMessage({
 				id: "eujWGK",
 				defaultMessage: "Manage Reservations",
 			}),
-		["pWbzFs"]: () =>
+		manageFines: () =>
 			intl.formatMessage({ id: "pWbzFs", defaultMessage: "Manage Fines" }),
-		["7GrpT1"]: () =>
+		AuditLog: () =>
 			intl.formatMessage({ id: "7GrpT1", defaultMessage: "Audit Log" }),
-		["D3idYv"]: () =>
+		Settings: () =>
 			intl.formatMessage({ id: "D3idYv", defaultMessage: "Settings" }),
-		["gDMHVV"]: ({ name }: { name: string }) =>
+		Welcome: ({ name }: { name: string }) =>
 			intl.formatMessage(
 				{ id: "gDMHVV", defaultMessage: "Welcome {name}" },
 				{ name },
 			),
-		["EQpyb8"]: () =>
+		toggleTheme: () =>
 			intl.formatMessage({
 				id: "EQpyb8",
 				defaultMessage: "Toggle theme",
 			}),
-		["cyR7Kh"]: () =>
-			intl.formatMessage({ id: "cyR7Kh", defaultMessage: "Back" }),
-		["LKP2kK"]: () =>
+		Back: () => intl.formatMessage({ id: "cyR7Kh", defaultMessage: "Back" }),
+		selectAppLanguage: () =>
 			intl.formatMessage({
 				id: "LKP2kK",
 				defaultMessage: "Select app language",
 			}),
-		["S57QRB"]: () =>
+		filterBy: () =>
 			intl.formatMessage({
 				id: "S57QRB",
 				defaultMessage: "Filter by",
 			}),
-		["wEQDC6"]: () =>
-			intl.formatMessage({ id: "wEQDC6", defaultMessage: "Edit" }),
-		["K3r6DQ"]: () =>
+		Edit: () => intl.formatMessage({ id: "wEQDC6", defaultMessage: "Edit" }),
+		Delete: () =>
 			intl.formatMessage({ id: "K3r6DQ", defaultMessage: "Delete" }),
-		["v5ykbS"]: () =>
+		areYouSure: () =>
 			intl.formatMessage({
 				id: "v5ykbS",
 				defaultMessage: "Are you absolutely sure?",
 			}),
-		["s3ZjbA"]: ({ subject }: { subject: string }) =>
+		thisActionCannotBeUndone: ({ subject }: { subject: string }) =>
 			intl.formatMessage(
 				{
 					id: "s3ZjbA",
@@ -137,28 +390,27 @@ export const translations = (intl: IntlShape) => {
 				},
 				{ subject },
 			),
-		["47FYwb"]: () =>
+		Cancel: () =>
 			intl.formatMessage({ id: "47FYwb", defaultMessage: "Cancel" }),
-		["acrOoz"]: () =>
+		Continue: () =>
 			intl.formatMessage({ id: "acrOoz", defaultMessage: "Continue" }),
-		["HNHwk3"]: ({ subject }: { subject: string }) =>
+		addNew: ({ subject }: { subject: string }) =>
 			intl.formatMessage(
 				{ id: "HNHwk3", defaultMessage: "Add new {subject}" },
 				{ subject },
 			),
-		["kmmXht"]: () =>
-			intl.formatMessage({ id: "kmmXht", defaultMessage: "book" }),
-		["j7M9od"]: () =>
+		book: () => intl.formatMessage({ id: "kmmXht", defaultMessage: "book" }),
+		copy: () =>
 			intl.formatMessage({
 				id: "j7M9od",
 				defaultMessage: "copy",
 			}),
-		["K0FUQq"]: () =>
+		copies: () =>
 			intl.formatMessage({
 				id: "K0FUQq",
 				defaultMessage: "copies",
 			}),
-		["Rb/Qfr"]: ({
+		XavailableYcopy: ({
 			availableTotal,
 			totalCount,
 			copy,
@@ -174,223 +426,211 @@ export const translations = (intl: IntlShape) => {
 				},
 				{ availableTotal, totalCount, copy },
 			),
-		["ti1RKs"]: () =>
+		Books: () =>
 			intl.formatMessage({
 				id: "ti1RKs",
 				defaultMessage: "Books",
 			}),
-		["Qpxx+l"]: () =>
+		newArrivals: () =>
 			intl.formatMessage({
 				id: "Qpxx+l",
 				defaultMessage: "New Arrivals",
 			}),
-		["yLinlZ"]: () =>
+		popularBooks: () =>
 			intl.formatMessage({
 				id: "yLinlZ",
 				defaultMessage: "Popular Books",
 			}),
-		["6dn1ux"]: () =>
+		Borrow: () =>
 			intl.formatMessage({ id: "6dn1ux", defaultMessage: "Borrow" }),
-		["PCjq1b"]: () =>
+		Reserve: () =>
 			intl.formatMessage({
 				id: "PCjq1b",
 				defaultMessage: "Reserve",
 			}),
-		["Yvzv3+"]: ({ title }: { title: string }) =>
+		reserveBookDesc: ({ title }: { title: string }) =>
 			intl.formatMessage(
 				{ id: "Yvzv3+", defaultMessage: `Do you wish to reserve "{title}"?` },
 				{ title },
 			),
-		["l/U6iS"]: () =>
+		openInOtherTab: () =>
 			intl.formatMessage({
 				id: "l/U6iS",
 				defaultMessage: "Open in other tab",
 			}),
-		["Pswssl"]: () =>
-			intl.formatMessage({ id: "Pswssl", defaultMessage: "Confirmation" }),
-		["jXzYxr"]: ({ title }: { title: string }) =>
+		loanBookDesc: ({ title }: { title: string }) =>
 			intl.formatMessage(
 				{ id: "jXzYxr", defaultMessage: `Do you wish to borrow "{title}"?` },
 				{ title },
 			),
-		["0cfEAN"]: () =>
+		volumeTitle: () =>
 			intl.formatMessage({ id: "0cfEAN", defaultMessage: "Volume Title" }),
-		["aD09Do"]: () =>
+		volumeTitlePlaceholder: () =>
 			intl.formatMessage({
 				id: "aD09Do",
 				defaultMessage: "The Great Gatsby",
 			}),
-		["3kESYm"]: () =>
+		volumeAuthor: () =>
 			intl.formatMessage({ id: "3kESYm", defaultMessage: "Volume Author" }),
-		["7iInTF"]: () =>
+		volumeAuthorPlaceholder: () =>
 			intl.formatMessage({
 				id: "7iInTF",
 				defaultMessage: "F. Scott Fitzgerald",
 			}),
-		["Kdc67U"]: () =>
+		Publisher: () =>
 			intl.formatMessage({ id: "Kdc67U", defaultMessage: "Publisher" }),
-		["20IX1q"]: () =>
+		publisherPlaceholder: () =>
 			intl.formatMessage({
 				id: "20IX1q",
 				defaultMessage: "Alma Classics",
 			}),
-		["oR7LVU"]: () =>
+		publicationDate: () =>
 			intl.formatMessage({
 				id: "oR7LVU",
 				defaultMessage: "Publication Date",
 			}),
-		["idkGk/"]: () =>
+		pickADate: () =>
 			intl.formatMessage({
 				id: "idkGk/",
 				defaultMessage: "Pick a date",
 			}),
-		["O70sde"]: () =>
-			intl.formatMessage({ id: "O70sde", defaultMessage: "Genre" }),
-		["a/NIGu"]: () =>
+		Genre: () => intl.formatMessage({ id: "O70sde", defaultMessage: "Genre" }),
+		genrePlaceholder: () =>
 			intl.formatMessage({ id: "a/NIGu", defaultMessage: "Tragedy" }),
-		["y1Z3or"]: () =>
+		Language: () =>
 			intl.formatMessage({ id: "y1Z3or", defaultMessage: "Language" }),
-		["eVlu1R"]: () =>
+		selectLanguage: () =>
 			intl.formatMessage({
 				id: "eVlu1R",
 				defaultMessage: "Select language",
 			}),
-		["YXUQIi"]: () =>
-			intl.formatMessage({ id: "YXUQIi", defaultMessage: "ISBN" }),
-		["ljmOHb"]: () =>
+		ISBN: () => intl.formatMessage({ id: "YXUQIi", defaultMessage: "ISBN" }),
+		updateBookDetails: () =>
 			intl.formatMessage({
 				id: "ljmOHb",
 				defaultMessage: "Update Book Details",
 			}),
-		["r/k1xh"]: () =>
+		updateBookDesc: () =>
 			intl.formatMessage({
 				id: "r/k1xh",
 				defaultMessage:
 					"Make changes to the details of this book here. Click save when you're done.",
 			}),
-		["jvo0vs"]: () =>
-			intl.formatMessage({ id: "jvo0vs", defaultMessage: "Save" }),
-		["tzgO/H"]: () =>
+		addNewBook: () =>
 			intl.formatMessage({ id: "tzgO/H", defaultMessage: "Add a New Book" }),
-		["bTUCkl"]: () =>
+		addBookDesc: () =>
 			intl.formatMessage({
 				id: "bTUCkl",
 				defaultMessage:
 					"Add the details of the book here. Click upload when you're done.",
 			}),
-		["VzzYJk"]: () =>
+		Create: () =>
 			intl.formatMessage({ id: "VzzYJk", defaultMessage: "Create" }),
-		["br61pm"]: ({ author }: { author: string }) =>
+		byAuthor: ({ author }: { author: string }) =>
 			intl.formatMessage(
 				{ id: "br61pm", defaultMessage: "By {author}" },
 				{ author },
 			),
-		["S1xMcR"]: ({ date, lang }: { date: string; lang: string }) =>
+		publishedDateLang: ({ date, lang }: { date: string; lang: string }) =>
 			intl.formatMessage(
 				{ id: "S1xMcR", defaultMessage: "Published: {date} | {lang}" },
 				{ date, lang },
 			),
-		["U0QrR1"]: ({ genre }: { genre: string }) =>
+		genreIs: ({ genre }: { genre: string }) =>
 			intl.formatMessage(
 				{ id: "U0QrR1", defaultMessage: "Genre: {genre}" },
 				{ genre },
 			),
-		["rqygQ8"]: ({ publisher }: { publisher: string }) =>
+		publishedBy: ({ publisher }: { publisher: string }) =>
 			intl.formatMessage(
 				{ id: "rqygQ8", defaultMessage: "Published by {publisher}" },
 				{ publisher },
 			),
-		["rTUFJj"]: ({ isbn }: { isbn: string }) =>
+		ISBNIs: ({ isbn }: { isbn: string }) =>
 			intl.formatMessage(
 				{ id: "rTUFJj", defaultMessage: "ISBN: {isbn}" },
 				{ isbn },
 			),
-		["25WwxF"]: () =>
+		dontHaveAcc: () =>
 			intl.formatMessage({
 				id: "25WwxF",
 				defaultMessage: "Don't have an account?",
 			}),
-		["CN7+xa"]: () =>
+		signUpHere: () =>
 			intl.formatMessage({ id: "CN7+xa", defaultMessage: "Sign up here" }),
-		["k9XuYY"]: () =>
+		yourUsername: () =>
 			intl.formatMessage({ id: "k9XuYY", defaultMessage: "Your username" }),
-		["aohCSR"]: () =>
+		usernameDesc: () =>
 			intl.formatMessage({
 				id: "aohCSR",
 				defaultMessage: "This is your public display name.",
 			}),
-		["5sg7KC"]: () =>
+		Password: () =>
 			intl.formatMessage({ id: "5sg7KC", defaultMessage: "Password" }),
-		["/aWpsO"]: () =>
+		yourPassword: () =>
 			intl.formatMessage({ id: "/aWpsO", defaultMessage: "Your password" }),
-		["xsQkIU"]: () =>
+		passwordDesc: () =>
 			intl.formatMessage({
 				id: "xsQkIU",
 				defaultMessage: "This is your password.",
 			}),
-		["55vTH+"]: () =>
+		userID: () =>
 			intl.formatMessage({ id: "55vTH+", defaultMessage: "User ID" }),
-		["JCIgkj"]: () =>
+		Username: () =>
 			intl.formatMessage({ id: "JCIgkj", defaultMessage: "Username" }),
-		["QlsDcr"]: () =>
+		Action: () =>
 			intl.formatMessage({ id: "QlsDcr", defaultMessage: "Action" }),
-		["t/TuwD"]: () =>
+		AuditLogs: () =>
 			intl.formatMessage({ id: "t/TuwD", defaultMessage: "Audit Logs" }),
-		["m1czzY"]: () =>
-			intl.formatMessage({ id: "m1czzY", defaultMessage: "Event" }),
-		["eF7TQV"]: () =>
+		Event: () => intl.formatMessage({ id: "m1czzY", defaultMessage: "Event" }),
+		whatHappened: () =>
 			intl.formatMessage({ id: "eF7TQV", defaultMessage: "What happened?" }),
-		["P7PLVj"]: () =>
-			intl.formatMessage({ id: "P7PLVj", defaultMessage: "Date" }),
-		["btC50m"]: () =>
+		Date: () => intl.formatMessage({ id: "P7PLVj", defaultMessage: "Date" }),
+		auditLog: () =>
 			intl.formatMessage({ id: "btC50m", defaultMessage: "audit log" }),
-		["ttBFjN"]: () =>
+		logAnEvent: () =>
 			intl.formatMessage({ id: "ttBFjN", defaultMessage: "Log an event" }),
-		["xDDxzU"]: () =>
+		logEventDesc: () =>
 			intl.formatMessage({
 				id: "xDDxzU",
 				defaultMessage:
 					"Describe the event here. Click upload when you're done.",
 			}),
-		["IFPQiA"]: () =>
+		Borrowed: () =>
 			intl.formatMessage({ id: "IFPQiA", defaultMessage: "Borrowed" }),
-		["wm96Jx"]: () =>
+		Returned: () =>
 			intl.formatMessage({ id: "wm96Jx", defaultMessage: "Returned" }),
-		["sI/NFi"]: () =>
+		Reserved: () =>
 			intl.formatMessage({ id: "sI/NFi", defaultMessage: "Reserved" }),
-		["jY+f2f"]: () =>
+		Fulfilled: () =>
 			intl.formatMessage({ id: "jY+f2f", defaultMessage: "Fulfilled" }),
-		["Q1xfqF"]: () =>
+		Outstanding: () =>
 			intl.formatMessage({ id: "Q1xfqF", defaultMessage: "Outstanding" }),
-		["u/vOPu"]: () =>
-			intl.formatMessage({ id: "u/vOPu", defaultMessage: "Paid" }),
-		["x61Ey6"]: () =>
-			intl.formatMessage({ id: "x61Ey6", defaultMessage: "admin" }),
-		["vzfNEJ"]: () =>
+		admin: () => intl.formatMessage({ id: "x61Ey6", defaultMessage: "admin" }),
+		libadmin: () =>
 			intl.formatMessage({ id: "vzfNEJ", defaultMessage: "libadmin" }),
-		["cyhrRT"]: () =>
+		librarian: () =>
 			intl.formatMessage({ id: "cyhrRT", defaultMessage: "librarian" }),
-		["v8f8hL"]: () =>
+		member: () =>
 			intl.formatMessage({ id: "v8f8hL", defaultMessage: "member" }),
-		["yk4PT9"]: () =>
+		Fullname: () =>
 			intl.formatMessage({ id: "yk4PT9", defaultMessage: "Full name" }),
-		["bY5h3E"]: () =>
+		Preferredname: () =>
 			intl.formatMessage({ id: "bY5h3E", defaultMessage: "Preferred name" }),
-		["KxPY7j"]: () =>
+		DateOfCreation: () =>
 			intl.formatMessage({ id: "KxPY7j", defaultMessage: "Date of creation" }),
-		["9a9+ww"]: () =>
-			intl.formatMessage({ id: "9a9+ww", defaultMessage: "Title" }),
-		["tWkQ2J"]: () =>
+		Title: () => intl.formatMessage({ id: "9a9+ww", defaultMessage: "Title" }),
+		Author: () =>
 			intl.formatMessage({ id: "tWkQ2J", defaultMessage: "Author" }),
-		["6ruzVm"]: () =>
+		PublicationDate: () =>
 			intl.formatMessage({ id: "6ruzVm", defaultMessage: "Publication date" }),
-		["nZi7wU"]: () =>
+		BorrowDate: () =>
 			intl.formatMessage({ id: "nZi7wU", defaultMessage: "Borrow date" }),
-		["l3AfOI"]: () =>
+		DueDate: () =>
 			intl.formatMessage({ id: "l3AfOI", defaultMessage: "Due date" }),
-		["n/Oz/R"]: () =>
+		ReservationDate: () =>
 			intl.formatMessage({ id: "n/Oz/R", defaultMessage: "Reservation date" }),
-		["/0TOL5"]: () =>
+		Amount: () =>
 			intl.formatMessage({ id: "/0TOL5", defaultMessage: "Amount" }),
 	};
 };

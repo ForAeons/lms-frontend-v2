@@ -14,10 +14,10 @@ export const NavBar: React.FC = () => {
 	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
 	const translate = useTranslations();
-	const welcome = translate["gDMHVV"]({
+	const welcome = translate["Welcome"]({
 		name: person?.preferred_name ?? person?.full_name ?? "",
 	});
-	const toggleThemeText = translate["EQpyb8"]();
+	const toggleThemeText = translate["toggleTheme"]();
 
 	return (
 		<nav className="w-full p-3 grid grid-cols-3 items-center">

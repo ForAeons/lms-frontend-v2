@@ -1,22 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useIntl } from "react-intl";
 import * as z from "zod";
 import { Card, CardContent } from "@/components/ui/card";
 import { createUserThunk, useAppDispatch } from "@/store";
 import { UserFormSchema } from "@/schema";
 import { UserForm } from "..";
+import { useTranslations } from "@/hooks";
 
 export const SignupPage: React.FC = () => {
-	const intl = useIntl();
-	const signUpAction = intl.formatMessage({
-		id: "8HJxXG",
-		defaultMessage: "Sign up",
-	});
-	const signInHere = intl.formatMessage({
-		id: "qkIZjG",
-		defaultMessage: "Sign in here",
-	});
+	const translate = useTranslations();
+	const signUpAction = translate.Signup();
+	const signInHere = translate.signInHere();
 
 	const defaultValues = {
 		username: "",

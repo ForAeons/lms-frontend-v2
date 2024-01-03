@@ -31,7 +31,7 @@ export const BookmarkBtn: React.FC<{ book: Book; bm?: Bookmark }> = ({
 	const marked = bookmarks.find((bookmark) => bookmark.book_id === book.id);
 
 	const translate = useTranslations();
-	const borrowAction = translate["6dn1ux"]();
+	const borrowAction = translate["Borrow"]();
 
 	return (
 		<TooltipProvider>

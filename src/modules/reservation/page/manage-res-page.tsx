@@ -1,8 +1,7 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { useQueryParams } from "@/hooks";
+import { useQueryParams, useTranslations } from "@/hooks";
 import {
 	FilterSelect,
 	LoaderPage,
@@ -23,7 +22,7 @@ import {
 } from "..";
 
 export const ManageResPage: React.FC = () => {
-	const intl = useIntl();
+	const translate = useTranslations();
 	const dispatch = useAppDispatch();
 	const resState = useAppSelector((s) => s.res);
 	const navigate = useNavigate();
@@ -47,10 +46,7 @@ export const ManageResPage: React.FC = () => {
 
 	if (resState.isFetching) return <LoaderPage />;
 
-	const resTitle = intl.formatMessage({
-		id: "eujWGK",
-		defaultMessage: "Manage Reservations",
-	});
+	const resTitle = translate["myReservations"]();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
@@ -70,7 +66,7 @@ export const ManageResPage: React.FC = () => {
 				</div>
 
 				{resState.res.map((r) => (
-					<BookCard key={r.id} book={r.book} badges={resToBadgeProps(r, intl)}>
+					<BookCard key={r.id} book={r.book} badges={resToBadgeProps(r)}>
 						{r.status === "pending" && <ResCheckoutBtn res={r} />}
 						{r.status === "pending" && <ResCancelBtn res={r} />}
 					</BookCard>

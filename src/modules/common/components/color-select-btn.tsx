@@ -17,9 +17,9 @@ import { useTranslations } from "@/hooks";
 export const ColorSelectBtn: React.FC = () => {
 	const { color, setColor } = useTheme();
 	const translate = useTranslations();
-	const theme = translate["Pe0ogR"]();
-	const themes = translate["Avsnjl"]();
-	const selectTheme = translate["qJ010K"]();
+	const theme = translate["Theme"]();
+	const themes = translate["Themes"]();
+	const selectTheme = translate["selectTheme"]();
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>

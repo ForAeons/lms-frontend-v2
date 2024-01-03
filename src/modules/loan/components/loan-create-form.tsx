@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -38,45 +37,19 @@ import {
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { BookUserFormSchema } from "@/schema";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "@/hooks";
 
 export const LoanCreateForm: React.FC = () => {
-	const intl = useIntl();
-	const user = intl.formatMessage({
-		id: "EwRIOm",
-		defaultMessage: "User",
-	});
-	const searchForUser = intl.formatMessage({
-		id: "n6nlj0",
-		defaultMessage: "Search for user",
-	});
-	const noUserFound = intl.formatMessage({
-		id: "MD5B2N",
-		defaultMessage: "No user found",
-	});
-	const startTypingUser = intl.formatMessage({
-		id: "ETcvzE",
-		defaultMessage: "Start typing something to search for users.",
-	});
-	const book = intl.formatMessage({
-		id: "bv2X6I",
-		defaultMessage: "Book",
-	});
-	const searchForBook = intl.formatMessage({
-		id: "sAr2D+",
-		defaultMessage: "Search for book",
-	});
-	const noBookFound = intl.formatMessage({
-		id: "nMtlAn",
-		defaultMessage: "No book found",
-	});
-	const startTypingBook = intl.formatMessage({
-		id: "/kO/po",
-		defaultMessage: "Start typing something to search for books.",
-	});
-	const create = intl.formatMessage({
-		id: "VzzYJk",
-		defaultMessage: "Create",
-	});
+	const translate = useTranslations();
+	const user = translate["User"]();
+	const searchForUser = translate["searchForUser"]();
+	const noUserFound = translate["noUserFound"]();
+	const startTypingUser = translate["startTypingForUser"]();
+	const book = translate["Book"]();
+	const searchForBook = translate["searchForBook"]();
+	const noBookFound = translate["noBookFound"]();
+	const startTypingBook = translate["Create"]();
+	const create = translate["Create"]();
 
 	const dispatch = useAppDispatch();
 	const userAutoComp = useAppSelector((state) => state.user.autocomplete);

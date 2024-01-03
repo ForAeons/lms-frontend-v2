@@ -11,7 +11,7 @@ import { useTranslations } from "@/hooks";
 
 export const BookmarkPage: React.FC = () => {
 	const translate = useTranslations();
-	const myBookmarks = translate["X9bISG"]();
+	const myBookmarks = translate["myBookmarks"]();
 
 	const bookmarks = useAppSelector((state) => state.app.bookmarks);
 	return (

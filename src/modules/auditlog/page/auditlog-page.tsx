@@ -45,7 +45,7 @@ export const AuditLogPage: React.FC = () => {
 
 	if (auditlogState.isFetching) return <LoaderPage />;
 
-	const auditLogs = translate["t/TuwD"]();
+	const auditLogs = translate["AuditLogs"]();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

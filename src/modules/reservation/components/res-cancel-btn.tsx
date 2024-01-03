@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { CircleOffIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -21,25 +20,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { cancelResThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
+import { useTranslations } from "@/hooks";
 
 export const ResCancelBtn: React.FC<{ res: Reservation }> = ({ res }) => {
-	const intl = useIntl();
-	const cancelAction = intl.formatMessage({
-		id: "47FYwb",
-		defaultMessage: "Cancel",
-	});
-	const confirmation = intl.formatMessage({
-		id: "Pswssl",
-		defaultMessage: "Confirmation",
-	});
-	const confirmationMessage = intl.formatMessage({
-		id: "64hPUB",
-		defaultMessage: `Do you wish to cancel the reservation?`,
-	});
-	const continueAction = intl.formatMessage({
-		id: "acrOoz",
-		defaultMessage: "Continue",
-	});
+	const translate = useTranslations();
+	const cancelAction = translate["Cancel"]();
+	const confirmation = translate["Confirmation"]();
+	const confirmationMessage = translate["cancelResDesc"]();
+	const continueAction = translate["Continue"]();
 
 	const dispatch = useAppDispatch();
 	const handleCancel = () => dispatch(cancelResThunk({ resId: res.id }));

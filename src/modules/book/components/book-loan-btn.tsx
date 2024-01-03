@@ -27,11 +27,11 @@ export const BookLoanBtn: React.FC<{ book: Book; copyID: number }> = ({
 	copyID,
 }) => {
 	const translate = useTranslations();
-	const borrowAction = translate["6dn1ux"]();
-	const confirmation = translate["Pswssl"]();
-	const confirmationMessage = translate["jXzYxr"]({ title: book.title });
-	const cancelAction = translate["47FYwb"]();
-	const continueAction = translate["acrOoz"]();
+	const borrowAction = translate["Borrow"]();
+	const confirmation = translate["Confirmation"]();
+	const confirmationMessage = translate["loanBookDesc"]({ title: book.title });
+	const cancelAction = translate["Cancel"]();
+	const continueAction = translate["Continue"]();
 
 	const dispatch = useAppDispatch();
 	const handleLoan = () => dispatch(loanBookThunk({ bookCopyID: copyID }));
