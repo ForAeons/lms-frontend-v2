@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { LoaderPage, SearchBar } from "@/modules";
 import {
@@ -7,10 +6,11 @@ import {
 	listPopularBooksThunk,
 } from "@/store/thunks/book-thunk";
 import { useAppDispatch, useAppSelector } from "@/store";
+import { useTranslations } from "@/hooks";
 import { BookCarousel } from "..";
 
 export const BookIndexPage: React.FC = () => {
-	const intl = useIntl();
+	const translate = useTranslations();
 	const dispatch = useAppDispatch();
 	const bookState = useAppSelector((s) => s.book);
 	const popularState = useAppSelector((s) => s.book.popular);
@@ -40,14 +40,8 @@ export const BookIndexPage: React.FC = () => {
 		return <LoaderPage />;
 	}
 
-	const newArrivals = intl.formatMessage({
-		id: "Qpxx+l",
-		defaultMessage: "New Arrivals",
-	});
-	const popularBooks = intl.formatMessage({
-		id: "yLinlZ",
-		defaultMessage: "Popular Books",
-	});
+	const newArrivals = translate["Qpxx+l"]();
+	const popularBooks = translate["yLinlZ"]();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

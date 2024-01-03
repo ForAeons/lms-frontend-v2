@@ -1,39 +1,38 @@
-import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
-import { IntlShape } from "react-intl";
+import { ColumnDef } from "@tanstack/react-table";
+import { IntlWrapper } from "@/components/language-provider";
 
-export const getAuditLogColumns = (intl: IntlShape): ColumnDef<AuditLog>[] => {
-	return [
-		{
-			accessorKey: "user_id",
-			header: intl.formatMessage({
-				id: "55vTH+",
-				defaultMessage: "User ID",
-			}),
+export const AuditLogColumns: ColumnDef<AuditLog>[] = [
+	{
+		accessorKey: "user_id",
+		header: "User ID",
+		intlID: "55vTH+",
+	},
+	{
+		accessorKey: "user.username",
+		header: "Username",
+		intlID: "JCIgkj",
+	},
+	{
+		accessorKey: "action",
+		header: "Action",
+		intlID: "QlsDcr",
+	},
+	{
+		accessorKey: "date",
+		header: "Date",
+		intlID: "P7PLVj",
+		cell: ({ row }) => {
+			return format(row.getValue("date"), "P");
 		},
-		{
-			accessorKey: "user.username",
-			header: intl.formatMessage({
-				id: "JCIgkj",
-				defaultMessage: "Username",
-			}),
-		},
-		{
-			accessorKey: "action",
-			header: intl.formatMessage({
-				id: "QlsDcr",
-				defaultMessage: "Action",
-			}),
-		},
-		{
-			accessorKey: "date",
-			header: intl.formatMessage({
-				id: "P7PLVj",
-				defaultMessage: "Date",
-			}),
-			cell: ({ row }) => {
-				return format(row.getValue("date"), "P");
-			},
-		},
-	];
+	},
+];
+
+export const getTranslatedColumns = (): ColumnDef<AuditLog>[] => {
+	return AuditLogColumns.map((column) => {
+		return {
+			...column,
+			header: IntlWrapper.translator[column.intlID!](),
+		};
+	});
 };

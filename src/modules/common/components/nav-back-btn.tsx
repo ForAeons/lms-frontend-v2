@@ -9,12 +9,12 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
-import { useIntl } from "react-intl";
+import { useTranslations } from "@/hooks";
 
 export const NavBackBtn: React.FC = () => {
-	const intl = useIntl();
-	const back = intl.formatMessage({ id: "cyR7Kh", defaultMessage: "Back" });
 	const navigate = useNavigate();
+	const translate = useTranslations();
+	const back = translate["cyR7Kh"]();
 	return (
 		<TooltipProvider>
 			<Tooltip>

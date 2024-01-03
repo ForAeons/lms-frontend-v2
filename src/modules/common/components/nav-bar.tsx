@@ -1,10 +1,10 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useTheme } from "@/components/theme-provider";
 import { useAppSelector } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
+import { useTranslations } from "@/hooks";
 import { NavbarMobileBtn } from ".";
 
 export const NavBar: React.FC = () => {
@@ -13,15 +13,11 @@ export const NavBar: React.FC = () => {
 	const { theme, setTheme } = useTheme();
 	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
-	const intl = useIntl();
-	const welcome = intl.formatMessage(
-		{ id: "gDMHVV", defaultMessage: "Welcome {name}" },
-		{ name: person?.preferred_name ?? person?.full_name },
-	);
-	const toggleThemeText = intl.formatMessage({
-		id: "EQpyb8",
-		defaultMessage: "Toggle theme",
+	const translate = useTranslations();
+	const welcome = translate["gDMHVV"]({
+		name: person?.preferred_name ?? person?.full_name,
 	});
+	const toggleThemeText = translate["EQpyb8"]();
 
 	return (
 		<nav className="w-full p-3 grid grid-cols-3 items-center">

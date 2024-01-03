@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import {
 	Select,
@@ -9,19 +9,15 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { changeFilter } from "@/util";
+import { useTranslations } from "@/hooks";
 
 export const FilterSelect: React.FC<{
 	cq: CollectionQuery;
 	opt: FilterOption[];
 }> = ({ cq, opt }) => {
-	const intl = useIntl();
-	const filterBy = intl.formatMessage({
-		id: "S57QRB",
-		defaultMessage: "Filter by",
-	});
-
 	const navigate = useNavigate();
-
+	const translate = useTranslations();
+	const filterBy = translate["S57QRB"]();
 	return (
 		<div className="flex items-center space-x-2">
 			<span className="text-sm text-muted-foreground whitespace-nowrap">

@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { LockKeyholeIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -21,35 +20,18 @@ import {
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
 import { reserveBookThunk, useAppDispatch } from "@/store";
+import { useTranslations } from "@/hooks";
 
 export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
 	book,
 	copyID,
 }) => {
-	const intl = useIntl();
-	const reserveAction = intl.formatMessage({
-		id: "PCjq1b",
-		defaultMessage: "Reserve",
-	});
-	const confirmation = intl.formatMessage({
-		id: "Pswssl",
-		defaultMessage: "Confirmation",
-	});
-	const confirmationMessage = intl.formatMessage(
-		{
-			id: "Yvzv3+",
-			defaultMessage: `Do you wish to reserve "{title}"?`,
-		},
-		{ title: book.title },
-	);
-	const cancelAction = intl.formatMessage({
-		id: "47FYwb",
-		defaultMessage: "Cancel",
-	});
-	const continueAction = intl.formatMessage({
-		id: "acrOoz",
-		defaultMessage: "Continue",
-	});
+	const translate = useTranslations();
+	const reserveAction = translate["PCjq1b"]();
+	const confirmation = translate["Pswssl"]();
+	const confirmationMessage = translate["Yvzv3+"]({ title: book.title });
+	const cancelAction = translate["47FYwb"]();
+	const continueAction = translate["acrOoz"]();
 
 	const dispatch = useAppDispatch();
 	const handleRes = () => dispatch(reserveBookThunk({ bookCopyID: copyID }));

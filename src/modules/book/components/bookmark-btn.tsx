@@ -14,12 +14,11 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { useIntl } from "react-intl";
+import { useTranslations } from "@/hooks";
 
 export const BookmarkBtn: React.FC<{ book: Book; bm?: Bookmark }> = ({
 	book,
 }) => {
-	const intl = useIntl();
 	const dispatch = useAppDispatch();
 	const bookmarks = useAppSelector((state) => state.app.bookmarks);
 
@@ -31,10 +30,8 @@ export const BookmarkBtn: React.FC<{ book: Book; bm?: Bookmark }> = ({
 
 	const marked = bookmarks.find((bookmark) => bookmark.book_id === book.id);
 
-	const borrowAction = intl.formatMessage({
-		id: "6dn1ux",
-		defaultMessage: "Borrow",
-	});
+	const translate = useTranslations();
+	const borrowAction = translate["6dn1ux"]();
 
 	return (
 		<TooltipProvider>

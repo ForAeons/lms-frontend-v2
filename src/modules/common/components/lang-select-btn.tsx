@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { LanguagesIcon } from "lucide-react";
 import {
 	Select,
@@ -10,14 +9,11 @@ import {
 } from "@/components/ui/select";
 import { useLocale } from "@/components/language-provider";
 import { LOCALE_SELECT_OPTIONS, MD_ICON_SIZE } from "@/constants";
+import { useTranslations } from "@/hooks";
 
 export const LangSelectBtn: React.FC = () => {
-	const intl = useIntl();
-	const selectAppLanguage = intl.formatMessage({
-		id: "LKP2kK",
-		defaultMessage: "Select app language",
-	});
-
+	const translate = useTranslations();
+	const selectAppLanguage = translate["LKP2kK"]();
 	const { locale, setLocale } = useLocale();
 	return (
 		<Select defaultValue={locale} onValueChange={(l) => setLocale(l as Locale)}>

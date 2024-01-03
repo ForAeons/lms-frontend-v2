@@ -1,18 +1,12 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslations } from "@/hooks";
 import { SigninForm } from "..";
 
 export const SigninPage: React.FC = () => {
-	const intl = useIntl();
-	const dontHaveAnAccount = intl.formatMessage({
-		id: "25WwxF",
-		defaultMessage: "Don't have an account?",
-	});
-	const signUpHere = intl.formatMessage({
-		id: "CN7+xa",
-		defaultMessage: "Sign up here",
-	});
+	const translate = useTranslations();
+	const dontHaveAnAccount = translate["25WwxF"]();
+	const signUpHere = translate["CN7+xa"]();
 
 	return (
 		<div className="w-[100vw] h-[100vh] flex justify-center items-center">

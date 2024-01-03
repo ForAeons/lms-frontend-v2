@@ -1,17 +1,3 @@
-import { createIntl } from "react-intl";
-import { ENV } from ".";
-
-// This dead code is used to generate the intl IDs for the roles when running npm run extract
-if (ENV === "development") {
-	const Intl = createIntl({ locale: "en", messages: {} });
-	Intl.formatMessage({ id: "IFPQiA", defaultMessage: "Borrowed" });
-	Intl.formatMessage({ id: "wm96Jx", defaultMessage: "Returned" });
-	Intl.formatMessage({ id: "sI/NFi", defaultMessage: "Reserved" });
-	Intl.formatMessage({ id: "jY+f2f", defaultMessage: "Fulfilled" });
-	Intl.formatMessage({ id: "Q1xfqF", defaultMessage: "Outstanding" });
-	Intl.formatMessage({ id: "u/vOPu", defaultMessage: "Paid" });
-}
-
 export const LOAN_FILTER_OPTIONS: FilterOption[] = [
 	{ label: "Borrowed", key: "status", value: "borrowed", id: "IFPQiA" },
 	{ label: "Returned", key: "status", value: "returned", id: "wm96Jx" },

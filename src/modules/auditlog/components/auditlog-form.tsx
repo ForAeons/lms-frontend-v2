@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,29 +23,18 @@ import {
 } from "@/components/ui/popover";
 import { AuditlogFormSchema } from "@/schema";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "@/hooks";
 
 export const AuditLogForm: React.FC<{
 	defaultValues: z.infer<typeof AuditlogFormSchema>;
 	onSubmit: UnaryHandler<z.infer<typeof AuditlogFormSchema>>;
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
-	const intl = useIntl();
-	const event = intl.formatMessage({
-		id: "m1czzY",
-		defaultMessage: "Event",
-	});
-	const whatHappened = intl.formatMessage({
-		id: "eF7TQV",
-		defaultMessage: "What happened?",
-	});
-	const date = intl.formatMessage({
-		id: "P7PLVj",
-		defaultMessage: "Date",
-	});
-	const pickADate = intl.formatMessage({
-		id: "idkGk/",
-		defaultMessage: "Pick a date",
-	});
+	const translate = useTranslations();
+	const event = translate["m1czzY"]();
+	const whatHappened = translate["eF7TQV"]();
+	const date = translate["P7PLVj"]();
+	const pickADate = translate["idkGk/"]();
 
 	const form = useForm<z.infer<typeof AuditlogFormSchema>>({
 		resolver: zodResolver(AuditlogFormSchema),

@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -17,7 +16,7 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { useQueryParams } from "@/hooks";
+import { useQueryParams, useTranslations } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import {
 	BOOK_SORT_OPTIONS,
@@ -28,7 +27,7 @@ import {
 import { BookCard, BookCreateBtn, BookEditBtn } from "..";
 
 export const ManageBookPage: React.FC = () => {
-	const intl = useIntl();
+	const translate = useTranslations();
 	const dispatch = useAppDispatch();
 	const bookState = useAppSelector((s) => s.book);
 	const canCreateBook = useAppSelector((s) => CheckPermission(s, CREATE_BOOK));
@@ -53,11 +52,8 @@ export const ManageBookPage: React.FC = () => {
 
 	if (bookState.isFetching) return <LoaderPage />;
 
-	const bookTitle = intl.formatMessage({
-		id: "RTM+tQ",
-		defaultMessage: "Manage Books",
-	});
-	const bookText = intl.formatMessage({ id: "kmmXht", defaultMessage: "book" });
+	const bookTitle = translate["RTM+tQ"]();
+	const bookText = translate["kmmXht"]();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

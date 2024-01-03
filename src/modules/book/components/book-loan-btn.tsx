@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { BookUserIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -21,35 +20,19 @@ import {
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
 import { loanBookThunk, useAppDispatch } from "@/store";
+import { useTranslations } from "@/hooks";
 
 export const BookLoanBtn: React.FC<{ book: Book; copyID: number }> = ({
 	book,
 	copyID,
 }) => {
-	const intl = useIntl();
-	const borrowAction = intl.formatMessage({
-		id: "6dn1ux",
-		defaultMessage: "Borrow",
-	});
-	const confirmation = intl.formatMessage({
-		id: "Pswssl",
-		defaultMessage: "Confirmation",
-	});
-	const confirmationMessage = intl.formatMessage(
-		{
-			id: "jXzYxr",
-			defaultMessage: `Do you wish to borrow "{title}"?`,
-		},
-		{ title: book.title },
-	);
-	const cancelAction = intl.formatMessage({
-		id: "47FYwb",
-		defaultMessage: "Cancel",
-	});
-	const continueAction = intl.formatMessage({
-		id: "acrOoz",
-		defaultMessage: "Continue",
-	});
+	const translate = useTranslations();
+	const borrowAction = translate["6dn1ux"]();
+	const confirmation = translate["Pswssl"]();
+	const confirmationMessage = translate["jXzYxr"]({ title: book.title });
+	const cancelAction = translate["47FYwb"]();
+	const continueAction = translate["acrOoz"]();
+
 	const dispatch = useAppDispatch();
 	const handleLoan = () => dispatch(loanBookThunk({ bookCopyID: copyID }));
 	return (

@@ -1,6 +1,5 @@
 import React from "react";
 import { TrashIcon } from "lucide-react";
-import { useIntl } from "react-intl";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -20,36 +19,18 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
+import { useTranslations } from "@/hooks";
 
 export const DeleteBtn: React.FC<{
 	handler?: NullaryHandler;
 	subject: string;
 }> = ({ handler, subject }) => {
-	const intl = useIntl();
-	const deleteAction = intl.formatMessage({
-		id: "K3r6DQ",
-		defaultMessage: "Delete",
-	});
-	const deleteAlertTitle = intl.formatMessage({
-		id: "v5ykbS",
-		defaultMessage: "Are you absolutely sure?",
-	});
-	const deleteAlertDescription = intl.formatMessage(
-		{
-			id: "s3ZjbA",
-			defaultMessage:
-				"This action cannot be undone. This will permanently delete this {subject} and remove it from our servers.",
-		},
-		{ subject },
-	);
-	const cancelAction = intl.formatMessage({
-		id: "47FYwb",
-		defaultMessage: "Cancel",
-	});
-	const continueAction = intl.formatMessage({
-		id: "acrOoz",
-		defaultMessage: "Continue",
-	});
+	const translate = useTranslations();
+	const deleteAction = translate["K3r6DQ"]();
+	const deleteAlertTitle = translate["v5ykbS"]();
+	const deleteAlertDescription = translate["s3ZjbA"]({ subject });
+	const cancelAction = translate["47FYwb"]();
+	const continueAction = translate["acrOoz"]();
 
 	return (
 		<AlertDialog>
