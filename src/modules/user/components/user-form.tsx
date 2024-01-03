@@ -13,8 +13,8 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+import { useTranslations } from "@/components/language-provider";
 import { UserFormSchema } from "@/schema";
-import { useTranslations } from "@/hooks";
 
 export const UserForm: React.FC<{
 	defaultValues: z.infer<typeof UserFormSchema>;

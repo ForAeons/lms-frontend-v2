@@ -9,7 +9,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { changeFilter } from "@/util";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const FilterSelect: React.FC<{
 	cq: CollectionQuery;
@@ -17,7 +17,7 @@ export const FilterSelect: React.FC<{
 }> = ({ cq, opt }) => {
 	const navigate = useNavigate();
 	const translate = useTranslations();
-	const filterBy = translate["filterBy"]();
+	const filterBy = translate.filterBy();
 	return (
 		<div className="flex items-center space-x-2">
 			<span className="text-sm text-muted-foreground whitespace-nowrap">

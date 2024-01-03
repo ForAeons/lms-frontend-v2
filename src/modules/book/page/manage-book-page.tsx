@@ -16,7 +16,8 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { useQueryParams, useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
+import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import {
 	BOOK_SORT_OPTIONS,
@@ -52,8 +53,8 @@ export const ManageBookPage: React.FC = () => {
 
 	if (bookState.isFetching) return <LoaderPage />;
 
-	const bookTitle = translate["manageBooks"]();
-	const bookText = translate["book"]();
+	const bookTitle = translate.manageBooks();
+	const bookText = translate.book();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

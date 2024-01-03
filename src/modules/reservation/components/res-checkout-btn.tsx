@@ -20,15 +20,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { checkoutResThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const ResCheckoutBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 	const translate = useTranslations();
-	const checkoutAction = translate["Checkout"]();
-	const cancelAction = translate["Cancel"]();
-	const confirmation = translate["Confirmation"]();
-	const confirmationMessage = translate["checkoutResDesc"]();
-	const continueAction = translate["Continue"]();
+	const checkoutAction = translate.Checkout();
+	const cancelAction = translate.Cancel();
+	const confirmation = translate.Confirmation();
+	const confirmationMessage = translate.checkoutResDesc();
+	const continueAction = translate.Continue();
 
 	const dispatch = useAppDispatch();
 	const handleCheckout = () => dispatch(checkoutResThunk({ resId: res.id }));

@@ -20,15 +20,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { renewLoanThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const LoanRenewBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 	const translate = useTranslations();
-	const renew = translate["Renew"]();
-	const confirmation = translate["Confirmation"]();
-	const confirmationMessage = translate["renewLoanDesc"]();
-	const cancelAction = translate["Cancel"]();
-	const continueAction = translate["Continue"]();
+	const renew = translate.Renew();
+	const confirmation = translate.Confirmation();
+	const confirmationMessage = translate.renewLoanDesc();
+	const cancelAction = translate.Cancel();
+	const continueAction = translate.Continue();
 
 	const dispatch = useAppDispatch();
 	const handleRenew = () => dispatch(renewLoanThunk({ loanId: loan.id }));

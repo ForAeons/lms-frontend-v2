@@ -16,15 +16,16 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useTranslations } from "@/components/language-provider";
 import { CreateBtn } from "@/modules";
-import { useMediaQuery, useTranslations } from "@/hooks";
+import { useMediaQuery } from "@/hooks";
 import { ResCreateForm } from ".";
 
 export const ResCreateDialog: React.FC = () => {
 	const translate = useTranslations();
-	const reservation = translate["reservation"]();
-	const createRes = translate["createRes"]();
-	const createResDescription = translate["selectUserAndBook"]();
+	const reservation = translate.reservation();
+	const createRes = translate.createRes();
+	const createResDescription = translate.selectUserAndBook();
 
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 

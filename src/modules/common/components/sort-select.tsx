@@ -9,7 +9,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { changeSort } from "@/util";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const SortSelect: React.FC<{
 	cq: CollectionQuery;
@@ -17,7 +17,7 @@ export const SortSelect: React.FC<{
 }> = ({ cq, opt }) => {
 	const navigate = useNavigate();
 	const translate = useTranslations();
-	const sortBy = translate["sortBy"]();
+	const sortBy = translate.sortBy();
 	return (
 		<div className="flex items-center space-x-2">
 			<span className="text-sm text-muted-foreground whitespace-nowrap">

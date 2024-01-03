@@ -20,15 +20,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { returnLoanThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const LoanReturnBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 	const translate = useTranslations();
-	const returnLabel = translate["Return"]();
-	const confirmation = translate["Confirmation"]();
-	const confirmationMessage = translate["returnBookDesc"]();
-	const cancelAction = translate["Cancel"]();
-	const continueAction = translate["Continue"]();
+	const returnLabel = translate.Return();
+	const confirmation = translate.Confirmation();
+	const confirmationMessage = translate.returnBookDesc();
+	const cancelAction = translate.Cancel();
+	const continueAction = translate.Continue();
 
 	const dispatch = useAppDispatch();
 	const handleReturn = () => dispatch(returnLoanThunk({ loanId: loan.id }));

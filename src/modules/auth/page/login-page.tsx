@@ -1,12 +1,12 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { SigninForm } from "..";
 
 export const SigninPage: React.FC = () => {
 	const translate = useTranslations();
-	const dontHaveAnAccount = translate["dontHaveAcc"]();
-	const signUpHere = translate["signUpHere"]();
+	const dontHaveAnAccount = translate.dontHaveAcc();
+	const signUpHere = translate.signUpHere();
 
 	return (
 		<div className="w-[100vw] h-[100vh] flex justify-center items-center">

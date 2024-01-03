@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { LANGUAGE_SELECT_OPTIONS } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { BookPicture } from ".";
 
 export const BookCard: React.FC<{
@@ -24,14 +24,14 @@ export const BookCard: React.FC<{
 		book.language;
 
 	const translate = useTranslations();
-	const byAuthor = translate["byAuthor"]({ author: book.author });
-	const bookDesc = translate["publishedDateLang"]({
+	const byAuthor = translate.byAuthor({ author: book.author });
+	const bookDesc = translate.publishedDateLang({
 		date: pubDate,
 		lang: langLabel,
 	});
-	const genre = translate["genreIs"]({ genre: book.genre });
-	const publishedBy = translate["publishedBy"]({ publisher: book.publisher });
-	const isbn = translate["ISBNIs"]({ isbn: book.isbn });
+	const genre = translate.genreIs({ genre: book.genre });
+	const publishedBy = translate.publishedBy({ publisher: book.publisher });
+	const isbn = translate.ISBNIs({ isbn: book.isbn });
 
 	return (
 		<Card className="relative flex lg:flex-row flex-col hover:shadow-md transition-shadow pr-10">

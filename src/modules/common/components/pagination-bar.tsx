@@ -22,7 +22,7 @@ import {
 	previousPage,
 } from "@/util";
 import { MD_ICON_SIZE, CQ_LIMITS } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const PaginationBar: React.FC<{
 	cq: CollectionQuery;
@@ -36,8 +36,8 @@ export const PaginationBar: React.FC<{
 	if (isNaN(totalPages)) totalPages = 1;
 
 	const translate = useTranslations();
-	const itemsPerPage = translate["itemsPerPage"]();
-	const pageOf = translate["pageXofY"]({ currentPage, totalPages });
+	const itemsPerPage = translate.itemsPerPage();
+	const pageOf = translate.pageXofY({ currentPage, totalPages });
 
 	return (
 		<div className="col-span-full flex flex-wrap justify-around items-center py-3 gap-3">

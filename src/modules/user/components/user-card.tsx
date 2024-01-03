@@ -8,7 +8,7 @@ import {
 	useAppSelector,
 } from "@/store";
 import { DELETE_USER, UPDATE_USER, UPDATE_USER_ROLE } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { RandomAvatar, UserEditBtn, UserUpdateRoleBtn } from ".";
 
 export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({

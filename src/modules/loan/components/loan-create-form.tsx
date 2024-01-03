@@ -37,19 +37,19 @@ import {
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { BookUserFormSchema } from "@/schema";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const LoanCreateForm: React.FC = () => {
 	const translate = useTranslations();
-	const user = translate["User"]();
-	const searchForUser = translate["searchForUser"]();
-	const noUserFound = translate["noUserFound"]();
-	const startTypingUser = translate["startTypingForUser"]();
-	const book = translate["Book"]();
-	const searchForBook = translate["searchForBook"]();
-	const noBookFound = translate["noBookFound"]();
-	const startTypingBook = translate["Create"]();
-	const create = translate["Create"]();
+	const user = translate.User();
+	const searchForUser = translate.searchForUser();
+	const noUserFound = translate.noUserFound();
+	const startTypingUser = translate.startTypingForUser();
+	const book = translate.Book();
+	const searchForBook = translate.searchForBook();
+	const noBookFound = translate.noBookFound();
+	const startTypingBook = translate.Create();
+	const create = translate.Create();
 
 	const dispatch = useAppDispatch();
 	const userAutoComp = useAppSelector((state) => state.user.autocomplete);

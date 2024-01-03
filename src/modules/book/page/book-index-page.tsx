@@ -6,7 +6,7 @@ import {
 	listPopularBooksThunk,
 } from "@/store/thunks/book-thunk";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { BookCarousel } from "..";
 
 export const BookIndexPage: React.FC = () => {
@@ -40,8 +40,8 @@ export const BookIndexPage: React.FC = () => {
 		return <LoaderPage />;
 	}
 
-	const newArrivals = translate["newArrivals"]();
-	const popularBooks = translate["popularBooks"]();
+	const newArrivals = translate.newArrivals();
+	const popularBooks = translate.popularBooks();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

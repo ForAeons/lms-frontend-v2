@@ -14,7 +14,7 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const BookmarkBtn: React.FC<{ book: Book; bm?: Bookmark }> = ({
 	book,
@@ -31,7 +31,7 @@ export const BookmarkBtn: React.FC<{ book: Book; bm?: Bookmark }> = ({
 	const marked = bookmarks.find((bookmark) => bookmark.book_id === book.id);
 
 	const translate = useTranslations();
-	const borrowAction = translate["Borrow"]();
+	const borrowAction = translate.Borrow();
 
 	return (
 		<TooltipProvider>

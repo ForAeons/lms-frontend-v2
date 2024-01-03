@@ -8,13 +8,13 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const EditBtn: React.FC<{ handler?: NullaryHandler }> = ({
 	handler,
 }) => {
 	const translate = useTranslations();
-	const edit = translate["Edit"]();
+	const edit = translate.Edit();
 	return (
 		<TooltipProvider>
 			<Tooltip>

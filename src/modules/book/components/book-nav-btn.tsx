@@ -9,14 +9,14 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const BookNavBtn: React.FC<{ book: Book; url?: string }> = ({
 	book,
 	url,
 }) => {
 	const translate = useTranslations();
-	const openInOtherTab = translate["openInOtherTab"]();
+	const openInOtherTab = translate.openInOtherTab();
 
 	const navigate = useNavigate();
 	return (

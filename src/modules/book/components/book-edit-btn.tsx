@@ -12,14 +12,14 @@ import {
 import { EditBtn } from "@/modules";
 import { updateBookThunk, useAppDispatch } from "@/store";
 import { BookFormSchema } from "@/schema";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { BookForm } from ".";
 
 export const BookEditBtn: React.FC<{ book: Book }> = ({ book }) => {
 	const translate = useTranslations();
-	const updateBookDetails = translate["updateBookDetails"]();
-	const updateBookDescription = translate["updateBookDesc"]();
-	const saveAction = translate["Save"]();
+	const updateBookDetails = translate.updateBookDetails();
+	const updateBookDescription = translate.updateBookDesc();
+	const saveAction = translate.Save();
 
 	const defaultValues = {
 		title: book.title,

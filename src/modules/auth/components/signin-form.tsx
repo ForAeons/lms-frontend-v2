@@ -16,18 +16,18 @@ import {
 } from "@/components/ui/form";
 import { userSignInSchema } from "@/schema";
 import { useAppDispatch, signInThunk } from "@/store";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const SigninForm: React.FC = () => {
 	const translate = useTranslations();
-	const username = translate["Username"]();
-	const yourUsername = translate["yourUsername"]();
-	const usernameDescription = translate["usernameDesc"]();
-	const password = translate["Password"]();
-	const yourPassword = translate["yourPassword"]();
-	const passwordDescription = translate["passwordDesc"]();
-	const submitAction = translate["signIn"]();
-	const homePage = translate["homePage"]();
+	const username = translate.Username();
+	const yourUsername = translate.yourUsername();
+	const usernameDescription = translate.usernameDesc();
+	const password = translate.Password();
+	const yourPassword = translate.yourPassword();
+	const passwordDescription = translate.passwordDesc();
+	const submitAction = translate.signIn();
+	const homePage = translate.homePage();
 
 	const form = useForm<z.infer<typeof userSignInSchema>>({
 		resolver: zodResolver(userSignInSchema),

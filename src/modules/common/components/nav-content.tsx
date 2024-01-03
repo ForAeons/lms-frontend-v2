@@ -30,7 +30,7 @@ import {
 	MD_ICON_SIZE,
 	READ_AUDIT_LOG,
 } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { ColorSelectBtn, LangSelectBtn } from ".";
 
 export const NavContent: React.FC = () => {
@@ -54,27 +54,27 @@ export const NavContent: React.FC = () => {
 	};
 
 	const translate = useTranslations();
-	const welcome = translate["Welcome"]({
+	const welcome = translate.Welcome({
 		name: person?.preferred_name ?? person?.full_name ?? "",
 	});
-	const homePage = translate["homePage"]();
-	const catalogue = translate["Catalogue"]();
-	const signOut = translate["signOut"]();
-	const signIn = translate["signIn"]();
-	const resources = translate["Resources"]();
-	const myBookmark = translate["myBookmarks"]();
-	const myLoan = translate["myLoans"]();
-	const myReservation = translate["myReservations"]();
-	const myFine = translate["myFines"]();
-	const admin = translate["Admin"]();
-	const manageUser = translate["manageUsers"]();
-	const manageBook = translate["manageBooks"]();
-	const manageLoan = translate["manageLoans"]();
-	const manageReservation = translate["manageReservations"]();
-	const manageFine = translate["manageFines"]();
-	const auditLog = translate["AuditLog"]();
-	const settings = translate["Settings"]();
-	const toggleThemeText = translate["toggleTheme"]();
+	const homePage = translate.homePage();
+	const catalogue = translate.Catalogue();
+	const signOut = translate.signOut();
+	const signIn = translate.signIn();
+	const resources = translate.Resources();
+	const myBookmark = translate.myBookmarks();
+	const myLoan = translate.myLoans();
+	const myReservation = translate.myReservations();
+	const myFine = translate.myFines();
+	const admin = translate.Admin();
+	const manageUser = translate.manageUsers();
+	const manageBook = translate.manageBooks();
+	const manageLoan = translate.manageLoans();
+	const manageReservation = translate.manageReservations();
+	const manageFine = translate.manageFines();
+	const auditLog = translate.AuditLog();
+	const settings = translate.Settings();
+	const toggleThemeText = translate.toggleTheme();
 
 	return (
 		<nav className="space-y-4 py-4">

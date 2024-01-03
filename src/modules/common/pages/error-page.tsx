@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const ErrorPage: React.FC<{ errorMsg: string }> = ({ errorMsg }) => {
 	const navigate = useNavigate();
 	const translate = useTranslations();
-	const goBack = translate["goBack"]();
+	const goBack = translate.goBack();
 	return (
 		<div className="h-full w-full relative">
 			<div className="max-w-md w-full absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-6 items-center">

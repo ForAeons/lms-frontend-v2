@@ -12,15 +12,15 @@ import {
 import { CreateBtn } from "@/modules";
 import { createBookThunk, useAppDispatch } from "@/store";
 import { BookFormSchema } from "@/schema";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { BookForm } from ".";
 
 export const BookCreateBtn: React.FC = () => {
 	const translate = useTranslations();
-	const bookText = translate["book"]();
-	const createBook = translate["addNewBook"]();
-	const createBookDesc = translate["addBookDesc"]();
-	const createAction = translate["Create"]();
+	const bookText = translate.book();
+	const createBook = translate.addNewBook();
+	const createBookDesc = translate.addBookDesc();
+	const createAction = translate.Create();
 
 	const defaultValues = {
 		title: "",

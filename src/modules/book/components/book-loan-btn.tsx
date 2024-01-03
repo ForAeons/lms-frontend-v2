@@ -20,18 +20,18 @@ import {
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
 import { loanBookThunk, useAppDispatch } from "@/store";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const BookLoanBtn: React.FC<{ book: Book; copyID: number }> = ({
 	book,
 	copyID,
 }) => {
 	const translate = useTranslations();
-	const borrowAction = translate["Borrow"]();
-	const confirmation = translate["Confirmation"]();
-	const confirmationMessage = translate["loanBookDesc"]({ title: book.title });
-	const cancelAction = translate["Cancel"]();
-	const continueAction = translate["Continue"]();
+	const borrowAction = translate.Borrow();
+	const confirmation = translate.Confirmation();
+	const confirmationMessage = translate.loanBookDesc({ title: book.title });
+	const cancelAction = translate.Cancel();
+	const continueAction = translate.Continue();
 
 	const dispatch = useAppDispatch();
 	const handleLoan = () => dispatch(loanBookThunk({ bookCopyID: copyID }));

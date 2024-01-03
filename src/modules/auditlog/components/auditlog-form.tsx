@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/popover";
 import { AuditlogFormSchema } from "@/schema";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const AuditLogForm: React.FC<{
 	defaultValues: z.infer<typeof AuditlogFormSchema>;
@@ -31,10 +31,10 @@ export const AuditLogForm: React.FC<{
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
 	const translate = useTranslations();
-	const event = translate["Event"]();
-	const whatHappened = translate["whatHappened"]();
-	const date = translate["Date"]();
-	const pickADate = translate["pickADate"]();
+	const event = translate.Event();
+	const whatHappened = translate.whatHappened();
+	const date = translate.Date();
+	const pickADate = translate.pickADate();
 
 	const form = useForm<z.infer<typeof AuditlogFormSchema>>({
 		resolver: zodResolver(AuditlogFormSchema),

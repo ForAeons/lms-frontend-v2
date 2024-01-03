@@ -20,15 +20,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { settleFineThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const FineSettleBtn: React.FC<{ fine: Fine }> = ({ fine }) => {
 	const translate = useTranslations();
-	const settle = translate["Settle"]();
-	const confirmation = translate["Confirmation"]();
-	const confirmationMessage = translate["settleFineDesc"]();
-	const cancelAction = translate["Cancel"]();
-	const continueAction = translate["Continue"]();
+	const settle = translate.Settle();
+	const confirmation = translate.Confirmation();
+	const confirmationMessage = translate.settleFineDesc();
+	const cancelAction = translate.Cancel();
+	const continueAction = translate.Continue();
 	const dispatch = useAppDispatch();
 	const handleRenew = () => dispatch(settleFineThunk({ fineId: fine.id }));
 	return (

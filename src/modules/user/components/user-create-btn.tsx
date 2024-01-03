@@ -12,14 +12,14 @@ import {
 import { useAppDispatch, createUserThunk } from "@/store";
 import { CreateBtn } from "@/modules";
 import { UserFormSchema } from "@/schema";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { UserForm } from ".";
 
 export const UserCreateBtn: React.FC = () => {
 	const translate = useTranslations();
 	const user = translate.user();
 	const addNewUser = translate.addNewUser();
-	const createAction = translate["Create"]();
+	const createAction = translate.Create();
 	const createUserDescription = translate.createUserDesc();
 
 	const defaultValues = {

@@ -25,7 +25,8 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { useMediaQuery, useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
+import { useMediaQuery } from "@/hooks";
 import { updateUserRoleThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
 import { UserUpdateRoleForm } from ".";

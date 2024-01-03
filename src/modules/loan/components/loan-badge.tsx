@@ -1,11 +1,11 @@
 import React from "react";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const LoanBadge: React.FC<{ loan: Loan }> = ({ loan }) => {
 	const translate = useTranslations();
-	const returned = translate["Returned"]();
+	const returned = translate.Returned();
 
 	if (loan.status === "returned")
 		return (
@@ -19,7 +19,7 @@ export const LoanBadge: React.FC<{ loan: Loan }> = ({ loan }) => {
 	const currentDate = new Date();
 	const isOverdue = currentDate > dueDate;
 
-	const due = translate["dueDate"]({
+	const due = translate.dueDate({
 		date: format(dueDate, "P"),
 	});
 
@@ -30,7 +30,7 @@ export const LoanBadge: React.FC<{ loan: Loan }> = ({ loan }) => {
 			</Badge>
 		);
 
-	const overdue = translate["Overdue"]();
+	const overdue = translate.Overdue();
 
 	return (
 		<Badge variant="destructive" className="w-fit">

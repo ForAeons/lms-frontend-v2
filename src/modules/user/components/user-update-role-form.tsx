@@ -20,9 +20,9 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { useTranslations } from "@/components/language-provider";
 import { UserRoleSchema } from "@/schema";
 import { ROLE_SELECT_OPTIONS } from "@/constants";
-import { useTranslations } from "@/hooks";
 
 export const UserUpdateRoleForm: React.FC<{
 	onSubmit: UnaryHandler<z.infer<typeof UserRoleSchema>>;

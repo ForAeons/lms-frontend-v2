@@ -6,12 +6,12 @@ export const loanToBadgeProps = (loan: LoanDetailed): BadgeProps[] => {
 	const currentDate = new Date();
 	const isOverdue = currentDate > dueDate;
 
-	const returned = IntlWrapper.translator["Returned"]();
-	const overdue = IntlWrapper.translator["Overdue"]();
-	const due = IntlWrapper.translator["dueDate"]({
+	const returned = IntlWrapper.translator.Returned();
+	const overdue = IntlWrapper.translator.Overdue();
+	const due = IntlWrapper.translator.dueDate({
 		date: format(dueDate, "P"),
 	});
-	const loanedTo = IntlWrapper.translator["loanedTo"]({
+	const loanedTo = IntlWrapper.translator.loanedTo({
 		username: loan.user.username,
 	});
 

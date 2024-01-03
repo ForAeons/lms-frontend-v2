@@ -20,14 +20,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { cancelResThunk, useAppDispatch } from "@/store";
 import { LG_ICON_SIZE } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const ResCancelBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 	const translate = useTranslations();
-	const cancelAction = translate["Cancel"]();
-	const confirmation = translate["Confirmation"]();
-	const confirmationMessage = translate["cancelResDesc"]();
-	const continueAction = translate["Continue"]();
+	const cancelAction = translate.Cancel();
+	const confirmation = translate.Confirmation();
+	const confirmationMessage = translate.cancelResDesc();
+	const continueAction = translate.Continue();
 
 	const dispatch = useAppDispatch();
 	const handleCancel = () => dispatch(cancelResThunk({ resId: res.id }));

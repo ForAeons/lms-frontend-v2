@@ -16,15 +16,16 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useTranslations } from "@/components/language-provider";
 import { CreateBtn } from "@/modules";
-import { useMediaQuery, useTranslations } from "@/hooks";
+import { useMediaQuery } from "@/hooks";
 import { LoanCreateForm } from ".";
 
 export const LoanCreateBtn: React.FC = () => {
 	const translate = useTranslations();
-	const loan = translate["loan"]();
-	const createLoan = translate["createLoan"]();
-	const createLoanDescription = translate["selectUserAndBook"]();
+	const loan = translate.loan();
+	const createLoan = translate.createLoan();
+	const createLoanDescription = translate.selectUserAndBook();
 
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 

@@ -35,8 +35,3 @@ interface LanguageProviderProps {
 	defaultLocale?: Locale;
 	storageKey?: string;
 }
-
-interface LanguageProviderState {
-	locale: Locale;
-	setLocale: (Locale: Locale) => void;
-}

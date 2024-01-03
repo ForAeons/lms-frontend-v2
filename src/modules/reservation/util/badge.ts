@@ -7,12 +7,12 @@ export const resToBadgeProps = (r: ReservationDetailed): BadgeProps[] => {
 	const currentDate = new Date();
 	const isExpired = currentDate > resDate;
 
-	const checkedOut = IntlWrapper.translator["checkedOut"]();
-	const expired = IntlWrapper.translator["expired"]();
-	const reservedUntil = IntlWrapper.translator["reservedUntil"]({
+	const checkedOut = IntlWrapper.translator.checkedOut();
+	const expired = IntlWrapper.translator.expired();
+	const reservedUntil = IntlWrapper.translator.reservedUntil({
 		date: format(resDate, "P"),
 	});
-	const reservedBy = IntlWrapper.translator["reservedBy"]({
+	const reservedBy = IntlWrapper.translator.reservedBy({
 		username: r.user.username,
 	});
 

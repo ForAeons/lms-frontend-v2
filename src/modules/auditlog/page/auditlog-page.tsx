@@ -14,7 +14,8 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { useQueryParams, useTranslations } from "@/hooks";
+import { useQueryParams } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { CREATE_AUDIT_LOG, LOG_SORT_OPTIONS } from "@/constants";
 import { DataTable, LogCreateBtn, getTranslatedColumns } from "..";
@@ -45,7 +46,7 @@ export const AuditLogPage: React.FC = () => {
 
 	if (auditlogState.isFetching) return <LoaderPage />;
 
-	const auditLogs = translate["AuditLogs"]();
+	const auditLogs = translate.AuditLogs();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

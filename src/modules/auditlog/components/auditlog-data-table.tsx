@@ -1,4 +1,3 @@
-import { useIntl } from "react-intl";
 import {
 	ColumnDef,
 	flexRender,
@@ -13,6 +12,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { useTranslations } from "@/components/language-provider";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -23,11 +23,8 @@ export const DataTable = <TData, TValue>({
 	columns,
 	data,
 }: DataTableProps<TData, TValue>) => {
-	const intl = useIntl();
-	const noResults = intl.formatMessage({
-		id: "0H2hdf",
-		defaultMessage: "No results.",
-	});
+	const translate = useTranslations();
+	const noResults = translate.noResults();
 
 	const table = useReactTable({
 		data,

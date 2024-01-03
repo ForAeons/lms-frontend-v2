@@ -5,14 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cqToUrl } from "@/util";
 import { LG_ICON_SIZE } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const SearchBar: React.FC<{ cq: CollectionQuery; baseUrl?: string }> = ({
 	cq,
 	baseUrl,
 }) => {
 	const translate = useTranslations();
-	const search = translate["Search"]();
+	const search = translate.Search();
 
 	const navigate = useNavigate();
 	const [searchValue, setSearchValue] = React.useState(

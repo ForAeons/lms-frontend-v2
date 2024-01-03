@@ -8,14 +8,14 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const CreateBtn: React.FC<{
 	handler?: NullaryHandler;
 	subject: string;
 }> = ({ handler, subject }) => {
 	const translate = useTranslations();
-	const addNew = translate["addNew"]({ subject });
+	const addNew = translate.addNew({ subject });
 
 	return (
 		<TooltipProvider>

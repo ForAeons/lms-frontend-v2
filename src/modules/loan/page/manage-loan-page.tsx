@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { useQueryParams, useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
+import { useQueryParams } from "@/hooks";
 import {
 	FilterSelect,
 	LoaderPage,
@@ -46,7 +47,7 @@ export const ManageLoanPage: React.FC = () => {
 
 	if (loanState.isFetching) return <LoaderPage />;
 
-	const loanTitle = translate["manageLoans"]();
+	const loanTitle = translate.manageLoans();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

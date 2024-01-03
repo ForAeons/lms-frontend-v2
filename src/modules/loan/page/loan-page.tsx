@@ -2,12 +2,12 @@ import React from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useAppSelector } from "@/store";
 import { BookCard } from "@/modules/book";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { LoanRenewBtn, LoanReturnBtn, loanToBadgeProps } from "..";
 
 export const LoanPage: React.FC = () => {
 	const translate = useTranslations();
-	const myLoans = translate["myLoans"]();
+	const myLoans = translate.myLoans();
 
 	const loans = useAppSelector((state) => state.app.loans);
 	const user = useAppSelector((state) => state.app.user);

@@ -2,12 +2,12 @@ import React from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { BookCard } from "@/modules/book";
 import { useAppSelector } from "@/store";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { ResCancelBtn, ResCheckoutBtn, resToBadgeProps } from "..";
 
 export const ResPage: React.FC = () => {
 	const translate = useTranslations();
-	const myReservations = translate["myReservations"]();
+	const myReservations = translate.myReservations();
 
 	const res = useAppSelector((state) => state.app.reservations);
 	const user = useAppSelector((state) => state.app.user);

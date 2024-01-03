@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import * as z from "zod";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslations } from "@/components/language-provider";
 import { createUserThunk, useAppDispatch } from "@/store";
 import { UserFormSchema } from "@/schema";
 import { UserForm } from "..";
-import { useTranslations } from "@/hooks";
 
 export const SignupPage: React.FC = () => {
 	const translate = useTranslations();

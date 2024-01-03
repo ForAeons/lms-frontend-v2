@@ -15,9 +15,52 @@ import { IntlShape } from "react-intl";
  * @param intl The intl object from react-intl
  * @returns A list of translations
  */
-
 export const translations = (intl: IntlShape) => {
 	return {
+		youHaveResDueSoon: () =>
+			intl.formatMessage({
+				id: "+5zVex",
+				defaultMessage: "You have reservation due soon.",
+			}),
+		youHaveLoanDueSoon: () =>
+			intl.formatMessage({
+				id: "VxQOZF",
+				defaultMessage: "You have loan due soon.",
+			}),
+		bookmarkAvailBorrow: ({ title }: { title: string }) =>
+			intl.formatMessage(
+				{
+					id: "1c6v8F",
+					defaultMessage: '"{title}" is now available for you to borrow.',
+				},
+				{ title },
+			),
+
+		bookmarkAvailable: () =>
+			intl.formatMessage({
+				id: "RteBRh",
+				defaultMessage: "A book you bookmarked is now available!",
+			}),
+		resReminders: () =>
+			intl.formatMessage({
+				id: "fciVZO",
+				defaultMessage: "Reservation reminders",
+			}),
+		loanReminders: () =>
+			intl.formatMessage({
+				id: "bf08of",
+				defaultMessage: "Loan reminders",
+			}),
+		youHaveOutstandingFines: () =>
+			intl.formatMessage({
+				id: "c/gWn5",
+				defaultMessage: "You have outstanding fines!",
+			}),
+		noResults: () =>
+			intl.formatMessage({
+				id: "0H2hdf",
+				defaultMessage: "No results.",
+			}),
 		Signup: () =>
 			intl.formatMessage({
 				id: "8HJxXG",
@@ -247,7 +290,7 @@ export const translations = (intl: IntlShape) => {
 		outstandingAmount: ({ amount }: { amount: string }) =>
 			intl.formatMessage(
 				{
-					id: "vyODZ+",
+					id: "Vxu0f9",
 					defaultMessage: "Outstanding amount: {amount}",
 				},
 				{ amount },
@@ -634,3 +677,6 @@ export const translations = (intl: IntlShape) => {
 			intl.formatMessage({ id: "/0TOL5", defaultMessage: "Amount" }),
 	};
 };
+
+export type Translator = ReturnType<typeof translations>;
+export type TranslationKey = keyof Translator;

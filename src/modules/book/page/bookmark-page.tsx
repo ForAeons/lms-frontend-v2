@@ -7,11 +7,11 @@ import {
 	BookmarkBtn,
 	bookToBadgeProps,
 } from "@/modules/book";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const BookmarkPage: React.FC = () => {
 	const translate = useTranslations();
-	const myBookmarks = translate["myBookmarks"]();
+	const myBookmarks = translate.myBookmarks();
 
 	const bookmarks = useAppSelector((state) => state.app.bookmarks);
 	return (

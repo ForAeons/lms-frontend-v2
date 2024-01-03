@@ -20,20 +20,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
 import { reserveBookThunk, useAppDispatch } from "@/store";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
 	book,
 	copyID,
 }) => {
 	const translate = useTranslations();
-	const reserveAction = translate["Reserve"]();
-	const confirmation = translate["Confirmation"]();
-	const confirmationMessage = translate["reserveBookDesc"]({
+	const reserveAction = translate.Reserve();
+	const confirmation = translate.Confirmation();
+	const confirmationMessage = translate.reserveBookDesc({
 		title: book.title,
 	});
-	const cancelAction = translate["Cancel"]();
-	const continueAction = translate["Continue"]();
+	const cancelAction = translate.Cancel();
+	const continueAction = translate.Continue();
 
 	const dispatch = useAppDispatch();
 	const handleRes = () => dispatch(reserveBookThunk({ bookCopyID: copyID }));

@@ -9,11 +9,11 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { useTranslations } from "@/components/language-provider";
 import { useAppDispatch, updateUserThunk } from "@/store";
 import { EditBtn } from "@/modules";
 import { UserFormSchema } from "@/schema";
 import { UserForm } from ".";
-import { useTranslations } from "@/hooks";
 
 export const UserEditBtn: React.FC<{
 	userPerson: UserPerson;

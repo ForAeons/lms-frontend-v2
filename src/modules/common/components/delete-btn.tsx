@@ -19,20 +19,20 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { LG_ICON_SIZE } from "@/constants";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const DeleteBtn: React.FC<{
 	handler?: NullaryHandler;
 	subject: string;
 }> = ({ handler, subject }) => {
 	const translate = useTranslations();
-	const deleteAction = translate["Delete"]();
-	const deleteAlertTitle = translate["areYouSure"]();
-	const deleteAlertDescription = translate["thisActionCannotBeUndone"]({
+	const deleteAction = translate.Delete();
+	const deleteAlertTitle = translate.areYouSure();
+	const deleteAlertDescription = translate.thisActionCannotBeUndone({
 		subject,
 	});
-	const cancelAction = translate["Cancel"]();
-	const continueAction = translate["Continue"]();
+	const cancelAction = translate.Cancel();
+	const continueAction = translate.Continue();
 
 	return (
 		<AlertDialog>

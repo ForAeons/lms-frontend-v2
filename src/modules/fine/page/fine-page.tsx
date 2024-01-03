@@ -2,12 +2,12 @@ import React from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useAppSelector } from "@/store";
 import { BookCard } from "@/modules/book";
+import { useTranslations } from "@/components/language-provider";
 import { FineSettleBtn, fineToBadgeProps } from "..";
-import { useTranslations } from "@/hooks";
 
 export const FinePage: React.FC = () => {
 	const translate = useTranslations();
-	const myFines = translate["myFines"]();
+	const myFines = translate.myFines();
 
 	const fines = useAppSelector((state) => state.app.fines);
 	const user = useAppSelector((state) => state.app.user);

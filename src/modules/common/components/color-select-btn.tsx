@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { COLOR_SELECT_OPTIONS, MD_ICON_SIZE } from "@/constants";
 import { useTheme } from "@/components/theme-provider";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 
 export const ColorSelectBtn: React.FC = () => {
 	const { color, setColor } = useTheme();
 	const translate = useTranslations();
-	const theme = translate["Theme"]();
-	const themes = translate["Themes"]();
-	const selectTheme = translate["selectTheme"]();
+	const theme = translate.Theme();
+	const themes = translate.Themes();
+	const selectTheme = translate.selectTheme();
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>

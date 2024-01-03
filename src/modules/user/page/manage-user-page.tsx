@@ -14,7 +14,8 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
-import { useQueryParams, useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
+import { useQueryParams } from "@/hooks";
 import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { CREATE_USER, USER_SORT_OPTIONS } from "@/constants";
 import { UserCreateBtn, UserPersonCard } from "..";

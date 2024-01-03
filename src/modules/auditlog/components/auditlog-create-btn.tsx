@@ -21,15 +21,15 @@ import { CreateBtn } from "@/modules";
 import { createLogThunk, useAppDispatch } from "@/store";
 import { AuditlogFormSchema } from "@/schema";
 import { useMediaQuery } from "@/hooks";
-import { useTranslations } from "@/hooks";
+import { useTranslations } from "@/components/language-provider";
 import { AuditLogForm } from "./auditlog-form";
 
 export const LogCreateBtn: React.FC = () => {
 	const translate = useTranslations();
-	const auditLogText = translate["auditLog"]();
-	const logAnEvent = translate["logAnEvent"]();
-	const logAnEventDescription = translate["logEventDesc"]();
-	const createAction = translate["Create"]();
+	const auditLogText = translate.auditLog();
+	const logAnEvent = translate.logAnEvent();
+	const logAnEventDescription = translate.logEventDesc();
+	const createAction = translate.Create();
 
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 	const defaultValues = { action: "", date: new Date() };
