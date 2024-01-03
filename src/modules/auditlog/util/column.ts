@@ -3,7 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { IntlWrapper } from "@/components/language-provider";
 import { TranslationKey } from "@/util";
 
-export const AuditLogColumns: ColumnDef<AuditLog>[] = [
+export const AuditLogColumns = [
 	{
 		accessorKey: "user_id",
 		header: "User ID",
@@ -27,7 +27,7 @@ export const AuditLogColumns: ColumnDef<AuditLog>[] = [
 			return format(row.getValue("date"), "P");
 		},
 	},
-];
+] satisfies ColumnDef<AuditLog>[];
 
 export const getTranslatedColumns = (): ColumnDef<AuditLog>[] => {
 	return AuditLogColumns.map((column) => {
