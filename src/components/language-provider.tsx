@@ -4,10 +4,12 @@ import { getMessage } from "@/util";
 import { translations } from "@/util/translation";
 
 const intlCache = createIntlCache();
+const temp = createIntl({ locale: "en", messages: {} }, intlCache);
+
 // I need Intl to be globally available, even inside redux stores
 export const IntlWrapper = {
-	intl: createIntl({ locale: "en", messages: {} }, intlCache),
-	translator: {} as ReturnType<typeof translations>,
+	intl: temp,
+	translator: translations(temp),
 };
 
 const initialState: LanguageProviderState = {

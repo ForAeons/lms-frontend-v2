@@ -1,5 +1,4 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import Avatar from "boring-avatars";
 import {
@@ -31,6 +30,7 @@ import {
 	MD_ICON_SIZE,
 	READ_AUDIT_LOG,
 } from "@/constants";
+import { useTranslations } from "@/hooks";
 import { ColorSelectBtn, LangSelectBtn } from ".";
 
 export const NavContent: React.FC = () => {
@@ -44,92 +44,37 @@ export const NavContent: React.FC = () => {
 	const canReadAuditLog = useAppSelector((s) =>
 		CheckPermission(s, READ_AUDIT_LOG),
 	);
-	const navigate = useNavigate();
 
 	const { theme, setTheme } = useTheme();
 	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
+	const navigate = useNavigate();
 	const handleLogout = () => {
 		dispatch(signOutThunk()).then(() => navigate("/signin"));
 	};
 
-	const intl = useIntl();
-	const welcome = intl.formatMessage(
-		{ id: "gDMHVV", defaultMessage: "Welcome {name}" },
-		{ name: person?.preferred_name ?? person?.full_name },
-	);
-	const homePage = intl.formatMessage({
-		id: "xHJnaY",
-		defaultMessage: "Home Page",
+	const translate = useTranslations();
+	const welcome = translate["gDMHVV"]({
+		name: person?.preferred_name ?? person?.full_name ?? "",
 	});
-	const catalogue = intl.formatMessage({
-		id: "U2napd",
-		defaultMessage: "Catalogue",
-	});
-	const signOut = intl.formatMessage({
-		id: "F62y+K",
-		defaultMessage: "Sign Out",
-	});
-	const signIn = intl.formatMessage({
-		id: "Ub+AGc",
-		defaultMessage: "Sign In",
-	});
-	const resources = intl.formatMessage({
-		id: "c/KktL",
-		defaultMessage: "Resources",
-	});
-	const myBookmark = intl.formatMessage({
-		id: "X9bISG",
-		defaultMessage: "My Bookmarks",
-	});
-	const myLoan = intl.formatMessage({
-		id: "InakXV",
-		defaultMessage: "My Loans",
-	});
-	const myReservation = intl.formatMessage({
-		id: "r3JtGI",
-		defaultMessage: "My Reservations",
-	});
-	const myFine = intl.formatMessage({
-		id: "UPVRty",
-		defaultMessage: "My Fines",
-	});
-	const admin = intl.formatMessage({
-		id: "iHN12u",
-		defaultMessage: "Admin",
-	});
-	const manageUser = intl.formatMessage({
-		id: "55dcAt",
-		defaultMessage: "Manage Users",
-	});
-	const manageBook = intl.formatMessage({
-		id: "RTM+tQ",
-		defaultMessage: "Manage Books",
-	});
-	const manageLoan = intl.formatMessage({
-		id: "zrW7b6",
-		defaultMessage: "Manage Loans",
-	});
-	const manageReservation = intl.formatMessage({
-		id: "eujWGK",
-		defaultMessage: "Manage Reservations",
-	});
-	const manageFine = intl.formatMessage({
-		id: "pWbzFs",
-		defaultMessage: "Manage Fines",
-	});
-	const auditLog = intl.formatMessage({
-		id: "7GrpT1",
-		defaultMessage: "Audit Log",
-	});
-	const settings = intl.formatMessage({
-		id: "D3idYv",
-		defaultMessage: "Settings",
-	});
-	const toggleThemeText = intl.formatMessage({
-		id: "EQpyb8",
-		defaultMessage: "Toggle theme",
-	});
+	const homePage = translate["xHJnaY"]();
+	const catalogue = translate["U2napd"]();
+	const signOut = translate["F62y+K"]();
+	const signIn = translate["Ub+AGc"]();
+	const resources = translate["c/KktL"]();
+	const myBookmark = translate["X9bISG"]();
+	const myLoan = translate["InakXV"]();
+	const myReservation = translate["r3JtGI"]();
+	const myFine = translate["UPVRty"]();
+	const admin = translate["iHN12u"]();
+	const manageUser = translate["55dcAt"]();
+	const manageBook = translate["RTM+tQ"]();
+	const manageLoan = translate["zrW7b6"]();
+	const manageReservation = translate["eujWGK"]();
+	const manageFine = translate["pWbzFs"]();
+	const auditLog = translate["7GrpT1"]();
+	const settings = translate["D3idYv"]();
+	const toggleThemeText = translate["EQpyb8"]();
 
 	return (
 		<nav className="space-y-4 py-4">

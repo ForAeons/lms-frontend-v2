@@ -15,7 +15,7 @@ export const NavBar: React.FC = () => {
 
 	const translate = useTranslations();
 	const welcome = translate["gDMHVV"]({
-		name: person?.preferred_name ?? person?.full_name,
+		name: person?.preferred_name ?? person?.full_name ?? "",
 	});
 	const toggleThemeText = translate["EQpyb8"]();
 

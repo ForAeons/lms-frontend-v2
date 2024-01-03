@@ -16,19 +16,87 @@ import { IntlShape } from "react-intl";
  * @returns A list of translations
  */
 
-// const welcome = intl.formatMessage(
-//   { id: "gDMHVV", defaultMessage: "Welcome {name}" },
-//   { name: person?.preferred_name ?? person?.full_name },
-// );
-// const toggleThemeText = intl.formatMessage({
-//   id: "EQpyb8",
-//   defaultMessage: "Toggle theme",
-// });
-export const translations = (
-	intl: IntlShape,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Record<string, (arg?: any) => string> => {
+export const translations = (intl: IntlShape) => {
 	return {
+		["Pe0ogR"]: () =>
+			intl.formatMessage({ id: "Pe0ogR", defaultMessage: "Theme" }),
+		["Avsnjl"]: () =>
+			intl.formatMessage({ id: "Avsnjl", defaultMessage: "Themes" }),
+		["qJ010K"]: () =>
+			intl.formatMessage({
+				id: "qJ010K",
+				defaultMessage: "Select theme",
+			}),
+		["Mz/gsa"]: () =>
+			intl.formatMessage({
+				id: "Mz/gsa",
+				defaultMessage: "Page Not Found",
+			}),
+		["ekfOaV"]: () =>
+			intl.formatMessage({ id: "ekfOaV", defaultMessage: "Go Back" }),
+		["hDI+JM"]: () =>
+			intl.formatMessage({
+				id: "hDI+JM",
+				defaultMessage: "Sort by",
+			}),
+		["xmcVZ0"]: () =>
+			intl.formatMessage({ id: "xmcVZ0", defaultMessage: "Search" }),
+		["svHvmD"]: () =>
+			intl.formatMessage({
+				id: "svHvmD",
+				defaultMessage: "Items per page",
+			}),
+		["eilhZ9"]: ({
+			currentPage,
+			totalPages,
+		}: {
+			currentPage: number;
+			totalPages: number;
+		}) =>
+			intl.formatMessage(
+				{ id: "eilhZ9", defaultMessage: "Page {currentPage} of {totalPages}" },
+				{ currentPage, totalPages },
+			),
+		["xHJnaY"]: () =>
+			intl.formatMessage({ id: "xHJnaY", defaultMessage: "Home Page" }),
+		["U2napd"]: () =>
+			intl.formatMessage({ id: "U2napd", defaultMessage: "Catalogue" }),
+		["F62y+K"]: () =>
+			intl.formatMessage({ id: "F62y+K", defaultMessage: "Sign Out" }),
+		["Ub+AGc"]: () =>
+			intl.formatMessage({ id: "Ub+AGc", defaultMessage: "Sign In" }),
+		["c/KktL"]: () =>
+			intl.formatMessage({ id: "c/KktL", defaultMessage: "Resources" }),
+		["X9bISG"]: () =>
+			intl.formatMessage({ id: "X9bISG", defaultMessage: "My Bookmarks" }),
+		["InakXV"]: () =>
+			intl.formatMessage({ id: "InakXV", defaultMessage: "My Loans" }),
+		["r3JtGI"]: () =>
+			intl.formatMessage({
+				id: "r3JtGI",
+				defaultMessage: "My Reservations",
+			}),
+		["UPVRty"]: () =>
+			intl.formatMessage({ id: "UPVRty", defaultMessage: "My Fines" }),
+		["iHN12u"]: () =>
+			intl.formatMessage({ id: "iHN12u", defaultMessage: "Admin" }),
+		["55dcAt"]: () =>
+			intl.formatMessage({ id: "55dcAt", defaultMessage: "Manage Users" }),
+		["RTM+tQ"]: () =>
+			intl.formatMessage({ id: "RTM+tQ", defaultMessage: "Manage Books" }),
+		["zrW7b6"]: () =>
+			intl.formatMessage({ id: "zrW7b6", defaultMessage: "Manage Loans" }),
+		["eujWGK"]: () =>
+			intl.formatMessage({
+				id: "eujWGK",
+				defaultMessage: "Manage Reservations",
+			}),
+		["pWbzFs"]: () =>
+			intl.formatMessage({ id: "pWbzFs", defaultMessage: "Manage Fines" }),
+		["7GrpT1"]: () =>
+			intl.formatMessage({ id: "7GrpT1", defaultMessage: "Audit Log" }),
+		["D3idYv"]: () =>
+			intl.formatMessage({ id: "D3idYv", defaultMessage: "Settings" }),
 		["gDMHVV"]: ({ name }: { name: string }) =>
 			intl.formatMessage(
 				{ id: "gDMHVV", defaultMessage: "Welcome {name}" },
@@ -78,18 +146,8 @@ export const translations = (
 				{ id: "HNHwk3", defaultMessage: "Add new {subject}" },
 				{ subject },
 			),
-		["RTM+tQ"]: () =>
-			intl.formatMessage({
-				id: "RTM+tQ",
-				defaultMessage: "Manage Books",
-			}),
 		["kmmXht"]: () =>
 			intl.formatMessage({ id: "kmmXht", defaultMessage: "book" }),
-		["X9bISG"]: () =>
-			intl.formatMessage({
-				id: "X9bISG",
-				defaultMessage: "My Bookmarks",
-			}),
 		["j7M9od"]: () =>
 			intl.formatMessage({
 				id: "j7M9od",
@@ -270,10 +328,6 @@ export const translations = (
 				id: "xsQkIU",
 				defaultMessage: "This is your password.",
 			}),
-		["Ub+AGc"]: () =>
-			intl.formatMessage({ id: "Ub+AGc", defaultMessage: "Sign In" }),
-		["xHJnaY"]: () =>
-			intl.formatMessage({ id: "xHJnaY", defaultMessage: "Home Page" }),
 		["55vTH+"]: () =>
 			intl.formatMessage({ id: "55vTH+", defaultMessage: "User ID" }),
 		["JCIgkj"]: () =>

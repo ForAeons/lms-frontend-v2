@@ -14,7 +14,7 @@ export type TranslationFunction = ReturnType<
  */
 export const useTranslations = () => {
 	const intl = useIntl();
+	// the translations is quite expensive to generate, so we memoize it
 	const translationObject = React.useMemo(() => translations(intl), [intl]);
-
 	return translationObject;
 };
