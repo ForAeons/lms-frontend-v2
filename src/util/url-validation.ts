@@ -31,7 +31,11 @@ export const isValidCq = (
 		isValid = false;
 	}
 
-	if (cq.orderBy !== "asc" && cq.orderBy !== "desc") {
+	if (
+		cq.orderBy !== "asc" &&
+		cq.orderBy !== "desc" &&
+		cq.orderBy !== undefined
+	) {
 		cq.orderBy = "asc";
 		isValid = false;
 	}

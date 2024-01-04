@@ -19,11 +19,14 @@ export const SearchBar: React.FC<{
 		(cq?.filters.value as string) ?? "",
 	);
 
-	const handleSubmit = () => {
+	const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+		e.preventDefault();
 		if (cq) {
 			cq.filters.value = searchValue;
 			navigate(`${baseUrl ?? ""}?${cqToUrl(cq)}`);
-		} else navigate(`${baseUrl ?? ""}?filter[value]=${searchValue}`);
+		} else {
+			navigate(`${baseUrl ?? ""}?filter[value]=${searchValue}`);
+		}
 	};
 
 	return (

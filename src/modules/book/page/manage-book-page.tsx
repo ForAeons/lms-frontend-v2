@@ -63,12 +63,10 @@ export const ManageBookPage: React.FC = () => {
 	}
 
 	const deleteBookMutation = useMutation({
+		mutationKey: [BookRoutes.BASE],
 		mutationFn: bookApi.DeleteBook,
 		onSuccess: (data) => {
-			queryClient.invalidateQueries({
-				queryKey: [BookRoutes.BASE],
-				exact: false,
-			});
+			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
 			toast.success(translate.Success(), {
 				description: translate.deleteBookDesc({ title: data!.data.title }),
 			});

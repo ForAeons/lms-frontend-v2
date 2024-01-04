@@ -5,14 +5,10 @@ interface AppState {
 	backendStatus: backendStatus;
 	hasFetchedUser: boolean;
 	isLoggedIn: boolean;
-	user: User | null;
+	user: User | undefined;
 	abilities: string[];
-	person: Person | null;
+	person: Person | undefined;
 	permissions: Record<string, boolean>;
-	bookmarks: BookmarkDetailed[];
-	loans: WithBook<Loan>[];
-	reservations: WithBook<Reservation>[];
-	fines: WithBook<Fine>[];
 }
 
 interface ManageUserState {
@@ -45,11 +41,5 @@ interface ResState {
 interface FineState {
 	isFetching: boolean;
 	fines: FineDetailed[];
-	meta: Meta;
-}
-
-interface AuditLogState {
-	isFetching: boolean;
-	logs: AuditLogDetailed[];
 	meta: Meta;
 }

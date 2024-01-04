@@ -10,7 +10,6 @@ import { LanguageProvider } from "@/components/language-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { Router } from "@/router";
 import { store } from "@/store";
-import { AppLogic } from "@/modules";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -28,12 +27,11 @@ export const App: React.FC = () => {
 			<LanguageProvider defaultLocale="en" storageKey="vite-language">
 				<QueryClientProvider client={queryClient}>
 					<Provider store={store}>
+						<RouterProvider router={Router} />
 						<Toaster closeButton />
-						<AppLogic />
+						<ReactQueryDevtools />
 						<Analytics />
 						<SpeedInsights />
-						<RouterProvider router={Router} />
-						<ReactQueryDevtools />
 					</Provider>
 				</QueryClientProvider>
 			</LanguageProvider>

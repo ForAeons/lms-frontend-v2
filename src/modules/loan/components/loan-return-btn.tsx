@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Undo2Icon } from "lucide-react";
 import {
 	AlertDialog,
@@ -18,9 +20,9 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { returnLoanThunk, useAppDispatch } from "@/store";
-import { LG_ICON_SIZE } from "@/constants";
 import { useTranslations } from "@/components/language-provider";
+import { LoanRoutes, loanApi } from "@/api";
+import { LG_ICON_SIZE } from "@/constants";
 
 export const LoanReturnBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 	const translate = useTranslations();
@@ -30,8 +32,23 @@ export const LoanReturnBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 	const cancelAction = translate.Cancel();
 	const continueAction = translate.Continue();
 
-	const dispatch = useAppDispatch();
-	const handleReturn = () => dispatch(returnLoanThunk({ loanId: loan.id }));
+	const queryClient = useQueryClient();
+	const returnLoanMutation = useMutation({
+		mutationKey: [LoanRoutes.BASE, LoanRoutes.RETURN.ROUTE, loan.id],
+		mutationFn: loanApi.ReturnLoan,
+		onSuccess: (data) => {
+			const loan = data!.data;
+			queryClient.invalidateQueries({ queryKey: [LoanRoutes.BASE] });
+			toast.success(translate.Success(), {
+				description: translate.returnLoanSuccessDesc({
+					title: loan.book.title,
+				}),
+			});
+		},
+	});
+
+	const handleReturn = () => returnLoanMutation.mutate(loan.id);
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>

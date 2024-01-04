@@ -10,7 +10,6 @@ export const store = configureStore({
 		loan: Slices.loanSlice.reducer,
 		res: Slices.resSlice.reducer,
 		fine: Slices.fineSlice.reducer,
-		log: Slices.auditlogSlice.reducer,
 	},
 });
 

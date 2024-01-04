@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTranslations } from "@/components/language-provider";
 import { useAppSelector } from "@/store";
-import { ReservationRoutes, reservationApi } from "@/api";
+import { ResRoutes, reservationApi } from "@/api";
 import { newUserCollectionQuery } from "@/util";
 import { LoaderPage } from "@/modules";
 import { BookCard } from "@/modules/book";
@@ -16,7 +16,7 @@ export const ResPage: React.FC = () => {
 
 	const { status, data } = useQuery({
 		enabled: !!user?.id,
-		queryKey: [ReservationRoutes.BASE, cq],
+		queryKey: [ResRoutes.BASE, cq],
 		queryFn: ({ signal }) => reservationApi.ListRes(cq, signal),
 	});
 

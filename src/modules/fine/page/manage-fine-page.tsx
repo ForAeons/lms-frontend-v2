@@ -67,10 +67,7 @@ export const ManageFinePage: React.FC = () => {
 	const deleteFineMutation = useMutation({
 		mutationFn: fineApi.DeleteFine,
 		onSuccess: () => {
-			queryClient.invalidateQueries({
-				queryKey: [FineRoutes.BASE],
-				exact: false,
-			});
+			queryClient.invalidateQueries({ queryKey: [FineRoutes.BASE] });
 			toast.success(translate.Success(), {
 				description: translate.deletefineDesc(),
 			});

@@ -12,6 +12,7 @@ export const BookPage: React.FC = () => {
 	const book_id = useValidateIntegerOrReroute(book_id_param, "/book");
 
 	const { status, data } = useQuery({
+		enabled: !!book_id,
 		queryKey: [BookRoutes.BASE, book_id],
 		queryFn: ({ signal }) => bookApi.GetBook(book_id, signal),
 	});

@@ -19,8 +19,8 @@ export const BookmarkPage: React.FC = () => {
 	const cq = newUserCollectionQuery(user_id);
 
 	const { status, data } = useQuery({
-		queryKey: [BookmarkRoutes.BASE],
 		enabled: !!user_id,
+		queryKey: [BookmarkRoutes.BASE],
 		queryFn: ({ signal }) => bookmarkApi.ListBookmarks(cq, signal),
 	});
 

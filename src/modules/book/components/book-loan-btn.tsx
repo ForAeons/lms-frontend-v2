@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BookUserIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -18,9 +20,9 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { LG_ICON_SIZE } from "@/constants";
-import { loanBookThunk, useAppDispatch } from "@/store";
 import { useTranslations } from "@/components/language-provider";
+import { BookRoutes, LoanRoutes, loanApi } from "@/api";
+import { LG_ICON_SIZE } from "@/constants";
 
 export const BookLoanBtn: React.FC<{ book: Book; copyID: number }> = ({
 	book,
@@ -33,8 +35,27 @@ export const BookLoanBtn: React.FC<{ book: Book; copyID: number }> = ({
 	const cancelAction = translate.Cancel();
 	const continueAction = translate.Continue();
 
-	const dispatch = useAppDispatch();
-	const handleLoan = () => dispatch(loanBookThunk({ bookCopyID: copyID }));
+	const queryClient = useQueryClient();
+	const loanBookMutation = useMutation({
+		mutationKey: [BookRoutes.BASE, copyID, LoanRoutes.BASE],
+		mutationFn: loanApi.LoanBook,
+		onSuccess: (data) => {
+			const loan = data!.data;
+
+			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
+			queryClient.invalidateQueries({ queryKey: [LoanRoutes.BASE] });
+
+			toast.success(translate.Success(), {
+				description: translate.createLoanDesc({
+					title: loan.book.title,
+					username: loan.user.username,
+				}),
+			});
+		},
+	});
+
+	const handleLoan = () => loanBookMutation.mutate(copyID);
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>

@@ -1,18 +1,14 @@
 import { BaseApi } from "./base";
-import { BookRoutes, ReservationRoutes } from "./backend-routes";
+import { BookRoutes, ResRoutes } from "./backend-routes";
 
 class ReservationApi extends BaseApi {
 	public ListRes = (q: CollectionQuery, abortSignal?: AbortSignal) => {
-		return this.List<ReservationDetailed[]>(
-			ReservationRoutes.BASE,
-			q,
-			abortSignal,
-		);
+		return this.List<ReservationDetailed[]>(ResRoutes.BASE, q, abortSignal);
 	};
 
 	public CreateRes = (res: ReservationCreate, abortSignal?: AbortSignal) => {
 		return this.Post<ReservationCreate, ReservationDetailed>(
-			`${ReservationRoutes.BASE}/`,
+			`${ResRoutes.BASE}/`,
 			res,
 			abortSignal,
 		);
@@ -20,7 +16,7 @@ class ReservationApi extends BaseApi {
 
 	public ReserveBook = (bookCopyId: number, abortSignal?: AbortSignal) => {
 		return this.Post<null, ReservationDetailed>(
-			`${BookRoutes.BASE}/${bookCopyId}/${ReservationRoutes.BASE}/`,
+			`${BookRoutes.BASE}/${bookCopyId}/${ResRoutes.BASE}/`,
 			null,
 			abortSignal,
 		);
@@ -28,21 +24,21 @@ class ReservationApi extends BaseApi {
 
 	public GetRes = (reservationID: number, abortSignal?: AbortSignal) => {
 		return this.Get<ReservationDetailed>(
-			`${ReservationRoutes.BASE}/${reservationID}/`,
+			`${ResRoutes.BASE}/${reservationID}/`,
 			abortSignal,
 		);
 	};
 
 	public DeleteRes = (reservationID: number, abortSignal?: AbortSignal) => {
 		return this.Delete<ReservationDetailed>(
-			`${ReservationRoutes.BASE}/${reservationID}/`,
+			`${ResRoutes.BASE}/${reservationID}/`,
 			abortSignal,
 		);
 	};
 
 	public CancelRes = (reservationID: number, abortSignal?: AbortSignal) => {
 		return this.Patch<null, ReservationDetailed>(
-			`${ReservationRoutes.BASE}/${reservationID}/${ReservationRoutes.CANCEL.ROUTE}`,
+			`${ResRoutes.BASE}/${reservationID}/${ResRoutes.CANCEL.ROUTE}`,
 			null,
 			abortSignal,
 		);
@@ -50,7 +46,7 @@ class ReservationApi extends BaseApi {
 
 	public CheckoutRes = (reservationID: number, abortSignal?: AbortSignal) => {
 		return this.Patch<null, ReservationDetailed>(
-			`${ReservationRoutes.BASE}/${reservationID}/${ReservationRoutes.CHECKOUT.ROUTE}`,
+			`${ResRoutes.BASE}/${reservationID}/${ResRoutes.CHECKOUT.ROUTE}`,
 			null,
 			abortSignal,
 		);

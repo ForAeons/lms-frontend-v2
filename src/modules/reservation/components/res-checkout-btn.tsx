@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BookUserIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -18,9 +20,9 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { checkoutResThunk, useAppDispatch } from "@/store";
-import { LG_ICON_SIZE } from "@/constants";
 import { useTranslations } from "@/components/language-provider";
+import { ResRoutes, reservationApi } from "@/api";
+import { LG_ICON_SIZE } from "@/constants";
 
 export const ResCheckoutBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 	const translate = useTranslations();
@@ -30,8 +32,23 @@ export const ResCheckoutBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 	const confirmationMessage = translate.checkoutResDesc();
 	const continueAction = translate.Continue();
 
-	const dispatch = useAppDispatch();
-	const handleCheckout = () => dispatch(checkoutResThunk({ resId: res.id }));
+	const queryClient = useQueryClient();
+	const checkoutResMutation = useMutation({
+		mutationKey: [ResRoutes.BASE, ResRoutes.CHECKOUT.ROUTE, res.id],
+		mutationFn: reservationApi.CheckoutRes,
+		onSuccess: (data) => {
+			const loan = data!.data;
+			queryClient.invalidateQueries({ queryKey: [ResRoutes.BASE] });
+			toast.success(translate.Success(), {
+				description: translate.checkoutResSuccessDesc({
+					title: loan.book.title,
+				}),
+			});
+		},
+	});
+
+	const handleCheckout = () => checkoutResMutation.mutate(res.id);
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>

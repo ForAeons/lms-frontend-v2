@@ -1,8 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import {
-	createBookmarkThunk,
-	deleteBookmarkThunk,
 	getCurrentUserThunk,
 	getHealthThunk,
 	signInThunk,
@@ -10,34 +8,41 @@ import {
 } from "../thunks";
 import { GetPermissions } from "@/util";
 import { IntlWrapper } from "@/components/language-provider";
-import {
-	NotifyBookmarks,
-	NotifyFines,
-	NotifyLoans,
-	NotifyReservations,
-} from "..";
 
 const initialState: AppState = {
 	csrfToken: null,
 	backendStatus: "unknown",
 	hasFetchedUser: false,
 	isLoggedIn: false,
-	user: null,
+	user: undefined,
 	abilities: [],
-	person: null,
+	person: undefined,
 	permissions: {},
-	bookmarks: [],
-	loans: [],
-	reservations: [],
-	fines: [],
 };
 
 export const appSlice = createSlice({
 	name: "app",
 	initialState,
 	reducers: {
+		setBackendStatus: (state, action) => {
+			state.backendStatus = action.payload;
+		},
 		setCsrfToken: (state, action) => {
 			state.csrfToken = action.payload;
+		},
+		setSignin: (state, action: PayloadAction<LoginPayload>) => {
+			state.isLoggedIn = true;
+			state.user = action.payload.user;
+			state.abilities = action.payload.abilities;
+			state.person = action.payload.person_attributes;
+			state.permissions = GetPermissions(action.payload.abilities);
+		},
+		setSignout: (state) => {
+			state.isLoggedIn = false;
+			state.user = undefined;
+			state.abilities = [];
+			state.person = undefined;
+			state.permissions = {};
 		},
 	},
 
@@ -69,7 +74,7 @@ export const appSlice = createSlice({
 
 			if (!action.payload.is_logged_in) {
 				state.isLoggedIn = false;
-				state.user = null;
+				state.user = undefined;
 				return;
 			}
 
@@ -78,15 +83,6 @@ export const appSlice = createSlice({
 			state.abilities = action.payload.abilities;
 			state.permissions = GetPermissions(action.payload.abilities);
 			state.person = action.payload.person_attributes;
-			state.bookmarks = action.payload.bookmarks;
-			state.loans = action.payload.loans;
-			state.reservations = action.payload.reservations;
-			state.fines = action.payload.fines;
-
-			NotifyBookmarks(action.payload.bookmarks);
-			NotifyLoans(action.payload.loans);
-			NotifyReservations(action.payload.reservations);
-			NotifyFines(action.payload.fines);
 		});
 
 		builder.addCase(signInThunk.fulfilled, (state, action) => {
@@ -96,22 +92,13 @@ export const appSlice = createSlice({
 				state.abilities = action.payload.abilities;
 				state.permissions = GetPermissions(action.payload.abilities);
 				state.person = action.payload.person_attributes;
-				state.bookmarks = action.payload.bookmarks;
-				state.loans = action.payload.loans;
-				state.reservations = action.payload.reservations;
-				state.fines = action.payload.fines;
-
-				NotifyBookmarks(action.payload.bookmarks);
-				NotifyLoans(action.payload.loans);
-				NotifyReservations(action.payload.reservations);
-				NotifyFines(action.payload.fines);
 			} else {
-				state.user = null;
+				state.user = undefined;
 			}
 		});
 		builder.addCase(signInThunk.rejected, (state) => {
 			state.isLoggedIn = false;
-			state.user = null;
+			state.user = undefined;
 
 			const signInFailedMsg = IntlWrapper.intl.formatMessage({
 				id: "JdM9UP",
@@ -127,8 +114,9 @@ export const appSlice = createSlice({
 
 		builder.addCase(signOutThunk.pending, (state) => {
 			state.isLoggedIn = false;
-			state.user = null;
+			state.user = undefined;
 			state.abilities = [];
+			state.person = undefined;
 			state.permissions = {};
 		});
 
@@ -143,46 +131,6 @@ export const appSlice = createSlice({
 			});
 
 			toast.error(signOutSuccessMsg, { description: signOutSuccessDesc });
-		});
-
-		builder.addCase(createBookmarkThunk.fulfilled, (state, action) => {
-			if (!action.payload) return;
-			state.bookmarks.unshift(action.payload);
-
-			const bookmarkedMsg = IntlWrapper.intl.formatMessage({
-				id: "xrKHS6",
-				defaultMessage: "Success",
-			});
-			const bookmarkedDesc = IntlWrapper.intl.formatMessage(
-				{
-					id: "wPyDX8",
-					defaultMessage: '"{title}" has been bookmarked for you.',
-				},
-				{ title: action.payload.book.title },
-			);
-
-			toast.success(bookmarkedMsg, { description: bookmarkedDesc });
-		});
-
-		builder.addCase(deleteBookmarkThunk.fulfilled, (state, action) => {
-			if (!action.payload) return;
-			state.bookmarks = state.bookmarks.filter(
-				(bookmark) => bookmark.id !== action.payload!.id,
-			);
-
-			const deleteBookmarkMsg = IntlWrapper.intl.formatMessage({
-				id: "xrKHS6",
-				defaultMessage: "Success",
-			});
-			const deleteBookmarkDesc = IntlWrapper.intl.formatMessage(
-				{
-					id: "ylrvDR",
-					defaultMessage: '"{title}" has been removed from your bookmarks.',
-				},
-				{ title: action.payload.book.title },
-			);
-
-			toast.success(deleteBookmarkMsg, { description: deleteBookmarkDesc });
 		});
 	},
 });

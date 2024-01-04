@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as z from "zod";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -17,12 +19,12 @@ import {
 	DrawerTitle,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useTranslations } from "@/components/language-provider";
 import { CreateBtn } from "@/modules";
-import { createLogThunk, useAppDispatch } from "@/store";
 import { AuditlogFormSchema } from "@/schema";
 import { useMediaQuery } from "@/hooks";
-import { useTranslations } from "@/components/language-provider";
-import { AuditLogForm } from "./auditlog-form";
+import { AuditLogRoutes, auditlogApi } from "@/api";
+import { AuditLogForm } from ".";
 
 export const LogCreateBtn: React.FC = () => {
 	const translate = useTranslations();
@@ -31,15 +33,24 @@ export const LogCreateBtn: React.FC = () => {
 	const logAnEventDescription = translate.logEventDesc();
 	const createAction = translate.Create();
 
+	const queryClient = useQueryClient();
+	const createLogMutation = useMutation({
+		mutationKey: [AuditLogRoutes.BASE],
+		mutationFn: auditlogApi.CreateLog,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: [AuditLogRoutes.BASE] });
+			toast.success(translate.Success(), {
+				description: translate.createLogDesc(),
+			});
+		},
+	});
+
+	const onSubmit = (values: z.infer<typeof AuditlogFormSchema>) => {
+		createLogMutation.mutate({ ...values, date: values.date.toISOString() });
+	};
+
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 	const defaultValues = { action: "", date: new Date() };
-
-	const dispatch = useAppDispatch();
-	function onSubmit(values: z.infer<typeof AuditlogFormSchema>) {
-		dispatch(
-			createLogThunk({ log: { ...values, date: values.date.toISOString() } }),
-		);
-	}
 
 	if (isDesktop) {
 		return (

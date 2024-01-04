@@ -22,7 +22,7 @@ import {
 	hasPreviousPage,
 } from "@/util";
 import { RES_FILTER_OPTIONS, RES_SORT_OPTIONS } from "@/constants";
-import { ReservationRoutes, reservationApi } from "@/api";
+import { ResRoutes, reservationApi } from "@/api";
 import { BookCard } from "@/modules/book";
 import {
 	ResCancelBtn,
@@ -37,7 +37,7 @@ export const ManageResPage: React.FC = () => {
 	if (!cq.filters.status) cq.filters.status = "pending";
 
 	const { status, data } = useQuery({
-		queryKey: [ReservationRoutes.BASE, cq],
+		queryKey: [ResRoutes.BASE, cq],
 		queryFn: ({ signal }) => reservationApi.ListRes(cq, signal),
 		placeholderData: keepPreviousData,
 	});
@@ -49,14 +49,14 @@ export const ManageResPage: React.FC = () => {
 	if (hasPreviousPage(cq)) {
 		const prevCq = getPreviousPage(cq);
 		queryClient.prefetchQuery({
-			queryKey: [ReservationRoutes.BASE, prevCq],
+			queryKey: [ResRoutes.BASE, prevCq],
 			queryFn: ({ signal }) => reservationApi.ListRes(prevCq, signal),
 		});
 	}
 	if (hasNextPage(cq)) {
 		const nextCq = getNextPage(cq);
 		queryClient.prefetchQuery({
-			queryKey: [ReservationRoutes.BASE, nextCq],
+			queryKey: [ResRoutes.BASE, nextCq],
 			queryFn: ({ signal }) => reservationApi.ListRes(nextCq, signal),
 		});
 	}
