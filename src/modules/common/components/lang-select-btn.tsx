@@ -13,6 +13,9 @@ import { useTranslations } from "@/components/language-provider";
 
 export const LangSelectBtn: React.FC = () => {
 	const { locale, setLocale } = useLocale();
+	const selectedLang = LOCALE_SELECT_OPTIONS.find(
+		(opt) => opt.value === locale,
+	);
 	const translate = useTranslations();
 	const selectAppLanguage = translate.selectAppLanguage();
 	return (
@@ -20,7 +23,11 @@ export const LangSelectBtn: React.FC = () => {
 			<SelectTrigger className="w-full h-10 px-4 py-2 focus:ring-transparent border-none hover:bg-accent hover:text-accent-foreground">
 				<div className="flex w-full gap-3">
 					<LanguagesIcon size={MD_ICON_SIZE} />
-					<SelectValue placeholder="Select a timezone" />
+					<SelectValue
+						placeholder="Select a timezone"
+						defaultValue={selectedLang?.label}
+						defaultChecked={!!selectedLang}
+					/>
 					<span className="sr-only">{selectAppLanguage}</span>
 				</div>
 			</SelectTrigger>

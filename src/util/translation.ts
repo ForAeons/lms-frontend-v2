@@ -16,6 +16,24 @@ import { IntlShape } from "react-intl";
  */
 export const translations = (intl: IntlShape) => {
 	return {
+		deleteBookDesc: ({ title }: { title: string }) =>
+			intl.formatMessage(
+				{
+					id: "XHc3K5",
+					defaultMessage: '"{title}" removed from library successfully.',
+				},
+				{ title },
+			),
+		Success: () =>
+			intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
+			}),
+		deletefineDesc: () =>
+			intl.formatMessage({
+				id: "Ye43ph",
+				description: "Fine deleted successfully.",
+			}),
 		youHaveResDueSoon: () =>
 			intl.formatMessage({
 				id: "+5zVex",

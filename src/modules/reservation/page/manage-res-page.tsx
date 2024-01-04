@@ -1,8 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import {
+	keepPreviousData,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTranslations } from "@/components/language-provider";
-import { useQueryParams } from "@/hooks";
+import { useCollectionQuery, useValidateCqOrReroute } from "@/hooks";
 import {
 	FilterSelect,
 	LoaderPage,
@@ -11,9 +15,14 @@ import {
 	SearchBar,
 	SortSelect,
 } from "@/modules";
-import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { listResThunk, useAppDispatch, useAppSelector } from "@/store";
+import {
+	getNextPage,
+	getPreviousPage,
+	hasNextPage,
+	hasPreviousPage,
+} from "@/util";
 import { RES_FILTER_OPTIONS, RES_SORT_OPTIONS } from "@/constants";
+import { ReservationRoutes, reservationApi } from "@/api";
 import { BookCard } from "@/modules/book";
 import {
 	ResCancelBtn,
@@ -24,29 +33,37 @@ import {
 
 export const ManageResPage: React.FC = () => {
 	const translate = useTranslations();
-	const dispatch = useAppDispatch();
-	const resState = useAppSelector((s) => s.res);
-	const navigate = useNavigate();
-	const queryParams = useQueryParams();
-	const cq = getCollectionQuery(queryParams);
-
+	const cq = useCollectionQuery();
 	if (!cq.filters.status) cq.filters.status = "pending";
 
-	React.useEffect(() => {
-		const c = new AbortController();
-		dispatch(listResThunk({ q: cq, signal: c.signal }));
-		return () => c.abort();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dispatch, window.location.search]);
+	const { status, data } = useQuery({
+		queryKey: [ReservationRoutes.BASE, cq],
+		queryFn: ({ signal }) => reservationApi.ListRes(cq, signal),
+		placeholderData: keepPreviousData,
+	});
 
-	React.useEffect(() => {
-		const isValid = isValidCq(cq, resState.meta.filtered_count);
-		if (!isValid) navigate(`?${cqToUrl(cq)}`);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [navigate, window.location.search]);
+	useValidateCqOrReroute(cq, data?.meta.filtered_count);
 
-	if (resState.isFetching) return <LoaderPage />;
+	// prefetch previous and next page
+	const queryClient = useQueryClient();
+	if (hasPreviousPage(cq)) {
+		const prevCq = getPreviousPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [ReservationRoutes.BASE, prevCq],
+			queryFn: ({ signal }) => reservationApi.ListRes(prevCq, signal),
+		});
+	}
+	if (hasNextPage(cq)) {
+		const nextCq = getNextPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [ReservationRoutes.BASE, nextCq],
+			queryFn: ({ signal }) => reservationApi.ListRes(nextCq, signal),
+		});
+	}
 
+	if (status === "pending" || !data) return <LoaderPage />;
+
+	const reservations = data.data;
 	const resTitle = translate.myReservations();
 
 	return (
@@ -66,14 +83,14 @@ export const ManageResPage: React.FC = () => {
 					<FilterSelect cq={cq} opt={RES_FILTER_OPTIONS} />
 				</div>
 
-				{resState.res.map((r) => (
+				{reservations.map((r) => (
 					<BookCard key={r.id} book={r.book} badges={resToBadgeProps(r)}>
 						{r.status === "pending" && <ResCheckoutBtn res={r} />}
 						{r.status === "pending" && <ResCancelBtn res={r} />}
 					</BookCard>
 				))}
 
-				<PaginationBar cq={cq} total={resState.meta.filtered_count} />
+				<PaginationBar cq={cq} total={data.meta.filtered_count} />
 			</div>
 			<ScrollBar />
 		</ScrollArea>

@@ -5,7 +5,10 @@ import * as Constants from "@/constants";
  * @param cq
  * @param total
  */
-export const isValidCq = (cq: CollectionQuery, total: number): boolean => {
+export const isValidCq = (
+	cq: CollectionQuery,
+	total: number = Number.MAX_SAFE_INTEGER,
+): boolean => {
 	let isValid = true;
 
 	if (cq.offset < Constants.MINIMUM_PAGE_OFFSET) {

@@ -7,21 +7,23 @@ import { cqToUrl } from "@/util";
 import { LG_ICON_SIZE } from "@/constants";
 import { useTranslations } from "@/components/language-provider";
 
-export const SearchBar: React.FC<{ cq: CollectionQuery; baseUrl?: string }> = ({
-	cq,
-	baseUrl,
-}) => {
+export const SearchBar: React.FC<{
+	cq?: CollectionQuery;
+	baseUrl?: string;
+}> = ({ cq, baseUrl }) => {
 	const translate = useTranslations();
 	const search = translate.Search();
 
 	const navigate = useNavigate();
 	const [searchValue, setSearchValue] = React.useState(
-		cq.filters.value as string,
+		(cq?.filters.value as string) ?? "",
 	);
 
 	const handleSubmit = () => {
-		cq.filters.value = searchValue;
-		navigate(`${baseUrl}?${cqToUrl(cq)}`);
+		if (cq) {
+			cq.filters.value = searchValue;
+			navigate(`${baseUrl ?? ""}?${cqToUrl(cq)}`);
+		} else navigate(`${baseUrl ?? ""}?filter[value]=${searchValue}`);
 	};
 
 	return (

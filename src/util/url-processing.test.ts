@@ -1,6 +1,16 @@
 import { describe, it, expect } from "vitest";
 import * as Constants from "@/constants";
-import { getOffset, getLimit, getSortBy, getOrderBy, getFilters } from ".";
+import {
+	getOffset,
+	getLimit,
+	getSortBy,
+	getOrderBy,
+	getFilters,
+	hasNextPage,
+	hasPreviousPage,
+	getNextPage,
+	getPreviousPage,
+} from ".";
 
 describe("URLSearchParams Utility Functions", () => {
 	describe("getOffset", () => {
@@ -85,6 +95,105 @@ describe("URLSearchParams Utility Functions", () => {
 		it("should return an empty object for missing filters", () => {
 			const params = new URLSearchParams("");
 			expect(getFilters(params)).toEqual({});
+		});
+	});
+
+	describe("getNextPage", () => {
+		it("Testing hasNextPage", () => {
+			const cq = {
+				offset: 0,
+				limit: 10,
+				sortBy: "name",
+				orderBy: "asc",
+				filters: {
+					foo: "bar",
+					baz: ["qux", "quux"],
+					corge: [1, 2, 3],
+				},
+			};
+
+			expect(hasNextPage(cq, 100)).toBe(true);
+
+			const nextPage = getNextPage(cq);
+			const expected = { ...cq, offset: 10 };
+
+			expect(nextPage).toEqual(expected);
+		});
+
+		it("Testing hasNextPage (second last page)", () => {
+			const cq = {
+				offset: 90,
+				limit: 10,
+				sortBy: "name",
+				orderBy: "asc",
+				filters: {
+					foo: "bar",
+					baz: ["qux", "quux"],
+					corge: [1, 2, 3],
+				},
+			};
+
+			expect(hasNextPage(cq, 100)).toBe(true);
+
+			const nextPage = getNextPage(cq);
+			const expected = { ...cq, offset: 100 };
+
+			expect(nextPage).toEqual(expected);
+		});
+
+		it("Testing hasNextPage (last page)", () => {
+			const cq = {
+				offset: 91,
+				limit: 10,
+				sortBy: "name",
+				orderBy: "asc",
+				filters: {
+					foo: "bar",
+					baz: ["qux", "quux"],
+					corge: [1, 2, 3],
+				},
+			};
+
+			expect(hasNextPage(cq, 100)).toBe(false);
+		});
+	});
+
+	describe("getPreviousPage", () => {
+		it("Testing hasPreviousPage", () => {
+			const cq = {
+				offset: 10,
+				limit: 10,
+				sortBy: "name",
+				orderBy: "asc",
+				filters: {
+					foo: "bar",
+					baz: ["qux", "quux"],
+					corge: [1, 2, 3],
+				},
+			};
+
+			expect(hasPreviousPage(cq)).toBe(true);
+
+			const previousPage = getPreviousPage(cq);
+			const expected = { ...cq, offset: 0 };
+
+			expect(previousPage).toEqual(expected);
+		});
+
+		it("Testing hasPreviousPage (first page)", () => {
+			const cq = {
+				offset: 0,
+				limit: 10,
+				sortBy: "name",
+				orderBy: "asc",
+				filters: {
+					foo: "bar",
+					baz: ["qux", "quux"],
+					corge: [1, 2, 3],
+				},
+			};
+
+			expect(hasPreviousPage(cq)).toBe(false);
 		});
 	});
 });

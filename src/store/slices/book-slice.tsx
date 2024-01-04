@@ -7,7 +7,6 @@ import {
 	deleteBookThunk,
 	getBookThunk,
 	listBookThunk,
-	listPopularBooksThunk,
 	loanBookThunk,
 	reserveBookThunk,
 	updateBookThunk,
@@ -18,10 +17,6 @@ const initialState: BookState = {
 	autocomplete: [],
 	books: [],
 	book: null,
-	popular: {
-		isFetching: true,
-		books: [],
-	},
 	meta: {
 		total_count: 0,
 		filtered_count: 0,
@@ -166,16 +161,6 @@ export const bookSlice = createSlice({
 				},
 			);
 			toast.success(reserveBookMsg, { description: reserveBookDesc });
-		});
-
-		builder.addCase(listPopularBooksThunk.pending, (state) => {
-			state.popular.isFetching = true;
-		});
-
-		builder.addCase(listPopularBooksThunk.fulfilled, (state, action) => {
-			if (!action.payload) return;
-			state.popular.books = action.payload;
-			state.popular.isFetching = false;
 		});
 	},
 });

@@ -62,6 +62,19 @@ class BookApi extends BaseApi {
 			abortSignal,
 		);
 	};
+
+	public ListNewBooks = (abortSignal?: AbortSignal) => {
+		return this.ListBook(
+			{
+				limit: 10,
+				offset: 0,
+				sortBy: "created_at",
+				orderBy: "desc",
+				filters: {},
+			},
+			abortSignal,
+		);
+	};
 }
 
 export const bookApi = new BookApi();

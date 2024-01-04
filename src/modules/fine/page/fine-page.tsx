@@ -1,16 +1,29 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { useAppSelector } from "@/store";
-import { BookCard } from "@/modules/book";
 import { useTranslations } from "@/components/language-provider";
+import { useAppSelector } from "@/store";
+import { FineRoutes, fineApi } from "@/api";
+import { newUserCollectionQuery } from "@/util";
+import { LoaderPage } from "@/modules";
+import { BookCard } from "@/modules/book";
 import { FineSettleBtn, fineToBadgeProps } from "..";
 
 export const FinePage: React.FC = () => {
 	const translate = useTranslations();
-	const myFines = translate.myFines();
-
-	const fines = useAppSelector((state) => state.app.fines);
 	const user = useAppSelector((state) => state.app.user);
+	const cq = newUserCollectionQuery(user?.id);
+
+	const { status, data } = useQuery({
+		enabled: !!user?.id,
+		queryKey: [FineRoutes.BASE, cq],
+		queryFn: ({ signal }) => fineApi.ListFine(cq, signal),
+	});
+
+	if (status === "pending" || !data) return <LoaderPage />;
+
+	const fines = data.data;
+	const myFines = translate.myFines();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

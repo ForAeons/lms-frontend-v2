@@ -1,16 +1,29 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { useAppSelector } from "@/store";
-import { BookCard } from "@/modules/book";
 import { useTranslations } from "@/components/language-provider";
+import { useAppSelector } from "@/store";
+import { newUserCollectionQuery } from "@/util";
+import { LoanRoutes, loanApi } from "@/api";
+import { LoaderPage } from "@/modules";
+import { BookCard } from "@/modules/book";
 import { LoanRenewBtn, LoanReturnBtn, loanToBadgeProps } from "..";
 
 export const LoanPage: React.FC = () => {
 	const translate = useTranslations();
-	const myLoans = translate.myLoans();
-
-	const loans = useAppSelector((state) => state.app.loans);
 	const user = useAppSelector((state) => state.app.user);
+	const cq = newUserCollectionQuery(user?.id);
+
+	const { status, data } = useQuery({
+		enabled: !!user?.id,
+		queryKey: [LoanRoutes.BASE, cq],
+		queryFn: ({ signal }) => loanApi.ListLoan(cq, signal),
+	});
+
+	if (status === "pending" || !data) return <LoaderPage />;
+
+	const myLoans = translate.myLoans();
+	const loans = data.data;
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

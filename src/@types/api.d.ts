@@ -39,7 +39,7 @@ interface Meta {
  * @template T - The type of Data of the payload. Defaults to object.
  * @template M - The type of Meta of the payload. Defaults to undefined.
  */
-interface Payload<T = object, M = undefined> {
+interface Payload<T = object, M = Meta> {
 	data: T;
 	meta: M;
 	messages: ApiMessage[];

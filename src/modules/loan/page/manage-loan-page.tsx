@@ -1,8 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import {
+	keepPreviousData,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTranslations } from "@/components/language-provider";
-import { useQueryParams } from "@/hooks";
+import { useCollectionQuery, useValidateCqOrReroute } from "@/hooks";
 import {
 	FilterSelect,
 	LoaderPage,
@@ -11,9 +15,14 @@ import {
 	SearchBar,
 	SortSelect,
 } from "@/modules";
-import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
-import { listLoanThunk, useAppDispatch, useAppSelector } from "@/store";
+import {
+	getNextPage,
+	getPreviousPage,
+	hasNextPage,
+	hasPreviousPage,
+} from "@/util";
 import { LOAN_FILTER_OPTIONS, LOAN_SORT_OPTIONS } from "@/constants";
+import { LoanRoutes, loanApi } from "@/api";
 import { BookCard } from "@/modules/book";
 import {
 	LoanCreateBtn,
@@ -24,29 +33,37 @@ import {
 
 export const ManageLoanPage: React.FC = () => {
 	const translate = useTranslations();
-	const dispatch = useAppDispatch();
-	const loanState = useAppSelector((s) => s.loan);
-	const navigate = useNavigate();
-	const queryParams = useQueryParams();
-	const cq = getCollectionQuery(queryParams);
-
+	const cq = useCollectionQuery();
 	if (!cq.filters.status) cq.filters.status = "borrowed";
 
-	React.useEffect(() => {
-		const c = new AbortController();
-		dispatch(listLoanThunk({ q: cq, signal: c.signal }));
-		return () => c.abort();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dispatch, window.location.search]);
+	const { status, data } = useQuery({
+		queryKey: [LoanRoutes.BASE, cq],
+		queryFn: ({ signal }) => loanApi.ListLoan(cq, signal),
+		placeholderData: keepPreviousData,
+	});
 
-	React.useEffect(() => {
-		const isValid = isValidCq(cq, loanState.meta.filtered_count);
-		if (!isValid) navigate(`?${cqToUrl(cq)}`);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [navigate, window.location.search]);
+	useValidateCqOrReroute(cq, data?.meta.filtered_count);
 
-	if (loanState.isFetching) return <LoaderPage />;
+	// prefetch previous and next page
+	const queryClient = useQueryClient();
+	if (hasPreviousPage(cq)) {
+		const prevCq = getPreviousPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [LoanRoutes.BASE, prevCq],
+			queryFn: ({ signal }) => loanApi.ListLoan(prevCq, signal),
+		});
+	}
+	if (hasNextPage(cq)) {
+		const nextCq = getNextPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [LoanRoutes.BASE, nextCq],
+			queryFn: ({ signal }) => loanApi.ListLoan(nextCq, signal),
+		});
+	}
 
+	if (status === "pending" || !data) return <LoaderPage />;
+
+	const loans = data.data;
 	const loanTitle = translate.manageLoans();
 
 	return (
@@ -66,14 +83,14 @@ export const ManageLoanPage: React.FC = () => {
 					<FilterSelect cq={cq} opt={LOAN_FILTER_OPTIONS} />
 				</div>
 
-				{loanState.loans.map((l) => (
+				{loans.map((l) => (
 					<BookCard key={l.id} book={l.book} badges={loanToBadgeProps(l)}>
 						{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
 						{l.status === "borrowed" && <LoanRenewBtn loan={l} />}
 					</BookCard>
 				))}
 
-				<PaginationBar cq={cq} total={loanState.meta.filtered_count} />
+				<PaginationBar cq={cq} total={data.meta.filtered_count} />
 			</div>
 			<ScrollBar />
 		</ScrollArea>
