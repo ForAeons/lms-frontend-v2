@@ -16,6 +16,11 @@ import { IntlShape } from "react-intl";
  */
 export const translations = (intl: IntlShape) => {
 	return {
+		nothingHereYet: () =>
+			intl.formatMessage({
+				id: "IGfr1F",
+				defaultMessage: "There is nothing here at the moment.",
+			}),
 		alreadyHaveAnAccount: () =>
 			intl.formatMessage({
 				id: "uCk8r+",

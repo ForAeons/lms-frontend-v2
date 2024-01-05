@@ -25,6 +25,7 @@ export const BookmarkPage: React.FC = () => {
 	});
 
 	const myBookmarks = translate.myBookmarks();
+	const nothingHere = translate.nothingHereYet();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
@@ -34,6 +35,10 @@ export const BookmarkPage: React.FC = () => {
 				</h2>
 
 				{(status === "pending" || !data) && <LoadingPage />}
+
+				{!(status === "pending" || !data) && data.data.length === 0 && (
+					<p className="text-sm text-muted-foreground">{nothingHere}</p>
+				)}
 
 				{!(status === "pending" || !data) &&
 					data.data.map((b) => (
