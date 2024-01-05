@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "@/components/language-provider";
-import { ResRoutes, reservationApi } from "@/api";
+import { BookRoutes, LoanRoutes, ResRoutes, reservationApi } from "@/api";
 import { LG_ICON_SIZE } from "@/constants";
 
 export const ResCheckoutBtn: React.FC<{ res: Reservation }> = ({ res }) => {
@@ -39,6 +39,8 @@ export const ResCheckoutBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 		onSuccess: (data) => {
 			const loan = data!.data;
 			queryClient.invalidateQueries({ queryKey: [ResRoutes.BASE] });
+			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
+			queryClient.invalidateQueries({ queryKey: [LoanRoutes.BASE] });
 			toast.success(translate.Success(), {
 				description: translate.checkoutResSuccessDesc({
 					title: loan.book.title,

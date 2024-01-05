@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserCogIcon } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -26,9 +28,9 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "@/components/language-provider";
-import { useMediaQuery } from "@/hooks";
-import { updateUserRoleThunk, useAppDispatch } from "@/store";
+import { UserRoutes, userApi } from "@/api";
 import { LG_ICON_SIZE } from "@/constants";
+import { useMediaQuery } from "@/hooks";
 import { UserUpdateRoleForm } from ".";
 
 const Btn: React.FC = () => {
@@ -56,17 +58,31 @@ const Btn: React.FC = () => {
 };
 
 export const UserUpdateRoleBtn: React.FC<{ user: User }> = ({ user }) => {
-	const isDesktop = useMediaQuery("(min-width: 1024px)");
-	const dispatch = useAppDispatch();
-
 	const translate = useTranslations();
 	const updateUserRole = translate.updateUserRole();
 	const updateUserRoleDescription = translate.updateUserRoleDesc();
 	const updateAction = translate.Update();
 
+	const queryClient = useQueryClient();
+	const updateRoleMutation = useMutation({
+		mutationKey: [UserRoutes.BASE, UserRoutes.UDPATE_ROLE.BASE, user.id],
+		mutationFn: (roleID: number) => userApi.ChangeRole(user.id, roleID),
+		onSuccess: (data) => {
+			const user = data!.data;
+			queryClient.invalidateQueries({ queryKey: [UserRoutes.BASE] });
+			toast.success(translate.Success(), {
+				description: translate.updateUserRoleSuccessDesc({
+					username: user.username,
+				}),
+			});
+		},
+	});
+
 	const onSubmit = (values: RoleUpdate) => {
-		dispatch(updateUserRoleThunk({ roleID: values.role_id, userID: user.id }));
+		updateRoleMutation.mutate(values.role_id);
 	};
+
+	const isDesktop = useMediaQuery("(min-width: 1024px)");
 
 	if (isDesktop) {
 		return (

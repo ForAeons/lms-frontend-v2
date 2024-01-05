@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/drawer";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTranslations } from "@/components/language-provider";
-import { ResRoutes, reservationApi } from "@/api";
+import { BookRoutes, ResRoutes, reservationApi } from "@/api";
 import { useMediaQuery } from "@/hooks";
 import { CreateBtn } from "@/modules";
 import { ResCreateForm } from ".";
@@ -37,6 +37,7 @@ export const ResCreateDialog: React.FC = () => {
 		onSuccess: (data) => {
 			const loan = data!.data;
 			queryClient.invalidateQueries({ queryKey: [ResRoutes.BASE] });
+			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
 			toast.success(translate.Success(), {
 				description: translate.createResSuccessDesc({
 					title: loan.book.title,

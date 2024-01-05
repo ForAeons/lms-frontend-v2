@@ -16,8 +16,14 @@ export const newCollectionQuery = ({
 	};
 };
 
-export const newUserCollectionQuery = (userID?: number): CollectionQuery => {
-	return newCollectionQuery({ limit: 100, filters: { user_id: userID } });
+export const newUserCollectionQuery = (
+	userID?: number,
+	status?: string,
+): CollectionQuery => {
+	return newCollectionQuery({
+		limit: 100,
+		filters: { user_id: userID, status },
+	});
 };
 
 /**

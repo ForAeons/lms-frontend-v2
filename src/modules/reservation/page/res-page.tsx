@@ -12,7 +12,7 @@ import { ResCancelBtn, ResCheckoutBtn, resToBadgeProps } from "..";
 export const ResPage: React.FC = () => {
 	const translate = useTranslations();
 	const user = useAppSelector((state) => state.app.user);
-	const cq = newUserCollectionQuery(user?.id);
+	const cq = newUserCollectionQuery(user?.id, "pending");
 
 	const { status, data } = useQuery({
 		enabled: !!user?.id,

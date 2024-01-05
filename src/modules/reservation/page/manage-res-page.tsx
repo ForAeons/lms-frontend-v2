@@ -64,7 +64,7 @@ export const ManageResPage: React.FC = () => {
 	if (status === "pending" || !data) return <LoaderPage />;
 
 	const reservations = data.data;
-	const resTitle = translate.myReservations();
+	const resTitle = translate.manageReservations();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

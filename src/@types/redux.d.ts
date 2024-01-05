@@ -1,9 +1,5 @@
-type backendStatus = "up" | "down" | "unknown";
-
 interface AppState {
 	csrfToken: string | null;
-	backendStatus: backendStatus;
-	hasFetchedUser: boolean;
 	isLoggedIn: boolean;
 	user: User | undefined;
 	abilities: string[];

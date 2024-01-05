@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/drawer";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTranslations } from "@/components/language-provider";
-import { LoanRoutes, loanApi } from "@/api";
+import { BookRoutes, LoanRoutes, loanApi } from "@/api";
 import { useMediaQuery } from "@/hooks";
 import { CreateBtn } from "@/modules";
 import { LoanCreateForm } from ".";
@@ -37,6 +37,7 @@ export const LoanCreateBtn: React.FC = () => {
 		onSuccess: (data) => {
 			const loan = data!.data;
 			queryClient.invalidateQueries({ queryKey: [LoanRoutes.BASE] });
+			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
 			toast.success(translate.Success(), {
 				description: translate.createLoanDesc({
 					title: loan.book.title,

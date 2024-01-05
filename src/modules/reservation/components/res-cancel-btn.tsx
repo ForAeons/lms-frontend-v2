@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "@/components/language-provider";
-import { ResRoutes, reservationApi } from "@/api";
+import { BookRoutes, ResRoutes, reservationApi } from "@/api";
 import { LG_ICON_SIZE } from "@/constants";
 
 export const ResCancelBtn: React.FC<{ res: Reservation }> = ({ res }) => {
@@ -38,6 +38,7 @@ export const ResCancelBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 		onSuccess: (data) => {
 			const loan = data!.data;
 			queryClient.invalidateQueries({ queryKey: [ResRoutes.BASE] });
+			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
 			toast.success(translate.Success(), {
 				description: translate.cancelResSuccessDesc({
 					title: loan.book.title,

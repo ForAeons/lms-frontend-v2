@@ -5,13 +5,15 @@ import { LoaderPage, SearchBar } from "@/modules";
 import { useTranslations } from "@/components/language-provider";
 import { BookRoutes, bookApi } from "@/api";
 import { BookCarousel } from "..";
+import { useCollectionQuery } from "@/hooks";
 
 export const BookIndexPage: React.FC = () => {
 	const translate = useTranslations();
+	const cq = useCollectionQuery();
 
 	const { status: RecentBooksStatus, data: RecentBooks } = useQuery({
-		queryKey: [BookRoutes.BASE, "recent"],
-		queryFn: ({ signal }) => bookApi.ListNewBooks(signal),
+		queryKey: [BookRoutes.BASE, cq],
+		queryFn: ({ signal }) => bookApi.ListBook(cq, signal),
 	});
 
 	const { status: PopularBooksStatus, data: PopularBooks } = useQuery({
