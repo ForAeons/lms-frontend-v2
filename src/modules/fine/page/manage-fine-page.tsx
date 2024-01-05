@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "sonner";
 import {
 	keepPreviousData,
 	useMutation,
@@ -32,14 +33,14 @@ import {
 import { FineRoutes, fineApi } from "@/api";
 import { BookCard } from "@/modules/book";
 import { FineSettleBtn, fineToBadgeProps } from "..";
-import { toast } from "sonner";
 
 export const ManageFinePage: React.FC = () => {
-	const translate = useTranslations();
+	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 	const cq = useCollectionQuery();
 	if (!cq.filters.status) cq.filters.status = "outstanding";
 
 	const { status, data } = useQuery({
+		enabled: isLoggedIn,
 		queryKey: [FineRoutes.BASE, cq],
 		queryFn: ({ signal }) => fineApi.ListFine(cq, signal),
 		placeholderData: keepPreviousData,
@@ -49,21 +50,24 @@ export const ManageFinePage: React.FC = () => {
 
 	// prefetch previous and next page
 	const queryClient = useQueryClient();
-	if (hasPreviousPage(cq)) {
-		const prevCq = getPreviousPage(cq);
-		queryClient.prefetchQuery({
-			queryKey: [FineRoutes.BASE, prevCq],
-			queryFn: ({ signal }) => fineApi.ListFine(prevCq, signal),
-		});
-	}
-	if (hasNextPage(cq)) {
-		const nextCq = getNextPage(cq);
-		queryClient.prefetchQuery({
-			queryKey: [FineRoutes.BASE, nextCq],
-			queryFn: ({ signal }) => fineApi.ListFine(nextCq, signal),
-		});
+	if (isLoggedIn) {
+		if (hasPreviousPage(cq)) {
+			const prevCq = getPreviousPage(cq);
+			queryClient.prefetchQuery({
+				queryKey: [FineRoutes.BASE, prevCq],
+				queryFn: ({ signal }) => fineApi.ListFine(prevCq, signal),
+			});
+		}
+		if (hasNextPage(cq)) {
+			const nextCq = getNextPage(cq);
+			queryClient.prefetchQuery({
+				queryKey: [FineRoutes.BASE, nextCq],
+				queryFn: ({ signal }) => fineApi.ListFine(nextCq, signal),
+			});
+		}
 	}
 
+	const translate = useTranslations();
 	const deleteFineMutation = useMutation({
 		mutationFn: fineApi.DeleteFine,
 		onSuccess: () => {

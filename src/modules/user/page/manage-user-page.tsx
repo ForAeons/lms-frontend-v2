@@ -26,10 +26,11 @@ import { UserRoutes, userApi } from "@/api";
 import { UserCreateBtn, UserPersonCard } from "..";
 
 export const ManageUserPage: React.FC = () => {
-	const translate = useTranslations();
+	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 	const cq = useCollectionQuery();
 
 	const { status, data } = useQuery({
+		enabled: isLoggedIn,
 		queryKey: [UserRoutes.BASE, cq],
 		queryFn: ({ signal }) => userApi.ListUser(cq, signal),
 		placeholderData: keepPreviousData,
@@ -55,6 +56,7 @@ export const ManageUserPage: React.FC = () => {
 	}
 
 	const canCreateUser = useAppSelector((s) => CheckPermission(s, CREATE_USER));
+	const translate = useTranslations();
 	const userTitle = translate.manageUsers();
 
 	return (

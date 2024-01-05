@@ -133,8 +133,11 @@ dist
 .pnp.*
 
 # env files
-.env.local
+.env*.local
 .env.development
 .env.production
 
 **/.DS_Store
+
+# bundle analyzer
+*stats.html 

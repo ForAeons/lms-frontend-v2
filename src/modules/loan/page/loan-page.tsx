@@ -10,16 +10,17 @@ import { BookCard } from "@/modules/book";
 import { LoanRenewBtn, LoanReturnBtn, loanToBadgeProps } from "..";
 
 export const LoanPage: React.FC = () => {
-	const translate = useTranslations();
+	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 	const user = useAppSelector((state) => state.app.user);
 	const cq = newUserCollectionQuery(user?.id, "borrowed");
 
 	const { status, data } = useQuery({
-		enabled: !!user?.id,
+		enabled: isLoggedIn && !!user?.id,
 		queryKey: [LoanRoutes.BASE, cq],
 		queryFn: ({ signal }) => loanApi.ListLoan(cq, signal),
 	});
 
+	const translate = useTranslations();
 	const myLoans = translate.myLoans();
 
 	return (

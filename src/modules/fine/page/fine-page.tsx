@@ -10,16 +10,17 @@ import { BookCard } from "@/modules/book";
 import { FineSettleBtn, fineToBadgeProps } from "..";
 
 export const FinePage: React.FC = () => {
-	const translate = useTranslations();
+	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 	const user = useAppSelector((state) => state.app.user);
 	const cq = newUserCollectionQuery(user?.id, "outstanding");
 
 	const { status, data } = useQuery({
-		enabled: !!user?.id,
+		enabled: isLoggedIn && !!user?.id,
 		queryKey: [FineRoutes.BASE, cq],
 		queryFn: ({ signal }) => fineApi.ListFine(cq, signal),
 	});
 
+	const translate = useTranslations();
 	const myFines = translate.myFines();
 
 	return (

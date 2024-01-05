@@ -24,6 +24,7 @@ import {
 import { RES_FILTER_OPTIONS, RES_SORT_OPTIONS } from "@/constants";
 import { ResRoutes, reservationApi } from "@/api";
 import { BookCard } from "@/modules/book";
+import { useAppSelector } from "@/store";
 import {
 	ResCancelBtn,
 	ResCheckoutBtn,
@@ -32,11 +33,13 @@ import {
 } from "..";
 
 export const ManageResPage: React.FC = () => {
-	const translate = useTranslations();
+	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
+
 	const cq = useCollectionQuery();
 	if (!cq.filters.status) cq.filters.status = "pending";
 
 	const { status, data } = useQuery({
+		enabled: isLoggedIn,
 		queryKey: [ResRoutes.BASE, cq],
 		queryFn: ({ signal }) => reservationApi.ListRes(cq, signal),
 		placeholderData: keepPreviousData,
@@ -44,23 +47,26 @@ export const ManageResPage: React.FC = () => {
 
 	useValidateCqOrReroute(cq, data?.meta.filtered_count);
 
-	// prefetch previous and next page
 	const queryClient = useQueryClient();
-	if (hasPreviousPage(cq)) {
-		const prevCq = getPreviousPage(cq);
-		queryClient.prefetchQuery({
-			queryKey: [ResRoutes.BASE, prevCq],
-			queryFn: ({ signal }) => reservationApi.ListRes(prevCq, signal),
-		});
-	}
-	if (hasNextPage(cq)) {
-		const nextCq = getNextPage(cq);
-		queryClient.prefetchQuery({
-			queryKey: [ResRoutes.BASE, nextCq],
-			queryFn: ({ signal }) => reservationApi.ListRes(nextCq, signal),
-		});
+	// prefetch previous and next page
+	if (isLoggedIn) {
+		if (hasPreviousPage(cq)) {
+			const prevCq = getPreviousPage(cq);
+			queryClient.prefetchQuery({
+				queryKey: [ResRoutes.BASE, prevCq],
+				queryFn: ({ signal }) => reservationApi.ListRes(prevCq, signal),
+			});
+		}
+		if (hasNextPage(cq)) {
+			const nextCq = getNextPage(cq);
+			queryClient.prefetchQuery({
+				queryKey: [ResRoutes.BASE, nextCq],
+				queryFn: ({ signal }) => reservationApi.ListRes(nextCq, signal),
+			});
+		}
 	}
 
+	const translate = useTranslations();
 	const resTitle = translate.manageReservations();
 
 	return (
