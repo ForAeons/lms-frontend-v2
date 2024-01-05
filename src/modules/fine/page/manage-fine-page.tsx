@@ -73,7 +73,7 @@ export const ManageFinePage: React.FC = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: [FineRoutes.BASE] });
 			toast.success(translate.Success(), {
-				description: translate.deletefineDesc(),
+				description: translate.settleFineSuccessDesc(),
 			});
 		},
 	});

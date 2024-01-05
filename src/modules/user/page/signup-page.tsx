@@ -11,8 +11,6 @@ import { UserForm } from "..";
 
 export const SignupPage: React.FC = () => {
 	const translate = useTranslations();
-	const signUpAction = translate.Signup();
-	const signInHere = translate.signInHere();
 
 	const defaultValues = {
 		username: "",
@@ -50,6 +48,10 @@ export const SignupPage: React.FC = () => {
 		});
 	};
 
+	const signUpAction = translate.Signup();
+	const signInHere = translate.signInHere();
+	const alreadyHaveAnAccount = translate.alreadyHaveAnAccount();
+
 	return (
 		<div className="w-[100vw] h-[100vh] flex justify-center items-center">
 			<div className="m-6">
@@ -64,7 +66,7 @@ export const SignupPage: React.FC = () => {
 				</Card>
 
 				<div className="mt-3 text-xs text-muted-foreground text-right">
-					<p>{"Already have an account?"}</p>
+					<p>{alreadyHaveAnAccount}</p>
 					<a
 						href="/signin"
 						className="text-primary hover:opacity-70 transition-colors"

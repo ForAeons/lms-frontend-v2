@@ -1,15 +1,14 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "@/components/language-provider";
 import { useAppDispatch, appSlice, useAppSelector } from "@/store";
 import { newUserCollectionQuery } from "@/util";
-import * as Api from "@/api";
-import { LoadingPage } from ".";
-import { ErrorPage } from "..";
-import { useTranslations } from "@/components/language-provider";
 import { useCollectionQuery } from "@/hooks";
+import * as Api from "@/api";
+import { ErrorPage, LoadingPage } from "..";
 
-export const AppLogic: React.FC = () => {
+export const OnMountLogic: React.FC = () => {
 	const dispatch = useAppDispatch();
 
 	const { status: backendFetchStatus } = useQuery({
