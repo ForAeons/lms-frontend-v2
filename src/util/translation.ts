@@ -16,6 +16,17 @@ import { IntlShape } from "react-intl";
  */
 export const translations = (intl: IntlShape) => {
 	return {
+		alreadyHaveAnAccount: () =>
+			intl.formatMessage({
+				id: "uCk8r+",
+				defaultMessage: "Already have an account?",
+			}),
+		pleaseSignIn: () =>
+			intl.formatMessage({
+				id: "ayDrYT",
+				defaultMessage:
+					"Sign in required to access this page. Log in to your account to continue.",
+			}),
 		deleteUserSuccessDesc: ({ username }: { username: string }) =>
 			intl.formatMessage(
 				{
@@ -181,15 +192,11 @@ export const translations = (intl: IntlShape) => {
 				},
 				{ title },
 			),
+
 		Success: () =>
 			intl.formatMessage({
 				id: "xrKHS6",
 				defaultMessage: "Success",
-			}),
-		deletefineDesc: () =>
-			intl.formatMessage({
-				id: "Ye43ph",
-				description: "Fine deleted successfully.",
 			}),
 		youHaveResDueSoon: () =>
 			intl.formatMessage({
