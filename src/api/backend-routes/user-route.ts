@@ -4,7 +4,7 @@ export const UserRoutes = {
 		ROUTE: "current",
 	},
 	UDPATE_ROLE: {
-		BASE: "role",
+		ROUTE: "role",
 	},
 	AUTOCOMPLETE: {
 		BASE: "autocomplete",

@@ -14,6 +14,17 @@ class ReservationApi extends BaseApi {
 		);
 	};
 
+	public CreateResByBook = (
+		res: ReservationCreateBook,
+		abortSignal?: AbortSignal,
+	) => {
+		return this.Post<ReservationCreateBook, ReservationDetailed>(
+			`${ResRoutes.BASE}/${ResRoutes.BOOK.ROUTE}/`,
+			res,
+			abortSignal,
+		);
+	};
+
 	public ReserveBook = (bookCopyId: number, abortSignal?: AbortSignal) => {
 		return this.Post<null, ReservationDetailed>(
 			`${BookRoutes.BASE}/${bookCopyId}/${ResRoutes.BASE}/`,

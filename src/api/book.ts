@@ -39,7 +39,7 @@ class BookApi extends BaseApi {
 
 	public CreateBookmark = (bookID: number, abortSignal?: AbortSignal) => {
 		return this.Post<null, BookmarkDetailed>(
-			`${BookRoutes.BASE}/${bookID}/${BookRoutes.BOOKMARK.BASE}/`,
+			`${BookRoutes.BASE}/${bookID}/${BookRoutes.BOOKMARK.ROUTE}/`,
 			null,
 			abortSignal,
 		);
@@ -51,14 +51,14 @@ class BookApi extends BaseApi {
 		abortSignal?: AbortSignal,
 	) => {
 		return this.Delete<BookmarkDetailed>(
-			`${BookRoutes.BASE}/${bookID}/${BookRoutes.BOOKMARK.BASE}/${bookmarkID}/`,
+			`${BookRoutes.BASE}/${bookID}/${BookRoutes.BOOKMARK.ROUTE}/${bookmarkID}/`,
 			abortSignal,
 		);
 	};
 
 	public ListPopularBooks = (abortSignal?: AbortSignal) => {
 		return this.Get<BookSimple[]>(
-			`${BookRoutes.BASE}/${BookRoutes.POPULAR.BASE}/`,
+			`${BookRoutes.BASE}/${BookRoutes.POPULAR.ROUTE}/`,
 			abortSignal,
 		);
 	};

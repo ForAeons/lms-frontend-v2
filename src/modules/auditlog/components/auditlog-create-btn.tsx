@@ -33,11 +33,14 @@ export const LogCreateBtn: React.FC = () => {
 	const logAnEventDescription = translate.logEventDesc();
 	const createAction = translate.Create();
 
+	const [open, setOpen] = React.useState(false);
+
 	const queryClient = useQueryClient();
 	const createLogMutation = useMutation({
 		mutationKey: [AuditLogRoutes.BASE],
 		mutationFn: auditlogApi.CreateLog,
 		onSuccess: () => {
+			setOpen(false);
 			queryClient.invalidateQueries({ queryKey: [AuditLogRoutes.BASE] });
 			toast.success(translate.Success(), {
 				description: translate.createLogDesc(),
@@ -45,16 +48,16 @@ export const LogCreateBtn: React.FC = () => {
 		},
 	});
 
+	const defaultValues = { action: "", date: new Date() };
 	const onSubmit = (values: z.infer<typeof AuditlogFormSchema>) => {
 		createLogMutation.mutate({ ...values, date: values.date.toISOString() });
 	};
 
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
-	const defaultValues = { action: "", date: new Date() };
 
 	if (isDesktop) {
 		return (
-			<Dialog>
+			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogTrigger asChild>
 					<div>
 						<CreateBtn subject={auditLogText} />
@@ -81,7 +84,7 @@ export const LogCreateBtn: React.FC = () => {
 	}
 
 	return (
-		<Drawer>
+		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>
 				<div>
 					<CreateBtn subject={auditLogText} />

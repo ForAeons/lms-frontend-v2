@@ -32,11 +32,14 @@ export const UserCreateBtn: React.FC = () => {
 		preferred_name: "",
 	};
 
+	const [open, setOpen] = React.useState(false);
+
 	const queryClient = useQueryClient();
 	const createUserMutation = useMutation({
 		mutationKey: [UserRoutes.BASE, "new"],
 		mutationFn: userApi.CreateUser,
 		onSuccess: (data) => {
+			setOpen(false);
 			const user = data!.data;
 			queryClient.invalidateQueries({ queryKey: [UserRoutes.BASE] });
 			toast.success(translate.Success(), {
@@ -59,7 +62,7 @@ export const UserCreateBtn: React.FC = () => {
 	};
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<div>
 					<CreateBtn subject={user} />

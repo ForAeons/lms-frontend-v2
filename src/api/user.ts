@@ -52,7 +52,7 @@ class UserApi extends BaseApi {
 		abortSignal?: AbortSignal,
 	) => {
 		return this.Patch<RoleUpdate, UserPersonAbility>(
-			`${UserRoutes.BASE}/${userID}/${UserRoutes.UDPATE_ROLE.BASE}/`,
+			`${UserRoutes.BASE}/${userID}/${UserRoutes.UDPATE_ROLE.ROUTE}/`,
 			{ role_id: roleID },
 			abortSignal,
 		);
