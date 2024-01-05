@@ -11,7 +11,7 @@ import { useCollectionQuery, useValidateCqOrReroute } from "@/hooks";
 import {
 	DeleteBtn,
 	FilterSelect,
-	LoaderPage,
+	LoadingPage,
 	OrderBtn,
 	PaginationBar,
 	SearchBar,
@@ -78,9 +78,6 @@ export const ManageFinePage: React.FC = () => {
 		CheckPermission(s, MANAGE_BOOK_RECORDS),
 	);
 
-	if (status === "pending" || !data) return <LoaderPage />;
-
-	const fines = data.data;
 	const fineTitle = translate.manageFines();
 	const fineText = translate.fine();
 
@@ -91,28 +88,34 @@ export const ManageFinePage: React.FC = () => {
 					{fineTitle}
 				</h2>
 
-				<div className="flex gap-3">
-					<SearchBar cq={cq} />
-				</div>
-				<div className="flex gap-3">
-					<OrderBtn cq={cq} />
-					<SortSelect cq={cq} opt={FINE_SORT_OPTIONS} />
-					<FilterSelect cq={cq} opt={FINE_FILTER_OPTIONS} />
-				</div>
+				{(status === "pending" || !data) && <LoadingPage />}
 
-				{fines.map((f) => (
-					<BookCard key={f.id} book={f.book} badges={fineToBadgeProps(f)}>
-						{canDeleteFine && (
-							<DeleteBtn
-								handler={() => deleteFineMutation.mutate(f.id)}
-								subject={fineText}
-							/>
-						)}
-						{f.status === "outstanding" && <FineSettleBtn fine={f} />}
-					</BookCard>
-				))}
+				{!(status === "pending" || !data) && (
+					<>
+						<div className="flex gap-3">
+							<SearchBar cq={cq} />
+						</div>
+						<div className="flex gap-3">
+							<OrderBtn cq={cq} />
+							<SortSelect cq={cq} opt={FINE_SORT_OPTIONS} />
+							<FilterSelect cq={cq} opt={FINE_FILTER_OPTIONS} />
+						</div>
 
-				<PaginationBar cq={cq} total={data.meta.filtered_count} />
+						{data.data.map((f) => (
+							<BookCard key={f.id} book={f.book} badges={fineToBadgeProps(f)}>
+								{canDeleteFine && (
+									<DeleteBtn
+										handler={() => deleteFineMutation.mutate(f.id)}
+										subject={fineText}
+									/>
+								)}
+								{f.status === "outstanding" && <FineSettleBtn fine={f} />}
+							</BookCard>
+						))}
+
+						<PaginationBar cq={cq} total={data.meta.filtered_count} />
+					</>
+				)}
 			</div>
 			<ScrollBar />
 		</ScrollArea>

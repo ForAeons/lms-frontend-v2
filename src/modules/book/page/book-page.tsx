@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { LoaderPage, NavBackBtn } from "@/modules";
+import { LoadingPage, NavBackBtn } from "@/modules";
 import { useValidateIntegerOrReroute } from "@/hooks";
 import { BookRoutes, bookApi } from "@/api";
 import { BookCard, BookLoanBtn, BookReserveBtn, bookToBadgeProps } from "..";
@@ -17,7 +17,7 @@ export const BookPage: React.FC = () => {
 		queryFn: ({ signal }) => bookApi.GetBook(book_id, signal),
 	});
 
-	if (status === "pending" || !data?.data) return <LoaderPage />;
+	if (status === "pending" || !data?.data) return <LoadingPage />;
 
 	const book = data.data;
 	const availCopy = book.book_copies.find((bc) => bc.status === "available");

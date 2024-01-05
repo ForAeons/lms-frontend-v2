@@ -9,7 +9,7 @@ import { useTranslations } from "@/components/language-provider";
 import { useCollectionQuery, useValidateCqOrReroute } from "@/hooks";
 import {
 	FilterSelect,
-	LoaderPage,
+	LoadingPage,
 	OrderBtn,
 	PaginationBar,
 	SearchBar,
@@ -61,9 +61,6 @@ export const ManageResPage: React.FC = () => {
 		});
 	}
 
-	if (status === "pending" || !data) return <LoaderPage />;
-
-	const reservations = data.data;
 	const resTitle = translate.manageReservations();
 
 	return (
@@ -73,24 +70,30 @@ export const ManageResPage: React.FC = () => {
 					{resTitle}
 				</h2>
 
-				<div className="flex items-center gap-3">
-					<ResCreateDialog />
-					<SearchBar cq={cq} />
-				</div>
-				<div className="flex gap-3">
-					<OrderBtn cq={cq} />
-					<SortSelect cq={cq} opt={RES_SORT_OPTIONS} />
-					<FilterSelect cq={cq} opt={RES_FILTER_OPTIONS} />
-				</div>
+				{(status === "pending" || !data) && <LoadingPage />}
 
-				{reservations.map((r) => (
-					<BookCard key={r.id} book={r.book} badges={resToBadgeProps(r)}>
-						{r.status === "pending" && <ResCheckoutBtn res={r} />}
-						{r.status === "pending" && <ResCancelBtn res={r} />}
-					</BookCard>
-				))}
+				{!(status === "pending" || !data) && (
+					<>
+						<div className="flex items-center gap-3">
+							<ResCreateDialog />
+							<SearchBar cq={cq} />
+						</div>
+						<div className="flex gap-3">
+							<OrderBtn cq={cq} />
+							<SortSelect cq={cq} opt={RES_SORT_OPTIONS} />
+							<FilterSelect cq={cq} opt={RES_FILTER_OPTIONS} />
+						</div>
 
-				<PaginationBar cq={cq} total={data.meta.filtered_count} />
+						{data.data.map((r) => (
+							<BookCard key={r.id} book={r.book} badges={resToBadgeProps(r)}>
+								{r.status === "pending" && <ResCheckoutBtn res={r} />}
+								{r.status === "pending" && <ResCancelBtn res={r} />}
+							</BookCard>
+						))}
+
+						<PaginationBar cq={cq} total={data.meta.filtered_count} />
+					</>
+				)}
 			</div>
 			<ScrollBar />
 		</ScrollArea>

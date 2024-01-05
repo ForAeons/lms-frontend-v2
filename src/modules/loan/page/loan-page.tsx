@@ -5,7 +5,7 @@ import { useTranslations } from "@/components/language-provider";
 import { useAppSelector } from "@/store";
 import { newUserCollectionQuery } from "@/util";
 import { LoanRoutes, loanApi } from "@/api";
-import { LoaderPage } from "@/modules";
+import { LoadingPage } from "@/modules";
 import { BookCard } from "@/modules/book";
 import { LoanRenewBtn, LoanReturnBtn, loanToBadgeProps } from "..";
 
@@ -20,10 +20,7 @@ export const LoanPage: React.FC = () => {
 		queryFn: ({ signal }) => loanApi.ListLoan(cq, signal),
 	});
 
-	if (status === "pending" || !data) return <LoaderPage />;
-
 	const myLoans = translate.myLoans();
-	const loans = data.data;
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
@@ -32,16 +29,19 @@ export const LoanPage: React.FC = () => {
 					{myLoans}
 				</h2>
 
-				{loans.map((l) => (
-					<BookCard
-						key={l.id}
-						book={l.book}
-						badges={loanToBadgeProps({ ...l, user: user! })}
-					>
-						{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
-						{l.status === "borrowed" && <LoanRenewBtn loan={l} />}
-					</BookCard>
-				))}
+				{(status === "pending" || !data) && <LoadingPage />}
+
+				{!(status === "pending" || !data) &&
+					data.data.map((l) => (
+						<BookCard
+							key={l.id}
+							book={l.book}
+							badges={loanToBadgeProps({ ...l, user: user! })}
+						>
+							{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
+							{l.status === "borrowed" && <LoanRenewBtn loan={l} />}
+						</BookCard>
+					))}
 			</div>
 			<ScrollBar />
 		</ScrollArea>

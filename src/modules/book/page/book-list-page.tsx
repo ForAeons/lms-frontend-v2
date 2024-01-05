@@ -7,7 +7,7 @@ import {
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
 	SearchBar,
-	LoaderPage,
+	LoadingPage,
 	PaginationBar,
 	OrderBtn,
 	SortSelect,
@@ -53,10 +53,7 @@ export const BookListPage: React.FC = () => {
 		});
 	}
 
-	if (status === "pending" || !data) return <LoaderPage />;
-
 	const bookTitle = translate.Books();
-	const books = data.data;
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
@@ -65,23 +62,29 @@ export const BookListPage: React.FC = () => {
 					{bookTitle}
 				</h2>
 
-				<div className="flex gap-3">
-					<SearchBar cq={cq} />
-				</div>
+				{(status === "pending" || !data) && <LoadingPage />}
 
-				<div className="flex gap-3">
-					<OrderBtn cq={cq} />
-					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
-				</div>
+				{!(status === "pending" || !data) && (
+					<>
+						<div className="flex gap-3">
+							<SearchBar cq={cq} />
+						</div>
 
-				{books.map((b) => (
-					<BookCard key={b.id} book={b} badges={bookToBadgeProps(b)}>
-						<BookNavBtn book={b} />
-						<BookmarkBtn book={b} />
-					</BookCard>
-				))}
+						<div className="flex gap-3">
+							<OrderBtn cq={cq} />
+							<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
+						</div>
 
-				<PaginationBar cq={cq} total={data.meta.filtered_count} />
+						{data.data.map((b) => (
+							<BookCard key={b.id} book={b} badges={bookToBadgeProps(b)}>
+								<BookNavBtn book={b} />
+								<BookmarkBtn book={b} />
+							</BookCard>
+						))}
+
+						<PaginationBar cq={cq} total={data.meta.filtered_count} />
+					</>
+				)}
 			</div>
 			<ScrollBar />
 		</ScrollArea>

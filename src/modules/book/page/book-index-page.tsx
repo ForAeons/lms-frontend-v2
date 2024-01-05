@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { LoaderPage, SearchBar } from "@/modules";
+import { LoadingPage, SearchBar } from "@/modules";
 import { useTranslations } from "@/components/language-provider";
 import { BookRoutes, bookApi } from "@/api";
 import { BookCarousel } from "..";
@@ -27,7 +27,7 @@ export const BookIndexPage: React.FC = () => {
 		!RecentBooks ||
 		!PopularBooks
 	) {
-		return <LoaderPage />;
+		return <LoadingPage />;
 	}
 
 	const newArrivals = translate.newArrivals();

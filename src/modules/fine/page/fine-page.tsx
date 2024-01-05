@@ -5,7 +5,7 @@ import { useTranslations } from "@/components/language-provider";
 import { useAppSelector } from "@/store";
 import { FineRoutes, fineApi } from "@/api";
 import { newUserCollectionQuery } from "@/util";
-import { LoaderPage } from "@/modules";
+import { LoadingPage } from "@/modules";
 import { BookCard } from "@/modules/book";
 import { FineSettleBtn, fineToBadgeProps } from "..";
 
@@ -20,9 +20,6 @@ export const FinePage: React.FC = () => {
 		queryFn: ({ signal }) => fineApi.ListFine(cq, signal),
 	});
 
-	if (status === "pending" || !data) return <LoaderPage />;
-
-	const fines = data.data;
 	const myFines = translate.myFines();
 
 	return (
@@ -32,15 +29,18 @@ export const FinePage: React.FC = () => {
 					{myFines}
 				</h2>
 
-				{fines.map((f) => (
-					<BookCard
-						key={f.id}
-						book={f.book}
-						badges={fineToBadgeProps({ ...f, user: user! })}
-					>
-						{f.status === "outstanding" && <FineSettleBtn fine={f} />}
-					</BookCard>
-				))}
+				{(status === "pending" || !data) && <LoadingPage />}
+
+				{!(status === "pending" || !data) &&
+					data.data.map((f) => (
+						<BookCard
+							key={f.id}
+							book={f.book}
+							badges={fineToBadgeProps({ ...f, user: user! })}
+						>
+							{f.status === "outstanding" && <FineSettleBtn fine={f} />}
+						</BookCard>
+					))}
 			</div>
 			<ScrollBar />
 		</ScrollArea>

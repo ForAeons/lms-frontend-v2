@@ -9,7 +9,7 @@ import { useTranslations } from "@/components/language-provider";
 import { useCollectionQuery, useValidateCqOrReroute } from "@/hooks";
 import {
 	FilterSelect,
-	LoaderPage,
+	LoadingPage,
 	OrderBtn,
 	PaginationBar,
 	SearchBar,
@@ -61,9 +61,6 @@ export const ManageLoanPage: React.FC = () => {
 		});
 	}
 
-	if (status === "pending" || !data) return <LoaderPage />;
-
-	const loans = data.data;
 	const loanTitle = translate.manageLoans();
 
 	return (
@@ -73,24 +70,30 @@ export const ManageLoanPage: React.FC = () => {
 					{loanTitle}
 				</h2>
 
-				<div className="flex items-center gap-3">
-					<LoanCreateBtn />
-					<SearchBar cq={cq} />
-				</div>
-				<div className="flex gap-3">
-					<OrderBtn cq={cq} />
-					<SortSelect cq={cq} opt={LOAN_SORT_OPTIONS} />
-					<FilterSelect cq={cq} opt={LOAN_FILTER_OPTIONS} />
-				</div>
+				{(status === "pending" || !data) && <LoadingPage />}
 
-				{loans.map((l) => (
-					<BookCard key={l.id} book={l.book} badges={loanToBadgeProps(l)}>
-						{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
-						{l.status === "borrowed" && <LoanRenewBtn loan={l} />}
-					</BookCard>
-				))}
+				{!(status === "pending" || !data) && (
+					<>
+						<div className="flex items-center gap-3">
+							<LoanCreateBtn />
+							<SearchBar cq={cq} />
+						</div>
+						<div className="flex gap-3">
+							<OrderBtn cq={cq} />
+							<SortSelect cq={cq} opt={LOAN_SORT_OPTIONS} />
+							<FilterSelect cq={cq} opt={LOAN_FILTER_OPTIONS} />
+						</div>
 
-				<PaginationBar cq={cq} total={data.meta.filtered_count} />
+						{data.data.map((l) => (
+							<BookCard key={l.id} book={l.book} badges={loanToBadgeProps(l)}>
+								{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
+								{l.status === "borrowed" && <LoanRenewBtn loan={l} />}
+							</BookCard>
+						))}
+
+						<PaginationBar cq={cq} total={data.meta.filtered_count} />
+					</>
+				)}
 			</div>
 			<ScrollBar />
 		</ScrollArea>

@@ -1,5 +1,5 @@
 export * from "./app-logic";
-export * from "./loader";
+export * from "./loading";
 export * from "./edit-btn";
 export * from "./delete-btn";
 export * from "./create-btn";

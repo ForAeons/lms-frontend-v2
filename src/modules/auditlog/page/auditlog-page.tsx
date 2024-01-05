@@ -7,7 +7,7 @@ import {
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTranslations } from "@/components/language-provider";
 import {
-	LoaderPage,
+	LoadingPage,
 	OrderBtn,
 	PaginationBar,
 	SearchBar,
@@ -58,9 +58,6 @@ export const AuditLogPage: React.FC = () => {
 		CheckPermission(s, CREATE_AUDIT_LOG),
 	);
 
-	if (status === "pending" || !data) return <LoaderPage />;
-
-	const auditlogs = data.data;
 	const auditLogsText = translate.AuditLogs();
 
 	return (
@@ -70,21 +67,27 @@ export const AuditLogPage: React.FC = () => {
 					{auditLogsText}
 				</h2>
 
-				<div className="flex gap-3 items-center">
-					{canCreateAuditLog && <LogCreateBtn />}
-					<SearchBar cq={cq} />
-				</div>
+				{(status === "pending" || !data) && <LoadingPage />}
 
-				<div className="flex gap-3">
-					<OrderBtn cq={cq} />
-					<SortSelect cq={cq} opt={LOG_SORT_OPTIONS} />
-				</div>
+				{!(status === "pending" || !data) && (
+					<>
+						<div className="flex gap-3 items-center">
+							{canCreateAuditLog && <LogCreateBtn />}
+							<SearchBar cq={cq} />
+						</div>
 
-				<div className="px-3">
-					<DataTable columns={getTranslatedColumns()} data={auditlogs} />
-				</div>
+						<div className="flex gap-3">
+							<OrderBtn cq={cq} />
+							<SortSelect cq={cq} opt={LOG_SORT_OPTIONS} />
+						</div>
 
-				<PaginationBar cq={cq} total={data.meta.filtered_count} />
+						<div className="px-3">
+							<DataTable columns={getTranslatedColumns()} data={data.data} />
+						</div>
+
+						<PaginationBar cq={cq} total={data.meta.filtered_count} />
+					</>
+				)}
 			</div>
 			<ScrollBar />
 		</ScrollArea>

@@ -7,7 +7,7 @@ import {
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTranslations } from "@/components/language-provider";
 import {
-	LoaderPage,
+	LoadingPage,
 	OrderBtn,
 	PaginationBar,
 	SearchBar,
@@ -55,10 +55,6 @@ export const ManageUserPage: React.FC = () => {
 	}
 
 	const canCreateUser = useAppSelector((s) => CheckPermission(s, CREATE_USER));
-
-	if (status === "pending" || !data) return <LoaderPage />;
-
-	const users = data.data;
 	const userTitle = translate.manageUsers();
 
 	return (
@@ -68,21 +64,27 @@ export const ManageUserPage: React.FC = () => {
 					{userTitle}
 				</h2>
 
-				<div className="flex gap-3">
-					{canCreateUser && <UserCreateBtn />}
-					<SearchBar cq={cq} />
-				</div>
+				{(status === "pending" || !data) && <LoadingPage />}
 
-				<div className="flex gap-3">
-					<OrderBtn cq={cq} />
-					<SortSelect cq={cq} opt={USER_SORT_OPTIONS} />
-				</div>
+				{!(status === "pending" || !data) && (
+					<>
+						<div className="flex gap-3">
+							{canCreateUser && <UserCreateBtn />}
+							<SearchBar cq={cq} />
+						</div>
 
-				{users.map((u) => (
-					<UserPersonCard key={u.username} userPerson={u} />
-				))}
+						<div className="flex gap-3">
+							<OrderBtn cq={cq} />
+							<SortSelect cq={cq} opt={USER_SORT_OPTIONS} />
+						</div>
 
-				<PaginationBar cq={cq} total={data.meta.filtered_count} />
+						{data.data.map((u) => (
+							<UserPersonCard key={u.username} userPerson={u} />
+						))}
+
+						<PaginationBar cq={cq} total={data.meta.filtered_count} />
+					</>
+				)}
 			</div>
 			<ScrollBar />
 		</ScrollArea>

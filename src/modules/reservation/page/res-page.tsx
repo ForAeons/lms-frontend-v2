@@ -5,7 +5,7 @@ import { useTranslations } from "@/components/language-provider";
 import { useAppSelector } from "@/store";
 import { ResRoutes, reservationApi } from "@/api";
 import { newUserCollectionQuery } from "@/util";
-import { LoaderPage } from "@/modules";
+import { LoadingPage } from "@/modules";
 import { BookCard } from "@/modules/book";
 import { ResCancelBtn, ResCheckoutBtn, resToBadgeProps } from "..";
 
@@ -20,7 +20,7 @@ export const ResPage: React.FC = () => {
 		queryFn: ({ signal }) => reservationApi.ListRes(cq, signal),
 	});
 
-	if (status === "pending" || !data) return <LoaderPage />;
+	if (status === "pending" || !data) return <LoadingPage />;
 
 	const res = data.data;
 	const myReservations = translate.myReservations();

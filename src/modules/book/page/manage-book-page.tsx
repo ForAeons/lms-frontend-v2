@@ -10,7 +10,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTranslations } from "@/components/language-provider";
 import {
 	DeleteBtn,
-	LoaderPage,
+	LoadingPage,
 	OrderBtn,
 	PaginationBar,
 	SearchBar,
@@ -77,9 +77,6 @@ export const ManageBookPage: React.FC = () => {
 	const canUpdateBook = useAppSelector((s) => CheckPermission(s, UPDATE_BOOK));
 	const canDeleteBook = useAppSelector((s) => CheckPermission(s, DELETE_BOOK));
 
-	if (status === "pending" || !data) return <LoaderPage />;
-
-	const books = data.data;
 	const bookTitle = translate.manageBooks();
 	const bookText = translate.book();
 
@@ -90,30 +87,36 @@ export const ManageBookPage: React.FC = () => {
 					{bookTitle}
 				</h2>
 
-				<div className="flex gap-3">
-					{canCreateBook && <BookCreateBtn />}
-					<SearchBar cq={cq} />
-				</div>
+				{(status === "pending" || !data) && <LoadingPage />}
 
-				<div className="flex gap-3">
-					<OrderBtn cq={cq} />
-					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
-				</div>
+				{!(status === "pending" || !data) && (
+					<>
+						<div className="flex gap-3">
+							{canCreateBook && <BookCreateBtn />}
+							<SearchBar cq={cq} />
+						</div>
 
-				{books.map((book) => (
-					<BookCard key={book.id} book={book}>
-						{canDeleteBook && (
-							<DeleteBtn
-								handler={() => deleteBookMutation.mutate(book.id)}
-								subject={bookText}
-							/>
-						)}
+						<div className="flex gap-3">
+							<OrderBtn cq={cq} />
+							<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
+						</div>
 
-						{canUpdateBook && <BookEditBtn book={book} />}
-					</BookCard>
-				))}
+						{data.data.map((book) => (
+							<BookCard key={book.id} book={book}>
+								{canDeleteBook && (
+									<DeleteBtn
+										handler={() => deleteBookMutation.mutate(book.id)}
+										subject={bookText}
+									/>
+								)}
 
-				<PaginationBar cq={cq} total={data.meta.filtered_count} />
+								{canUpdateBook && <BookEditBtn book={book} />}
+							</BookCard>
+						))}
+
+						<PaginationBar cq={cq} total={data.meta.filtered_count} />
+					</>
+				)}
 			</div>
 			<ScrollBar />
 		</ScrollArea>

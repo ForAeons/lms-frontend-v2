@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAppDispatch, appSlice, useAppSelector } from "@/store";
 import { newUserCollectionQuery } from "@/util";
 import * as Api from "@/api";
-import { LoaderPage } from ".";
+import { LoadingPage } from ".";
 import { ErrorPage } from "..";
 import { useTranslations } from "@/components/language-provider";
 import { useCollectionQuery } from "@/hooks";
@@ -75,7 +75,7 @@ export const AppLogic: React.FC = () => {
 
 	const translate = useTranslations();
 
-	if (backendFetchStatus === "pending") return <LoaderPage />;
+	if (backendFetchStatus === "pending") return <LoadingPage />;
 
 	if (backendFetchStatus === "error")
 		return <ErrorPage errorMsg={translate.serverDownDesc()} />;

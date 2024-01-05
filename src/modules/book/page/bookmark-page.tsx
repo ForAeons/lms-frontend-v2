@@ -11,7 +11,7 @@ import { useTranslations } from "@/components/language-provider";
 import { useQuery } from "@tanstack/react-query";
 import { BookmarkRoutes, bookmarkApi } from "@/api";
 import { newUserCollectionQuery } from "@/util";
-import { LoaderPage } from "@/modules";
+import { LoadingPage } from "@/modules";
 
 export const BookmarkPage: React.FC = () => {
 	const translate = useTranslations();
@@ -24,9 +24,6 @@ export const BookmarkPage: React.FC = () => {
 		queryFn: ({ signal }) => bookmarkApi.ListBookmarks(cq, signal),
 	});
 
-	if (status === "pending" || !data?.data) return <LoaderPage />;
-
-	const bookmarks = data.data;
 	const myBookmarks = translate.myBookmarks();
 
 	return (
@@ -36,12 +33,19 @@ export const BookmarkPage: React.FC = () => {
 					{myBookmarks}
 				</h2>
 
-				{bookmarks.map((b) => (
-					<BookCard key={b.id} book={b.book} badges={bookToBadgeProps(b.book)}>
-						<BookNavBtn book={b.book} url={`/book/${b.book_id}`} />
-						<BookmarkBtn book={b.book} />
-					</BookCard>
-				))}
+				{(status === "pending" || !data) && <LoadingPage />}
+
+				{!(status === "pending" || !data) &&
+					data.data.map((b) => (
+						<BookCard
+							key={b.id}
+							book={b.book}
+							badges={bookToBadgeProps(b.book)}
+						>
+							<BookNavBtn book={b.book} url={`/book/${b.book_id}`} />
+							<BookmarkBtn book={b.book} />
+						</BookCard>
+					))}
 			</div>
 			<ScrollBar />
 		</ScrollArea>
