@@ -20,10 +20,9 @@ export const ResPage: React.FC = () => {
 	});
 
 	const translate = useTranslations();
-	if (status === "pending" || !data) return <LoadingPage />;
 
-	const res = data.data;
 	const myReservations = translate.myReservations();
+	const nothingHere = translate.nothingHereYet();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
@@ -32,16 +31,23 @@ export const ResPage: React.FC = () => {
 					{myReservations}
 				</h2>
 
-				{res.map((r) => (
-					<BookCard
-						key={r.id}
-						book={r.book}
-						badges={resToBadgeProps({ ...r, user: user! })}
-					>
-						{r.status === "pending" && <ResCheckoutBtn res={r} />}
-						{r.status === "pending" && <ResCancelBtn res={r} />}
-					</BookCard>
-				))}
+				{(status === "pending" || !data) && <LoadingPage />}
+
+				{!(status === "pending" || !data) && data.data.length === 0 && (
+					<p className="text-sm text-muted-foreground">{nothingHere}</p>
+				)}
+
+				{!(status === "pending" || !data) &&
+					data.data.map((r) => (
+						<BookCard
+							key={r.id}
+							book={r.book}
+							badges={resToBadgeProps({ ...r, user: user! })}
+						>
+							{r.status === "pending" && <ResCheckoutBtn res={r} />}
+							{r.status === "pending" && <ResCancelBtn res={r} />}
+						</BookCard>
+					))}
 			</div>
 			<ScrollBar />
 		</ScrollArea>
