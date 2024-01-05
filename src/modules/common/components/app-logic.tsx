@@ -44,7 +44,7 @@ export const AppLogic: React.FC = () => {
 		queryFn: ({ signal }) => Api.bookApi.ListBook(cq, signal),
 	});
 	queryClient.prefetchQuery({
-		queryKey: [Api.BookRoutes.BASE, Api.BookRoutes.POPULAR.BASE],
+		queryKey: [Api.BookRoutes.BASE, Api.BookRoutes.POPULAR.ROUTE],
 		queryFn: ({ signal }) => Api.bookApi.ListPopularBooks(signal),
 	});
 

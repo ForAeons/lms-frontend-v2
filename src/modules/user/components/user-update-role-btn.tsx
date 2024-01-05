@@ -63,11 +63,14 @@ export const UserUpdateRoleBtn: React.FC<{ user: User }> = ({ user }) => {
 	const updateUserRoleDescription = translate.updateUserRoleDesc();
 	const updateAction = translate.Update();
 
+	const [open, setOpen] = React.useState(false);
+
 	const queryClient = useQueryClient();
 	const updateRoleMutation = useMutation({
-		mutationKey: [UserRoutes.BASE, UserRoutes.UDPATE_ROLE.BASE, user.id],
+		mutationKey: [UserRoutes.BASE, UserRoutes.UDPATE_ROLE.ROUTE, user.id],
 		mutationFn: (roleID: number) => userApi.ChangeRole(user.id, roleID),
 		onSuccess: (data) => {
+			setOpen(false);
 			const user = data!.data;
 			queryClient.invalidateQueries({ queryKey: [UserRoutes.BASE] });
 			toast.success(translate.Success(), {
@@ -86,7 +89,7 @@ export const UserUpdateRoleBtn: React.FC<{ user: User }> = ({ user }) => {
 
 	if (isDesktop) {
 		return (
-			<Dialog>
+			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogTrigger asChild>
 					<div>
 						<Btn />
@@ -111,7 +114,7 @@ export const UserUpdateRoleBtn: React.FC<{ user: User }> = ({ user }) => {
 	}
 
 	return (
-		<Drawer>
+		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>
 				<div>
 					<Btn />

@@ -30,11 +30,14 @@ export const ResCreateDialog: React.FC = () => {
 	const createRes = translate.createRes();
 	const createResDescription = translate.selectUserAndBook();
 
+	const [open, setOpen] = React.useState(false);
+
 	const queryClient = useQueryClient();
 	const createResMutation = useMutation({
-		mutationKey: [ResRoutes.BASE, "new"],
-		mutationFn: reservationApi.CreateRes,
+		mutationKey: [ResRoutes.BASE, ResRoutes.BOOK.ROUTE, "new"],
+		mutationFn: reservationApi.CreateResByBook,
 		onSuccess: (data) => {
+			setOpen(false);
 			const loan = data!.data;
 			queryClient.invalidateQueries({ queryKey: [ResRoutes.BASE] });
 			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
@@ -51,7 +54,7 @@ export const ResCreateDialog: React.FC = () => {
 
 	if (isDesktop) {
 		return (
-			<Dialog>
+			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogTrigger asChild>
 					<div>
 						<CreateBtn subject={reservation} />
@@ -74,7 +77,7 @@ export const ResCreateDialog: React.FC = () => {
 	}
 
 	return (
-		<Drawer>
+		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>
 				<div>
 					<CreateBtn subject={reservation} />

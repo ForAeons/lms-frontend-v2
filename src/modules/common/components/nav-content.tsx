@@ -38,16 +38,6 @@ import { ColorSelectBtn, LangSelectBtn } from ".";
 
 export const NavContent: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const user = useAppSelector((s) => s.app.user);
-	const person = useAppSelector((s) => s.app.person);
-	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
-	const canManageBookRecords = useAppSelector((s) =>
-		CheckPermission(s, MANAGE_BOOK_RECORDS),
-	);
-	const canReadAuditLog = useAppSelector((s) =>
-		CheckPermission(s, READ_AUDIT_LOG),
-	);
-
 	const navigate = useNavigate();
 	const signOutMutation = useMutation({
 		mutationKey: [AuthRoutes.BASE, AuthRoutes.SIGN_OUT.ROUTE],
@@ -63,6 +53,16 @@ export const NavContent: React.FC = () => {
 
 	const { theme, setTheme } = useTheme();
 	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
+
+	const user = useAppSelector((s) => s.app.user);
+	const person = useAppSelector((s) => s.app.person);
+	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
+	const canManageBookRecords = useAppSelector((s) =>
+		CheckPermission(s, MANAGE_BOOK_RECORDS),
+	);
+	const canReadAuditLog = useAppSelector((s) =>
+		CheckPermission(s, READ_AUDIT_LOG),
+	);
 
 	const translate = useTranslations();
 	const welcome = translate.Welcome({

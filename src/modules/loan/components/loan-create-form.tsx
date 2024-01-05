@@ -57,7 +57,7 @@ export const LoanCreateForm: React.FC<{
 
 	const { data: bookACData } = useQuery({
 		enabled: bookAc.length > 1,
-		queryKey: [BookRoutes.BASE, BookRoutes.AUTOCOMPLETE.BASE, bookAc],
+		queryKey: [BookRoutes.BASE, BookRoutes.AUTOCOMPLETE.ROUTE, bookAc],
 		queryFn: ({ signal }) => bookApi.AutoComplete(bookAc, signal),
 	});
 
@@ -137,7 +137,7 @@ export const LoanCreateForm: React.FC<{
 
 				<FormField
 					control={form.control}
-					name="book_copy_id"
+					name="book_id"
 					render={({ field }) => (
 						<FormItem className="flex flex-col">
 							<FormLabel>{book}</FormLabel>
@@ -174,7 +174,7 @@ export const LoanCreateForm: React.FC<{
 														value={b.title}
 														key={b.id}
 														onSelect={() => {
-															form.setValue("book_copy_id", b.id);
+															form.setValue("book_id", b.id);
 														}}
 													>
 														<CheckIcon

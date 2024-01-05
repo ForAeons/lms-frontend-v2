@@ -30,11 +30,14 @@ export const LoanCreateBtn: React.FC = () => {
 	const createLoan = translate.createLoan();
 	const createLoanDescription = translate.selectUserAndBook();
 
+	const [open, setOpen] = React.useState(false);
+
 	const queryClient = useQueryClient();
 	const createLoanMutation = useMutation({
-		mutationKey: [LoanRoutes.BASE, "new"],
-		mutationFn: loanApi.CreateLoan,
+		mutationKey: [LoanRoutes.BASE, LoanRoutes.BOOK.ROUTE, "new"],
+		mutationFn: loanApi.CreateLoanByBook,
 		onSuccess: (data) => {
+			setOpen(false);
 			const loan = data!.data;
 			queryClient.invalidateQueries({ queryKey: [LoanRoutes.BASE] });
 			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
@@ -51,7 +54,7 @@ export const LoanCreateBtn: React.FC = () => {
 
 	if (isDesktop) {
 		return (
-			<Dialog>
+			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogTrigger asChild>
 					<div>
 						<CreateBtn subject={loan} />
@@ -74,7 +77,7 @@ export const LoanCreateBtn: React.FC = () => {
 	}
 
 	return (
-		<Drawer>
+		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>
 				<div>
 					<CreateBtn subject={loan} />

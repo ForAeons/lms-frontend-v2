@@ -1,13 +1,13 @@
 export const BookRoutes = {
 	BASE: "book",
 	AUTOCOMPLETE: {
-		BASE: "autocomplete",
+		ROUTE: "autocomplete",
 		DYNAMIC_ROUTE: (value: string) => `autocomplete/${value}`,
 	},
 	BOOKMARK: {
-		BASE: "bookmark",
+		ROUTE: "bookmark",
 	},
 	POPULAR: {
-		BASE: "popular",
+		ROUTE: "popular",
 	},
 };

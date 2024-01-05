@@ -17,7 +17,7 @@ export const BookIndexPage: React.FC = () => {
 	});
 
 	const { status: PopularBooksStatus, data: PopularBooks } = useQuery({
-		queryKey: [BookRoutes.BASE, BookRoutes.POPULAR.BASE],
+		queryKey: [BookRoutes.BASE, BookRoutes.POPULAR.ROUTE],
 		queryFn: ({ signal }) => bookApi.ListPopularBooks(signal),
 	});
 

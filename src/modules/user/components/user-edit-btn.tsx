@@ -33,11 +33,14 @@ export const UserEditBtn: React.FC<{
 		preferred_name: userPerson.person_attributes.preferred_name,
 	};
 
+	const [open, setOpen] = React.useState(false);
+
 	const queryClient = useQueryClient();
 	const updateUserMutation = useMutation({
 		mutationKey: [UserRoutes.BASE, userPerson.id],
 		mutationFn: userApi.UpdateUser,
 		onSuccess: (data) => {
+			setOpen(false);
 			const user = data!.data;
 			queryClient.invalidateQueries({ queryKey: [UserRoutes.BASE] });
 			toast.success(translate.Success(), {
@@ -62,7 +65,7 @@ export const UserEditBtn: React.FC<{
 	};
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<div>
 					<EditBtn />

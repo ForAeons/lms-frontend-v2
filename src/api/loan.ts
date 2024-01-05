@@ -22,6 +22,17 @@ class LoanApi extends BaseApi {
 		);
 	};
 
+	public CreateLoanByBook = (
+		loan: LoanCreateBook,
+		abortSignal?: AbortSignal,
+	) => {
+		return this.Post<LoanCreateBook, LoanDetailed>(
+			`${LoanRoutes.BASE}/${LoanRoutes.BOOK.ROUTE}/`,
+			loan,
+			abortSignal,
+		);
+	};
+
 	public GetLoan = (loanID: number, abortSignal?: AbortSignal) => {
 		return this.Get<LoanDetailed>(`${LoanRoutes.BASE}/${loanID}/`, abortSignal);
 	};

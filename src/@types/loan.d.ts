@@ -15,6 +15,11 @@ interface LoanCreate {
 	book_copy_id: number;
 }
 
+interface LoanCreateBook {
+	user_id: number;
+	book_id: number;
+}
+
 interface LoanHistories {
 	id: number;
 	loan_id: number;

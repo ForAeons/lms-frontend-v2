@@ -34,11 +34,14 @@ export const BookCreateBtn: React.FC = () => {
 		language: "",
 	};
 
+	const [open, setOpen] = React.useState(false);
+
 	const queryClient = useQueryClient();
 	const createBookMutation = useMutation({
 		mutationKey: [BookRoutes.BASE, "new"],
 		mutationFn: bookApi.CreateBook,
 		onSuccess: (data) => {
+			setOpen(false);
 			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
 			queryClient.setQueryData([BookRoutes.BASE, data!.data.id], data!.data);
 
@@ -56,7 +59,7 @@ export const BookCreateBtn: React.FC = () => {
 	};
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<div>
 					<CreateBtn subject={bookText} />

@@ -17,3 +17,8 @@ interface ReservationCreate {
 	user_id: number;
 	book_copy_id: number;
 }
+
+interface ReservationCreateBook {
+	user_id: number;
+	book_id: number;
+}
