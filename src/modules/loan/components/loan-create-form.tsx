@@ -1,4 +1,6 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -25,21 +27,14 @@ import {
 	CommandInput,
 	CommandItem,
 } from "@/components/ui/command";
-import {
-	autoCompleteBookThunk,
-	autoCompleteUserThunk,
-	bookSlice,
-	createLoanThunk,
-	useAppDispatch,
-	useAppSelector,
-	userSlice,
-} from "@/store";
-import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
+import { useTranslations } from "@/components/language-provider";
+import { BookRoutes, UserRoutes, bookApi, userApi } from "@/api";
 import { BookUserFormSchema } from "@/schema";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "@/components/language-provider";
 
-export const LoanCreateForm: React.FC = () => {
+export const LoanCreateForm: React.FC<{
+	onSubmit: UnaryHandler<z.infer<typeof BookUserFormSchema>>;
+}> = ({ onSubmit }) => {
 	const translate = useTranslations();
 	const user = translate.User();
 	const searchForUser = translate.searchForUser();
@@ -51,37 +46,24 @@ export const LoanCreateForm: React.FC = () => {
 	const startTypingBook = translate.Create();
 	const create = translate.Create();
 
-	const dispatch = useAppDispatch();
-	const userAutoComp = useAppSelector((state) => state.user.autocomplete);
-	const bookAutoComp = useAppSelector((state) => state.book.autocomplete);
+	const [userAc, setUserAc] = React.useState("");
+	const [bookAc, setBookAc] = React.useState("");
 
-	const handleUserAC = (s: string) => {
-		if (s.trim().length === 0) {
-			dispatch(userSlice.actions.setAutoComplete([]));
-			return;
-		}
-		const c = new AbortController();
-		dispatch(autoCompleteUserThunk({ value: s, signal: c.signal }));
-		return () => c.abort();
-	};
+	const { data: userACData } = useQuery({
+		enabled: userAc.length > 1,
+		queryKey: [UserRoutes.BASE, UserRoutes.AUTOCOMPLETE.BASE, userAc],
+		queryFn: ({ signal }) => userApi.AutoComplete(userAc, signal),
+	});
 
-	const handleBookAC = (s: string) => {
-		if (s.trim().length === 0) {
-			dispatch(bookSlice.actions.setAutoComplete([]));
-			return;
-		}
-		const c = new AbortController();
-		dispatch(autoCompleteBookThunk({ value: s, signal: c.signal }));
-		return () => c.abort();
-	};
+	const { data: bookACData } = useQuery({
+		enabled: bookAc.length > 1,
+		queryKey: [BookRoutes.BASE, BookRoutes.AUTOCOMPLETE.BASE, bookAc],
+		queryFn: ({ signal }) => bookApi.AutoComplete(bookAc, signal),
+	});
 
 	const form = useForm<z.infer<typeof BookUserFormSchema>>({
 		resolver: zodResolver(BookUserFormSchema),
 	});
-
-	function onSubmit(values: z.infer<typeof BookUserFormSchema>) {
-		dispatch(createLoanThunk({ loan: values }));
-	}
 
 	return (
 		<Form {...form}>
@@ -106,8 +88,8 @@ export const LoanCreateForm: React.FC = () => {
 												!field.value && "text-muted-foreground",
 											)}
 										>
-											{field.value
-												? userAutoComp.find((u) => u.id === field.value)
+											{field.value && !!userACData
+												? userACData.data.find((u) => u.id === field.value)
 														?.username
 												: searchForUser}
 											<ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -118,12 +100,12 @@ export const LoanCreateForm: React.FC = () => {
 									<Command>
 										<CommandInput
 											placeholder={searchForUser}
-											onValueChange={handleUserAC}
+											onValueChange={setUserAc}
 										/>
 										<CommandEmpty>{noUserFound}</CommandEmpty>
-										{userAutoComp.length > 0 && (
+										{!!userACData && (
 											<CommandGroup>
-												{userAutoComp.map((u) => (
+												{userACData.data.map((u) => (
 													<CommandItem
 														value={u.username}
 														key={u.id}
@@ -170,8 +152,9 @@ export const LoanCreateForm: React.FC = () => {
 												!field.value && "text-muted-foreground",
 											)}
 										>
-											{field.value
-												? bookAutoComp.find((u) => u.id === field.value)?.title
+											{field.value && !!bookACData
+												? bookACData.data.find((u) => u.id === field.value)
+														?.title
 												: searchForBook}
 											<ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 										</Button>
@@ -181,12 +164,12 @@ export const LoanCreateForm: React.FC = () => {
 									<Command>
 										<CommandInput
 											placeholder={searchForBook}
-											onValueChange={handleBookAC}
+											onValueChange={setBookAc}
 										/>
 										<CommandEmpty>{noBookFound}</CommandEmpty>
-										{bookAutoComp.length > 0 && (
+										{!!bookACData && (
 											<CommandGroup>
-												{bookAutoComp.map((b) => (
+												{bookACData.data.map((b) => (
 													<CommandItem
 														value={b.title}
 														key={b.id}

@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as z from "zod";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -10,9 +12,9 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { useTranslations } from "@/components/language-provider";
-import { useAppDispatch, updateUserThunk } from "@/store";
-import { EditBtn } from "@/modules";
+import { UserRoutes, userApi } from "@/api";
 import { UserFormSchema } from "@/schema";
+import { EditBtn } from "@/modules";
 import { UserForm } from ".";
 
 export const UserEditBtn: React.FC<{
@@ -31,21 +33,33 @@ export const UserEditBtn: React.FC<{
 		preferred_name: userPerson.person_attributes.preferred_name,
 	};
 
-	const dispatch = useAppDispatch();
-	function onSubmit(values: z.infer<typeof UserFormSchema>) {
-		dispatch(
-			updateUserThunk({
-				id: userPerson.id,
-				username: values.username,
-				password: values.password,
-				person_attributes: {
-					id: userPerson.person_attributes.id,
-					full_name: values.full_name,
-					preferred_name: values.preferred_name,
-				},
-			}),
-		);
-	}
+	const queryClient = useQueryClient();
+	const updateUserMutation = useMutation({
+		mutationKey: [UserRoutes.BASE, userPerson.id],
+		mutationFn: userApi.UpdateUser,
+		onSuccess: (data) => {
+			const user = data!.data;
+			queryClient.invalidateQueries({ queryKey: [UserRoutes.BASE] });
+			toast.success(translate.Success(), {
+				description: translate.updateUserSuccessDesc({
+					username: user.username,
+				}),
+			});
+		},
+	});
+
+	const onSubmit = (values: z.infer<typeof UserFormSchema>) => {
+		updateUserMutation.mutate({
+			id: userPerson.id,
+			username: values.username,
+			password: values.password,
+			person_attributes: {
+				id: userPerson.person_attributes.id,
+				full_name: values.full_name,
+				preferred_name: values.preferred_name,
+			},
+		});
+	};
 
 	return (
 		<Dialog>

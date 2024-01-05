@@ -7,6 +7,7 @@ export const UserRoutes = {
 		BASE: "role",
 	},
 	AUTOCOMPLETE: {
+		BASE: "autocomplete",
 		DYNAMIC_ROUTE: (value: string) => `autocomplete/${value}`,
 	},
 };

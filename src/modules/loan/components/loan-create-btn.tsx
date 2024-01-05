@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
 	Dialog,
 	DialogContent,
@@ -17,8 +19,9 @@ import {
 } from "@/components/ui/drawer";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTranslations } from "@/components/language-provider";
-import { CreateBtn } from "@/modules";
+import { BookRoutes, LoanRoutes, loanApi } from "@/api";
 import { useMediaQuery } from "@/hooks";
+import { CreateBtn } from "@/modules";
 import { LoanCreateForm } from ".";
 
 export const LoanCreateBtn: React.FC = () => {
@@ -26,6 +29,23 @@ export const LoanCreateBtn: React.FC = () => {
 	const loan = translate.loan();
 	const createLoan = translate.createLoan();
 	const createLoanDescription = translate.selectUserAndBook();
+
+	const queryClient = useQueryClient();
+	const createLoanMutation = useMutation({
+		mutationKey: [LoanRoutes.BASE, "new"],
+		mutationFn: loanApi.CreateLoan,
+		onSuccess: (data) => {
+			const loan = data!.data;
+			queryClient.invalidateQueries({ queryKey: [LoanRoutes.BASE] });
+			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
+			toast.success(translate.Success(), {
+				description: translate.createLoanDesc({
+					title: loan.book.title,
+					username: loan.user.username,
+				}),
+			});
+		},
+	});
 
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -44,7 +64,7 @@ export const LoanCreateBtn: React.FC = () => {
 								<DialogTitle>{createLoan}</DialogTitle>
 								<DialogDescription>{createLoanDescription}</DialogDescription>
 							</DialogHeader>
-							<LoanCreateForm />
+							<LoanCreateForm onSubmit={createLoanMutation.mutate} />
 						</div>
 						<ScrollBar />
 					</ScrollArea>
@@ -66,7 +86,7 @@ export const LoanCreateBtn: React.FC = () => {
 					<DrawerDescription>{createLoanDescription}</DrawerDescription>
 				</DrawerHeader>
 				<div className="p-3">
-					<LoanCreateForm />
+					<LoanCreateForm onSubmit={createLoanMutation.mutate} />
 				</div>
 			</DrawerContent>
 		</Drawer>

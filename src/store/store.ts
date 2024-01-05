@@ -5,12 +5,6 @@ import * as Slices from "./slices";
 export const store = configureStore({
 	reducer: {
 		app: Slices.appSlice.reducer,
-		user: Slices.userSlice.reducer,
-		book: Slices.bookSlice.reducer,
-		loan: Slices.loanSlice.reducer,
-		res: Slices.resSlice.reducer,
-		fine: Slices.fineSlice.reducer,
-		log: Slices.auditlogSlice.reducer,
 	},
 });
 

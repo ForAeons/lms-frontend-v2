@@ -1,28 +1,40 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { DeleteBtn } from "@/modules";
-import {
-	CheckPermission,
-	deleteUserThunk,
-	useAppDispatch,
-	useAppSelector,
-} from "@/store";
-import { DELETE_USER, UPDATE_USER, UPDATE_USER_ROLE } from "@/constants";
 import { useTranslations } from "@/components/language-provider";
+import { DELETE_USER, UPDATE_USER, UPDATE_USER_ROLE } from "@/constants";
+import { CheckPermission, useAppSelector } from "@/store";
+import { UserRoutes, userApi } from "@/api";
+import { DeleteBtn } from "@/modules";
 import { RandomAvatar, UserEditBtn, UserUpdateRoleBtn } from ".";
 
 export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 	userPerson,
 }) => {
 	const translate = useTranslations();
-	const dispatch = useAppDispatch();
 	const canUpdateUser = useAppSelector((s) => CheckPermission(s, UPDATE_USER));
 	const canUpdateUserRole = useAppSelector((s) =>
 		CheckPermission(s, UPDATE_USER_ROLE),
 	);
 	const canDeleteUser = useAppSelector((s) => CheckPermission(s, DELETE_USER));
 
-	const handleDelete = () => dispatch(deleteUserThunk(userPerson.id));
+	const queryClient = useQueryClient();
+	const deleteUserMutation = useMutation({
+		mutationKey: [UserRoutes.BASE, userPerson.id],
+		mutationFn: userApi.DeleteUser,
+		onSuccess: (data) => {
+			const user = data!.data;
+			queryClient.invalidateQueries({ queryKey: [UserRoutes.BASE] });
+			toast.success(translate.Success(), {
+				description: translate.deleteUserSuccessDesc({
+					username: user.username,
+				}),
+			});
+		},
+	});
+
+	const handleDelete = () => deleteUserMutation.mutate(userPerson.id);
 
 	const userText = translate.user();
 

@@ -14,7 +14,7 @@ type UnaryHandler<T> = (arg: T) => void;
  * @template T - The type of Data of the payload.
  * @template M - The type of Meta of the payload.
  */
-type ResponseHandler<T, M = undefined> = UnaryHandler<Payload<T, M>>;
+type ResponseHandler<T, M = Meta> = UnaryHandler<Payload<T, M>>;
 
 /**
  * @description A function that takes in payload of type T and returns nothing.

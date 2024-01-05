@@ -14,11 +14,12 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { userSignInSchema } from "@/schema";
-import { useAppDispatch, signInThunk } from "@/store";
 import { useTranslations } from "@/components/language-provider";
+import { userSignInSchema } from "@/schema";
 
-export const SigninForm: React.FC = () => {
+export const SigninForm: React.FC<{
+	onSubmit: UnaryHandler<z.infer<typeof userSignInSchema>>;
+}> = ({ onSubmit }) => {
 	const translate = useTranslations();
 	const username = translate.Username();
 	const yourUsername = translate.yourUsername();
@@ -34,13 +35,7 @@ export const SigninForm: React.FC = () => {
 		defaultValues: { username: "", password: "" },
 	});
 
-	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const onSubmit = (v: z.infer<typeof userSignInSchema>) => {
-		dispatch(
-			signInThunk({ user: { username: v.username, password: v.password } }),
-		).then(() => navigate("/"));
-	};
 
 	return (
 		<Form {...form}>

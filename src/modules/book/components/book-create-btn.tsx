@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as z from "zod";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -9,10 +11,10 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { CreateBtn } from "@/modules";
-import { createBookThunk, useAppDispatch } from "@/store";
-import { BookFormSchema } from "@/schema";
 import { useTranslations } from "@/components/language-provider";
+import { CreateBtn } from "@/modules";
+import { BookFormSchema } from "@/schema";
+import { BookRoutes, bookApi } from "@/api";
 import { BookForm } from ".";
 
 export const BookCreateBtn: React.FC = () => {
@@ -32,22 +34,26 @@ export const BookCreateBtn: React.FC = () => {
 		language: "",
 	};
 
-	const dispatch = useAppDispatch();
-	function onSubmit(values: z.infer<typeof BookFormSchema>) {
-		dispatch(
-			createBookThunk({
-				book: {
-					title: values.title,
-					author: values.author,
-					isbn: values.isbn,
-					publisher: values.publisher,
-					publication_date: values.publication_date.toISOString(),
-					genre: values.genre,
-					language: values.language,
-				},
-			}),
-		);
-	}
+	const queryClient = useQueryClient();
+	const createBookMutation = useMutation({
+		mutationKey: [BookRoutes.BASE, "new"],
+		mutationFn: bookApi.CreateBook,
+		onSuccess: (data) => {
+			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
+			queryClient.setQueryData([BookRoutes.BASE, data!.data.id], data!.data);
+
+			toast.success(translate.Success(), {
+				description: translate.createBookDesc({ title: data!.data.title }),
+			});
+		},
+	});
+
+	const onSubmit = (values: z.infer<typeof BookFormSchema>) => {
+		createBookMutation.mutate({
+			...values,
+			publication_date: values.publication_date.toISOString(),
+		});
+	};
 
 	return (
 		<Dialog>

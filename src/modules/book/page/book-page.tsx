@@ -1,27 +1,25 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { LoaderPage, NavBackBtn } from "@/modules";
-import { getBookThunk, useAppDispatch, useAppSelector } from "@/store";
+import { useValidateIntegerOrReroute } from "@/hooks";
+import { BookRoutes, bookApi } from "@/api";
 import { BookCard, BookLoanBtn, BookReserveBtn, bookToBadgeProps } from "..";
 
 export const BookPage: React.FC = () => {
-	const dispatch = useAppDispatch();
-	const bookState = useAppSelector((s) => s.book);
-	const book = useAppSelector((s) => s.book.book);
-	const { book_id } = useParams();
+	const { book_id: book_id_param } = useParams();
+	const book_id = useValidateIntegerOrReroute(book_id_param, "/book");
 
-	React.useEffect(() => {
-		const id = parseInt(book_id ?? "");
-		if (isNaN(id)) return;
+	const { status, data } = useQuery({
+		enabled: !!book_id,
+		queryKey: [BookRoutes.BASE, book_id],
+		queryFn: ({ signal }) => bookApi.GetBook(book_id, signal),
+	});
 
-		const c = new AbortController();
-		dispatch(getBookThunk({ bookID: id, signal: c.signal }));
-		return () => c.abort();
-	}, [dispatch, book_id]);
+	if (status === "pending" || !data?.data) return <LoaderPage />;
 
-	if (bookState.isFetching || !book) return <LoaderPage />;
-
+	const book = data.data;
 	const availCopy = book.book_copies.find((bc) => bc.status === "available");
 
 	return (

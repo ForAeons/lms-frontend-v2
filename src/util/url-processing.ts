@@ -67,3 +67,28 @@ export const getCollectionQuery = (p: URLSearchParams): CollectionQuery => {
 		filters: getFilters(p),
 	};
 };
+
+export const hasPreviousPage = (cq: CollectionQuery): boolean => {
+	return cq.offset >= cq.limit;
+};
+
+export const getPreviousPage = (cq: CollectionQuery): CollectionQuery => {
+	return {
+		...cq,
+		offset: cq.offset - cq.limit,
+	};
+};
+
+export const hasNextPage = (
+	cq: CollectionQuery,
+	total: number = Number.MAX_SAFE_INTEGER,
+): boolean => {
+	return cq.offset + cq.limit <= total;
+};
+
+export const getNextPage = (cq: CollectionQuery): CollectionQuery => {
+	return {
+		...cq,
+		offset: cq.offset + cq.limit,
+	};
+};

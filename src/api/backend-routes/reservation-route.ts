@@ -1,4 +1,4 @@
-export const ReservationRoutes = {
+export const ResRoutes = {
 	BASE: "reservation",
 	CANCEL: {
 		ROUTE: "cancel",

@@ -6,25 +6,32 @@ export const loanToBadgeProps = (loan: LoanDetailed): BadgeProps[] => {
 	const currentDate = new Date();
 	const isOverdue = currentDate > dueDate;
 
-	const returned = IntlWrapper.translator.Returned();
-	const overdue = IntlWrapper.translator.Overdue();
-	const due = IntlWrapper.translator.dueDate({
+	const returnedText = IntlWrapper.translator.Returned();
+	const overdueText = IntlWrapper.translator.Overdue();
+	const dueText = IntlWrapper.translator.dueDate({
 		date: format(dueDate, "P"),
 	});
+
+	let variant: BadgeVariant;
+	let text: string;
+
+	if (loan.status === "returned") {
+		variant = "secondary";
+		text = returnedText;
+	} else if (isOverdue) {
+		variant = "destructive";
+		text = overdueText;
+	} else {
+		variant = "default";
+		text = dueText;
+	}
+
 	const loanedTo = IntlWrapper.translator.loanedTo({
 		username: loan.user.username,
 	});
 
-	const v =
-		loan.status === "returned"
-			? "secondary"
-			: isOverdue
-			? "destructive"
-			: "default";
-	const t = loan.status === "returned" ? returned : isOverdue ? overdue : due;
-
 	return [
-		{ variant: v, text: t },
+		{ variant, text },
 		{ variant: "secondary", text: loanedTo },
 	];
 };

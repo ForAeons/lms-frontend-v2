@@ -57,7 +57,7 @@ axiosInstance.interceptors.response.use(
 				data: false,
 				messages: [] as ApiMessage[],
 				meta: undefined,
-			} as Payload<boolean>);
+			} as Payload<boolean, undefined>);
 		}
 
 		// Check if error is an AxiosError

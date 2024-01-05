@@ -1,5 +1,5 @@
 import React from "react";
-import { createIntl, createIntlCache, IntlProvider } from "react-intl";
+import { createIntl, createIntlCache, RawIntlProvider } from "react-intl";
 import { getMessage } from "@/util";
 import { translations, Translator } from "@/util/translation";
 
@@ -58,13 +58,7 @@ export function LanguageProvider({
 
 	return (
 		<LangProviderContext.Provider {...props} value={value}>
-			<IntlProvider
-				messages={messages}
-				locale={locale}
-				defaultLocale={defaultLocale}
-			>
-				{children}
-			</IntlProvider>
+			<RawIntlProvider value={intl}>{children}</RawIntlProvider>
 		</LangProviderContext.Provider>
 	);
 }

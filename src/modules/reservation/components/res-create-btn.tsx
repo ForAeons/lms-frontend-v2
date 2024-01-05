@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
 	Dialog,
 	DialogContent,
@@ -17,8 +19,9 @@ import {
 } from "@/components/ui/drawer";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useTranslations } from "@/components/language-provider";
-import { CreateBtn } from "@/modules";
+import { BookRoutes, ResRoutes, reservationApi } from "@/api";
 import { useMediaQuery } from "@/hooks";
+import { CreateBtn } from "@/modules";
 import { ResCreateForm } from ".";
 
 export const ResCreateDialog: React.FC = () => {
@@ -26,6 +29,23 @@ export const ResCreateDialog: React.FC = () => {
 	const reservation = translate.reservation();
 	const createRes = translate.createRes();
 	const createResDescription = translate.selectUserAndBook();
+
+	const queryClient = useQueryClient();
+	const createResMutation = useMutation({
+		mutationKey: [ResRoutes.BASE, "new"],
+		mutationFn: reservationApi.CreateRes,
+		onSuccess: (data) => {
+			const loan = data!.data;
+			queryClient.invalidateQueries({ queryKey: [ResRoutes.BASE] });
+			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
+			toast.success(translate.Success(), {
+				description: translate.createResSuccessDesc({
+					title: loan.book.title,
+					username: loan.user.username,
+				}),
+			});
+		},
+	});
 
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -44,7 +64,7 @@ export const ResCreateDialog: React.FC = () => {
 								<DialogTitle>{createRes}</DialogTitle>
 								<DialogDescription>{createResDescription}</DialogDescription>
 							</DialogHeader>
-							<ResCreateForm />
+							<ResCreateForm onSubmit={createResMutation.mutate} />
 						</div>
 						<ScrollBar />
 					</ScrollArea>
@@ -66,7 +86,7 @@ export const ResCreateDialog: React.FC = () => {
 					<DrawerDescription>{createResDescription}</DrawerDescription>
 				</DrawerHeader>
 				<div className="p-3">
-					<ResCreateForm />
+					<ResCreateForm onSubmit={createResMutation.mutate} />
 				</div>
 			</DrawerContent>
 		</Drawer>

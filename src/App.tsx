@@ -1,6 +1,8 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -8,7 +10,12 @@ import { LanguageProvider } from "@/components/language-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { Router } from "@/router";
 import { store } from "@/store";
-import { AppLogic } from "@/modules";
+
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: { staleTime: 1000 * 60 * 5 },
+	},
+});
 
 export const App: React.FC = () => {
 	return (
@@ -18,13 +25,15 @@ export const App: React.FC = () => {
 			storageKey="vite-ui-theme"
 		>
 			<LanguageProvider defaultLocale="en" storageKey="vite-language">
-				<Provider store={store}>
-					<Toaster closeButton />
-					<AppLogic />
-					<Analytics />
-					<SpeedInsights />
-					<RouterProvider router={Router} />
-				</Provider>
+				<QueryClientProvider client={queryClient}>
+					<Provider store={store}>
+						<RouterProvider router={Router} />
+						<Toaster closeButton />
+						<ReactQueryDevtools />
+						<Analytics />
+						<SpeedInsights />
+					</Provider>
+				</QueryClientProvider>
 			</LanguageProvider>
 		</ThemeProvider>
 	);

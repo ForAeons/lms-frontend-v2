@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LockKeyholeIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -18,15 +20,36 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { LG_ICON_SIZE } from "@/constants";
-import { reserveBookThunk, useAppDispatch } from "@/store";
 import { useTranslations } from "@/components/language-provider";
+import { BookRoutes, ResRoutes, reservationApi } from "@/api";
+import { LG_ICON_SIZE } from "@/constants";
 
 export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
 	book,
 	copyID,
 }) => {
 	const translate = useTranslations();
+	const queryClient = useQueryClient();
+	const reserveBookMutation = useMutation({
+		mutationKey: [BookRoutes.BASE, copyID, ResRoutes.BASE],
+		mutationFn: reservationApi.ReserveBook,
+		onSuccess: (data) => {
+			const loan = data!.data;
+
+			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
+			queryClient.invalidateQueries({ queryKey: [ResRoutes.BASE] });
+
+			toast.success(translate.Success(), {
+				description: translate.createResDesc({
+					title: loan.book.title,
+					username: loan.user.username,
+				}),
+			});
+		},
+	});
+
+	const handleRes = () => reserveBookMutation.mutate(copyID);
+
 	const reserveAction = translate.Reserve();
 	const confirmation = translate.Confirmation();
 	const confirmationMessage = translate.reserveBookDesc({
@@ -35,8 +58,6 @@ export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
 	const cancelAction = translate.Cancel();
 	const continueAction = translate.Continue();
 
-	const dispatch = useAppDispatch();
-	const handleRes = () => dispatch(reserveBookThunk({ bookCopyID: copyID }));
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>

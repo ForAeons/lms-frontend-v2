@@ -1,16 +1,29 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { BookCard } from "@/modules/book";
-import { useAppSelector } from "@/store";
 import { useTranslations } from "@/components/language-provider";
+import { useAppSelector } from "@/store";
+import { ResRoutes, reservationApi } from "@/api";
+import { newUserCollectionQuery } from "@/util";
+import { LoaderPage } from "@/modules";
+import { BookCard } from "@/modules/book";
 import { ResCancelBtn, ResCheckoutBtn, resToBadgeProps } from "..";
 
 export const ResPage: React.FC = () => {
 	const translate = useTranslations();
-	const myReservations = translate.myReservations();
-
-	const res = useAppSelector((state) => state.app.reservations);
 	const user = useAppSelector((state) => state.app.user);
+	const cq = newUserCollectionQuery(user?.id, "pending");
+
+	const { status, data } = useQuery({
+		enabled: !!user?.id,
+		queryKey: [ResRoutes.BASE, cq],
+		queryFn: ({ signal }) => reservationApi.ListRes(cq, signal),
+	});
+
+	if (status === "pending" || !data) return <LoaderPage />;
+
+	const res = data.data;
+	const myReservations = translate.myReservations();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">

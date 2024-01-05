@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BookCopyIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -18,9 +20,9 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { renewLoanThunk, useAppDispatch } from "@/store";
-import { LG_ICON_SIZE } from "@/constants";
 import { useTranslations } from "@/components/language-provider";
+import { LoanRoutes, loanApi } from "@/api";
+import { LG_ICON_SIZE } from "@/constants";
 
 export const LoanRenewBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 	const translate = useTranslations();
@@ -30,8 +32,23 @@ export const LoanRenewBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 	const cancelAction = translate.Cancel();
 	const continueAction = translate.Continue();
 
-	const dispatch = useAppDispatch();
-	const handleRenew = () => dispatch(renewLoanThunk({ loanId: loan.id }));
+	const queryClient = useQueryClient();
+	const renewLoanMutation = useMutation({
+		mutationKey: [LoanRoutes.BASE, LoanRoutes.RENEW.ROUTE, loan.id],
+		mutationFn: loanApi.RenewLoan,
+		onSuccess: (data) => {
+			const loan = data!.data;
+			queryClient.invalidateQueries({ queryKey: [LoanRoutes.BASE] });
+			toast.success(translate.Success(), {
+				description: translate.renewLoanSuccessDesc({
+					title: loan.book.title,
+				}),
+			});
+		},
+	});
+
+	const handleRenew = () => renewLoanMutation.mutate(loan.id);
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>

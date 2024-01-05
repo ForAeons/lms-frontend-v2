@@ -16,6 +16,181 @@ import { IntlShape } from "react-intl";
  */
 export const translations = (intl: IntlShape) => {
 	return {
+		deleteUserSuccessDesc: ({ username }: { username: string }) =>
+			intl.formatMessage(
+				{
+					id: "Lnyzvj",
+					defaultMessage: 'User "{username}" deleted successfully.',
+				},
+				{ username },
+			),
+		updateUserRoleSuccessDesc: ({ username }: { username: string }) =>
+			intl.formatMessage(
+				{
+					id: "Ta8Q1S",
+					defaultMessage: 'User "{username}"\'s role updated successfully.',
+				},
+				{ username },
+			),
+
+		updateUserSuccessDesc: ({ username }: { username: string }) =>
+			intl.formatMessage(
+				{
+					id: "zjw/TA",
+					defaultMessage: 'User "{username}" updated successfully.',
+				},
+				{ username },
+			),
+		createUserSuccessDesc: ({ username }: { username: string }) =>
+			intl.formatMessage(
+				{
+					id: "bErW7O",
+					defaultMessage: 'User "{username}" created successfully.',
+				},
+				{ username },
+			),
+		createResSuccessDesc: ({
+			title,
+			username,
+		}: {
+			title: string;
+			username: string;
+		}) =>
+			intl.formatMessage(
+				{
+					id: "Nbzb1X",
+					defaultMessage: '"{title}" reserved by {username} successfully.',
+				},
+				{ title, username },
+			),
+		checkoutResSuccessDesc: ({ title }: { title: string }) =>
+			intl.formatMessage(
+				{
+					id: "B2uKz2",
+					defaultMessage: `Reservation for "{title}" checked out successfully.`,
+				},
+				{ title },
+			),
+		cancelResSuccessDesc: ({ title }: { title: string }) =>
+			intl.formatMessage(
+				{
+					id: "pTD5vZ",
+					defaultMessage: `Reservation for "{title}" canceled successfully.`,
+				},
+				{ title },
+			),
+		returnLoanSuccessDesc: ({ title }: { title: string }) =>
+			intl.formatMessage(
+				{ id: "MFmFWQ", defaultMessage: '"{title}" returned successfully.' },
+				{ title },
+			),
+		renewLoanSuccessDesc: ({ title }: { title: string }) =>
+			intl.formatMessage(
+				{ id: "K3gz74", defaultMessage: '"{title}" renewed successfully.' },
+				{ title },
+			),
+		serverDownDesc: () =>
+			intl.formatMessage({
+				id: "OcLgxt",
+				defaultMessage: "The server is down. Please try again later.",
+			}),
+		settleFineSuccessDesc: () =>
+			intl.formatMessage({
+				id: "QpBxnP",
+				defaultMessage: "Fine settled successfully.",
+			}),
+		signOutSuccessDesc: () =>
+			intl.formatMessage({
+				id: "1OPjg7",
+				defaultMessage: "You have been signed out successfully.",
+			}),
+		deleteBookmarkDesc: ({ title }: { title: string }) =>
+			intl.formatMessage(
+				{
+					id: "ylrvDR",
+					defaultMessage: '"{title}" has been removed from your bookmarks.',
+				},
+				{ title },
+			),
+		createBookmarkDesc: ({ title }: { title: string }) =>
+			intl.formatMessage(
+				{
+					id: "wPyDX8",
+					defaultMessage: '"{title}" has been bookmarked for you.',
+				},
+				{ title },
+			),
+		createResDesc: ({ title, username }: { title: string; username: string }) =>
+			intl.formatMessage(
+				{
+					id: "Nbzb1X",
+					defaultMessage: '"{title}" reserved by {username} successfully.',
+				},
+				{ title, username },
+			),
+		createLoanDesc: ({
+			title,
+			username,
+		}: {
+			title: string;
+			username: string;
+		}) =>
+			intl.formatMessage(
+				{
+					id: "j9z272",
+					defaultMessage: '"{title}" loaned to {username} successfully.',
+				},
+				{ title, username },
+			),
+		updateBookSuccessDesc: ({ title }: { title: string }) =>
+			intl.formatMessage(
+				{
+					id: "zOHOUn",
+					defaultMessage: '"{title}" edited successfully.',
+				},
+				{ title },
+			),
+		createBookDesc: ({ title }: { title: string }) =>
+			intl.formatMessage(
+				{
+					id: "b8wNxR",
+					defaultMessage: "Book {title} added to library successfully.",
+				},
+				{ title },
+			),
+		signInFailedMsg: () =>
+			intl.formatMessage({
+				id: "JdM9UP",
+				defaultMessage: "Sign in failed",
+			}),
+		signInFailedDesc: () =>
+			intl.formatMessage({
+				id: "vP5USH",
+				defaultMessage: "Please check your username and password.",
+			}),
+		createLogDesc: () =>
+			intl.formatMessage({
+				id: "UBAaIl",
+				defaultMessage: "Log created successfully.",
+			}),
+		deleteBookDesc: ({ title }: { title: string }) =>
+			intl.formatMessage(
+				{
+					id: "XHc3K5",
+					defaultMessage: '"{title}" removed from library successfully.',
+				},
+				{ title },
+			),
+		Success: () =>
+			intl.formatMessage({
+				id: "xrKHS6",
+				defaultMessage: "Success",
+			}),
+		deletefineDesc: () =>
+			intl.formatMessage({
+				id: "Ye43ph",
+				description: "Fine deleted successfully.",
+			}),
 		youHaveResDueSoon: () =>
 			intl.formatMessage({
 				id: "+5zVex",

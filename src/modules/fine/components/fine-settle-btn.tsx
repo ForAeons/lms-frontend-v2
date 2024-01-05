@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BanknoteIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -18,19 +20,32 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { settleFineThunk, useAppDispatch } from "@/store";
-import { LG_ICON_SIZE } from "@/constants";
 import { useTranslations } from "@/components/language-provider";
+import { FineRoutes, fineApi } from "@/api";
+import { LG_ICON_SIZE } from "@/constants";
 
 export const FineSettleBtn: React.FC<{ fine: Fine }> = ({ fine }) => {
+	const queryClient = useQueryClient();
+	const settleFineMutation = useMutation({
+		mutationKey: [FineRoutes.BASE, fine.id],
+		mutationFn: fineApi.SettleFine,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: [FineRoutes.BASE] });
+			toast.success(translate.Success(), {
+				description: translate.settleFineSuccessDesc(),
+			});
+		},
+	});
+
+	const handleSettle = () => settleFineMutation.mutate(fine.id);
+
 	const translate = useTranslations();
 	const settle = translate.Settle();
 	const confirmation = translate.Confirmation();
 	const confirmationMessage = translate.settleFineDesc();
 	const cancelAction = translate.Cancel();
 	const continueAction = translate.Continue();
-	const dispatch = useAppDispatch();
-	const handleRenew = () => dispatch(settleFineThunk({ fineId: fine.id }));
+
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
@@ -60,7 +75,7 @@ export const FineSettleBtn: React.FC<{ fine: Fine }> = ({ fine }) => {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>{cancelAction}</AlertDialogCancel>
-					<AlertDialogAction onClick={handleRenew}>
+					<AlertDialogAction onClick={handleSettle}>
 						{continueAction}
 					</AlertDialogAction>
 				</AlertDialogFooter>

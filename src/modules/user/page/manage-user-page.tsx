@@ -1,6 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import {
+	keepPreviousData,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useTranslations } from "@/components/language-provider";
 import {
 	LoaderPage,
 	OrderBtn,
@@ -8,42 +13,52 @@ import {
 	SearchBar,
 	SortSelect,
 } from "@/modules";
+import { CheckPermission, useAppSelector } from "@/store";
+import { useCollectionQuery, useValidateCqOrReroute } from "@/hooks";
 import {
-	CheckPermission,
-	listUserThunk,
-	useAppDispatch,
-	useAppSelector,
-} from "@/store";
-import { useTranslations } from "@/components/language-provider";
-import { useQueryParams } from "@/hooks";
-import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
+	getNextPage,
+	getPreviousPage,
+	hasNextPage,
+	hasPreviousPage,
+} from "@/util";
 import { CREATE_USER, USER_SORT_OPTIONS } from "@/constants";
+import { UserRoutes, userApi } from "@/api";
 import { UserCreateBtn, UserPersonCard } from "..";
 
 export const ManageUserPage: React.FC = () => {
 	const translate = useTranslations();
-	const dispatch = useAppDispatch();
-	const userState = useAppSelector((state) => state.user);
+	const cq = useCollectionQuery();
+
+	const { status, data } = useQuery({
+		queryKey: [UserRoutes.BASE, cq],
+		queryFn: ({ signal }) => userApi.ListUser(cq, signal),
+		placeholderData: keepPreviousData,
+	});
+
+	useValidateCqOrReroute(cq, data?.meta.filtered_count);
+
+	// prefetch previous and next page
+	const queryClient = useQueryClient();
+	if (hasPreviousPage(cq)) {
+		const prevCq = getPreviousPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [UserRoutes.BASE, prevCq],
+			queryFn: ({ signal }) => userApi.ListUser(prevCq, signal),
+		});
+	}
+	if (hasNextPage(cq)) {
+		const nextCq = getNextPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [UserRoutes.BASE, nextCq],
+			queryFn: ({ signal }) => userApi.ListUser(nextCq, signal),
+		});
+	}
+
 	const canCreateUser = useAppSelector((s) => CheckPermission(s, CREATE_USER));
-	const navigate = useNavigate();
-	const queryParams = useQueryParams();
-	const cq = getCollectionQuery(queryParams);
 
-	React.useEffect(() => {
-		const c = new AbortController();
-		dispatch(listUserThunk({ q: cq, signal: c.signal }));
-		return () => c.abort();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dispatch, window.location.search]);
+	if (status === "pending" || !data) return <LoaderPage />;
 
-	React.useEffect(() => {
-		const isValid = isValidCq(cq, userState.meta.filtered_count);
-		if (!isValid) navigate(`?${cqToUrl(cq)}`);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [navigate, window.location.search]);
-
-	if (userState.isFetching) return <LoaderPage />;
-
+	const users = data.data;
 	const userTitle = translate.manageUsers();
 
 	return (
@@ -63,11 +78,11 @@ export const ManageUserPage: React.FC = () => {
 					<SortSelect cq={cq} opt={USER_SORT_OPTIONS} />
 				</div>
 
-				{userState.users.map((u) => {
-					return <UserPersonCard key={u.username} userPerson={u} />;
-				})}
+				{users.map((u) => (
+					<UserPersonCard key={u.username} userPerson={u} />
+				))}
 
-				<PaginationBar cq={cq} total={userState.meta.filtered_count} />
+				<PaginationBar cq={cq} total={data.meta.filtered_count} />
 			</div>
 			<ScrollBar />
 		</ScrollArea>

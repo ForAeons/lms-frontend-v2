@@ -16,6 +16,16 @@ export const newCollectionQuery = ({
 	};
 };
 
+export const newUserCollectionQuery = (
+	userID?: number,
+	status?: string,
+): CollectionQuery => {
+	return newCollectionQuery({
+		limit: 100,
+		filters: { user_id: userID, status },
+	});
+};
+
 /**
  * @param cq CollectionQuery object
  * @returns serialized query string

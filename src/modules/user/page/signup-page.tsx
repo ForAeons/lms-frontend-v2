@@ -1,9 +1,11 @@
 import React from "react";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as z from "zod";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTranslations } from "@/components/language-provider";
-import { createUserThunk, useAppDispatch } from "@/store";
+import { UserRoutes, userApi } from "@/api";
 import { UserFormSchema } from "@/schema";
 import { UserForm } from "..";
 
@@ -20,20 +22,34 @@ export const SignupPage: React.FC = () => {
 		preferred_name: "",
 	};
 
-	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	function onSubmit(values: z.infer<typeof UserFormSchema>) {
-		dispatch(
-			createUserThunk({
-				username: values.username,
-				password: values.password,
-				person_attributes: {
-					full_name: values.full_name,
-					preferred_name: values.preferred_name,
-				},
-			}),
-		).then(() => navigate("/signin"));
-	}
+	const queryClient = useQueryClient();
+	const signInMutation = useMutation({
+		mutationKey: [UserRoutes.BASE, "new"],
+		mutationFn: userApi.CreateUser,
+		onSuccess: (data) => {
+			const user = data!.data;
+			queryClient.invalidateQueries({ queryKey: [UserRoutes.BASE] });
+			navigate("/signin");
+			toast.success(translate.Success(), {
+				description: translate.createUserSuccessDesc({
+					username: user.username,
+				}),
+			});
+		},
+	});
+
+	const onSubmit = (values: z.infer<typeof UserFormSchema>) => {
+		signInMutation.mutate({
+			username: values.username,
+			password: values.password,
+			person_attributes: {
+				full_name: values.full_name,
+				preferred_name: values.preferred_name,
+			},
+		});
+	};
+
 	return (
 		<div className="w-[100vw] h-[100vh] flex justify-center items-center">
 			<div className="m-6">

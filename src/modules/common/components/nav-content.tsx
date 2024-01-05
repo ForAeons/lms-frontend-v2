@@ -1,5 +1,7 @@
 import React from "react";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import Avatar from "boring-avatars";
 import {
 	LogInIcon,
@@ -17,10 +19,11 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { useTranslations } from "@/components/language-provider";
 import { useTheme } from "@/components/theme-provider";
 import {
 	CheckPermission,
-	signOutThunk,
+	appSlice,
 	useAppDispatch,
 	useAppSelector,
 } from "@/store";
@@ -30,7 +33,7 @@ import {
 	MD_ICON_SIZE,
 	READ_AUDIT_LOG,
 } from "@/constants";
-import { useTranslations } from "@/components/language-provider";
+import { AuthRoutes, authApi } from "@/api";
 import { ColorSelectBtn, LangSelectBtn } from ".";
 
 export const NavContent: React.FC = () => {
@@ -45,13 +48,21 @@ export const NavContent: React.FC = () => {
 		CheckPermission(s, READ_AUDIT_LOG),
 	);
 
+	const navigate = useNavigate();
+	const signOutMutation = useMutation({
+		mutationKey: [AuthRoutes.BASE, AuthRoutes.SIGN_OUT.ROUTE],
+		mutationFn: authApi.SignOut,
+		onSuccess: () => navigate("/signin"),
+		onSettled: () => {
+			dispatch(appSlice.actions.setSignout());
+			toast.success(translate.Success(), {
+				description: translate.signOutSuccessDesc(),
+			});
+		},
+	});
+
 	const { theme, setTheme } = useTheme();
 	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
-
-	const navigate = useNavigate();
-	const handleLogout = () => {
-		dispatch(signOutThunk()).then(() => navigate("/signin"));
-	};
 
 	const translate = useTranslations();
 	const welcome = translate.Welcome({
@@ -120,7 +131,7 @@ export const NavContent: React.FC = () => {
 						<Button
 							variant="ghost"
 							className="w-full justify-start"
-							onClick={handleLogout}
+							onClick={() => signOutMutation.mutate(undefined)}
 						>
 							<LogInIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">{signOut}</p>

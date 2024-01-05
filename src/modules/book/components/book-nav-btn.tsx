@@ -15,10 +15,9 @@ export const BookNavBtn: React.FC<{ book: Book; url?: string }> = ({
 	book,
 	url,
 }) => {
+	const navigate = useNavigate();
 	const translate = useTranslations();
 	const openInOtherTab = translate.openInOtherTab();
-
-	const navigate = useNavigate();
 	return (
 		<TooltipProvider>
 			<Tooltip>

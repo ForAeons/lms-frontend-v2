@@ -58,13 +58,9 @@ interface UserAbility extends User {
 type UserSimple = Omit<User, "email" | "password">;
 
 interface LoginPayload {
-	user: User;
+	user: User | undefined;
 	abilities: string[];
-	person_attributes: Person;
-	bookmarks: BookmarkDetailed[];
-	loans: WithBook<Loan>[];
-	reservations: WithBook<Reservation>[];
-	fines: WithBook<Fine>[];
+	person_attributes: Person | undefined;
 }
 
 interface GetCurrentUserPayload extends LoginPayload {

@@ -1,5 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import {
+	keepPreviousData,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
 	SearchBar,
@@ -8,39 +12,51 @@ import {
 	OrderBtn,
 	SortSelect,
 } from "@/modules";
-import { listBookThunk, useAppDispatch, useAppSelector } from "@/store";
-import { useQueryParams } from "@/hooks";
+import { useCollectionQuery, useValidateCqOrReroute } from "@/hooks";
 import { useTranslations } from "@/components/language-provider";
-import { cqToUrl, getCollectionQuery, isValidCq } from "@/util";
 import { BOOK_SORT_OPTIONS } from "@/constants";
+import { BookRoutes, bookApi } from "@/api";
+import {
+	getNextPage,
+	getPreviousPage,
+	hasNextPage,
+	hasPreviousPage,
+} from "@/util";
 import { BookCard, BookNavBtn, BookmarkBtn, bookToBadgeProps } from "..";
 
 export const BookListPage: React.FC = () => {
 	const translate = useTranslations();
-	const dispatch = useAppDispatch();
-	const bookState = useAppSelector((s) => s.book);
-	const navigate = useNavigate();
-	const queryParams = useQueryParams();
-	const cq = getCollectionQuery(queryParams);
+	const cq = useCollectionQuery();
 
-	React.useEffect(() => {
-		const c = new AbortController();
-		dispatch(listBookThunk({ q: cq, signal: c.signal }));
-		return () => c.abort();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dispatch, window.location.search]);
+	const { status, data } = useQuery({
+		queryKey: [BookRoutes.BASE, cq],
+		queryFn: ({ signal }) => bookApi.ListBook(cq, signal),
+		placeholderData: keepPreviousData,
+	});
 
-	React.useEffect(() => {
-		const isValid = isValidCq(cq, bookState.meta.filtered_count);
-		if (!isValid) navigate(`/book?${cqToUrl(cq)}`);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [navigate, window.location.search]);
+	useValidateCqOrReroute(cq, data?.meta.filtered_count);
 
-	if (bookState.isFetching) {
-		return <LoaderPage />;
+	// prefetch previous and next page
+	const queryClient = useQueryClient();
+	if (hasPreviousPage(cq)) {
+		const prevCq = getPreviousPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [BookRoutes.BASE, prevCq],
+			queryFn: ({ signal }) => bookApi.ListBook(prevCq, signal),
+		});
+	}
+	if (hasNextPage(cq)) {
+		const nextCq = getNextPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [BookRoutes.BASE, nextCq],
+			queryFn: ({ signal }) => bookApi.ListBook(nextCq, signal),
+		});
 	}
 
+	if (status === "pending" || !data) return <LoaderPage />;
+
 	const bookTitle = translate.Books();
+	const books = data.data;
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
@@ -58,14 +74,14 @@ export const BookListPage: React.FC = () => {
 					<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
 				</div>
 
-				{bookState.books.map((b) => (
+				{books.map((b) => (
 					<BookCard key={b.id} book={b} badges={bookToBadgeProps(b)}>
 						<BookNavBtn book={b} />
 						<BookmarkBtn book={b} />
 					</BookCard>
 				))}
 
-				<PaginationBar cq={cq} total={bookState.meta.filtered_count} />
+				<PaginationBar cq={cq} total={data.meta.filtered_count} />
 			</div>
 			<ScrollBar />
 		</ScrollArea>
