@@ -24,7 +24,6 @@ import {
 import { LOAN_FILTER_OPTIONS, LOAN_SORT_OPTIONS } from "@/constants";
 import { LoanRoutes, loanApi } from "@/api";
 import { BookCard } from "@/modules/book";
-import { useAppSelector } from "@/store";
 import {
 	LoanCreateBtn,
 	LoanRenewBtn,
@@ -33,12 +32,10 @@ import {
 } from "..";
 
 export const ManageLoanPage: React.FC = () => {
-	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 	const cq = useCollectionQuery();
 	if (!cq.filters.status) cq.filters.status = "borrowed";
 
 	const { status, data } = useQuery({
-		enabled: isLoggedIn,
 		queryKey: [LoanRoutes.BASE, cq],
 		queryFn: ({ signal }) => loanApi.ListLoan(cq, signal),
 		placeholderData: keepPreviousData,
@@ -48,21 +45,19 @@ export const ManageLoanPage: React.FC = () => {
 
 	// prefetch previous and next page
 	const queryClient = useQueryClient();
-	if (isLoggedIn) {
-		if (hasPreviousPage(cq)) {
-			const prevCq = getPreviousPage(cq);
-			queryClient.prefetchQuery({
-				queryKey: [LoanRoutes.BASE, prevCq],
-				queryFn: ({ signal }) => loanApi.ListLoan(prevCq, signal),
-			});
-		}
-		if (hasNextPage(cq)) {
-			const nextCq = getNextPage(cq);
-			queryClient.prefetchQuery({
-				queryKey: [LoanRoutes.BASE, nextCq],
-				queryFn: ({ signal }) => loanApi.ListLoan(nextCq, signal),
-			});
-		}
+	if (hasPreviousPage(cq)) {
+		const prevCq = getPreviousPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [LoanRoutes.BASE, prevCq],
+			queryFn: ({ signal }) => loanApi.ListLoan(prevCq, signal),
+		});
+	}
+	if (hasNextPage(cq)) {
+		const nextCq = getNextPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [LoanRoutes.BASE, nextCq],
+			queryFn: ({ signal }) => loanApi.ListLoan(nextCq, signal),
+		});
 	}
 
 	const translate = useTranslations();

@@ -10,12 +10,11 @@ import { BookCard } from "@/modules/book";
 import { LoanRenewBtn, LoanReturnBtn, loanToBadgeProps } from "..";
 
 export const LoanPage: React.FC = () => {
-	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 	const user = useAppSelector((state) => state.app.user);
 	const cq = newUserCollectionQuery(user?.id, "borrowed");
 
 	const { status, data } = useQuery({
-		enabled: isLoggedIn && !!user?.id,
+		enabled: !!user?.id,
 		queryKey: [LoanRoutes.BASE, cq],
 		queryFn: ({ signal }) => loanApi.ListLoan(cq, signal),
 	});

@@ -10,12 +10,11 @@ import { BookCard } from "@/modules/book";
 import { ResCancelBtn, ResCheckoutBtn, resToBadgeProps } from "..";
 
 export const ResPage: React.FC = () => {
-	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 	const user = useAppSelector((state) => state.app.user);
 	const cq = newUserCollectionQuery(user?.id, "pending");
 
 	const { status, data } = useQuery({
-		enabled: isLoggedIn && !!user?.id,
+		enabled: !!user?.id,
 		queryKey: [ResRoutes.BASE, cq],
 		queryFn: ({ signal }) => reservationApi.ListRes(cq, signal),
 	});

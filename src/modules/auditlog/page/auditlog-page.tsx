@@ -26,11 +26,9 @@ import {
 import { DataTable, LogCreateBtn, getTranslatedColumns } from "..";
 
 export const AuditLogPage: React.FC = () => {
-	const isLoggedIn = useAppSelector((s) => s.app.isLoggedIn);
 	const cq = useCollectionQuery();
 
 	const { status, data } = useQuery({
-		enabled: isLoggedIn,
 		queryKey: [AuditLogRoutes.BASE, cq],
 		queryFn: ({ signal }) => auditlogApi.ListLog(cq, signal),
 		placeholderData: keepPreviousData,
@@ -40,21 +38,19 @@ export const AuditLogPage: React.FC = () => {
 
 	// prefetch previous and next page
 	const queryClient = useQueryClient();
-	if (isLoggedIn) {
-		if (hasPreviousPage(cq)) {
-			const prevCq = getPreviousPage(cq);
-			queryClient.prefetchQuery({
-				queryKey: [AuditLogRoutes.BASE, prevCq],
-				queryFn: ({ signal }) => auditlogApi.ListLog(prevCq, signal),
-			});
-		}
-		if (hasNextPage(cq)) {
-			const nextCq = getNextPage(cq);
-			queryClient.prefetchQuery({
-				queryKey: [AuditLogRoutes.BASE, nextCq],
-				queryFn: ({ signal }) => auditlogApi.ListLog(nextCq, signal),
-			});
-		}
+	if (hasPreviousPage(cq)) {
+		const prevCq = getPreviousPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [AuditLogRoutes.BASE, prevCq],
+			queryFn: ({ signal }) => auditlogApi.ListLog(prevCq, signal),
+		});
+	}
+	if (hasNextPage(cq)) {
+		const nextCq = getNextPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [AuditLogRoutes.BASE, nextCq],
+			queryFn: ({ signal }) => auditlogApi.ListLog(nextCq, signal),
+		});
 	}
 
 	const canCreateAuditLog = useAppSelector((s) =>
