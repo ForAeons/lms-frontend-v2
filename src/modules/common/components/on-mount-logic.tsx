@@ -68,7 +68,7 @@ export const OnMountLogic: React.FC = () => {
 		const fineCq = newUserCollectionQuery(user?.id, "outstanding");
 		queryClient.prefetchQuery({
 			queryKey: [Api.FineRoutes.BASE, fineCq],
-			queryFn: ({ signal }) => Api.fineApi.ListFine(cq, signal),
+			queryFn: ({ signal }) => Api.fineApi.ListFine(fineCq, signal),
 		});
 	}
 
