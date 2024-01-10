@@ -58,9 +58,16 @@ export const BookForm: React.FC<{
 		defaultValues: defaultValues,
 	});
 
+	React.useEffect(() => {
+		form.reset(defaultValues);
+	}, [defaultValues, form]);
+
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+			<form
+				onSubmit={form.handleSubmit(onSubmit)}
+				className="space-y-8 w-full mt-3"
+			>
 				<FormField
 					control={form.control}
 					name="title"

@@ -14,7 +14,7 @@ import { useTranslations } from "@/components/language-provider";
 import { BookPicture } from ".";
 
 export const BookCard: React.FC<{
-	book: Book;
+	book: Omit<Book, "id">;
 	children?: React.ReactNode;
 	badges?: BadgeProps[];
 }> = ({ book, children, badges }) => {

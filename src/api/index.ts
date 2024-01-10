@@ -8,3 +8,4 @@ export * from "./fine";
 export * from "./reservation";
 export * from "./auditlog";
 export * from "./bookmark";
+export * from "./external";

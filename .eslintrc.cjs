@@ -24,6 +24,8 @@ module.exports = {
 		"@typescript-eslint/dot-notation": "off",
 		"@typescript-eslint/method-signature-style": "warn",
 		"@typescript-eslint/no-unused-vars": "warn",
+		"@typescript-eslint/consistent-type-definitions": "off",
+		"no-mixed-spaces-and-tabs": "off",
 		"react-refresh/only-export-components": "warn",
 		"formatjs/no-offset": "error",
 	},

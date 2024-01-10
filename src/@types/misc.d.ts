@@ -14,6 +14,7 @@ interface FilterOption {
 interface SelectOption<V = string> {
 	label: string;
 	value: V;
+	id?: string;
 }
 
 type ExtraSelectOption<V = string, E = object> = SelectOption<V> & E;

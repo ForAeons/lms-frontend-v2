@@ -15,7 +15,7 @@ import { useTranslations } from "@/components/language-provider";
 import { CreateBtn } from "@/modules";
 import { BookFormSchema } from "@/schema";
 import { BookRoutes, bookApi } from "@/api";
-import { BookForm } from ".";
+import { BookForm, BookQuerySearchBar } from ".";
 
 export const BookCreateBtn: React.FC = () => {
 	const translate = useTranslations();
@@ -24,7 +24,9 @@ export const BookCreateBtn: React.FC = () => {
 	const createBookDesc = translate.addBookDesc();
 	const createAction = translate.Create();
 
-	const defaultValues = {
+	const [defaultValues, setDefaultValues] = React.useState<
+		z.infer<typeof BookFormSchema>
+	>({
 		title: "",
 		author: "",
 		isbn: "",
@@ -32,7 +34,7 @@ export const BookCreateBtn: React.FC = () => {
 		publication_date: new Date(),
 		genre: "",
 		language: "",
-	};
+	});
 
 	const [open, setOpen] = React.useState(false);
 
@@ -72,6 +74,7 @@ export const BookCreateBtn: React.FC = () => {
 							<DialogTitle>{createBook}</DialogTitle>
 							<DialogDescription>{createBookDesc}</DialogDescription>
 						</DialogHeader>
+						<BookQuerySearchBar setDefaultValues={setDefaultValues} />
 						<BookForm
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
