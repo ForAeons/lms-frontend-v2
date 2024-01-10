@@ -1,13 +1,13 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/components/language-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { TanStackQueryDevtools } from "@/util";
 import { Router } from "@/router";
 import { store } from "@/store";
 
@@ -29,7 +29,7 @@ export const App: React.FC = () => {
 					<Provider store={store}>
 						<RouterProvider router={Router} />
 						<Toaster closeButton />
-						<ReactQueryDevtools />
+						<TanStackQueryDevtools initialIsOpen={false} />
 						<Analytics />
 						<SpeedInsights />
 					</Provider>
