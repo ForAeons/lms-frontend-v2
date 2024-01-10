@@ -5,9 +5,9 @@ import * as z from "zod";
 import {
 	Command,
 	CommandEmpty,
-	CommandGroup,
 	CommandInput,
 	CommandItem,
+	CommandList,
 } from "@/components/ui/command";
 import {
 	Popover,
@@ -36,16 +36,20 @@ export const BookQuerySearchBar: React.FC<{
 		React.useState<keyof ExternalBookQuery>("title");
 	const [queryValue, setQueryValue] = React.useState("");
 
+	let enabled = queryValue.length > 1;
+	if (queryKey === "isbn") {
+		enabled = queryValue.length === 10 || queryValue.length === 13;
+	}
 	const query = { [queryKey]: queryValue };
 	const { data } = useQuery({
-		enabled: queryValue.length > 1,
+		enabled: enabled,
 		queryKey: [ExternalRoutes.BASE, query],
 		queryFn: ({ signal }) => externalApi.QueryBook(query, signal),
 	});
 
 	return (
 		<div className="flex gap-3 mt-3">
-			<BookSearchSelect setKey={setQueryKey} />
+			<BookSearchSelect setKey={setQueryKey} setValue={setQueryValue} />
 			<Popover open={open} onOpenChange={setOpen}>
 				<PopoverTrigger asChild>
 					<Button
@@ -61,12 +65,12 @@ export const BookQuerySearchBar: React.FC<{
 					style={{ maxWidth: "calc(min(100vw, 576px))" }}
 					className="w-full p-0"
 				>
-					<Command>
+					<Command shouldFilter={false}>
 						<CommandInput placeholder={search} onValueChange={setQueryValue} />
 						<CommandEmpty>{noBookFound}</CommandEmpty>
-						{!!data && (
-							<CommandGroup>
-								{data.data.map((b) => (
+						<CommandList>
+							{!!data &&
+								data.data.map((b) => (
 									<CommandItem
 										key={b.title + b.author + b.isbn}
 										value={b.title}
@@ -93,8 +97,7 @@ export const BookQuerySearchBar: React.FC<{
 										/>
 									</CommandItem>
 								))}
-							</CommandGroup>
-						)}
+						</CommandList>
 					</Command>
 				</PopoverContent>
 			</Popover>

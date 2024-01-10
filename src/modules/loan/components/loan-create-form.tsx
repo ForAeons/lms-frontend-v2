@@ -97,7 +97,7 @@ export const LoanCreateForm: React.FC<{
 									</FormControl>
 								</PopoverTrigger>
 								<PopoverContent className="w-full p-0">
-									<Command>
+									<Command shouldFilter={false}>
 										<CommandInput
 											placeholder={searchForUser}
 											onValueChange={setUserAc}

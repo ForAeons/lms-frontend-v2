@@ -21,7 +21,8 @@ class ExternalApi extends BaseApi {
 		}
 
 		if (q.isbn) {
-			paramArr.push(`isbn=${q.isbn}`);
+			const isbn = q.isbn.replace(/-/g, "");
+			paramArr.push(`isbn=${isbn}`);
 		}
 
 		const params = paramArr.join("&");

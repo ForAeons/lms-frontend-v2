@@ -12,12 +12,19 @@ import { EXTERNAL_BOOK_QUERY_SELECT_OPTIONS } from "@/constants";
 
 export const BookSearchSelect: React.FC<{
 	setKey: UnaryHandler<keyof ExternalBookQuery>;
-}> = ({ setKey }) => {
+	setValue: UnaryHandler<string>;
+}> = ({ setKey, setValue }) => {
 	const translate = useTranslations();
 	const searchBy = translate.searchBy();
+
+	const onChange = (value: keyof ExternalBookQuery) => {
+		setKey(value);
+		setValue("");
+	};
+
 	return (
 		<div className="flex items-center space-x-2">
-			<Select onValueChange={setKey}>
+			<Select onValueChange={onChange}>
 				<SelectTrigger className="h-8 w-[150px]">
 					<SelectValue placeholder={searchBy} />
 				</SelectTrigger>
