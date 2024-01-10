@@ -16,6 +16,19 @@ import { IntlShape } from "react-intl";
  */
 export const translations = (intl: IntlShape) => {
 	return {
+		titleByAuthor: ({ title, author }: { title: string; author: string }) =>
+			intl.formatMessage(
+				{
+					id: "/HoAN2",
+					defaultMessage: '"{title}" by {author}',
+				},
+				{ title, author },
+			),
+		searchBy: () =>
+			intl.formatMessage({
+				id: "7FECnC",
+				defaultMessage: "Search by...",
+			}),
 		nothingHereYet: () =>
 			intl.formatMessage({
 				id: "IGfr1F",

@@ -45,3 +45,12 @@ export const COLOR_SELECT_OPTIONS: ExtraSelectOption<
 	{ label: "Yellow", value: "yellow", color: "47.9 95.8% 53.1%" },
 	{ label: "Violet", value: "violet", color: "262.1 83.3% 57.8%" },
 ];
+
+export const EXTERNAL_BOOK_QUERY_SELECT_OPTIONS: SelectOption<
+	keyof ExternalBookQuery
+>[] = [
+	{ label: "ISBN", value: "isbn", id: "YXUQIi" },
+	{ label: "Title", value: "title", id: "9a9+ww" },
+	{ label: "Author", value: "author", id: "tWkQ2J" },
+	{ label: "Publisher", value: "publisher", id: "Kdc67U" },
+];

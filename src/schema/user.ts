@@ -52,8 +52,8 @@ export const userSignInSchema = z.object({
 });
 
 export const BookUserFormSchema = z.object({
-	user_id: z.number(),
-	book_id: z.number(),
+	user_id: z.number().int(),
+	book_id: z.number().int(),
 });
 
 export const UserRoleSchema = z.object({
