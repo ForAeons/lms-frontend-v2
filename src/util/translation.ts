@@ -16,6 +16,11 @@ import { IntlShape } from "react-intl";
  */
 export const translations = (intl: IntlShape) => {
 	return {
+		addCopiesOfBook: () =>
+			intl.formatMessage({
+				id: "ISJwxs",
+				defaultMessage: "Add Copies of Book",
+			}),
 		action2Characters: () =>
 			intl.formatMessage({
 				id: "f1xnt9",

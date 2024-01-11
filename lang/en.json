@@ -54,6 +54,7 @@
 	"HNHwk3": "Add new {subject}",
 	"IFPQiA": "Borrowed",
 	"IGfr1F": "There is nothing here at the moment.",
+	"ISJwxs": "Add Copies of Book",
 	"IULIOw": "Author must be no more than 255 characters.",
 	"IfPris": "Do you wish to return the book?",
 	"InakXV": "My Loans",
@@ -213,13 +214,13 @@
 	"xsQkIU": "This is your password.",
 	"y1Z3or": "Language",
 	"yLinlZ": "Popular Books",
+	"yPH6E+": "Password must include at least one lowercase and uppercase letter, a number, and a special character (!@#$%^&*).",
 	"yfSHXZ": "fine",
 	"yk4PT9": "Full name",
 	"ylrvDR": "\"{title}\" has been removed from your bookmarks.",
-	"yPH6E+": "Password must include at least one lowercase and uppercase letter, a number, and a special character (!@#$%^&*).",
 	"zC+nEp": "Language must be 2 characters.",
-	"zUO2Lj": "Book ID must be an integer.",
 	"zOHOUn": "\"{title}\" edited successfully.",
+	"zUO2Lj": "Book ID must be an integer.",
 	"zjw/TA": "User \"{username}\" updated successfully.",
 	"zrW7b6": "Manage Loans"
 }

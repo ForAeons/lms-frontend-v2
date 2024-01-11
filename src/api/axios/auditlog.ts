@@ -1,5 +1,5 @@
 import { BaseApi } from "./base";
-import { AuditLogRoutes } from "./backend-routes";
+import { AuditLogRoutes } from "../backend-routes";
 
 class AuditlogApi extends BaseApi {
 	public ListLog = (q: CollectionQuery, abortSignal?: AbortSignal) => {

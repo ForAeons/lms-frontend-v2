@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { cqToUrl } from "@/util";
-import { axiosInstance } from "./axios";
+import { axiosInstance } from ".";
 
 /**
  * Base class for all api classes.

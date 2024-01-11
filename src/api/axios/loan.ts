@@ -1,5 +1,5 @@
 import { BaseApi } from "./base";
-import { LoanRoutes, BookRoutes } from "./backend-routes";
+import { LoanRoutes, BookRoutes } from "../backend-routes";
 
 class LoanApi extends BaseApi {
 	public ListLoan = (q: CollectionQuery, abortSignal?: AbortSignal) => {

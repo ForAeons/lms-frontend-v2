@@ -1,5 +1,5 @@
 import { BaseApi } from "./base";
-import { ExternalRoutes } from "./backend-routes";
+import { ExternalRoutes } from "../backend-routes";
 
 class ExternalApi extends BaseApi {
 	public QueryBook = (q: ExternalBookQuery, abortSignal?: AbortSignal) => {

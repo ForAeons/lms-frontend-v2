@@ -1,5 +1,5 @@
 import { BaseApi } from "./base";
-import { FineRoutes } from "./backend-routes";
+import { FineRoutes } from "../backend-routes";
 
 class FineApi extends BaseApi {
 	public ListFine = (q: CollectionQuery, abortSignal?: AbortSignal) => {
