@@ -1,5 +1,5 @@
 import { BaseApi } from "./base";
-import { BookRoutes } from "./backend-routes";
+import { BookRoutes } from "../backend-routes";
 
 class BookApi extends BaseApi {
 	public AutoComplete = (value: string, abortSignal?: AbortSignal) => {

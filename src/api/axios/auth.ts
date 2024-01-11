@@ -1,5 +1,5 @@
 import { BaseApi } from "./base";
-import { AuthRoutes } from "./backend-routes";
+import { AuthRoutes } from "../backend-routes";
 
 class AuthApi extends BaseApi {
 	public SignIn = (user: UserLogin, abortSignal?: AbortSignal) => {

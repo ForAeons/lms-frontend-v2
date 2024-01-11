@@ -1,5 +1,5 @@
 import { BaseApi } from "./base";
-import { UserRoutes } from "./backend-routes";
+import { UserRoutes } from "../backend-routes";
 
 class UserApi extends BaseApi {
 	public GetCurrentUser = (abortSignal?: AbortSignal) => {

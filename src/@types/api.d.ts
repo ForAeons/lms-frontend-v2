@@ -63,3 +63,5 @@ interface CollectionQuery {
 }
 
 type Filters = Record<string, string | string[] | number | number[] | boolean>;
+
+type Abortable<T> = T & { abortSignal?: AbortSignal };

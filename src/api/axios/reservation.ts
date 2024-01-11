@@ -1,5 +1,5 @@
 import { BaseApi } from "./base";
-import { BookRoutes, ResRoutes } from "./backend-routes";
+import { BookRoutes, ResRoutes } from "../backend-routes";
 
 class ReservationApi extends BaseApi {
 	public ListRes = (q: CollectionQuery, abortSignal?: AbortSignal) => {

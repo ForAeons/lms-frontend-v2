@@ -7,3 +7,4 @@ export * from "./reservation-route";
 export * from "./auditlog-route";
 export * from "./bookmark-route";
 export * from "./external-route";
+export * from "./bookcopy-route";

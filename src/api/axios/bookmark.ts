@@ -1,5 +1,5 @@
 import { BaseApi } from "./base";
-import { BookmarkRoutes } from "./backend-routes";
+import { BookmarkRoutes } from "../backend-routes";
 
 class BookmarkApi extends BaseApi {
 	public DeleteBookmark = (bookmarkID: number, abortSignal?: AbortSignal) => {
