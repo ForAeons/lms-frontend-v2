@@ -1,7 +1,6 @@
 import React from "react";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import * as z from "zod";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
 	Dialog,
@@ -21,7 +20,7 @@ import {
 } from "@/components/ui/drawer";
 import { useTranslations } from "@/components/language-provider";
 import { CreateBtn } from "@/modules";
-import { AuditlogFormSchema } from "@/schema";
+import { AuditlogFormValues } from "@/schema";
 import { useMediaQuery } from "@/hooks";
 import { AuditLogRoutes, auditlogApi } from "@/api";
 import { AuditLogForm } from ".";
@@ -49,7 +48,7 @@ export const LogCreateBtn: React.FC = () => {
 	});
 
 	const defaultValues = { action: "", date: new Date() };
-	const onSubmit = (values: z.infer<typeof AuditlogFormSchema>) => {
+	const onSubmit = (values: AuditlogFormValues) => {
 		createLogMutation.mutate({ ...values, date: values.date.toISOString() });
 	};
 

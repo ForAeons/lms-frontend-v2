@@ -1,7 +1,6 @@
 import React from "react";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import * as z from "zod";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
 	Dialog,
@@ -13,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { useTranslations } from "@/components/language-provider";
 import { CreateBtn } from "@/modules";
-import { BookFormSchema } from "@/schema";
+import { BookFormValues } from "@/schema";
 import { BookRoutes, bookApi } from "@/api";
 import { BookForm, BookQuerySearchBar } from ".";
 
@@ -24,9 +23,7 @@ export const BookCreateBtn: React.FC = () => {
 	const createBookDesc = translate.addBookDesc();
 	const createAction = translate.Create();
 
-	const [defaultValues, setDefaultValues] = React.useState<
-		z.infer<typeof BookFormSchema>
-	>({
+	const [defaultValues, setDefaultValues] = React.useState<BookFormValues>({
 		title: "",
 		author: "",
 		isbn: "",
@@ -53,7 +50,7 @@ export const BookCreateBtn: React.FC = () => {
 		},
 	});
 
-	const onSubmit = (values: z.infer<typeof BookFormSchema>) => {
+	const onSubmit = (values: BookFormValues) => {
 		createBookMutation.mutate({
 			...values,
 			publication_date: values.publication_date.toISOString(),

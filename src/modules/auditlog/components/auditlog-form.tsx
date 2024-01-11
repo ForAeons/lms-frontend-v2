@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { DialogFooter } from "@/components/ui/dialog";
@@ -23,11 +22,11 @@ import {
 } from "@/components/ui/popover";
 import { useTranslations } from "@/components/language-provider";
 import { cn } from "@/lib/utils";
-import { AuditlogFormSchema } from "@/schema";
+import { GetAuditlogFormSchema, AuditlogFormValues } from "@/schema";
 
 export const AuditLogForm: React.FC<{
-	defaultValues: z.infer<typeof AuditlogFormSchema>;
-	onSubmit: UnaryHandler<z.infer<typeof AuditlogFormSchema>>;
+	defaultValues: AuditlogFormValues;
+	onSubmit: UnaryHandler<AuditlogFormValues>;
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
 	const translate = useTranslations();
@@ -36,8 +35,8 @@ export const AuditLogForm: React.FC<{
 	const date = translate.Date();
 	const pickADate = translate.pickADate();
 
-	const form = useForm<z.infer<typeof AuditlogFormSchema>>({
-		resolver: zodResolver(AuditlogFormSchema),
+	const form = useForm<AuditlogFormValues>({
+		resolver: zodResolver(GetAuditlogFormSchema()),
 		defaultValues: defaultValues,
 	});
 

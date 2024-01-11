@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DialogFooter } from "@/components/ui/dialog";
@@ -28,14 +27,14 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { BookFormSchema } from "@/schema";
+import { GetBookFormSchema, BookFormValues } from "@/schema";
 import { LANGUAGE_SELECT_OPTIONS } from "@/constants";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "@/components/language-provider";
 
 export const BookForm: React.FC<{
-	defaultValues: z.infer<typeof BookFormSchema>;
-	onSubmit: UnaryHandler<z.infer<typeof BookFormSchema>>;
+	defaultValues: BookFormValues;
+	onSubmit: UnaryHandler<BookFormValues>;
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
 	const translate = useTranslations();
@@ -53,8 +52,8 @@ export const BookForm: React.FC<{
 	const selectLanguage = translate.selectLanguage();
 	const isbn = translate.ISBN();
 
-	const form = useForm<z.infer<typeof BookFormSchema>>({
-		resolver: zodResolver(BookFormSchema),
+	const form = useForm<BookFormValues>({
+		resolver: zodResolver(GetBookFormSchema()),
 		defaultValues: defaultValues,
 	});
 

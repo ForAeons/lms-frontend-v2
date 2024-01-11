@@ -1,7 +1,6 @@
 import React from "react";
 import { CheckIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import * as z from "zod";
 import {
 	Command,
 	CommandEmpty,
@@ -18,11 +17,11 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "@/components/language-provider";
 import { cn } from "@/lib/utils";
 import { ExternalRoutes, externalApi } from "@/api";
-import { BookFormSchema } from "@/schema";
+import { BookFormValues } from "@/schema";
 import { BookSearchSelect } from ".";
 
 export const BookQuerySearchBar: React.FC<{
-	setDefaultValues: UnaryHandler<z.infer<typeof BookFormSchema>>;
+	setDefaultValues: UnaryHandler<BookFormValues>;
 }> = ({ setDefaultValues }) => {
 	const translate = useTranslations();
 	const noBookFound = translate.noBookFound();
