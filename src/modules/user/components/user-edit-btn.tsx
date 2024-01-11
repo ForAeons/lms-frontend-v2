@@ -58,7 +58,6 @@ export const UserEditBtn: React.FC<{
 			person_attributes: {
 				id: userPerson.person_attributes.id,
 				full_name: values.full_name,
-				preferred_name: values.preferred_name,
 			},
 		});
 	};

@@ -25,8 +25,6 @@ export const UserForm: React.FC<{
 	const usernamePlaceholder = translate.anUniqueName();
 	const fullName = translate.Fullname();
 	const fullNamePlaceholder = translate.yourFullName();
-	const preferredName = translate.Preferredname();
-	const preferredNamePlaceholder = translate.yourPreferredName();
 	const password = translate.Password();
 	const passwordPlaceholder = translate.aStrongPassword();
 	const confirmPassword = translate.confirmPassword();
@@ -64,19 +62,6 @@ export const UserForm: React.FC<{
 							<FormLabel>{fullName}</FormLabel>
 							<FormControl>
 								<Input placeholder={fullNamePlaceholder} {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="preferred_name"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>{preferredName}</FormLabel>
-							<FormControl>
-								<Input placeholder={preferredNamePlaceholder} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>

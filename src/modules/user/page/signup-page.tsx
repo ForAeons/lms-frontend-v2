@@ -42,7 +42,6 @@ export const SignupPage: React.FC = () => {
 			password: values.password,
 			person_attributes: {
 				full_name: values.full_name,
-				preferred_name: values.preferred_name,
 			},
 		});
 	};

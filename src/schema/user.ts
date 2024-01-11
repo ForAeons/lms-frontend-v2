@@ -32,8 +32,7 @@ export const GetUserFormSchema = () =>
 				})
 				.max(255, {
 					message: "Full name must be no more than 255 characters.",
-				})
-				.optional(),
+				}),
 		})
 		.refine((data) => data.password === data.confirmPassword, {
 			message: "Passwords do not match",
