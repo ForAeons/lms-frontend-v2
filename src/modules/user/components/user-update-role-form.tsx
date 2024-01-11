@@ -2,7 +2,6 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import {
@@ -21,19 +20,19 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { useTranslations } from "@/components/language-provider";
-import { UserRoleSchema } from "@/schema";
+import { GetUserRoleSchema, UserRoleValues } from "@/schema";
 import { ROLE_SELECT_OPTIONS } from "@/constants";
 
 export const UserUpdateRoleForm: React.FC<{
-	onSubmit: UnaryHandler<z.infer<typeof UserRoleSchema>>;
+	onSubmit: UnaryHandler<UserRoleValues>;
 	action: string;
 }> = ({ onSubmit, action }) => {
 	const translate = useTranslations();
 	const roleSelection = translate.roleSelection();
 	const selectRolePlaceholder = translate.selectRolePlaceholder();
 
-	const form = useForm<z.infer<typeof UserRoleSchema>>({
-		resolver: zodResolver(UserRoleSchema),
+	const form = useForm<UserRoleValues>({
+		resolver: zodResolver(GetUserRoleSchema()),
 	});
 
 	return (

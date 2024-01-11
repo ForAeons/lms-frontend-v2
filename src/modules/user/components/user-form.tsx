@@ -1,7 +1,6 @@
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DialogFooter } from "@/components/ui/dialog";
@@ -14,11 +13,11 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { useTranslations } from "@/components/language-provider";
-import { UserFormSchema } from "@/schema";
+import { GetUserFormSchema, UserFormValues } from "@/schema";
 
 export const UserForm: React.FC<{
-	defaultValues: z.infer<typeof UserFormSchema>;
-	onSubmit: UnaryHandler<z.infer<typeof UserFormSchema>>;
+	defaultValues: UserFormValues;
+	onSubmit: UnaryHandler<UserFormValues>;
 	action: string;
 }> = ({ defaultValues, onSubmit, action }) => {
 	const translate = useTranslations();
@@ -33,8 +32,8 @@ export const UserForm: React.FC<{
 	const confirmPassword = translate.confirmPassword();
 	const confirmPasswordPlaceholder = translate.enterYourPasswordAgain();
 
-	const form = useForm<z.infer<typeof UserFormSchema>>({
-		resolver: zodResolver(UserFormSchema),
+	const form = useForm<UserFormValues>({
+		resolver: zodResolver(GetUserFormSchema()),
 		defaultValues: defaultValues,
 	});
 

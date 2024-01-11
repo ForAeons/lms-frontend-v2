@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,10 +14,10 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { useTranslations } from "@/components/language-provider";
-import { userSignInSchema } from "@/schema";
+import { UserSignInValues, GetUserSignInSchema } from "@/schema";
 
 export const SigninForm: React.FC<{
-	onSubmit: UnaryHandler<z.infer<typeof userSignInSchema>>;
+	onSubmit: UnaryHandler<UserSignInValues>;
 }> = ({ onSubmit }) => {
 	const translate = useTranslations();
 	const username = translate.Username();
@@ -30,8 +29,8 @@ export const SigninForm: React.FC<{
 	const submitAction = translate.signIn();
 	const homePage = translate.homePage();
 
-	const form = useForm<z.infer<typeof userSignInSchema>>({
-		resolver: zodResolver(userSignInSchema),
+	const form = useForm<UserSignInValues>({
+		resolver: zodResolver(GetUserSignInSchema()),
 		defaultValues: { username: "", password: "" },
 	});
 

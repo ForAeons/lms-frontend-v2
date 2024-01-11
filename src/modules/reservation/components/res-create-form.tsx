@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import {
@@ -29,11 +28,11 @@ import {
 } from "@/components/ui/command";
 import { useTranslations } from "@/components/language-provider";
 import { BookRoutes, UserRoutes, bookApi, userApi } from "@/api";
-import { BookUserFormSchema } from "@/schema";
+import { GetBookUserFormSchema, BookUserFormValues } from "@/schema";
 import { cn } from "@/lib/utils";
 
 export const ResCreateForm: React.FC<{
-	onSubmit: UnaryHandler<z.infer<typeof BookUserFormSchema>>;
+	onSubmit: UnaryHandler<BookUserFormValues>;
 }> = ({ onSubmit }) => {
 	const translate = useTranslations();
 	const user = translate.User();
@@ -61,8 +60,8 @@ export const ResCreateForm: React.FC<{
 		queryFn: ({ signal }) => bookApi.AutoComplete(bookAc, signal),
 	});
 
-	const form = useForm<z.infer<typeof BookUserFormSchema>>({
-		resolver: zodResolver(BookUserFormSchema),
+	const form = useForm<BookUserFormValues>({
+		resolver: zodResolver(GetBookUserFormSchema()),
 	});
 
 	return (

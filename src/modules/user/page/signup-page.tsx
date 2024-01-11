@@ -2,11 +2,10 @@ import React from "react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import * as z from "zod";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTranslations } from "@/components/language-provider";
 import { UserRoutes, userApi } from "@/api";
-import { UserFormSchema } from "@/schema";
+import { UserFormValues } from "@/schema";
 import { UserForm } from "..";
 
 export const SignupPage: React.FC = () => {
@@ -37,7 +36,7 @@ export const SignupPage: React.FC = () => {
 		},
 	});
 
-	const onSubmit = (values: z.infer<typeof UserFormSchema>) => {
+	const onSubmit = (values: UserFormValues) => {
 		signInMutation.mutate({
 			username: values.username,
 			password: values.password,
