@@ -1,5 +1,6 @@
 import * as z from "zod";
 import * as Constants from "@/constants";
+import { IntlWrapper } from "@/components/language-provider";
 
 export const GetUserFormSchema = () =>
 	z
@@ -7,35 +8,34 @@ export const GetUserFormSchema = () =>
 			username: z
 				.string()
 				.min(Constants.MINIMUM_USERNAME_LENGTH, {
-					message: "Username must be at least 5 characters.",
+					message: IntlWrapper.translator.username5Characters(),
 				})
 				.max(Constants.MAXIMUM_USERNAME_LENGTH, {
-					message: "Username must be no more than 30 characters.",
+					message: IntlWrapper.translator.username30Characters(),
 				}),
 			password: z
 				.string()
 				.regex(Constants.passwordPattern, {
-					message:
-						"Password must include at least one lowercase and uppercase letter, a number, and a special character (!@#$%^&*).",
+					message: IntlWrapper.translator.passwordPattern(),
 				})
 				.min(Constants.MINIMUM_PASSWORD_LENGTH, {
-					message: "Password must be at least 8 characters.",
+					message: IntlWrapper.translator.password8Characters(),
 				})
 				.max(Constants.MAXIMUM_PASSWORD_LENGTH, {
-					message: "Password must be no more than 32 characters.",
+					message: IntlWrapper.translator.password32Characters(),
 				}),
 			confirmPassword: z.string(),
 			full_name: z
 				.string()
 				.min(2, {
-					message: "Full name must be at least 2 characters.",
+					message: IntlWrapper.translator.fullName2Characters(),
 				})
 				.max(255, {
-					message: "Full name must be no more than 255 characters.",
+					message: IntlWrapper.translator.fullName255Characters(),
 				}),
 		})
 		.refine((data) => data.password === data.confirmPassword, {
-			message: "Passwords do not match",
+			message: IntlWrapper.translator.passwordsDoNotMatch(),
 			path: ["confirmPassword"],
 		});
 
@@ -46,18 +46,18 @@ export const GetUserSignInSchema = () =>
 		username: z
 			.string()
 			.min(Constants.MINIMUM_USERNAME_LENGTH, {
-				message: "Username must be at least 5 characters.",
+				message: IntlWrapper.translator.username5Characters(),
 			})
 			.max(Constants.MAXIMUM_USERNAME_LENGTH, {
-				message: "Username must be no more than 30 characters.",
+				message: IntlWrapper.translator.username30Characters(),
 			}),
 		password: z
 			.string()
 			.min(Constants.MINIMUM_PASSWORD_LENGTH, {
-				message: "Password must be at least 8 characters.",
+				message: IntlWrapper.translator.password8Characters(),
 			})
 			.max(Constants.MAXIMUM_PASSWORD_LENGTH, {
-				message: "Password must be no more than 32 characters.",
+				message: IntlWrapper.translator.password32Characters(),
 			}),
 	});
 
@@ -66,10 +66,10 @@ export type UserSignInValues = z.infer<ReturnType<typeof GetUserSignInSchema>>;
 export const GetBookUserFormSchema = () =>
 	z.object({
 		user_id: z.number().int({
-			message: "User ID must be an integer.",
+			message: IntlWrapper.translator.userIDInt(),
 		}),
 		book_id: z.number().int({
-			message: "Book ID must be an integer.",
+			message: IntlWrapper.translator.bookIDInt(),
 		}),
 	});
 
@@ -80,7 +80,7 @@ export type BookUserFormValues = z.infer<
 export const GetUserRoleSchema = () =>
 	z.object({
 		role_id: z.number().int({
-			message: "Role ID must be an integer.",
+			message: IntlWrapper.translator.roleIDInt(),
 		}),
 	});
 

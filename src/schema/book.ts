@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { IntlWrapper } from "@/components/language-provider";
 
 export const GetBookFormSchema = () =>
 	z
@@ -6,43 +7,43 @@ export const GetBookFormSchema = () =>
 			title: z
 				.string()
 				.min(2, {
-					message: "Title must be at least 2 characters.",
+					message: IntlWrapper.translator.title2Characters(),
 				})
 				.max(255, {
-					message: "Title must be no more than 255 characters.",
+					message: IntlWrapper.translator.title255Characters(),
 				}),
 			author: z
 				.string()
 				.min(2, {
-					message: "Author must be at least 2 characters.",
+					message: IntlWrapper.translator.author2Characters(),
 				})
 				.max(255, {
-					message: "Author must be no more than 255 characters.",
+					message: IntlWrapper.translator.author255Characters(),
 				}),
 			isbn: z.string(),
 			publisher: z
 				.string()
 				.min(2, {
-					message: "Publisher must be at least 2 characters.",
+					message: IntlWrapper.translator.publisher2Characters(),
 				})
 				.max(100, {
-					message: "Publisher must be no more than 100 characters.",
+					message: IntlWrapper.translator.publisher100Characters(),
 				}),
 			publication_date: z.date(),
 			genre: z
 				.string()
 				.min(2, {
-					message: "Genre must be at least 2 characters.",
+					message: IntlWrapper.translator.genre2Characters(),
 				})
 				.max(50, {
-					message: "Genre must be no more than 50 characters.",
+					message: IntlWrapper.translator.genre50Characters(),
 				}),
 			language: z.string().length(2, {
-				message: "Language must be 2 characters.",
+				message: IntlWrapper.translator.language2Characters(),
 			}),
 		})
 		.refine((v) => v.isbn?.length === 10 || v.isbn?.length === 13, {
-			message: "ISBN should be 10 or 13 characters long.",
+			message: IntlWrapper.translator.isbn10Or13Characters(),
 			path: ["isbn"],
 		})
 		.refine(
@@ -50,7 +51,7 @@ export const GetBookFormSchema = () =>
 				v.publication_date < new Date() &&
 				v.publication_date > new Date("1900-01-01"),
 			{
-				message: "Publication date should be between 1900 and today.",
+				message: IntlWrapper.translator.publicationDateBetween1900AndToday(),
 				path: ["publication_date"],
 			},
 		);
