@@ -1,12 +1,7 @@
 import * as z from "zod";
 
-export const AuditlogFormSchema = z.object({
-	action: z.string(),
-	date: z.date(),
-});
-
 // We need to lazy load this due to need to dynamically render translations
-export const GetAuditlogSchema = () =>
+export const GetAuditlogFormSchema = () =>
 	z
 		.object({
 			action: z.string({
@@ -21,4 +16,6 @@ export const GetAuditlogSchema = () =>
 			path: ["date"],
 		});
 
-export type AuditlogFormValues = z.infer<ReturnType<typeof GetAuditlogSchema>>;
+export type AuditlogFormValues = z.infer<
+	ReturnType<typeof GetAuditlogFormSchema>
+>;
