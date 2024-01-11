@@ -25,8 +25,15 @@ export const GetUserFormSchema = () =>
 					message: "Password must be no more than 32 characters.",
 				}),
 			confirmPassword: z.string(),
-			full_name: z.string().min(2).max(255),
-			preferred_name: z.string().min(2).max(255).optional(),
+			full_name: z
+				.string()
+				.min(2, {
+					message: "Full name must be at least 2 characters.",
+				})
+				.max(255, {
+					message: "Full name must be no more than 255 characters.",
+				})
+				.optional(),
 		})
 		.refine((data) => data.password === data.confirmPassword, {
 			message: "Passwords do not match",
@@ -59,8 +66,12 @@ export type UserSignInValues = z.infer<ReturnType<typeof GetUserSignInSchema>>;
 
 export const GetBookUserFormSchema = () =>
 	z.object({
-		user_id: z.number().int(),
-		book_id: z.number().int(),
+		user_id: z.number().int({
+			message: "User ID must be an integer.",
+		}),
+		book_id: z.number().int({
+			message: "Book ID must be an integer.",
+		}),
 	});
 
 export type BookUserFormValues = z.infer<
@@ -69,7 +80,9 @@ export type BookUserFormValues = z.infer<
 
 export const GetUserRoleSchema = () =>
 	z.object({
-		role_id: z.number().int(),
+		role_id: z.number().int({
+			message: "Role ID must be an integer.",
+		}),
 	});
 
 export type UserRoleValues = z.infer<ReturnType<typeof GetUserRoleSchema>>;

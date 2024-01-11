@@ -16,6 +16,132 @@ import { IntlShape } from "react-intl";
  */
 export const translations = (intl: IntlShape) => {
 	return {
+		action2Characters: () =>
+			intl.formatMessage({
+				id: "f1xnt9",
+				defaultMessage: "Action must be at least 2 characters.",
+			}),
+		action255Characters: () =>
+			intl.formatMessage({
+				id: "upMiaq",
+				defaultMessage: "Action must be no more than 255 characters.",
+			}),
+		dateBetween1900AndToday: () =>
+			intl.formatMessage({
+				id: "udPPGx",
+				defaultMessage: "Date should be between 1900 and today.",
+			}),
+		title2Characters: () =>
+			intl.formatMessage({
+				id: "ARxhKu",
+				defaultMessage: "Title must be at least 2 characters.",
+			}),
+		title255Characters: () =>
+			intl.formatMessage({
+				id: "RlOsA/",
+				defaultMessage: "Title must be no more than 255 characters.",
+			}),
+		author2Characters: () =>
+			intl.formatMessage({
+				id: "kALHoE",
+				defaultMessage: "Author must be at least 2 characters.",
+			}),
+		author255Characters: () =>
+			intl.formatMessage({
+				id: "IULIOw",
+				defaultMessage: "Author must be no more than 255 characters.",
+			}),
+		publisher2Characters: () =>
+			intl.formatMessage({
+				id: "r9SLTK",
+				defaultMessage: "Publisher must be at least 2 characters.",
+			}),
+		publisher100Characters: () =>
+			intl.formatMessage({
+				id: "0qwp5p",
+				defaultMessage: "Publisher must be no more than 100 characters.",
+			}),
+		genre2Characters: () =>
+			intl.formatMessage({
+				id: "G/nGW8",
+				defaultMessage: "Genre must be at least 2 characters.",
+			}),
+		genre50Characters: () =>
+			intl.formatMessage({
+				id: "g4+tUY",
+				defaultMessage: "Genre must be no more than 50 characters.",
+			}),
+		language2Characters: () =>
+			intl.formatMessage({
+				id: "zC+nEp",
+				defaultMessage: "Language must be 2 characters.",
+			}),
+		isbn10Or13Characters: () =>
+			intl.formatMessage({
+				id: "hvYzLj",
+				defaultMessage: "ISBN should be 10 or 13 characters long.",
+			}),
+		publicationDateBetween1900AndToday: () =>
+			intl.formatMessage({
+				id: "g3h8M+",
+				defaultMessage: "Publication date should be between 1900 and today.",
+			}),
+		username5Characters: () =>
+			intl.formatMessage({
+				id: "E7vlqS",
+				defaultMessage: "Username must be at least 5 characters.",
+			}),
+		username30Characters: () =>
+			intl.formatMessage({
+				id: "EXqLNr",
+				defaultMessage: "Username must be no more than 30 characters.",
+			}),
+		password8Characters: () =>
+			intl.formatMessage({
+				id: "1JjZZ5",
+				defaultMessage: "Password must be at least 8 characters.",
+			}),
+		password32Characters: () =>
+			intl.formatMessage({
+				id: "UKV+27",
+				defaultMessage: "Password must be no more than 32 characters.",
+			}),
+		passwordPattern: () =>
+			intl.formatMessage({
+				id: "yPH6E+",
+				defaultMessage:
+					"Password must include at least one lowercase and uppercase letter, a number, and a special character (!@#$%^&*).",
+			}),
+		fullName2Characters: () =>
+			intl.formatMessage({
+				id: "Sl3Uw2",
+				defaultMessage: "Full name must be at least 2 characters.",
+			}),
+		fullName255Characters: () =>
+			intl.formatMessage({
+				id: "rdSK3c",
+				defaultMessage: "Full name must be no more than 255 characters.",
+			}),
+		passwordsDoNotMatch: () =>
+			intl.formatMessage({
+				id: "7Chrsf",
+				defaultMessage: "Passwords do not match",
+			}),
+		userIDInt: () =>
+			intl.formatMessage({
+				id: "LzWiQa",
+				defaultMessage: "User ID must be an integer.",
+			}),
+		bookIDInt: () =>
+			intl.formatMessage({
+				id: "zUO2Lj",
+				defaultMessage: "Book ID must be an integer.",
+			}),
+		roleIDInt: () =>
+			intl.formatMessage({
+				id: "nJEMNf",
+				defaultMessage: "Role ID must be an integer.",
+			}),
 		titleByAuthor: ({ title, author }: { title: string; author: string }) =>
 			intl.formatMessage(
 				{

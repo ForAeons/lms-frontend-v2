@@ -1,7 +1,6 @@
 import React from "react";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import * as z from "zod";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
 	Dialog,
@@ -13,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { useTranslations } from "@/components/language-provider";
 import { EditBtn } from "@/modules";
-import { BookFormSchema } from "@/schema";
+import { BookFormValues } from "@/schema";
 import { BookRoutes, bookApi } from "@/api";
 import { BookForm } from ".";
 
@@ -52,7 +51,7 @@ export const BookEditBtn: React.FC<{ book: Book }> = ({ book }) => {
 		},
 	});
 
-	const onSubmit = (values: z.infer<typeof BookFormSchema>) => {
+	const onSubmit = (values: BookFormValues) => {
 		updateBookMutation.mutate({
 			...values,
 			id: book.id,

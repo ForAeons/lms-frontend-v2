@@ -4,12 +4,15 @@ import * as z from "zod";
 export const GetAuditlogFormSchema = () =>
 	z
 		.object({
-			action: z.string({
-				required_error: "Please enter the action.",
-			}),
-			date: z.date({
-				required_error: "Please enter the date.",
-			}),
+			action: z
+				.string()
+				.min(2, {
+					message: "Action must be at least 2 characters.",
+				})
+				.max(255, {
+					message: "Action must be no more than 255 characters.",
+				}),
+			date: z.date(),
 		})
 		.refine((v) => v.date < new Date() && v.date > new Date("1900-01-01"), {
 			message: "Date should be between 1900 and today.",

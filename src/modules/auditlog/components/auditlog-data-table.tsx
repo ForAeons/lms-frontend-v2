@@ -46,7 +46,6 @@ export const DataTable = <TData, TValue>({
 											: flexRender(
 													header.column.columnDef.header,
 													header.getContext(),
-													// eslint-disable-next-line no-mixed-spaces-and-tabs
 											  )}
 									</TableHead>
 								);

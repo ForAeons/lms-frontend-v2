@@ -56,7 +56,7 @@ The application should now be running at `http://localhost:5173/`.
 - Install Captain Githook (for running pre-commit/pre-push hooks):
 
   ```bash
-  go install github.com/swellaby/captain-githook
+  go install github.com/swellaby/captain-githook@latest
   captain-githook init
   ```
 
