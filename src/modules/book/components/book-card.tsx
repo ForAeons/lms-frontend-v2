@@ -39,7 +39,7 @@ export const BookCard: React.FC<{
 				{children}
 			</div>
 
-			<div className="relative lg:mr-0 lg:mb-6 mb-0 m-6 lg:w-[200px] w-[150px] shadow-lg">
+			<div className="relative lg:mr-0 lg:mb-6 mb-0 m-6 lg:w-[200px] w-[150px] rounded-md shadow-lg flex-shrink-0">
 				<BookEditablePicture book={book} />
 			</div>
 
