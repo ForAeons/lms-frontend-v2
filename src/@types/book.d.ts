@@ -18,6 +18,7 @@ interface Book {
 	publication_date: string;
 	genre: string;
 	language: string;
+	thumbnail_url?: string;
 }
 
 /**
@@ -42,6 +43,7 @@ interface BookUser {
 interface BookSimple {
 	id: number;
 	title: string;
+	thumbnail_url?: string;
 }
 
 type WithBook<T> = T & {

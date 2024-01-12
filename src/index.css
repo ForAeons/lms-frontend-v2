@@ -570,6 +570,7 @@
 	* {
 		@apply border-border;
 		@apply transition-colors;
+		min-width: 0;
 	}
 	body {
 		@apply bg-background text-foreground;

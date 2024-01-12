@@ -11,10 +11,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { LANGUAGE_SELECT_OPTIONS } from "@/constants";
 import { useTranslations } from "@/components/language-provider";
-import { BookPicture } from ".";
+import { BookEditablePicture } from ".";
 
 export const BookCard: React.FC<{
-	book: Omit<Book, "id">;
+	book: Book;
 	children?: React.ReactNode;
 	badges?: BadgeProps[];
 }> = ({ book, children, badges }) => {
@@ -39,8 +39,8 @@ export const BookCard: React.FC<{
 				{children}
 			</div>
 
-			<div className="lg:w-[200px] w-[150px] h-fit lg:mr-0 lg:mb-6 mb-0 m-6 bg-muted rounded-md shadow-xl transition-shadow flex-shrink-0">
-				<BookPicture book={book} />
+			<div className="relative lg:mr-0 lg:mb-6 mb-0 m-6 lg:w-[200px] w-[150px] shadow-lg">
+				<BookEditablePicture book={book} />
 			</div>
 
 			<div>
