@@ -1,6 +1,11 @@
 import { BaseApi } from "./base";
 import { BookRoutes } from "../backend-routes";
 
+type UpdateBookPayload = Abortable<{
+	bookID: number;
+	thumbnail: File;
+}>;
+
 class BookApi extends BaseApi {
 	public AutoComplete = (value: string, abortSignal?: AbortSignal) => {
 		return this.Get<BookSimple[]>(
@@ -74,6 +79,24 @@ class BookApi extends BaseApi {
 			},
 			abortSignal,
 		);
+	};
+
+	public UpdateBookCover = (payload: UpdateBookPayload) => {
+		const formData = new FormData();
+		formData.append("file", payload.thumbnail);
+		return this.axios
+			.patch<Payload<Book>>(
+				`${BookRoutes.BASE}/${payload.bookID}/${BookRoutes.THUMBNAIL.ROUTE}/`,
+				formData,
+				{
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				},
+			)
+			.then((res) => {
+				return res.data;
+			});
 	};
 }
 

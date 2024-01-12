@@ -12,6 +12,8 @@ import { axiosInstance } from ".";
  * @param T Response type
  */
 export class BaseApi {
+	protected axios = axiosInstance;
+
 	protected Get = <R>(
 		url: string,
 		abortSignal?: AbortSignal,

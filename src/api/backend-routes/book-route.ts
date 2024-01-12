@@ -10,4 +10,7 @@ export const BookRoutes = {
 	POPULAR: {
 		ROUTE: "popular",
 	},
+	THUMBNAIL: {
+		ROUTE: "thumbnail",
+	},
 };

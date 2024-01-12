@@ -61,7 +61,7 @@ export const BookCarousel: React.FC<{ books: BookSimple[] }> = ({ books }) => {
 					return (
 						<CarouselItem key={book.id} className="pl-6 basis-1/2 lg:basis-1/4">
 							<Card
-								className="border-none shadow-md hover:shadow-lg transition-shadow flex bg-muted px-3 hover:cursor-pointer"
+								className="border-none shadow-md hover:shadow-lg transition-shadow flex hover:cursor-pointer"
 								onClick={() => navigate(`/book/${book.id}`)}
 							>
 								<BookPicture book={book} />
