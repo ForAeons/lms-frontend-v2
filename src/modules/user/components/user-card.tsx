@@ -44,7 +44,11 @@ export const UserPersonCard: React.FC<{ userPerson: UserPerson }> = ({
 				{canUpdateUser && <UserEditBtn userPerson={userPerson} />}
 				{canUpdateUserRole && <UserUpdateRoleBtn user={userPerson} />}
 				{canDeleteUser && (
-					<DeleteBtn handler={handleDelete} subject={userText} />
+					<DeleteBtn
+						handler={handleDelete}
+						subject={userText}
+						disabled={deleteUserMutation.isPending}
+					/>
 				)}
 			</div>
 

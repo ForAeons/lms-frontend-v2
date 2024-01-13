@@ -164,7 +164,9 @@ export const BookCreateExistingForm: React.FC<{
 						)}
 					/>
 					<DialogFooter>
-						<Button type="submit">{create}</Button>
+						<Button type="submit" disabled={createBookcopiesMutation.isPending}>
+							{create}
+						</Button>
 					</DialogFooter>
 				</form>
 			</Form>

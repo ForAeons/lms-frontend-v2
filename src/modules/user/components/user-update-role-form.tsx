@@ -26,7 +26,8 @@ import { ROLE_SELECT_OPTIONS } from "@/constants";
 export const UserUpdateRoleForm: React.FC<{
 	onSubmit: UnaryHandler<UserRoleValues>;
 	action: string;
-}> = ({ onSubmit, action }) => {
+	disabled?: boolean;
+}> = ({ onSubmit, action, disabled }) => {
 	const translate = useTranslations();
 	const roleSelection = translate.roleSelection();
 	const selectRolePlaceholder = translate.selectRolePlaceholder();
@@ -72,7 +73,9 @@ export const UserUpdateRoleForm: React.FC<{
 				/>
 
 				<DialogFooter>
-					<Button type="submit">{action}</Button>
+					<Button type="submit" disabled={disabled}>
+						{action}
+					</Button>
 				</DialogFooter>
 			</form>
 		</Form>

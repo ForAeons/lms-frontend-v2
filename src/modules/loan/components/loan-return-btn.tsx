@@ -79,7 +79,10 @@ export const LoanReturnBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>{cancelAction}</AlertDialogCancel>
-					<AlertDialogAction onClick={handleReturn}>
+					<AlertDialogAction
+						onClick={handleReturn}
+						disabled={returnLoanMutation.isPending}
+					>
 						{continueAction}
 					</AlertDialogAction>
 				</AlertDialogFooter>

@@ -85,7 +85,10 @@ export const BookLoanBtn: React.FC<{ book: Book; copyID: number }> = ({
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>{cancelAction}</AlertDialogCancel>
-					<AlertDialogAction onClick={handleLoan}>
+					<AlertDialogAction
+						onClick={handleLoan}
+						disabled={loanBookMutation.isPending}
+					>
 						{continueAction}
 					</AlertDialogAction>
 				</AlertDialogFooter>

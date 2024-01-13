@@ -78,7 +78,10 @@ export const LoanRenewBtn: React.FC<{ loan: Loan }> = ({ loan }) => {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>{cancelAction}</AlertDialogCancel>
-					<AlertDialogAction onClick={handleRenew}>
+					<AlertDialogAction
+						onClick={handleRenew}
+						disabled={renewLoanMutation.isPending}
+					>
 						{continueAction}
 					</AlertDialogAction>
 				</AlertDialogFooter>

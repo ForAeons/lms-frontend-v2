@@ -67,7 +67,10 @@ export const LoanCreateBtn: React.FC = () => {
 								<DialogTitle>{createLoan}</DialogTitle>
 								<DialogDescription>{createLoanDescription}</DialogDescription>
 							</DialogHeader>
-							<LoanCreateForm onSubmit={createLoanMutation.mutate} />
+							<LoanCreateForm
+								onSubmit={createLoanMutation.mutate}
+								disabled={createLoanMutation.isPending}
+							/>
 						</div>
 						<ScrollBar />
 					</ScrollArea>
@@ -89,7 +92,10 @@ export const LoanCreateBtn: React.FC = () => {
 					<DrawerDescription>{createLoanDescription}</DrawerDescription>
 				</DrawerHeader>
 				<div className="p-3">
-					<LoanCreateForm onSubmit={createLoanMutation.mutate} />
+					<LoanCreateForm
+						onSubmit={createLoanMutation.mutate}
+						disabled={createLoanMutation.isPending}
+					/>
 				</div>
 			</DrawerContent>
 		</Drawer>

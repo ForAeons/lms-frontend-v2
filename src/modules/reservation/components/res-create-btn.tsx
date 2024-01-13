@@ -89,7 +89,10 @@ export const ResCreateDialog: React.FC = () => {
 					<DrawerDescription>{createResDescription}</DrawerDescription>
 				</DrawerHeader>
 				<div className="p-3">
-					<ResCreateForm onSubmit={createResMutation.mutate} />
+					<ResCreateForm
+						onSubmit={createResMutation.mutate}
+						disabled={createResMutation.isPending}
+					/>
 				</div>
 			</DrawerContent>
 		</Drawer>

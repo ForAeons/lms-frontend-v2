@@ -73,7 +73,7 @@ export const BookmarkBtn: React.FC<{ book: Book }> = ({ book }) => {
 				<TooltipTrigger asChild>
 					<Button
 						variant="ghost"
-						disabled={status !== "success"}
+						disabled={status === "pending"}
 						className="hover:bg-transparent hover:opacity-50 transition-opacity"
 						onClick={marked ? handleUnbookmark : handleBookmark}
 					>

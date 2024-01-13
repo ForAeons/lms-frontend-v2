@@ -90,7 +90,10 @@ export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>{cancelAction}</AlertDialogCancel>
-					<AlertDialogAction onClick={handleRes}>
+					<AlertDialogAction
+						onClick={handleRes}
+						disabled={reserveBookMutation.isPending}
+					>
 						{continueAction}
 					</AlertDialogAction>
 				</AlertDialogFooter>

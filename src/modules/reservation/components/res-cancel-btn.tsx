@@ -81,7 +81,10 @@ export const ResCancelBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>{cancelAction}</AlertDialogCancel>
-					<AlertDialogAction onClick={handleCancel}>
+					<AlertDialogAction
+						onClick={handleCancel}
+						disabled={cancelResMutation.isPending}
+					>
 						{continueAction}
 					</AlertDialogAction>
 				</AlertDialogFooter>

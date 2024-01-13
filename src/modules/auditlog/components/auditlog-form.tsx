@@ -28,7 +28,8 @@ export const AuditLogForm: React.FC<{
 	defaultValues: AuditlogFormValues;
 	onSubmit: UnaryHandler<AuditlogFormValues>;
 	action: string;
-}> = ({ defaultValues, onSubmit, action }) => {
+	disabled?: boolean;
+}> = ({ defaultValues, onSubmit, action, disabled }) => {
 	const translate = useTranslations();
 	const event = translate.Event();
 	const whatHappened = translate.whatHappened();
@@ -100,7 +101,9 @@ export const AuditLogForm: React.FC<{
 				/>
 
 				<DialogFooter>
-					<Button type="submit">{action}</Button>
+					<Button type="submit" disabled={disabled}>
+						{action}
+					</Button>
 				</DialogFooter>
 			</form>
 		</Form>

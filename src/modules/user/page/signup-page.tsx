@@ -59,6 +59,7 @@ export const SignupPage: React.FC = () => {
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
 							action={signUpAction}
+							disabled={signInMutation.isPending}
 						/>
 					</CardContent>
 				</Card>

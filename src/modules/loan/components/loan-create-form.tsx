@@ -33,7 +33,8 @@ import { cn } from "@/lib/utils";
 
 export const LoanCreateForm: React.FC<{
 	onSubmit: UnaryHandler<BookUserFormValues>;
-}> = ({ onSubmit }) => {
+	disabled?: boolean;
+}> = ({ onSubmit, disabled }) => {
 	const translate = useTranslations();
 	const user = translate.User();
 	const searchForUser = translate.searchForUser();
@@ -198,7 +199,9 @@ export const LoanCreateForm: React.FC<{
 					)}
 				/>
 				<DialogFooter>
-					<Button type="submit">{create}</Button>
+					<Button type="submit" disabled={disabled}>
+						{create}
+					</Button>
 				</DialogFooter>
 			</form>
 		</Form>

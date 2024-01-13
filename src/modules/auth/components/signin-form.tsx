@@ -18,7 +18,8 @@ import { UserSignInValues, GetUserSignInSchema } from "@/schema";
 
 export const SigninForm: React.FC<{
 	onSubmit: UnaryHandler<UserSignInValues>;
-}> = ({ onSubmit }) => {
+	disabled?: boolean;
+}> = ({ onSubmit, disabled }) => {
 	const translate = useTranslations();
 	const username = translate.Username();
 	const yourUsername = translate.yourUsername();
@@ -79,7 +80,9 @@ export const SigninForm: React.FC<{
 					>
 						{homePage}
 					</Button>
-					<Button type="submit">{submitAction}</Button>
+					<Button type="submit" disabled={disabled}>
+						{submitAction}
+					</Button>
 				</div>
 			</form>
 		</Form>

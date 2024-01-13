@@ -73,6 +73,7 @@ export const LogCreateBtn: React.FC = () => {
 								defaultValues={defaultValues}
 								onSubmit={onSubmit}
 								action={createAction}
+								disabled={createLogMutation.isPending}
 							/>
 						</div>
 						<ScrollBar />

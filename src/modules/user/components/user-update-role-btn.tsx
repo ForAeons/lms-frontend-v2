@@ -104,7 +104,11 @@ export const UserUpdateRoleBtn: React.FC<{ user: User }> = ({ user }) => {
 									{updateUserRoleDescription}
 								</DialogDescription>
 							</DialogHeader>
-							<UserUpdateRoleForm onSubmit={onSubmit} action={updateAction} />
+							<UserUpdateRoleForm
+								onSubmit={onSubmit}
+								action={updateAction}
+								disabled={updateRoleMutation.isPending}
+							/>
 						</div>
 						<ScrollBar />
 					</ScrollArea>
@@ -126,7 +130,11 @@ export const UserUpdateRoleBtn: React.FC<{ user: User }> = ({ user }) => {
 					<DrawerDescription>{updateUserRoleDescription}</DrawerDescription>
 				</DrawerHeader>
 				<DrawerFooter>
-					<UserUpdateRoleForm onSubmit={onSubmit} action={updateAction} />
+					<UserUpdateRoleForm
+						onSubmit={onSubmit}
+						action={updateAction}
+						disabled={updateRoleMutation.isPending}
+					/>
 				</DrawerFooter>
 			</DrawerContent>
 		</Drawer>

@@ -62,6 +62,7 @@ export const BookCreateNewForm: React.FC<{
 				defaultValues={defaultValues}
 				onSubmit={onSubmit}
 				action={createAction}
+				disabled={createBookMutation.isPending}
 			/>
 		</div>
 	);

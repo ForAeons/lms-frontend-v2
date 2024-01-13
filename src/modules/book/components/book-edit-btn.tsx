@@ -77,6 +77,7 @@ export const BookEditBtn: React.FC<{ book: Book }> = ({ book }) => {
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
 							action={saveAction}
+							disabled={updateBookMutation.isPending}
 						/>
 					</div>
 				</ScrollArea>
