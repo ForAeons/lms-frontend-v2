@@ -80,6 +80,7 @@ export const UserEditBtn: React.FC<{
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
 							action={saveAction}
+							disabled={updateUserMutation.isPending}
 						/>
 					</div>
 				</ScrollArea>

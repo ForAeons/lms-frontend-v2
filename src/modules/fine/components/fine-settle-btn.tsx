@@ -75,7 +75,10 @@ export const FineSettleBtn: React.FC<{ fine: Fine }> = ({ fine }) => {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>{cancelAction}</AlertDialogCancel>
-					<AlertDialogAction onClick={handleSettle}>
+					<AlertDialogAction
+						onClick={handleSettle}
+						disabled={settleFineMutation.isPending}
+					>
 						{continueAction}
 					</AlertDialogAction>
 				</AlertDialogFooter>

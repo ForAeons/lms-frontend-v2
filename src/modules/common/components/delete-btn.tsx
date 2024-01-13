@@ -24,7 +24,8 @@ import { useTranslations } from "@/components/language-provider";
 export const DeleteBtn: React.FC<{
 	handler?: NullaryHandler;
 	subject: string;
-}> = ({ handler, subject }) => {
+	disabled?: boolean;
+}> = ({ handler, subject, disabled }) => {
 	const translate = useTranslations();
 	const deleteAction = translate.Delete();
 	const deleteAlertTitle = translate.areYouSure();
@@ -65,7 +66,7 @@ export const DeleteBtn: React.FC<{
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>{cancelAction}</AlertDialogCancel>
-					<AlertDialogAction onClick={handler}>
+					<AlertDialogAction onClick={handler} disabled={disabled}>
 						{continueAction}
 					</AlertDialogAction>
 				</AlertDialogFooter>

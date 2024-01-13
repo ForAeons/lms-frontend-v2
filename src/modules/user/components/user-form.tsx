@@ -18,8 +18,9 @@ import { GetUserFormSchema, UserFormValues } from "@/schema";
 export const UserForm: React.FC<{
 	defaultValues: UserFormValues;
 	onSubmit: UnaryHandler<UserFormValues>;
+	disabled?: boolean;
 	action: string;
-}> = ({ defaultValues, onSubmit, action }) => {
+}> = ({ defaultValues, onSubmit, disabled, action }) => {
 	const translate = useTranslations();
 	const username = translate.Username();
 	const usernamePlaceholder = translate.anUniqueName();
@@ -95,7 +96,9 @@ export const UserForm: React.FC<{
 				/>
 
 				<DialogFooter>
-					<Button type="submit">{action}</Button>
+					<Button type="submit" disabled={disabled}>
+						{action}
+					</Button>
 				</DialogFooter>
 			</form>
 		</Form>

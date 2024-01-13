@@ -77,6 +77,7 @@ export const UserCreateBtn: React.FC = () => {
 							defaultValues={defaultValues}
 							onSubmit={onSubmit}
 							action={createAction}
+							disabled={createUserMutation.isPending}
 						/>
 					</div>
 					<ScrollBar />

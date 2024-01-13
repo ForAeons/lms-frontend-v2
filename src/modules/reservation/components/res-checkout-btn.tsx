@@ -80,7 +80,10 @@ export const ResCheckoutBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>{cancelAction}</AlertDialogCancel>
-					<AlertDialogAction onClick={handleCheckout}>
+					<AlertDialogAction
+						onClick={handleCheckout}
+						disabled={checkoutResMutation.isPending}
+					>
 						{continueAction}
 					</AlertDialogAction>
 				</AlertDialogFooter>

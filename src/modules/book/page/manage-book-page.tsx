@@ -107,6 +107,7 @@ export const ManageBookPage: React.FC = () => {
 									<DeleteBtn
 										handler={() => deleteBookMutation.mutate(book.id)}
 										subject={bookText}
+										disabled={deleteBookMutation.isPending}
 									/>
 								)}
 

@@ -34,7 +34,10 @@ export const SigninPage: React.FC = () => {
 			<div className="max-w-lg m-6">
 				<Card className="border-none transition-shadow shadow-md hover:shadow-lg">
 					<CardContent className="p-6">
-						<SigninForm onSubmit={signInMutation.mutate} />
+						<SigninForm
+							onSubmit={signInMutation.mutate}
+							disabled={signInMutation.isPending}
+						/>
 					</CardContent>
 				</Card>
 

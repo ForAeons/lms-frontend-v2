@@ -132,6 +132,7 @@ export const NavContent: React.FC = () => {
 							variant="ghost"
 							className="w-full justify-start"
 							onClick={() => signOutMutation.mutate(undefined)}
+							disabled={signOutMutation.isPending}
 						>
 							<LogInIcon size={MD_ICON_SIZE} />
 							<p className="ml-3">{signOut}</p>

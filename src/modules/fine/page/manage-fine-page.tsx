@@ -111,6 +111,7 @@ export const ManageFinePage: React.FC = () => {
 									<DeleteBtn
 										handler={() => deleteFineMutation.mutate(f.id)}
 										subject={fineText}
+										disabled={deleteFineMutation.isPending}
 									/>
 								)}
 								{f.status === "outstanding" && <FineSettleBtn fine={f} />}

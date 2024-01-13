@@ -36,7 +36,8 @@ export const BookForm: React.FC<{
 	defaultValues: BookFormValues;
 	onSubmit: UnaryHandler<BookFormValues>;
 	action: string;
-}> = ({ defaultValues, onSubmit, action }) => {
+	disabled?: boolean;
+}> = ({ defaultValues, onSubmit, action, disabled }) => {
 	const translate = useTranslations();
 	const volumeTitle = translate.volumeTitle();
 	const volumeTitlePlaceholder = translate.volumeTitlePlaceholder();
@@ -202,7 +203,9 @@ export const BookForm: React.FC<{
 				/>
 
 				<DialogFooter>
-					<Button type="submit">{action}</Button>
+					<Button type="submit" disabled={disabled}>
+						{action}
+					</Button>
 				</DialogFooter>
 			</form>
 		</Form>
