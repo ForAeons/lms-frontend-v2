@@ -7,7 +7,7 @@ import { newUserCollectionQuery } from "@/util";
 import { LoanRoutes, loanApi } from "@/api";
 import { LoadingPage } from "@/modules";
 import { BookCard } from "@/modules/book";
-import { LoanRenewBtn, LoanReturnBtn, loanToBadgeProps } from "..";
+import { LoanRenewBtn, loanToBadgeProps } from "..";
 
 export const LoanPage: React.FC = () => {
 	const user = useAppSelector((state) => state.app.user);
@@ -43,7 +43,6 @@ export const LoanPage: React.FC = () => {
 							book={l.book}
 							badges={loanToBadgeProps({ ...l, user: user! }, translate)}
 						>
-							{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
 							{l.status === "borrowed" && <LoanRenewBtn loan={l} />}
 						</BookCard>
 					))}
