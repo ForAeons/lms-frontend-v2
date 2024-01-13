@@ -16,6 +16,10 @@ import { IntlShape } from "react-intl";
  */
 export const translations = (intl: IntlShape) => {
 	return {
+		Bookmark: () =>
+			intl.formatMessage({ id: "Rs4kCE", defaultMessage: "Bookmark" }),
+		Remove: () =>
+			intl.formatMessage({ id: "G/yZLu", defaultMessage: "Remove" }),
 		previewThumbnail: () =>
 			intl.formatMessage({
 				id: "mQkr22",

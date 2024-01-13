@@ -65,7 +65,8 @@ export const BookmarkBtn: React.FC<{ book: Book }> = ({ book }) => {
 		deleteBookmarkMutation.mutate(marked.id);
 	};
 
-	const borrowAction = translate.Borrow();
+	const bookmark = translate.Bookmark();
+	const remove = translate.Remove();
 
 	return (
 		<TooltipProvider>
@@ -83,11 +84,11 @@ export const BookmarkBtn: React.FC<{ book: Book }> = ({ book }) => {
 						{marked && (
 							<BookmarkXIcon className="text-destructive" size={LG_ICON_SIZE} />
 						)}
-						<span className="sr-only">{borrowAction}</span>
+						<span className="sr-only">{marked ? remove : bookmark}</span>
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent>
-					<p>{borrowAction}</p>
+					<p>{marked ? remove : bookmark}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
