@@ -18,7 +18,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { LG_ICON_SIZE } from "@/constants";
+import { LG_ICON_SIZE, TOOLTIP_DELAY } from "@/constants";
 import { useTranslations } from "@/components/language-provider";
 
 export const DeleteBtn: React.FC<{
@@ -39,7 +39,7 @@ export const DeleteBtn: React.FC<{
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
 				<div>
-					<TooltipProvider>
+					<TooltipProvider delayDuration={TOOLTIP_DELAY}>
 						<Tooltip>
 							<TooltipTrigger asChild>
 								<Button

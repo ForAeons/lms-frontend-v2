@@ -29,7 +29,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "@/components/language-provider";
 import { UserRoutes, userApi } from "@/api";
-import { LG_ICON_SIZE } from "@/constants";
+import { LG_ICON_SIZE, TOOLTIP_DELAY } from "@/constants";
 import { useMediaQuery } from "@/hooks";
 import { UserUpdateRoleForm } from ".";
 
@@ -38,7 +38,7 @@ const Btn: React.FC = () => {
 	const changeRole = translate.changeRole();
 
 	return (
-		<TooltipProvider>
+		<TooltipProvider delayDuration={TOOLTIP_DELAY}>
 			<Tooltip>
 				<TooltipTrigger asChild>
 					<Button

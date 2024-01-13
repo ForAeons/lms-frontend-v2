@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "@/components/language-provider";
 import { BookmarkRoutes, bookApi, bookmarkApi } from "@/api";
 import { newUserCollectionQuery } from "@/util";
-import { LG_ICON_SIZE } from "@/constants";
+import { LG_ICON_SIZE, TOOLTIP_DELAY } from "@/constants";
 import { useAppSelector } from "@/store";
 
 export const BookmarkBtn: React.FC<{ book: Book }> = ({ book }) => {
@@ -69,7 +69,7 @@ export const BookmarkBtn: React.FC<{ book: Book }> = ({ book }) => {
 	const remove = translate.Remove();
 
 	return (
-		<TooltipProvider>
+		<TooltipProvider delayDuration={TOOLTIP_DELAY}>
 			<Tooltip>
 				<TooltipTrigger asChild>
 					<Button

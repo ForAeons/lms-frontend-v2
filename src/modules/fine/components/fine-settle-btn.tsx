@@ -22,7 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "@/components/language-provider";
 import { FineRoutes, fineApi } from "@/api";
-import { LG_ICON_SIZE } from "@/constants";
+import { LG_ICON_SIZE, TOOLTIP_DELAY } from "@/constants";
 
 export const FineSettleBtn: React.FC<{ fine: Fine }> = ({ fine }) => {
 	const queryClient = useQueryClient();
@@ -50,7 +50,7 @@ export const FineSettleBtn: React.FC<{ fine: Fine }> = ({ fine }) => {
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
 				<div>
-					<TooltipProvider>
+					<TooltipProvider delayDuration={TOOLTIP_DELAY}>
 						<Tooltip>
 							<TooltipTrigger asChild>
 								<Button

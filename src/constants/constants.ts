@@ -19,3 +19,5 @@ export const MAXIMUM_PASSWORD_LENGTH = 32;
 export const CSRF_COOKIE_KEY = "__Secure-csrf_";
 
 export const CQ_LIMITS = [10, 25, 50, 100];
+
+export const TOOLTIP_DELAY = 300;

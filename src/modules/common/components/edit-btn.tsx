@@ -7,7 +7,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { LG_ICON_SIZE } from "@/constants";
+import { LG_ICON_SIZE, TOOLTIP_DELAY } from "@/constants";
 import { useTranslations } from "@/components/language-provider";
 
 export const EditBtn: React.FC<{ handler?: NullaryHandler }> = ({
@@ -16,7 +16,7 @@ export const EditBtn: React.FC<{ handler?: NullaryHandler }> = ({
 	const translate = useTranslations();
 	const edit = translate.Edit();
 	return (
-		<TooltipProvider>
+		<TooltipProvider delayDuration={TOOLTIP_DELAY}>
 			<Tooltip>
 				<TooltipTrigger asChild>
 					<Button

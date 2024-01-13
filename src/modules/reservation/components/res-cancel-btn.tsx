@@ -22,7 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "@/components/language-provider";
 import { BookRoutes, ResRoutes, reservationApi } from "@/api";
-import { LG_ICON_SIZE } from "@/constants";
+import { LG_ICON_SIZE, TOOLTIP_DELAY } from "@/constants";
 
 export const ResCancelBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 	const translate = useTranslations();
@@ -53,7 +53,7 @@ export const ResCancelBtn: React.FC<{ res: Reservation }> = ({ res }) => {
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
 				<div>
-					<TooltipProvider>
+					<TooltipProvider delayDuration={TOOLTIP_DELAY}>
 						<Tooltip>
 							<TooltipTrigger asChild>
 								<Button
