@@ -24,12 +24,7 @@ import {
 import { RES_FILTER_OPTIONS, RES_SORT_OPTIONS } from "@/constants";
 import { ResRoutes, reservationApi } from "@/api";
 import { BookCard } from "@/modules/book";
-import {
-	ResCancelBtn,
-	ResCheckoutBtn,
-	ResCreateDialog,
-	resToBadgeProps,
-} from "..";
+import { ResCancelBtn, ResCreateDialog, resToBadgeProps } from "..";
 
 export const ManageResPage: React.FC = () => {
 	const cq = useCollectionQuery();
@@ -90,7 +85,6 @@ export const ManageResPage: React.FC = () => {
 								book={r.book}
 								badges={resToBadgeProps(r, translate)}
 							>
-								{r.status === "pending" && <ResCheckoutBtn res={r} />}
 								{r.status === "pending" && <ResCancelBtn res={r} />}
 							</BookCard>
 						))}

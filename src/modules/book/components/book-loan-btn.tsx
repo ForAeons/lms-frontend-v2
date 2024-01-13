@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "@/components/language-provider";
-import { BookRoutes, LoanRoutes, loanApi } from "@/api";
+import { BookRoutes, LoanRoutes, ResRoutes, loanApi } from "@/api";
 import { LG_ICON_SIZE } from "@/constants";
 
 export const BookLoanBtn: React.FC<{ book: Book; copyID: number }> = ({
@@ -44,6 +44,7 @@ export const BookLoanBtn: React.FC<{ book: Book; copyID: number }> = ({
 
 			queryClient.invalidateQueries({ queryKey: [BookRoutes.BASE] });
 			queryClient.invalidateQueries({ queryKey: [LoanRoutes.BASE] });
+			queryClient.invalidateQueries({ queryKey: [ResRoutes.BASE] });
 
 			toast.success(translate.Success(), {
 				description: translate.createLoanDesc({

@@ -54,14 +54,6 @@ class ReservationApi extends BaseApi {
 			abortSignal,
 		);
 	};
-
-	public CheckoutRes = (reservationID: number, abortSignal?: AbortSignal) => {
-		return this.Patch<null, ReservationDetailed>(
-			`${ResRoutes.BASE}/${reservationID}/${ResRoutes.CHECKOUT.ROUTE}`,
-			null,
-			abortSignal,
-		);
-	};
 }
 
 export const reservationApi = new ReservationApi();

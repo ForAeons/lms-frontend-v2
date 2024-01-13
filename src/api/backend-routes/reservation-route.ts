@@ -6,7 +6,4 @@ export const ResRoutes = {
 	CANCEL: {
 		ROUTE: "cancel",
 	},
-	CHECKOUT: {
-		ROUTE: "checkout",
-	},
 };

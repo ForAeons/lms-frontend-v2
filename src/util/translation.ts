@@ -228,14 +228,6 @@ export const translations = (intl: IntlShape) => {
 				},
 				{ title, username },
 			),
-		checkoutResSuccessDesc: ({ title }: { title: string }) =>
-			intl.formatMessage(
-				{
-					id: "B2uKz2",
-					defaultMessage: `Reservation for "{title}" checked out successfully.`,
-				},
-				{ title },
-			),
 		cancelResSuccessDesc: ({ title }: { title: string }) =>
 			intl.formatMessage(
 				{
@@ -494,16 +486,6 @@ export const translations = (intl: IntlShape) => {
 			intl.formatMessage({
 				id: "64hPUB",
 				defaultMessage: `Do you wish to cancel the reservation?`,
-			}),
-		Checkout: () =>
-			intl.formatMessage({
-				id: "BJ2TKX",
-				defaultMessage: `Checkout`,
-			}),
-		checkoutResDesc: () =>
-			intl.formatMessage({
-				id: "Xl12PH",
-				defaultMessage: `Do you wish to checkout the book?`,
 			}),
 		reservation: () =>
 			intl.formatMessage({ id: "DjAt8v", defaultMessage: "reservation" }),
