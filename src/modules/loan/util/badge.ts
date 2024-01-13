@@ -1,14 +1,17 @@
 import { format } from "date-fns";
-import { IntlWrapper } from "@/components/language-provider";
+import { Translator } from "@/util";
 
-export const loanToBadgeProps = (loan: LoanDetailed): BadgeProps[] => {
+export const loanToBadgeProps = (
+	loan: LoanDetailed,
+	t: Translator,
+): BadgeProps[] => {
 	const dueDate = new Date(loan.due_date);
 	const currentDate = new Date();
 	const isOverdue = currentDate > dueDate;
 
-	const returnedText = IntlWrapper.translator.Returned();
-	const overdueText = IntlWrapper.translator.Overdue();
-	const dueText = IntlWrapper.translator.dueDate({
+	const returnedText = t.Returned();
+	const overdueText = t.Overdue();
+	const dueText = t.dueDate({
 		date: format(dueDate, "P"),
 	});
 
@@ -26,7 +29,7 @@ export const loanToBadgeProps = (loan: LoanDetailed): BadgeProps[] => {
 		text = dueText;
 	}
 
-	const loanedTo = IntlWrapper.translator.loanedTo({
+	const loanedTo = t.loanedTo({
 		username: loan.user.username,
 	});
 

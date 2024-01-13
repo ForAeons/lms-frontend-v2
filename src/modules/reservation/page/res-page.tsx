@@ -42,7 +42,7 @@ export const ResPage: React.FC = () => {
 						<BookCard
 							key={r.id}
 							book={r.book}
-							badges={resToBadgeProps({ ...r, user: user! })}
+							badges={resToBadgeProps({ ...r, user: user! }, translate)}
 						>
 							{r.status === "pending" && <ResCheckoutBtn res={r} />}
 							{r.status === "pending" && <ResCancelBtn res={r} />}

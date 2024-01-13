@@ -76,7 +76,11 @@ export const BookListPage: React.FC = () => {
 						</div>
 
 						{data.data.map((b) => (
-							<BookCard key={b.id} book={b} badges={bookToBadgeProps(b)}>
+							<BookCard
+								key={b.id}
+								book={b}
+								badges={bookToBadgeProps(b, translate)}
+							>
 								<BookNavBtn book={b} />
 								<BookmarkBtn book={b} />
 							</BookCard>

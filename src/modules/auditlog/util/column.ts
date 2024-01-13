@@ -1,24 +1,24 @@
 import { format } from "date-fns";
 import { ColumnDef } from "@tanstack/react-table";
-import { IntlWrapper } from "@/components/language-provider";
+import { Translator } from "@/util";
 
-export const getTranslatedColumns = (): ColumnDef<AuditLog>[] => {
+export const getTranslatedColumns = (t: Translator): ColumnDef<AuditLog>[] => {
 	return [
 		{
 			accessorKey: "user_id",
-			header: IntlWrapper.translator.userID(),
+			header: t.userID(),
 		},
 		{
 			accessorKey: "user.username",
-			header: IntlWrapper.translator.Username(),
+			header: t.Username(),
 		},
 		{
 			accessorKey: "action",
-			header: IntlWrapper.translator.Action(),
+			header: t.Action(),
 		},
 		{
 			accessorKey: "date",
-			header: IntlWrapper.translator.Date(),
+			header: t.Date(),
 			cell: ({ row }) => {
 				return format(row.getValue("date"), "P");
 			},
