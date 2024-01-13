@@ -26,6 +26,7 @@ import {
 import { DataTable, LogCreateBtn, getTranslatedColumns } from "..";
 
 export const AuditLogPage: React.FC = () => {
+	const translate = useTranslations();
 	const cq = useCollectionQuery();
 
 	const { status, data } = useQuery({
@@ -57,7 +58,6 @@ export const AuditLogPage: React.FC = () => {
 		CheckPermission(s, CREATE_AUDIT_LOG),
 	);
 
-	const translate = useTranslations();
 	const auditLogsText = translate.AuditLogs();
 
 	return (
@@ -82,7 +82,10 @@ export const AuditLogPage: React.FC = () => {
 						</div>
 
 						<div className="px-3">
-							<DataTable columns={getTranslatedColumns()} data={data.data} />
+							<DataTable
+								columns={getTranslatedColumns(translate)}
+								data={data.data}
+							/>
 						</div>
 
 						<PaginationBar cq={cq} total={data.meta.filtered_count} />

@@ -41,7 +41,7 @@ export const LoanPage: React.FC = () => {
 						<BookCard
 							key={l.id}
 							book={l.book}
-							badges={loanToBadgeProps({ ...l, user: user! })}
+							badges={loanToBadgeProps({ ...l, user: user! }, translate)}
 						>
 							{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
 							{l.status === "borrowed" && <LoanRenewBtn loan={l} />}

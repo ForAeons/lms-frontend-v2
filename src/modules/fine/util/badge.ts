@@ -1,19 +1,22 @@
-import { IntlWrapper } from "@/components/language-provider";
+import { Translator } from "@/util";
 
-export const fineToBadgeProps = (fine: FineDetailed): BadgeProps[] => {
-	const outstandingAmount = IntlWrapper.translator.outstandingAmount({
+export const fineToBadgeProps = (
+	fine: FineDetailed,
+	t: Translator,
+): BadgeProps[] => {
+	const outstandingAmount = t.outstandingAmount({
 		amount: String(fine.amount),
 	});
-	const paid = IntlWrapper.translator.Paid();
-	const finedTo = IntlWrapper.translator.finedTo({
+	const paid = t.Paid();
+	const finedTo = t.finedTo({
 		username: fine.user.username,
 	});
 
-	const v = fine.status === "outstanding" ? "destructive" : "secondary";
-	const t = fine.status === "outstanding" ? outstandingAmount : paid;
+	const variant = fine.status === "outstanding" ? "destructive" : "secondary";
+	const text = fine.status === "outstanding" ? outstandingAmount : paid;
 
 	return [
-		{ variant: v, text: t },
+		{ variant, text },
 		{ variant: "destructive", text: finedTo },
 	];
 };

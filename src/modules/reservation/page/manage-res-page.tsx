@@ -85,7 +85,11 @@ export const ManageResPage: React.FC = () => {
 						</div>
 
 						{data.data.map((r) => (
-							<BookCard key={r.id} book={r.book} badges={resToBadgeProps(r)}>
+							<BookCard
+								key={r.id}
+								book={r.book}
+								badges={resToBadgeProps(r, translate)}
+							>
 								{r.status === "pending" && <ResCheckoutBtn res={r} />}
 								{r.status === "pending" && <ResCancelBtn res={r} />}
 							</BookCard>

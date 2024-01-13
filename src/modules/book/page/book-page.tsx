@@ -6,8 +6,10 @@ import { LoadingPage, NavBackBtn } from "@/modules";
 import { useValidateIntegerOrReroute } from "@/hooks";
 import { BookRoutes, bookApi } from "@/api";
 import { BookCard, BookLoanBtn, BookReserveBtn, bookToBadgeProps } from "..";
+import { useTranslations } from "@/components/language-provider";
 
 export const BookPage: React.FC = () => {
+	const translate = useTranslations();
 	const { book_id: book_id_param } = useParams();
 	const book_id = useValidateIntegerOrReroute(book_id_param, "/book");
 
@@ -25,7 +27,7 @@ export const BookPage: React.FC = () => {
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
 			<div className="w-full flex flex-col gap-3 px-3">
-				<BookCard book={book} badges={bookToBadgeProps(book)}>
+				<BookCard book={book} badges={bookToBadgeProps(book, translate)}>
 					<NavBackBtn />
 					{availCopy && <BookLoanBtn book={book} copyID={availCopy.id} />}
 					{availCopy && <BookReserveBtn book={book} copyID={availCopy.id} />}

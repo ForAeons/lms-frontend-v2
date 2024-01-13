@@ -45,7 +45,7 @@ export const BookmarkPage: React.FC = () => {
 						<BookCard
 							key={b.id}
 							book={b.book}
-							badges={bookToBadgeProps(b.book)}
+							badges={bookToBadgeProps(b.book, translate)}
 						>
 							<BookNavBtn book={b.book} url={`/book/${b.book_id}`} />
 							<BookmarkBtn book={b.book} />

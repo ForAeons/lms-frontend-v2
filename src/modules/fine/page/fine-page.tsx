@@ -41,7 +41,7 @@ export const FinePage: React.FC = () => {
 						<BookCard
 							key={f.id}
 							book={f.book}
-							badges={fineToBadgeProps({ ...f, user: user! })}
+							badges={fineToBadgeProps({ ...f, user: user! }, translate)}
 						>
 							{f.status === "outstanding" && <FineSettleBtn fine={f} />}
 						</BookCard>

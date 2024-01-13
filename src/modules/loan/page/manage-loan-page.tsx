@@ -85,7 +85,11 @@ export const ManageLoanPage: React.FC = () => {
 						</div>
 
 						{data.data.map((l) => (
-							<BookCard key={l.id} book={l.book} badges={loanToBadgeProps(l)}>
+							<BookCard
+								key={l.id}
+								book={l.book}
+								badges={loanToBadgeProps(l, translate)}
+							>
 								{l.status === "borrowed" && <LoanReturnBtn loan={l} />}
 								{l.status === "borrowed" && <LoanRenewBtn loan={l} />}
 							</BookCard>

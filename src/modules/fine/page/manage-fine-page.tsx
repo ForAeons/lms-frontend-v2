@@ -102,7 +102,11 @@ export const ManageFinePage: React.FC = () => {
 						</div>
 
 						{data.data.map((f) => (
-							<BookCard key={f.id} book={f.book} badges={fineToBadgeProps(f)}>
+							<BookCard
+								key={f.id}
+								book={f.book}
+								badges={fineToBadgeProps(f, translate)}
+							>
 								{canDeleteFine && (
 									<DeleteBtn
 										handler={() => deleteFineMutation.mutate(f.id)}
