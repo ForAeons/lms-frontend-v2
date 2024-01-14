@@ -1,12 +1,7 @@
 import React from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useAppSelector } from "@/store";
-import {
-	BookCard,
-	BookNavBtn,
-	BookmarkBtn,
-	bookToBadgeProps,
-} from "@/modules/book";
+import { BookCard, BookmarkBtn, bookToBadgeProps } from "@/modules/book";
 import { useTranslations } from "@/components/language-provider";
 import { useQuery } from "@tanstack/react-query";
 import { BookmarkRoutes, bookmarkApi } from "@/api";
@@ -47,7 +42,6 @@ export const BookmarkPage: React.FC = () => {
 							book={b.book}
 							badges={bookToBadgeProps(b.book, translate)}
 						>
-							<BookNavBtn book={b.book} url={`/book/${b.book_id}`} />
 							<BookmarkBtn book={b.book} />
 						</BookCard>
 					))}

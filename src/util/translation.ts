@@ -16,6 +16,38 @@ import { IntlShape } from "react-intl";
  */
 export const translations = (intl: IntlShape) => {
 	return {
+		actionFailed: () =>
+			intl.formatMessage({
+				id: "4c5vo8",
+				defaultMessage: "Action failed",
+			}),
+		dontAskMeAgain: () =>
+			intl.formatMessage({
+				id: "fouhDo",
+				defaultMessage: "Don't ask me again",
+			}),
+		loanBooks: () =>
+			intl.formatMessage({ id: "BUmp1v", defaultMessage: "Loan Books" }),
+		returnBooks: () =>
+			intl.formatMessage({ id: "hzZsnH", defaultMessage: "Return Books" }),
+		QRScanner: () =>
+			intl.formatMessage({ id: "iMCOCz", defaultMessage: "QR Scanner" }),
+		qrScannerViewfinder: () =>
+			intl.formatMessage({
+				id: "DqeKhc",
+				defaultMessage: "QR Scanner Viewfinder",
+			}),
+		activateQRScanner: () =>
+			intl.formatMessage({
+				id: "msaguQ",
+				defaultMessage: "Activate QR Scanner",
+			}),
+		invalidQRCode: () =>
+			intl.formatMessage({
+				id: "qMpmux",
+				defaultMessage: "Invalid QR Code",
+			}),
+		Error: () => intl.formatMessage({ id: "KN7zKn", defaultMessage: "Error" }),
 		Bookmark: () =>
 			intl.formatMessage({ id: "Rs4kCE", defaultMessage: "Bookmark" }),
 		Remove: () =>

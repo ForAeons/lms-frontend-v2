@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { toast } from "sonner";
 import * as Constants from "@/constants";
 import { appSlice, store } from "@/store";
+import { IntlWrapper } from "@/components/language-provider";
 
 export const axiosInstance = axios.create({
 	baseURL: Constants.BACKEND_BASE_URL,
@@ -74,8 +75,7 @@ axiosInstance.interceptors.response.use(
 				const response = err.response;
 				for (let i = 0; i < response.data.messages.length; i++) {
 					setTimeout(() => {
-						//TODO: LANG
-						toast.error("Action failed", {
+						toast.error(IntlWrapper.translator.actionFailed(), {
 							description: response.data.messages[i].message,
 						});
 					}, i * 100);

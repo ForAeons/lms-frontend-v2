@@ -1,5 +1,5 @@
 import { BaseApi } from "./base";
-import { LoanRoutes, BookRoutes } from "../backend-routes";
+import { LoanRoutes, BookcopyRoutes } from "../backend-routes";
 
 class LoanApi extends BaseApi {
 	public ListLoan = (q: CollectionQuery, abortSignal?: AbortSignal) => {
@@ -8,7 +8,7 @@ class LoanApi extends BaseApi {
 
 	public LoanBook = (bookCopyId: number, abortSignal?: AbortSignal) => {
 		return this.Post<null, LoanDetailed>(
-			`${BookRoutes.BASE}/${bookCopyId}/${LoanRoutes.BASE}/`,
+			`${BookcopyRoutes.BASE}/${bookCopyId}/${LoanRoutes.BASE}/`,
 			null,
 			abortSignal,
 		);
