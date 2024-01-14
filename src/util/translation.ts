@@ -5,7 +5,7 @@ import { IntlShape } from "react-intl";
  *
  * Steps to add a new translation:
  * 1. Add a new any arbitary key to the `translations` object below
- * 2. Add intl.formatMessage as that value of that new key
+ * 2. Add intl.formatMessage as that v  alue of that new key
  * 3. Past an object with `defaultMessage` set to the default message desired WITHOUT `id`
  * 4. Ran npm run extract && npm run compile
  * 5. Search for the id of the that message in `en.json` file
@@ -16,6 +16,36 @@ import { IntlShape } from "react-intl";
  */
 export const translations = (intl: IntlShape) => {
 	return {
+		available: () =>
+			intl.formatMessage({
+				id: "PgJGHT",
+				defaultMessage: "Available",
+			}),
+		reserved: () =>
+			intl.formatMessage({
+				id: "O0HFR3",
+				defaultMessage: "On Reserve",
+			}),
+		loaned: () =>
+			intl.formatMessage({
+				id: "uo/YZv",
+				defaultMessage: "On Loan",
+			}),
+		Actions: () =>
+			intl.formatMessage({
+				id: "wL7VAE",
+				defaultMessage: "Actions",
+			}),
+		downloadQRCode: () =>
+			intl.formatMessage({ id: "iLZ0xi", defaultMessage: "Download QR Code" }),
+		openMenu: () =>
+			intl.formatMessage({
+				id: "jp+WTk",
+				defaultMessage: "Open Menu",
+			}),
+		Status: () =>
+			intl.formatMessage({ id: "tzMNF3", defaultMessage: "Status" }),
+		ID: () => intl.formatMessage({ id: "qlcuNQ", defaultMessage: "ID" }),
 		actionFailed: () =>
 			intl.formatMessage({
 				id: "4c5vo8",

@@ -11,3 +11,4 @@ export * from "./book-carousel";
 export * from "./bookmark-btn";
 export * from "./book-query-select-btn";
 export * from "./book-query-searchbar";
+export * from "./book-nav-btn";

@@ -15,6 +15,7 @@ import {
 	BookIndexPage,
 	BookPage,
 	BookmarkPage,
+	ManageBookCopyPage,
 	ManageBookPage,
 } from "@/modules/book";
 import {
@@ -45,6 +46,10 @@ export const Router = createBrowserRouter(
 
 					<Route path="/manage/user" element={<ManageUserPage />} />
 					<Route path="/manage/book" element={<ManageBookPage />} />
+					<Route
+						path="/manage/book/:book_id"
+						element={<ManageBookCopyPage />}
+					/>
 					<Route path="/manage/loan" element={<ManageLoanPage />} />
 					<Route path="/manage/loan/scanner" element={<ReturnScannerPage />} />
 					<Route path="/manage/reservation" element={<ManageResPage />} />

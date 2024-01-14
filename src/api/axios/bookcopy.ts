@@ -1,5 +1,10 @@
 import { BaseApi } from "./base";
-import { BookRoutes, BookcopyRoutes, LoanRoutes } from "../backend-routes";
+import {
+	BookRoutes,
+	BookcopyRoutes,
+	LoanRoutes,
+	ResRoutes,
+} from "../backend-routes";
 
 type DeleteBookcopyArgs = Abortable<{
 	bookcopyID: number;
@@ -35,6 +40,14 @@ class BookcopyApi extends BaseApi {
 	public ReturnBookcopy = (payload: ReturnBookcopyArgs) => {
 		return this.Patch<null, LoanDetailed>(
 			`${BookcopyRoutes.BASE}/${payload.bookcopyID}/${LoanRoutes.BASE}/${LoanRoutes.RETURN.ROUTE}/`,
+			null,
+			payload.abortSignal,
+		);
+	};
+
+	public CancelBookcopy = (payload: ReturnBookcopyArgs) => {
+		return this.Patch<null, ReservationDetailed>(
+			`${BookcopyRoutes.BASE}/${payload.bookcopyID}/${ResRoutes.BASE}/${ResRoutes.CANCEL.ROUTE}/`,
 			null,
 			payload.abortSignal,
 		);
