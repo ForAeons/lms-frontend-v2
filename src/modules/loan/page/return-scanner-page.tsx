@@ -174,7 +174,7 @@ export const ReturnScannerPage: React.FC = () => {
 									<BookPicture
 										book={{
 											...bookcopy.book,
-											thumbnail_url: bookQuery.data?.data.thumbnail_url,
+											...bookQuery.data?.data,
 										}}
 									/>
 								</div>
