@@ -85,8 +85,8 @@ export const LoanScannerPage: React.FC = () => {
 
 	const bookQuery = useQuery({
 		enabled: !!bookcopy,
-		queryKey: [BookRoutes.BASE, bookcopy?.book.id],
-		queryFn: ({ signal }) => bookApi.GetBook(bookcopy!.book.id, signal),
+		queryKey: [BookRoutes.BASE, bookcopy?.book_id],
+		queryFn: ({ signal }) => bookApi.GetBook(bookcopy!.book_id, signal),
 	});
 
 	const handleCancel = () => {
@@ -102,7 +102,7 @@ export const LoanScannerPage: React.FC = () => {
 	const loanBooks = translate.loanBooks();
 	const createLoan = translate.createLoan();
 	const ConfirmationDescription = translate.loanBookDesc({
-		title: bookcopy?.book.title ?? "",
+		title: bookQuery.data?.data.title ?? "",
 	});
 	const Continue = translate.Continue();
 	const Cancel = translate.Cancel();
@@ -169,7 +169,7 @@ export const LoanScannerPage: React.FC = () => {
 								<div className="mx-auto lg:w-[200px] w-[150px] rounded-md shadow-lg">
 									<BookPicture
 										book={{
-											...bookcopy.book,
+											title: "",
 											...bookQuery.data?.data,
 										}}
 									/>

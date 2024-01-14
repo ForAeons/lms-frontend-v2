@@ -27,18 +27,6 @@ export const GetBookCopyDetailedSchema = (t: Translator) =>
 		book_id: z.number().int({
 			message: t.userIDInt(),
 		}),
-		book: z.object({
-			id: z.number().int({
-				message: t.userIDInt(),
-			}),
-			title: z.string(),
-			author: z.string(),
-			isbn: z.string(),
-			publisher: z.string(),
-			publication_date: z.string(),
-			language: z.string(),
-			genre: z.string(),
-		}),
 		status: z.string(),
 	});
 

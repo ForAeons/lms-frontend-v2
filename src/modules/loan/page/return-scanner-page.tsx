@@ -92,8 +92,8 @@ export const ReturnScannerPage: React.FC = () => {
 
 	const bookQuery = useQuery({
 		enabled: !!bookcopy,
-		queryKey: [BookRoutes.BASE, bookcopy?.book.id],
-		queryFn: ({ signal }) => bookApi.GetBook(bookcopy!.book.id, signal),
+		queryKey: [BookRoutes.BASE, bookcopy?.book_id],
+		queryFn: ({ signal }) => bookApi.GetBook(bookcopy!.book_id, signal),
 	});
 
 	const handleCancel = () => {
@@ -173,7 +173,7 @@ export const ReturnScannerPage: React.FC = () => {
 								<div className="mx-auto lg:w-[200px] w-[150px] rounded-md shadow-lg">
 									<BookPicture
 										book={{
-											...bookcopy.book,
+											title: "",
 											...bookQuery.data?.data,
 										}}
 									/>
