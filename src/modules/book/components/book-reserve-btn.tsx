@@ -1,6 +1,6 @@
 import React from "react";
 import { toast } from "sonner";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { LockKeyholeIcon } from "lucide-react";
 import {
 	AlertDialog,
@@ -23,15 +23,28 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "@/components/language-provider";
 import { BookRoutes, ResRoutes, reservationApi } from "@/api";
 import { LG_ICON_SIZE, TOOLTIP_DELAY } from "@/constants";
+import { useAppSelector } from "@/store";
+import { newUserCollectionQuery } from "@/util";
 
-export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
+export const BookReserveBtn: React.FC<{ book: Book; copies: BookCopy[] }> = ({
 	book,
-	copyID,
+	copies,
 }) => {
+	const user = useAppSelector((state) => state.app.user);
 	const translate = useTranslations();
+
+	const cq = newUserCollectionQuery(user?.id, "pending");
+	const { data } = useQuery({
+		enabled: !!user?.id,
+		queryKey: [ResRoutes.BASE, cq],
+		queryFn: ({ signal }) => reservationApi.ListRes(cq, signal),
+	});
+	const userHasReserved = data?.data.find((r) => r.book.id === book.id);
+
+	const availCopy = copies.find((bc) => bc.status === "available");
 	const queryClient = useQueryClient();
 	const reserveBookMutation = useMutation({
-		mutationKey: [BookRoutes.BASE, copyID, ResRoutes.BASE],
+		mutationKey: [BookRoutes.BASE, availCopy?.id, ResRoutes.BASE],
 		mutationFn: reservationApi.ReserveBook,
 		onSuccess: (data) => {
 			const loan = data!.data;
@@ -48,7 +61,7 @@ export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
 		},
 	});
 
-	const handleRes = () => reserveBookMutation.mutate(copyID);
+	const handleRes = () => reserveBookMutation.mutate(availCopy!.id);
 
 	const reserveAction = translate.Reserve();
 	const confirmation = translate.Confirmation();
@@ -68,6 +81,7 @@ export const BookReserveBtn: React.FC<{ book: Book; copyID: number }> = ({
 								<Button
 									variant="ghost"
 									className="hover:bg-transparent hover:opacity-50 transition-opacity"
+									disabled={!availCopy || !!userHasReserved}
 								>
 									<LockKeyholeIcon
 										className="text-primary"

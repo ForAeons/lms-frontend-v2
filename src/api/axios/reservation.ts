@@ -1,5 +1,5 @@
 import { BaseApi } from "./base";
-import { BookRoutes, ResRoutes } from "../backend-routes";
+import { BookcopyRoutes, ResRoutes } from "../backend-routes";
 
 class ReservationApi extends BaseApi {
 	public ListRes = (q: CollectionQuery, abortSignal?: AbortSignal) => {
@@ -27,7 +27,7 @@ class ReservationApi extends BaseApi {
 
 	public ReserveBook = (bookCopyId: number, abortSignal?: AbortSignal) => {
 		return this.Post<null, ReservationDetailed>(
-			`${BookRoutes.BASE}/${bookCopyId}/${ResRoutes.BASE}/`,
+			`${BookcopyRoutes.BASE}/${bookCopyId}/${ResRoutes.BASE}/`,
 			null,
 			abortSignal,
 		);

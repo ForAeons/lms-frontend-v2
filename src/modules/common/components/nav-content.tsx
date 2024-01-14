@@ -16,6 +16,7 @@ import {
 	LockKeyholeIcon,
 	ScrollTextIcon,
 	BookmarkIcon,
+	QrCodeIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -86,6 +87,8 @@ export const NavContent: React.FC = () => {
 	const auditLog = translate.AuditLog();
 	const settings = translate.Settings();
 	const toggleThemeText = translate.toggleTheme();
+	const loanBooks = translate.loanBooks();
+	const returnBooks = translate.returnBooks();
 
 	return (
 		<nav className="space-y-4 py-4">
@@ -164,6 +167,16 @@ export const NavContent: React.FC = () => {
 						<Button
 							variant="ghost"
 							className="w-full justify-start"
+							onClick={() => navigate("/loan/scanner")}
+						>
+							<QrCodeIcon size={MD_ICON_SIZE} />
+							<p className="ml-3">{loanBooks}</p>
+							<span className="sr-only">{loanBooks}</span>
+						</Button>
+
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
 							onClick={() => navigate("/bookmark")}
 						>
 							<BookmarkIcon size={MD_ICON_SIZE} />
@@ -211,6 +224,16 @@ export const NavContent: React.FC = () => {
 					</h2>
 
 					<div className="space-y-1">
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+							onClick={() => navigate("manage/loan/scanner")}
+						>
+							<QrCodeIcon size={MD_ICON_SIZE} />
+							<p className="ml-3">{returnBooks}</p>
+							<span className="sr-only">{returnBooks}</span>
+						</Button>
+
 						<Button
 							variant="ghost"
 							className="w-full justify-start"

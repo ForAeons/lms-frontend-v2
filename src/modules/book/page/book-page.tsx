@@ -1,37 +1,98 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import {
+	keepPreviousData,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { LoadingPage, NavBackBtn } from "@/modules";
-import { useValidateIntegerOrReroute } from "@/hooks";
-import { BookRoutes, bookApi } from "@/api";
-import { BookCard, BookLoanBtn, BookReserveBtn, bookToBadgeProps } from "..";
+import {
+	SearchBar,
+	LoadingPage,
+	PaginationBar,
+	OrderBtn,
+	SortSelect,
+} from "@/modules";
+import { useCollectionQuery, useValidateCqOrReroute } from "@/hooks";
 import { useTranslations } from "@/components/language-provider";
+import { BOOK_SORT_OPTIONS } from "@/constants";
+import { BookRoutes, bookApi } from "@/api";
+import {
+	getNextPage,
+	getPreviousPage,
+	hasNextPage,
+	hasPreviousPage,
+} from "@/util";
+import { BookCard, BookReserveBtn, BookmarkBtn, bookToBadgeProps } from "..";
+import { useAppSelector } from "@/store";
 
 export const BookPage: React.FC = () => {
+	const isLoggedIn = useAppSelector((state) => state.app.isLoggedIn);
 	const translate = useTranslations();
-	const { book_id: book_id_param } = useParams();
-	const book_id = useValidateIntegerOrReroute(book_id_param, "/book");
+	const cq = useCollectionQuery();
 
 	const { status, data } = useQuery({
-		enabled: !!book_id,
-		queryKey: [BookRoutes.BASE, book_id],
-		queryFn: ({ signal }) => bookApi.GetBook(book_id, signal),
+		queryKey: [BookRoutes.BASE, cq],
+		queryFn: ({ signal }) => bookApi.ListBook(cq, signal),
+		placeholderData: keepPreviousData,
 	});
 
-	if (status === "pending" || !data?.data) return <LoadingPage />;
+	useValidateCqOrReroute(cq, data?.meta.filtered_count);
 
-	const book = data.data;
-	const availCopy = book.book_copies.find((bc) => bc.status === "available");
+	// prefetch previous and next page
+	const queryClient = useQueryClient();
+	if (hasPreviousPage(cq)) {
+		const prevCq = getPreviousPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [BookRoutes.BASE, prevCq],
+			queryFn: ({ signal }) => bookApi.ListBook(prevCq, signal),
+		});
+	}
+	if (hasNextPage(cq)) {
+		const nextCq = getNextPage(cq);
+		queryClient.prefetchQuery({
+			queryKey: [BookRoutes.BASE, nextCq],
+			queryFn: ({ signal }) => bookApi.ListBook(nextCq, signal),
+		});
+	}
+
+	const bookTitle = translate.Books();
 
 	return (
 		<ScrollArea className="lg:h-[100vh] space-y-1 lg:space-y-4 lg:py-4">
-			<div className="w-full flex flex-col gap-3 px-3">
-				<BookCard book={book} badges={bookToBadgeProps(book, translate)}>
-					<NavBackBtn />
-					{availCopy && <BookLoanBtn book={book} copyID={availCopy.id} />}
-					{availCopy && <BookReserveBtn book={book} copyID={availCopy.id} />}
-				</BookCard>
+			<div className="grid grid-cols-1 gap-3 px-3">
+				<h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+					{bookTitle}
+				</h2>
+
+				{(status === "pending" || !data) && <LoadingPage />}
+
+				{!(status === "pending" || !data) && (
+					<>
+						<div className="flex gap-3">
+							<SearchBar cq={cq} />
+						</div>
+
+						<div className="flex gap-3">
+							<OrderBtn cq={cq} />
+							<SortSelect cq={cq} opt={BOOK_SORT_OPTIONS} />
+						</div>
+
+						{data.data.map((b) => (
+							<BookCard
+								key={b.id}
+								book={b}
+								badges={bookToBadgeProps(b, translate)}
+							>
+								{isLoggedIn && <BookmarkBtn book={b} />}
+								{isLoggedIn && (
+									<BookReserveBtn book={b} copies={b.book_copies} />
+								)}
+							</BookCard>
+						))}
+
+						<PaginationBar cq={cq} total={data.meta.filtered_count} />
+					</>
+				)}
 			</div>
 			<ScrollBar />
 		</ScrollArea>

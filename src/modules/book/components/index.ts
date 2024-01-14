@@ -3,8 +3,6 @@ export * from "./book-create-new-form";
 export * from "./book-create-existing-form";
 export * from "./book-card";
 export * from "./book-edit-btn";
-export * from "./book-nav-btn";
-export * from "./book-loan-btn";
 export * from "./book-reserve-btn";
 export * from "./book-form";
 export * from "./book-picture";

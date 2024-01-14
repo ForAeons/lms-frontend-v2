@@ -6,7 +6,7 @@ import { useAppSelector } from "@/store";
 import { ResRoutes, reservationApi } from "@/api";
 import { newUserCollectionQuery } from "@/util";
 import { LoadingPage } from "@/modules";
-import { BookCard, BookLoanBtn } from "@/modules/book";
+import { BookCard } from "@/modules/book";
 import { ResCancelBtn, resToBadgeProps } from "..";
 
 export const ResPage: React.FC = () => {
@@ -44,7 +44,6 @@ export const ResPage: React.FC = () => {
 							book={r.book}
 							badges={resToBadgeProps({ ...r, user: user! }, translate)}
 						>
-							<BookLoanBtn book={r.book} copyID={r.book_copy_id} />
 							{r.status === "pending" && <ResCancelBtn res={r} />}
 						</BookCard>
 					))}
