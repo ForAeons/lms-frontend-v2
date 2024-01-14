@@ -23,7 +23,8 @@ import {
 	hasNextPage,
 	hasPreviousPage,
 } from "@/util";
-import { DataTable, LogCreateBtn, getTranslatedColumns } from "..";
+import { LogCreateBtn, getTranslatedColumns } from "..";
+import { DataTable } from "@/modules";
 
 export const AuditLogPage: React.FC = () => {
 	const translate = useTranslations();

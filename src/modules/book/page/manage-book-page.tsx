@@ -31,7 +31,7 @@ import {
 	UPDATE_BOOK,
 } from "@/constants";
 import { BookRoutes, bookApi } from "@/api";
-import { BookCard, BookCreateBtn, BookEditBtn } from "..";
+import { BookCard, BookCreateBtn, BookEditBtn, BookNavBtn } from "..";
 
 export const ManageBookPage: React.FC = () => {
 	const translate = useTranslations();
@@ -103,6 +103,8 @@ export const ManageBookPage: React.FC = () => {
 
 						{data.data.map((book) => (
 							<BookCard key={book.id} book={book}>
+								<BookNavBtn book={book} />
+
 								{canDeleteBook && (
 									<DeleteBtn
 										handler={() => deleteBookMutation.mutate(book.id)}
