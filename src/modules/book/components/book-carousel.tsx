@@ -31,16 +31,12 @@ export const BookCarousel: React.FC<{ books: BookSimple[] }> = ({ books }) => {
     if (!api) return;
 
     const timeOutID = setTimeout(() => {
+      //@ts-expect-error play is a method of autoplay plugin
       api.plugins().autoplay.play();
     }, instanceIndex * 250);
 
     return () => clearTimeout(timeOutID);
   }, [api, instanceIndex]);
-
-  const carouselOpt = {
-    align: "start",
-    loop: true,
-  };
 
   const autoPlayPlugin = Autoplay({
     playOnInit: false,
@@ -53,7 +49,7 @@ export const BookCarousel: React.FC<{ books: BookSimple[] }> = ({ books }) => {
     <Carousel
       className="w-full lg:w-[calc(100%-100px)] max-w-none"
       setApi={setApi}
-      opts={carouselOpt}
+      opts={{ align: "start", loop: true }}
       plugins={[autoPlayPlugin]}
     >
       <CarouselContent className="py-6 -ml-6">
