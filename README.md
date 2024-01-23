@@ -19,8 +19,11 @@ Below are the instructions to get the project up and running on your local machi
 
 ### Prerequisites
 
-- Node.js (>=18.0.0)
-- npm
+- [Bun](https://bun.sh/)
+
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
 
 ### Installation
 
@@ -39,13 +42,13 @@ Below are the instructions to get the project up and running on your local machi
 3. **Install Dependencies**:
 
    ```bash
-   npm install
+   bun i
    ```
 
 4. **Start the Development Server**:
 
    ```bash
-   npm run dev
+   bun dev
    ```
 
 The application should now be running at `http://localhost:5173/`.
