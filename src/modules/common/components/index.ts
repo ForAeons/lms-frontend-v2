@@ -17,4 +17,3 @@ export * from "./filter-select";
 export * from "./lang-select-btn";
 export * from "./color-select-btn";
 export * from "./qr-scanner";
-export * from "./data-table";
