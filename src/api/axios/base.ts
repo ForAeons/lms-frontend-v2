@@ -154,7 +154,7 @@ export class BaseApi {
 
 	public GetHealth = (abortSignal?: AbortSignal) => {
 		return axiosInstance
-			.get<Payload<boolean>>("/health", {
+			.get<Payload<string>>("/health", {
 				signal: abortSignal,
 			})
 			.then((res) => {

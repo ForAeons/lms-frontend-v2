@@ -137,6 +137,8 @@ dist
 .env.development
 .env.production
 
+.vscode/
+
 **/.DS_Store
 
 # bundle analyzer

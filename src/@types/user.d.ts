@@ -61,6 +61,7 @@ interface LoginPayload {
 	user: User | undefined;
 	abilities: string[];
 	person_attributes: Person | undefined;
+	csrf_token: string;
 }
 
 interface GetCurrentUserPayload extends LoginPayload {

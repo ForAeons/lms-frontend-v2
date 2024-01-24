@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { toast } from "sonner";
 import * as Constants from "@/constants";
-import { appSlice, store } from "@/store";
+import { store } from "@/store";
 import { IntlWrapper } from "@/components/language-provider";
 
 const baseURL = (Constants.BACKEND_BASE_URL ?? "") + "/api/v1";
@@ -31,19 +31,6 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
 	// Intercepts all requests and logs them to the console and displays the backend message to the user
 	(res: AxiosResponse<Payload>) => {
-		const newCsrfTokenLong = document.cookie
-			.split("; ")
-			.find((row) => row.startsWith(Constants.CSRF_COOKIE_KEY + "="));
-
-		if (newCsrfTokenLong) {
-			const newCsrfToken = newCsrfTokenLong.split("=")[1];
-			const csrfToken = store.getState().app.csrfToken;
-
-			if (!csrfToken || csrfToken === "" || csrfToken !== newCsrfToken) {
-				store.dispatch(appSlice.actions.setCsrfToken(newCsrfToken));
-			}
-		}
-
 		if (Constants.ENV === "development") {
 			// Logs the url, method and url of the request
 			console.info(`[${res.config.method?.toUpperCase()}]: ${res.config.url}`);

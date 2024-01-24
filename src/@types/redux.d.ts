@@ -1,5 +1,5 @@
 interface AppState {
-	csrfToken: string | null;
+	csrfToken: string | undefined;
 	isLoggedIn: boolean;
 	user: User | undefined;
 	abilities: string[];
