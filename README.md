@@ -55,15 +55,17 @@ The application should now be running at `http://localhost:5173/`.
 
 ## Setting Up Development Environment
 
-- Install Go if you haven't already. You can download it from [here](https://go.dev/doc/install).
-- Install Captain Githook (for running pre-commit/pre-push hooks):
+- Make a copy of the `.env.example` file and rename it to `.env.development`.
+- Make necessary changes to the `.env.development` file.
+- Install ESLint and Prettier extensions for your code editor.
+
+- Optional: Install Go if you haven't already. You can download it from [here](https://go.dev/doc/install).
+- Optional: Install Captain Githook (for running pre-commit/pre-push hooks):
 
   ```bash
   go install github.com/swellaby/captain-githook@latest
   captain-githook init
   ```
-
-- Install ESLint and Prettier extensions for your code editor.
 
 ## Making Changes to Production
 
