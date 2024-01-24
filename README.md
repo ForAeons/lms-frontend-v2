@@ -65,6 +65,24 @@ The application should now be running at `http://localhost:5173/`.
 
 - Install ESLint and Prettier extensions for your code editor.
 
+## Making Changes to Production
+
+Note: You only need to do this if you are serving the frontend from the [Go backend](https://github.com/ForAeons/lms-backend) as static files, which is the default behavior.
+
+1. **Build the Project**:
+
+   ```bash
+   bun run build
+   ```
+
+2. **Copy the Build Files to the Backend**:
+
+   ```bash
+   cp -r dist/* ../lms-backend/frontend/ # Assuming you are in the lms-frontend-v2 directory and the backend is in the parent directory
+   ```
+
+3. **Commit and Push the Changes in the Backend**
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.

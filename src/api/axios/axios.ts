@@ -4,8 +4,10 @@ import * as Constants from "@/constants";
 import { appSlice, store } from "@/store";
 import { IntlWrapper } from "@/components/language-provider";
 
+const baseURL = (Constants.BACKEND_BASE_URL ?? "") + "/api/v1";
+
 export const axiosInstance = axios.create({
-	baseURL: Constants.BACKEND_BASE_URL,
+	baseURL,
 	withCredentials: true,
 });
 
