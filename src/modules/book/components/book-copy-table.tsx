@@ -101,7 +101,7 @@ export const BookCopyTable: React.FC<{ copies: BookCopy[] }> = ({ copies }) => {
       <TableBody className="">
         {
           copies.map((copy) => {
-            const qrCodeURL = `${BACKEND_BASE_URL}/${BookcopyRoutes.BASE}/${copy.id}/${BookcopyRoutes.QR_CODE.ROUTE}`;
+            const qrCodeURL = `${BACKEND_BASE_URL}/api/v1/${BookcopyRoutes.BASE}/${copy.id}/${BookcopyRoutes.QR_CODE.ROUTE}`;
 
             return (
               <TableRow key={copy.id}>
