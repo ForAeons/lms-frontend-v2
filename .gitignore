@@ -40,6 +40,9 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
+dist
+dist-ssr
+*.local
 
 # Dependency directories
 node_modules/
@@ -137,9 +140,17 @@ dist
 .env.development
 .env.production
 
-.vscode/
 
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
 **/.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # bundle analyzer
 *stats.html 
